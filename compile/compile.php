@@ -6,7 +6,8 @@ if (isset($argv[1]) && $argv[1] === 'create_phar') {
     $phar = new Phar(dirname(__DIR__).'/bin/git-live.phar', 0);
     $phar->setSignatureAlgorithm(Phar::SHA256);
     $phar->setStub("#!/usr/bin/env php
-    <?php
+<?php
+    define('GIT_LIVE_INSTALL_DIR', __FILE__);
     Phar::mapPhar( 'git-live.phar' );
 
     include_once 'phar://git-live.phar/git-live.php';
