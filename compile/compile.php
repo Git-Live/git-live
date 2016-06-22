@@ -8,14 +8,21 @@ if (isset($argv[1]) && $argv[1] === 'create_phar') {
     $phar->setStub("#!/usr/bin/env php
 <?php
     define('GIT_LIVE_INSTALL_DIR', __FILE__);
+    define('GIT_LIVE_VERSION', 'phar');
     Phar::mapPhar( 'git-live.phar' );
 
     include_once 'phar://git-live.phar/git-live.php';
     __HALT_COMPILER(); ?>
     ");
 
-    $phar->addFile(dirname(__DIR__).'/src/git-live.php', 'git-live.php');
     $phar->addFile(dirname(__DIR__).'/src/lang/messages.po', 'lang/messages.po');
+    $phar->addFile(dirname(__DIR__).'/src/libs/GitBase.php', 'libs/GitBase.php');
+    $phar->addFile(dirname(__DIR__).'/src/libs/GitCmdExecuter.php', 'libs/GitCmdExecuter.php');
+    $phar->addFile(dirname(__DIR__).'/src/libs/GitLive.php', 'libs/GitLive.php');
+    $phar->addFile(dirname(__DIR__).'/src/git-live.php', 'git-live.php');
+
+
+
 
 
     // $phar->addFile('TestClass2.php');
