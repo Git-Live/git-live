@@ -18,6 +18,11 @@ ini_set('memory_limit', -1);
 
 $is_debug = true;
 
+if (!defined('GIT_LIVE_INSTALL_DIR')) {
+    define('GIT_LIVE_INSTALL_DIR', __FILE__);
+}
+
+
 /**
  * @category   GitCommand
  * @package    GitLive
@@ -1582,7 +1587,7 @@ class GitBase
     public function update()
     {
         $url = 'https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php';
-        file_put_contents(__FILE__, file_get_contents($url));
+        file_put_contents(GIT_LIVE_INSTALL_DIR, file_get_contents($url));
     }
     /* ----------------------------------------- */
 
