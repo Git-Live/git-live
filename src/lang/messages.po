@@ -1,0 +1,223 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-20 17:16+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: git-live.php:409
+#, php-format
+msgid "git live release を使用するには、%s リポジトリを設定して下さい。"
+msgstr ""
+
+#: git-live.php:491
+msgid "Please enter only your remote-repository."
+msgstr ""
+
+#: git-live.php:503
+msgid "Please enter common remote-repository."
+msgstr ""
+
+#: git-live.php:515
+msgid "Please enter deploying dedicated remote-repository."
+msgstr ""
+
+#: git-live.php:516 git-live.php:530
+msgid "If you return in the blank, it becomes the default setting."
+msgstr ""
+
+#: git-live.php:529
+msgid "Please enter work directory path."
+msgstr ""
+
+#: git-live.php:562
+msgid "ローカルディレクトリを受動取得できませんでした。"
+msgstr ""
+
+#: git-live.php:589
+msgid "git repositoryではありません。"
+msgstr ""
+
+#: git-live.php:929 git-live.php:936 git-live.php:958
+msgid "closeに失敗しました。"
+msgstr ""
+
+#: git-live.php:929
+msgid " masterがReleaseブランチより進んでいます。"
+msgstr ""
+
+#: git-live.php:958
+msgid "developがReleaseブランチより進んでいます。"
+msgstr ""
+
+#: git-live.php:1030 git-live.php:1167 git-live.php:1176
+msgid "既にrelease open されています。"
+msgstr ""
+
+#: git-live.php:1032 git-live.php:1039 git-live.php:1169
+msgid "既にhotfix open されています。"
+msgstr ""
+
+#: git-live.php:1061 git-live.php:1078 git-live.php:1114 git-live.php:1132
+#: git-live.php:1150
+msgid "hotfix openされていません。"
+msgstr ""
+
+#: git-live.php:1198 git-live.php:1215 git-live.php:1251 git-live.php:1268
+#: git-live.php:1287
+msgid "release openされていません。"
+msgstr ""
+
+#: git-live.php:1598
+msgid "安全で効率的な、リポジトリ運用をサポートします。"
+msgstr ""
+
+#: git-live.php:1643
+msgid "新しい開発用ブランチを作成して、開発を始めます。"
+msgstr ""
+
+#: git-live.php:1645
+msgid "upstreamに開発用のブランチをpushします。"
+msgstr ""
+
+#: git-live.php:1647
+msgid "upstreamから開発用ブランチを取得します。"
+msgstr ""
+
+#: git-live.php:1649
+msgid "originに開発ブランチをpushします。(git live pushと動作は似ています)"
+msgstr ""
+
+#: git-live.php:1651
+msgid "originから開発ブランチをpullします。(git live pullと動作は似ています)"
+msgstr ""
+
+#: git-live.php:1653
+msgid ""
+"すべての場所から、開発ブランチを削除します。プルリクエストがマージされたあと"
+"に実行してください。"
+msgstr ""
+
+#: git-live.php:1656
+msgid "upstreamからpull requestされているコードを取得します。"
+msgstr ""
+
+#: git-live.php:1658
+msgid "pull requestの内容を最新化"
+msgstr ""
+
+#: git-live.php:1660
+msgid "pull requestの内容をマージする。"
+msgstr ""
+
+#: git-live.php:1663
+msgid "hotfix用のブランチを作成します。"
+msgstr ""
+
+#: git-live.php:1665
+msgid "hotfixを終了し、マスターとdevelopにコードをマージします。"
+msgstr ""
+
+#: git-live.php:1667
+msgid "リリースに、upstream内のhotfixブランチをマージします。"
+msgstr ""
+
+#: git-live.php:1669
+msgid "hotfixの状態を確認します。"
+msgstr ""
+
+#: git-live.php:1671
+msgid "誰かが開けたhotfixを取得します。"
+msgstr ""
+
+#: git-live.php:1673 git-live.php:1686
+msgid "デプロイブランチとupstreamからpullします。"
+msgstr ""
+
+#: git-live.php:1675 git-live.php:1688
+msgid "デプロイブランチとupstreamにpushします。"
+msgstr ""
+
+#: git-live.php:1678
+msgid "release用のブランチを作成します。"
+msgstr ""
+
+#: git-live.php:1680
+msgid "releaseを終了し、マスターとdevelopにコードをマージします。"
+msgstr ""
+
+#: git-live.php:1682
+msgid "リリースに、upstream内のreleaseブランチをマージします。"
+msgstr ""
+
+#: git-live.php:1684
+msgid "releaseの状態を確認します。"
+msgstr ""
+
+#: git-live.php:1691
+msgid "適当な場所から、pullします。"
+msgstr ""
+
+#: git-live.php:1693
+msgid "適当な場所に、pushします。"
+msgstr ""
+
+#: git-live.php:1695
+msgid "コマンドラインの最新化。"
+msgstr ""
+
+#: git-live.php:1697
+msgid "developからmerge"
+msgstr ""
+
+#: git-live.php:1699
+msgid "masterからmerge"
+msgstr ""
+
+#: git-live.php:1702
+msgid "developとのdiff"
+msgstr ""
+
+#: git-live.php:1704
+msgid "masterとのdiff"
+msgstr ""
+
+#: git-live.php:1707
+msgid "初期化します。"
+msgstr ""
+
+#: git-live.php:1709
+msgid "リポジトリを再構築します。"
+msgstr ""
+
+#: git-live.php:1712
+msgid "gitlive で管理するリポジトリを作成する"
+msgstr ""
+
+#: git-live.php:1714
+msgid "cloneする個人開発用のリモートリポジトリ(origin)"
+msgstr ""
+
+#: git-live.php:1716
+msgid "originのfork元リモートリポジトリ(upstream)"
+msgstr ""
+
+#: git-live.php:1718
+msgid "デプロイ先リポジトリ"
+msgstr ""
+
+#: git-live.php:1720
+msgid "cloneするディレクトリ"
+msgstr ""
