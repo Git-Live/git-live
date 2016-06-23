@@ -1,0 +1,251 @@
+# Japanese translations for PACKAGE package.
+# Copyright (C) 2016 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#  <suzunone<suzunone.eleven@gmail.com>>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-23 17:23+0900\n"
+"PO-Revision-Date: 2016-06-23 17:24+0900\n"
+"Last-Translator:  <suzunone<suzunone.eleven@gmail.com>>\n"
+"Language-Team: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/libs/GitLive/GitLive.php:405
+#, php-format
+msgid "git live release を使用するには、%s リポジトリを設定して下さい。"
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:487
+msgid "Please enter only your remote-repository."
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:499
+msgid "Please enter common remote-repository."
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:511
+msgid "Please enter deploying dedicated remote-repository."
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:512 src/libs/GitLive/GitLive.php:526
+msgid "If you return in the blank, it becomes the default setting."
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:525
+msgid "Please enter work directory path."
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:558
+msgid "ローカルディレクトリを受動取得できませんでした。"
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:585
+msgid "git repositoryではありません。"
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:929 src/libs/GitLive/GitLive.php:936
+#: src/libs/GitLive/GitLive.php:958
+msgid "closeに失敗しました。"
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:929
+msgid " masterがReleaseブランチより進んでいます。"
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:958
+msgid "developがReleaseブランチより進んでいます。"
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:1030 src/libs/GitLive/GitLive.php:1167
+#: src/libs/GitLive/GitLive.php:1176
+msgid "既にrelease open されています。"
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:1032 src/libs/GitLive/GitLive.php:1039
+#: src/libs/GitLive/GitLive.php:1169
+msgid "既にhotfix open されています。"
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:1061 src/libs/GitLive/GitLive.php:1078
+#: src/libs/GitLive/GitLive.php:1114 src/libs/GitLive/GitLive.php:1132
+#: src/libs/GitLive/GitLive.php:1150
+msgid "hotfix openされていません。"
+msgstr ""
+
+#: src/libs/GitLive/GitLive.php:1198 src/libs/GitLive/GitLive.php:1215
+#: src/libs/GitLive/GitLive.php:1251 src/libs/GitLive/GitLive.php:1268
+#: src/libs/GitLive/GitLive.php:1287
+msgid "release openされていません。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:116
+msgid "安全で効率的な、リポジトリ運用をサポートします。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:161
+msgid ""
+"新たな開発用ブランチを'upstream'(共通リモートサーバー)の'develop'ブランチを"
+"ベースとして作成し、開発用ブランチにスイッチします。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:163
+msgid ""
+"複数人と同じ開発ブランチで作業するとき、自分の変更分を'upstream'(共通リモート"
+"サーバー)にプッシュします。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:165
+msgid ""
+"'upstream'(共通リモートサーバー)から、誰かが作成した開発用ブランチを取得しま"
+"す。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:167
+msgid ""
+"'origin'(個人用リモートサーバー)に開発ブランチをpushします。(git live pushと"
+"動作は似ています)"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:169
+msgid ""
+"'origin'(個人用リモートサーバー)から開発ブランチをpullします。(git live pull"
+"と動作は似ています)"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:171
+msgid ""
+"すべての場所から、開発ブランチを削除します。プルリクエストがマージされたあと"
+"に実行してください。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:174
+msgid ""
+"'upstream'(共通リモートサーバー)からプルリクエストされているコードを取得しま"
+"す。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:176
+msgid "pr trackしたプルリクエストの内容を最新化"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:178
+msgid "プルリクエストの内容をマージする。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:181
+msgid ""
+"緊急対応のため、'upstream'(共通リモートサーバー)の'master'ブランチからhotfix"
+"を開始します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:183
+msgid ""
+"hotfixを終了し、'master'と'develop'にコードをマージし、タグを作成します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:185
+msgid "git live hotfix pullとgit live hotfix pushを連続で実行します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:187
+msgid "hotfixの状態を確認します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:189
+msgid "誰かが開けたhotfixを取得します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:191 src/libs/GitLive/GitBase.php:204
+msgid ""
+"'deploy'(デプロイ用リモートサーバー)と'upstream'(共通リモートサーバー)から"
+"pullします。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:193 src/libs/GitLive/GitBase.php:206
+msgid ""
+"'deploy'(デプロイ用リモートサーバー)と'upstream'(共通リモートサーバー)にpush"
+"します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:196
+msgid "リリース作業を開始するため、release用のブランチを作成します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:198
+msgid ""
+"releaseを終了し、'master'と'develop'にコードをマージし、タグを作成します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:200
+msgid "git live release pullとgit live release pushを連続で実行します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:202
+msgid "releaseの状態を確認します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:209
+msgid "適当な場所から、pullします。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:211
+msgid "適当な場所に、pushします。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:213
+msgid "git-liveコマンドの最新化。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:215
+msgid "developから現在選択されているブランチに変更を取り込みます。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:217
+msgid "masterから現在選択されているブランチに変更を取り込みます。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:220
+msgid "developとのdiff"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:222
+msgid "masterとのdiff"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:225
+msgid "初期化します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:227
+msgid "リポジトリを再構築します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:230
+msgid "git live で管理するリポジトリを対話形式で作成します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:233
+msgid "git live で管理するリポジトリを作成します。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:235
+msgid "個人開発用のリモートリポジトリ(origin)。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:237
+msgid "originのfork元、共有のリモートリポジトリ(upstream)。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:239
+msgid "デプロイ用リポジトリ。"
+msgstr ""
+
+#: src/libs/GitLive/GitBase.php:241
+msgid "cloneするローカルのディレクトリ。"
+msgstr ""

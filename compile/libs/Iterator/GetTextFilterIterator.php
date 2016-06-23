@@ -27,7 +27,7 @@ namespace GitLive\Compile\Iterator;
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-class CompileFilterIterator extends \RecursiveFilterIterator
+class GetTextFilterIterator extends \RecursiveFilterIterator
 {
     public function accept()
     {
@@ -36,11 +36,7 @@ class CompileFilterIterator extends \RecursiveFilterIterator
             return true;
         }
 
-        if (1 === preg_match('/\.php$/', $iterator->current())) {
-            return true;
-        } elseif (1 === preg_match('/\.po$/', $iterator->current())) {
-            return true;
-        } elseif (1 === preg_match('/\.mo$/', $iterator->current())) {
+        if (1 === preg_match('/\.po$/', $iterator->current())) {
             return true;
         }
 
