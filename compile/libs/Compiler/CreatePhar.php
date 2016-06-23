@@ -57,7 +57,7 @@ class CreatePhar
     {
         $this->addFileList(BASE_DIR.'/src');
         $this->phar->stopBuffering();
-
+        $this->phar->compressFiles(Phar::BZ2);
         throw new \GitLive\Compile\Exception\Kill;
     }
     /* ----------------------------------------- */
