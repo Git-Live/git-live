@@ -35,6 +35,9 @@ $Autoloader->addNamespace('GitLive\Compile\Exception', __DIR__.'/libs/Exception'
 
 try{
     if (isset($argv[1]) && $argv[1] === 'create_phar') {
+        $CreateMO = new \GitLive\Compile\Compiler\CreateMO;
+        $CreateMO->execute();
+
         $CreatePhar = new \GitLive\Compile\Compiler\CreatePhar;
         $CreatePhar->execute();
     }
