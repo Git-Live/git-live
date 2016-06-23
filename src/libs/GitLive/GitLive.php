@@ -13,15 +13,7 @@
  * @since      Class available since Release 1.0.0
  */
 
-ini_set('max_execution_time', 0);
-ini_set('memory_limit', -1);
-
-$is_debug = true;
-
-if (!defined('GIT_LIVE_INSTALL_DIR')) {
-    define('GIT_LIVE_INSTALL_DIR', __FILE__);
-}
-
+namespace GitLive;
 
 /**
  * @category   GitCommand
@@ -409,7 +401,9 @@ class GitLive extends GitBase
         $remote = explode("\n", $remote);
         $res =  array_search($this->deploy_repository_name, $remote) !== false;
         if ($res === false) {
-            throw new exception('git live release を使用するには、'.$this->deploy_repository_name.' リポジトリを設定して下さい。');
+            throw new exception(
+            sprintf(_('git live release を使用するには、%s リポジトリを設定して下さい。'), $this->deploy_repository_name)
+            );
         }
     }
     /* ----------------------------------------- */
@@ -438,7 +432,7 @@ class GitLive extends GitBase
         }
 
         if (!$repo) {
-            throw new exception ('リリースは開かれて居ません。');
+            throw new exception ('release openされていません。');
         }
 
         return $repo;
@@ -469,7 +463,7 @@ class GitLive extends GitBase
         }
 
         if (!$repo) {
-            throw new exception ('リリースは開かれて居ません。');
+            throw new exception ('release openされていません。');
         }
 
         return $repo;
@@ -490,13 +484,10 @@ class GitLive extends GitBase
         global $argv;
         if (!isset($argv[3])) {
             while (true) {
-                $this->ncecho("Please enter your remote-repository.\n:");
+                $this->ncecho(_("Please enter only your remote-repository.")."\n");
+                $this->ncecho(":");
                 $clone_repository = trim(fgets(STDIN, 1000));
                 if ($clone_repository == '') {
-                    $this->ncecho(":");
-                    continue;
-                }
-                if (!mb_ereg('/([^/]+?)(\.git)?$', $clone_repository, $match)) {
                     $this->ncecho(":");
                     continue;
                 }
@@ -505,7 +496,8 @@ class GitLive extends GitBase
             }
 
             while (true) {
-                $this->ncecho("Please enter common remote-repository.\n:");
+                $this->ncecho(_("Please enter common remote-repository.")."\n");
+                $this->ncecho(":");
                 $upstream_repository = trim(fgets(STDIN, 1000));
 
                 if ($upstream_repository == '') {
@@ -516,9 +508,11 @@ class GitLive extends GitBase
             }
 
             while (true) {
-                $this->ncecho("Please enter deploying dedicated remote-repository.\n"
-                ."If you return in the blank, it becomes the default setting.\n".
-                "default:{$upstream_repository}\n:");
+                $this->ncecho(_("Please enter deploying dedicated remote-repository.")."\n");
+                $this->ncecho(_("If you return in the blank, it becomes the default setting.")."\n");
+                $this->ncecho("default:{$upstream_repository}"."\n");
+                $this->ncecho(":");
+
                 $deploy_repository = trim(fgets(STDIN, 1000));
 
                 if ($deploy_repository == '') {
@@ -528,9 +522,10 @@ class GitLive extends GitBase
             }
 
             while (true) {
-                $this->ncecho("Please enter work directory path.\n".
-                "If you return in the blank, it becomes the default setting.\n".
-                "default:{$match[1]}\n:");
+                $this->ncecho(_("Please enter work directory path.")."\n");
+                $this->ncecho(_("If you return in the blank, it becomes the default setting.")."\n");
+                $this->ncecho("default:{$match[1]}"."\n");
+                $this->ncecho(":");
                 $clone_dir = trim(fgets(STDIN, 1000));
 
                 if ($clone_dir == '') {
@@ -560,8 +555,7 @@ class GitLive extends GitBase
 
         if ($clone_dir === NULL) {
             if (!mb_ereg('/([^/]+?)(\.git)?$', $clone_repository, $match)) {
-                $this->ncecho('fatal');
-
+                $this->ncecho(_('ローカルディレクトリを受動取得できませんでした。'));
                 return;
             }
             $clone_dir = getcwd().DIRECTORY_SEPARATOR.$match[1];
@@ -588,7 +582,7 @@ class GitLive extends GitBase
     {
         $self_blanch = `git symbolic-ref HEAD 2>/dev/null`;
         if (!$self_blanch) {
-            throw new exception('git repositoryではありません。');
+            throw new exception(_('git repositoryではありません。'));
         }
 
         return trim($self_blanch);
@@ -932,14 +926,14 @@ class GitLive extends GitBase
 
         if ($this->getSelfBranch() !== 'refs/heads/master') {
             $this->GitCmdExecuter->checkout($repo);
-            throw new exception ($mode.' closeに失敗しました。'."\n".' masterがReleaseブランチより進んでいます。'."\n".'[http://www.enviphp.net/c/man/v3/gitlive/error/500]'.__LINE__);
+            throw new exception ($mode.' '._('closeに失敗しました。')."\n"._(' masterがReleaseブランチより進んでいます。'));
         }
 
         $this->GitCmdExecuter->merge('deploy/'.$repo);
         $diff = $this->GitCmdExecuter->diff(array('deploy/'.$repo ,'master'));
 
         if (strlen($diff) !== 0) {
-            throw new exception($diff."\n{$mode} ".'closeに失敗しました。'.__LINE__);
+            throw new exception($diff."\n".$mode.' '._('closeに失敗しました。'));
         }
         $this->GitCmdExecuter->push('upstream', 'master');
         $this->GitCmdExecuter->push('deploy', 'master');
@@ -951,7 +945,7 @@ class GitLive extends GitBase
 
         if ($this->getSelfBranch() !== 'refs/heads/develop') {
             $this->GitCmdExecuter->checkout($repo);
-            throw new exception ($mode.' closeに失敗しました。'.__LINE__);
+            throw new exception ($mode.'closeに失敗しました。');
         }
 
         $this->GitCmdExecuter->merge('deploy/'.$repo);
@@ -961,7 +955,7 @@ class GitLive extends GitBase
         }
 
         if (strlen($diff) !== 0) {
-            throw new exception ($mode.' closeに失敗しました。'."\n".' developがReleaseブランチより進んでいます。'."\n".'[http://www.enviphp.net/c/man/v3/gitlive/error/501]'.__LINE__);
+            throw new exception ($mode.' '._('closeに失敗しました。')."\n"._('developがReleaseブランチより進んでいます。'));
         }
         $this->GitCmdExecuter->push('upstream', 'develop');
 
@@ -1033,16 +1027,16 @@ class GitLive extends GitBase
     public function hotfixOpen()
     {
         if ($this->isReleaseOpen()) {
-            throw new exception('リリースが既に空いてます。');
+            throw new exception(_('既にrelease open されています。'));
         } elseif ($this->isHotfixOpen()) {
-            throw new exception('hotfixが既に空いてます。');
+            throw new exception(_('既にhotfix open されています。'));
         }
 
         $repository = $this->GitCmdExecuter->branch(array('-a'));
         $repository = explode("\n", $repository);
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/'.$this->deploy_repository_name.'/hotfix/')) {
-                throw new exception('既にhotfix open されています。'.$value);
+                throw new exception(_('既にhotfix open されています。')."\n".$value);
             }
         }
         $hotfix_rep = 'hotfix/'.date('Ymdhis');
@@ -1064,7 +1058,7 @@ class GitLive extends GitBase
     public function hotfixTrack()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception('hotfixが空いていません。');
+            throw new exception(_('hotfix openされていません。'));
         }
         $repo = $this->getHotfixRepository();
         $this->GitCmdExecuter->pull('deploy', $repo);
@@ -1081,7 +1075,7 @@ class GitLive extends GitBase
     public function hotfixPull()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception('hotfixが空いていません。');
+            throw new exception(_('hotfix openされていません。'));
         }
         $repo = $this->getHotfixRepository();
         $this->GitCmdExecuter->pull('upstream', $repo);
@@ -1117,7 +1111,7 @@ class GitLive extends GitBase
     public function hotfixSync()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception('hotfixが空いていません。');
+            throw new exception(_('hotfix openされていません。'));
         }
 
         $repo = $this->getHotfixRepository();
@@ -1135,7 +1129,7 @@ class GitLive extends GitBase
     public function hotfixPush()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception('hotfixが空いていません。');
+            throw new exception(_('hotfix openされていません。'));
         }
 
         $repo = $this->getHotfixRepository();
@@ -1153,7 +1147,7 @@ class GitLive extends GitBase
     public function hotfixClose()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception('hotfixが空いていません。');
+            throw new exception(_('hotfix openされていません。'));
         }
 
         $repo = $this->getHotfixRepository();
@@ -1170,16 +1164,16 @@ class GitLive extends GitBase
     public function releaseOpen()
     {
         if ($this->isReleaseOpen()) {
-            throw new exception('リリースが既に空いてます。');
+            throw new exception(_('既にrelease open されています。'));
         } elseif ($this->isHotfixOpen()) {
-            throw new exception('hotfixが既に空いてます。');
+            throw new exception(_('既にhotfix open されています。'));
         }
 
         $repository = $this->GitCmdExecuter->branch(array('-a'));
         $repository = explode("\n", $repository);
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/'.$this->deploy_repository_name.'/release/')) {
-                throw new exception('既にrelease open されています。'.$value);
+                throw new exception(_('既にrelease open されています。'.$value));
             }
         }
         $release_rep = 'release/'.date('Ymdhis');
@@ -1201,7 +1195,7 @@ class GitLive extends GitBase
     public function releaseTrack()
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception('リリースが空いていません。');
+            throw new exception(_('release openされていません。'));
         }
         $repo = $this->getReleaseRepository();
         $this->GitCmdExecuter->pull('deploy', $repo);
@@ -1218,7 +1212,7 @@ class GitLive extends GitBase
     public function releasePull()
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception('リリースが空いていません。');
+            throw new exception(_('release openされていません。'));
         }
         $repo = $this->getReleaseRepository();
         $this->GitCmdExecuter->pull('upstream', $repo);
@@ -1254,7 +1248,7 @@ class GitLive extends GitBase
     public function releaseSync()
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception('リリースが空いていません。');
+            throw new exception(_('release openされていません。'));
         }
 
         $repo = $this->getReleaseRepository();
@@ -1271,7 +1265,7 @@ class GitLive extends GitBase
     public function releasePush()
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception('リリースが空いていません。');
+            throw new exception(_('release openされていません。'));
         }
 
         $repo = $this->getReleaseRepository();
@@ -1290,7 +1284,7 @@ class GitLive extends GitBase
     {
         global $argv;
         if (!$this->isReleaseOpen()) {
-            throw new exception('リリースが空いていません。');
+            throw new exception(_('release openされていません。'));
         }
 
         $repo = $this->getReleaseRepository();
@@ -1299,445 +1293,3 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 }
 /* ----------------------------------------- */
-
-/**
- * @category   GitCommand
- * @package    GitLive
- * @subpackage GitLiveFlow
- * @author     akito<akito-artisan@five-foxes.com>
- * @author     suzunone<suzunone.eleven@gmail.com>
- * @copyright Project Git Live
- * @license MIT
- * @version    GIT: $Id$
- * @link https://github.com/Git-Live/git-live
- * @see https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
- */
-class GitCmdExecuter extends GitBase
-{
-    /**
-     * +--
-     *
-     * @access      public
-     * @return string
-     */
-    public function fetchPullRequest()
-    {
-        $cmd = "git fetch upstream '+refs/pull/*:refs/remotes/pr/*'";
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-    /* ----------------------------------------- */
-
-    public function tag(array $options = NULL)
-    {
-        $cmd = 'git tag ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-    public function copy(array $options = NULL)
-    {
-        $cmd = 'git clone ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-    public function remote(array $options = NULL)
-    {
-        $cmd = 'git remote ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-    public function status(array $options = NULL)
-    {
-        $cmd = 'git status ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-    public function diff(array $options = NULL)
-    {
-        $cmd = 'git diff ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-
-    public function merge($branch, array $options = NULL)
-    {
-        $cmd = 'git merge ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
-        $cmd .= ' '.$branch;
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-
-    public function fetch(array $options = NULL)
-    {
-        $cmd = 'git fetch ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-
-    public function checkout($branch, array $options = NULL)
-    {
-        $cmd = 'git checkout ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
-        $cmd .= ' '.$branch;
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-    public function branch(array $options = NULL)
-    {
-        $cmd = 'git branch ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-    public function pull($remote, $branch = '')
-    {
-        $cmd = 'git pull ';
-
-        $cmd .= ' '.$remote.' '.$branch;
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-
-    public function push($remote, $branch = '')
-    {
-        $cmd = 'git push ';
-
-        $cmd .= ' '.$remote.' '.$branch;
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-    public function tagPush($remote)
-    {
-        $cmd = 'git push ';
-
-        $cmd .= ' '.$remote.' --tags';
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-
-    public function log($left, $right, $option = '')
-    {
-        $cmd = 'git log --pretty=fuller --name-status '
-            .$option.' '.$left.'..'.$right;
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
-    }
-
-}
-/* ----------------------------------------- */
-
-/**
- * @category   GitCommand
- * @package    GitLive
- * @subpackage GitLiveFlow
- * @author     akito<akito-artisan@five-foxes.com>
- * @author     suzunone<suzunone.eleven@gmail.com>
- * @copyright Project Git Live
- * @license MIT
- * @version    GIT: $Id$
- * @link https://github.com/Git-Live/git-live
- * @see https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
- */
-class GitBase
-{
-    public function debug($text, $color = NULL)
-    {
-        global $is_debug;
-        if (!$is_debug) {
-            return;
-        }
-        if ($color === NULL) {
-            $this->ncecho($text);
-
-            return;
-        }
-        $this->cecho($text, $color);
-    }
-
-    /**
-     * +-- 色つきecho
-     *
-     * @access      public
-     * @param  var_text $text
-     * @param  var_text $color
-     * @return void
-     */
-    public function cecho($text, $color)
-    {
-        if (DIRECTORY_SEPARATOR === '\\') {
-            $this->ncecho($text);
-
-            return;
-        }
-        $cmd = 'echo -e "\e[3'.$color.'m'.escapeshellarg($text).'\e[m"';
-        `$cmd`;
-    }
-    /* ----------------------------------------- */
-
-    /**
-     * +-- 色なしecho
-     *
-     * @access      public
-     * @param  var_text $text
-     * @return void
-     */
-    public function ncecho($text)
-    {
-        $text = _($text);
-        if (DIRECTORY_SEPARATOR === '\\') {
-            $text = mb_convert_encoding($text, 'SJIS-win', 'utf8');
-        }
-        echo $text;
-    }
-    /* ----------------------------------------- */
-
-    /**
-     * +-- コマンドのアップデート
-     *
-     * @access      public
-     * @return void
-     */
-    public function update()
-    {
-        $url = 'https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php';
-        file_put_contents(GIT_LIVE_INSTALL_DIR, file_get_contents($url));
-    }
-    /* ----------------------------------------- */
-
-    /**
-     * +-- ヘルプの表示
-     *
-     * @access      public
-     * @return void
-     */
-    public function help()
-    {
-        $this->ncecho("GIT-LIVE(1)                      Git Manual                      GIT-LIVE(1)\n");
-        $this->ncecho("NAME\n");
-        $this->ncecho("       git-live - 安全で効率的な、リポジトリ運用をサポートします。\n");
-        $this->ncecho("SYNOPSIS\n");
-        $this->ncecho("       git live feature start <feature name>\n");
-        $this->ncecho("       git live feature publish\n");
-        $this->ncecho("       git live feature track\n");
-        $this->ncecho("       git live feature push\n");
-        $this->ncecho("       git live feature pull\n");
-        $this->ncecho("       git live feature close\n");
-
-        $this->ncecho("       git live pr track\n");
-        $this->ncecho("       git live pr pull\n");
-        $this->ncecho("       git live pr merge\n");
-
-        $this->ncecho("       git live hotfix open <release name>\n");
-        $this->ncecho("       git live hotfix close\n");
-        $this->ncecho("       git live hotfix sync\n");
-        $this->ncecho("       git live hotfix state\n");
-        $this->ncecho("       git live hotfix track\n");
-        $this->ncecho("       git live hotfix pull\n");
-        $this->ncecho("       git live hotfix push\n");
-
-        $this->ncecho("       git live release open <release name>\n");
-        $this->ncecho("       git live release close\n");
-        $this->ncecho("       git live release sync\n");
-        $this->ncecho("       git live release state\n");
-        $this->ncecho("       git live release track\n");
-        $this->ncecho("       git live release pull\n");
-        $this->ncecho("       git live release push\n");
-
-        $this->ncecho("       git live pull\n");
-        $this->ncecho("       git live push\n");
-        $this->ncecho("       git live update\n");
-
-        $this->ncecho("       git live merge develop\n");
-        $this->ncecho("       git live merge master\n");
-
-        $this->ncecho("       git live log develop\n");
-        $this->ncecho("       git live log master\n");
-
-        $this->ncecho("       git live init\n");
-        $this->ncecho("       git live start\n");
-        $this->ncecho("       git live restart\n");
-
-        $this->ncecho("OPTIONS\n");
-        $this->ncecho("       feature start <feature name>\n");
-        $this->ncecho("           新しい開発用ブランチを作成して、開発を始めます。\n");
-        $this->ncecho("       feature publish\n");
-        $this->ncecho("           upstreamに開発用のブランチをpushします。\n");
-        $this->ncecho("       feature track <feature name>\n");
-        $this->ncecho("           upstreamから開発用ブランチを取得します。\n");
-        $this->ncecho("       feature push\n");
-        $this->ncecho("           originに開発ブランチをpushします。(git live pushと動作は似ています)\n");
-        $this->ncecho("       feature pull\n");
-        $this->ncecho("           originから開発ブランチをpullします。(git live pullと動作は似ています)\n");
-        $this->ncecho("       feature close\n");
-        $this->ncecho("           すべての場所から、開発ブランチを削除します。プルリクエストがマージされたあとに実行してください。\n");
-
-        $this->ncecho("       pr track <pull request number>\n");
-        $this->ncecho("           upstreamからpull requestされているコードを取得します。\n");
-        $this->ncecho("       pr pull \n");
-        $this->ncecho("           pull requestの内容を最新化\n");
-        $this->ncecho("       pr merge <pull request number>\n");
-        $this->ncecho("           pull requestの内容をマージする。\n");
-
-        $this->ncecho("       hotfix open <release name>\n");
-        $this->ncecho("           hotfix用のブランチを作成します。\n");
-        $this->ncecho("       hotfix close\n");
-        $this->ncecho("           hotfixを終了し、マスターとdevelopにコードをマージします。\n");
-        $this->ncecho("       hotfix sync\n");
-        $this->ncecho("           リリースに、upstream内のhotfixブランチをマージします。\n");
-        $this->ncecho("       hotfix state\n");
-        $this->ncecho("           hotfixの状態を確認します。\n");
-        $this->ncecho("       hotfix track\n");
-        $this->ncecho("           誰かが開けたhotfixを取得します。\n");
-        $this->ncecho("       hotfix pull\n");
-        $this->ncecho("           デプロイブランチとupstreamからpullします。\n");
-        $this->ncecho("       hotfix push\n");
-        $this->ncecho("           デプロイブランチとupstreamにpushします。\n");
-
-        $this->ncecho("       release open <release name>\n");
-        $this->ncecho("           release用のブランチを作成します。\n");
-        $this->ncecho("       release close\n");
-        $this->ncecho("           releaseを終了し、マスターとdevelopにコードをマージします。\n");
-        $this->ncecho("       release sync\n");
-        $this->ncecho("           リリースに、upstream内のreleaseブランチをマージします。\n");
-        $this->ncecho("       release state\n");
-        $this->ncecho("           releaseの状態を確認します。\n");
-        $this->ncecho("       release pull\n");
-        $this->ncecho("           デプロイブランチとupstreamからpullします。\n");
-        $this->ncecho("       release push\n");
-        $this->ncecho("           デプロイブランチとupstreamにpushします。\n");
-
-        $this->ncecho("       pull\n");
-        $this->ncecho("           適当な場所から、pullします。\n");
-        $this->ncecho("       push\n");
-        $this->ncecho("           適当な場所に、pushします。\n");
-        $this->ncecho("       update\n");
-        $this->ncecho("           コマンドラインの最新化。\n");
-        $this->ncecho("       merge develop\n");
-        $this->ncecho("           developからmerge\n");
-        $this->ncecho("       merge master\n");
-        $this->ncecho("           masterからmerge\n");
-
-        $this->ncecho("       log develop\n");
-        $this->ncecho("           developとのdiff\n");
-        $this->ncecho("       log master\n");
-        $this->ncecho("           masterとのdiff\n");
-
-        $this->ncecho("       start\n");
-        $this->ncecho("           初期化します。\n");
-        $this->ncecho("       restart\n");
-        $this->ncecho("           リポジトリを再構築します。\n");
-
-        $this->ncecho("       init <clone_repository> <upstream_repository> <deploy_repository> (<clone_dir>)\n");
-        $this->ncecho("           gitlive で管理するリポジトリを作成する\n");
-        $this->ncecho("           clone_repository：\n");
-        $this->ncecho("               cloneする個人開発用のリモートリポジトリ(origin)\n");
-        $this->ncecho("           upstream_repository：\n");
-        $this->ncecho("               originのfork元リモートリポジトリ(upstream)\n");
-        $this->ncecho("           deploy_repository：\n");
-        $this->ncecho("               デプロイ先リポジトリ\n");
-        $this->ncecho("           clone_dir：\n");
-        $this->ncecho("               cloneするディレクトリ\n");
-    }
-    /* ----------------------------------------- */
-
-}
-
-
-try {
-    if (DIRECTORY_SEPARATOR === '\\') {
-        mb_internal_encoding('utf8');
-        mb_http_output('sjis-win');
-        mb_http_input('sjis-win');
-    }
-    $GitLive = new GitLive;
-    $GitLive->execute();
-} catch (exception $e) {
-    $this->ncecho($e->getMessage()."\n");
-}

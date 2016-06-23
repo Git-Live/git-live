@@ -1,44 +1,59 @@
 #!/usr/bin/env php
 <?php
+/**
+ * @category   GitCommand
+ * @package    GitLive
+ * @subpackage GitLiveCompile
+ * @author     akito<akito-artisan@five-foxes.com>
+ * @author     suzunone<suzunone.eleven@gmail.com>
+ * @copyright Project Git Live
+ * @license MIT
+ * @version    GIT: $Id$
+ * @link https://github.com/Git-Live/git-live
+ * @see https://github.com/Git-Live/git-live
+ * @since      Class available since Release 1.0.0
+ */
 
-if (isset($argv[1]) && $argv[1] === 'create_phar') {
-    umask(0);
-    $phar = new Phar(dirname(__DIR__).'/bin/git-live.phar', 0);
-    $phar->setSignatureAlgorithm(Phar::SHA256);
-    $phar->setStub("#!/usr/bin/env php
-<?php
-    define('GIT_LIVE_INSTALL_DIR', __FILE__);
-    Phar::mapPhar( 'git-live.phar' );
+umask(0);
 
-    include_once 'phar://git-live.phar/git-live.php';
-    __HALT_COMPILER(); ?>
-    ");
+ini_set('max_execution_time', 0);
+ini_set('memory_limit', -1);
 
-    $phar->addFile(dirname(__DIR__).'/src/git-live.php', 'git-live.php');
-    $phar->addFile(dirname(__DIR__).'/src/lang/messages.po', 'lang/messages.po');
+define('BASE_DIR', dirname(__DIR__));
+
+include BASE_DIR.'/src/libs/GitLive/Autoloader.php';
 
 
-    // $phar->addFile('TestClass2.php');
-    // $phar->addFile('TestClass3.php', 'subdir/filename.php'); //別名で保存
-    // $phar['TestClass4.php'] = file_get_contents('TestClass4.php'); //配列形式でも保存可能
-    // $phar->addFile('mushroom.gif');
-    $phar->stopBuffering();
-    die;
+
+$Autoloader = new \GitLive\Autoloader;
+$Autoloader->register();
+$Autoloader->addNamespace('GitLive\Compile\Compiler', __DIR__.'/libs/Compiler');
+$Autoloader->addNamespace('GitLive\Compile\Iterator', __DIR__.'/libs/Iterator');
+$Autoloader->addNamespace('GitLive\Compile\Exception', __DIR__.'/libs/Exception');
+
+
+
+try{
+    if (isset($argv[1]) && $argv[1] === 'create_phar') {
+        $CreatePhar = new \GitLive\Compile\Compiler\CreatePhar;
+        $CreatePhar->execute();
+    }
+
+    $compile_path = BASE_DIR."/bin/git-live.phar";
+    if (is_file($compile_path)) {
+        unlink($compile_path);
+    }
+
+    $install_path = BASE_DIR."/git-live.php";
+    if (is_file($install_path)) {
+        unlink($install_path);
+    }
+
+    $cmd = 'php -d phar.readonly=0 '.__FILE__.' create_phar';
+
+    echo `$cmd`;
+    chmod($compile_path, 0777);
+    copy($compile_path, $install_path);
+} catch (exception $e) {
 
 }
-
-$compile_path = dirname(__DIR__)."/bin/git-live.phar";
-if (is_file($compile_path)) {
-    unlink($compile_path);
-}
-
-$install_path = dirname(__DIR__)."/git-live.php";
-if (is_file($install_path)) {
-    unlink($install_path);
-}
-
-$cmd = 'php -d phar.readonly=0 '.__DIR__.'/compile.php create_phar';
-
-echo `$cmd`;
-chmod($compile_path, 0777);
-copy($compile_path, $install_path);
