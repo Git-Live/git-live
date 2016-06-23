@@ -26,3 +26,21 @@ git-liveは、phpで作られた、git コマンドの集合体です。
 git liveフローを実施するために必要なコマンドが集まっています。
 
 git-liveを使用するためには、PHP5.4以上が必要です。
+
+## インストール方法
+
+### Unix系OS
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+wget https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php
+chmod 0777 ./git-live.php
+sudo cp ./git-live.php /usr/bin/git-live
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Windows
+
+以下のファイルを、パスが通ったディレクトリにおいてください。
+
+ * https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php
+ * https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.bat
