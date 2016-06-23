@@ -98,7 +98,7 @@ class GitBase
     public function update()
     {
         $url = 'https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php';
-        file_put_contents(__FILE__, file_get_contents($url));
+        file_put_contents(GIT_LIVE_INSTALL_DIR, file_get_contents($url));
     }
     /* ----------------------------------------- */
 
