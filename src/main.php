@@ -25,18 +25,20 @@ if (!defined('GIT_LIVE_INSTALL_DIR')) {
 if (!defined('GIT_LIVE_VERSION')) {
     define('GIT_LIVE_VERSION', 'cli');
 }
+if (!class_exists('\GitLive\Autoloader', false)) {
+    include 'libs/GitLive/Autoloader.php';
+}
+
+
+$Autoloader = new \GitLive\Autoloader;
+$Autoloader->register();
 
 
 if (GIT_LIVE_VERSION === 'phar') {
-    require 'phar://git-live.phar/libs/GitBase.php';
-    require 'phar://git-live.phar/libs/GitCmdExecuter.php';
-    require 'phar://git-live.phar/libs/GitLive.php';
+    $Autoloader->addNamespace('GitLive', 'phar://git-live.phar/libs/GitLive');
 } else {
-    require 'libs/GitBase.php';
-    require 'libs/GitCmdExecuter.php';
-    require 'libs/GitLive.php';
+    $Autoloader->addNamespace('GitLive', __DIR__.'/libs/GitLive');
 }
-
 
 // LANG
 $lang = trim(`echo \$LANG`);
@@ -45,14 +47,13 @@ if (empty($lang)) {
 }
 
 
-
 try {
     if (DIRECTORY_SEPARATOR === '\\') {
         mb_internal_encoding('utf8');
         mb_http_output('sjis-win');
         mb_http_input('sjis-win');
     }
-    $GitLive = new GitLive;
+    $GitLive = new GitLive\GitLive;
     $GitLive->execute();
 } catch (exception $e) {
     $this->ncecho($e->getMessage()."\n");

@@ -13,7 +13,7 @@
  * @since      Class available since Release 1.0.0
  */
 
-
+namespace GitLive;
 
 /**
  * @category   GitCommand
@@ -30,6 +30,14 @@
  */
 class GitBase
 {
+    /**
+     * +--
+     *
+     * @access      public
+     * @param       var_text $text
+     * @param       var_text $color OPTIONAL:NULL
+     * @return      void
+     */
     public function debug($text, $color = NULL)
     {
         global $is_debug;
@@ -43,6 +51,7 @@ class GitBase
         }
         $this->cecho($text, $color);
     }
+    /* ----------------------------------------- */
 
     /**
      * +-- 色つきecho

@@ -13,6 +13,8 @@
  * @since      Class available since Release 1.0.0
  */
 
+namespace GitLive;
+
 /**
  * @category   GitCommand
  * @package    GitLive
