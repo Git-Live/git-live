@@ -1,5 +1,5 @@
 <?php
-while($stdin = fgets(STDIN))
+foreach(file($argv[1]) as $stdin)
 {
     if (!trim($stdin)) {
         continue;
@@ -12,8 +12,8 @@ while($stdin = fgets(STDIN))
             echo $stdin;
         break;
         default:
-            fwrite(STDERR, 'error');
             fwrite(STDERR, $stdin);
+            trigger_error($stdin, E_USER_ERROR);
         break;
     }
 
