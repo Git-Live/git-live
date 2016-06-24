@@ -55,6 +55,7 @@ class mainTest extends testCaseBase
     public function executeTest()
     {
         $this->assertTrue(True);
+        $this->assertTrue(false);
     }
 
 
