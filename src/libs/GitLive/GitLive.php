@@ -554,7 +554,7 @@ class GitLive extends GitBase
         }
 
         if ($clone_dir === NULL) {
-            if ($is_auto_clone_dir) {
+            if (!$is_auto_clone_dir) {
                 $this->ncecho(_('ローカルディレクトリを自動取得できませんでした。'));
                 return;
             }
