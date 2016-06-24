@@ -42,7 +42,7 @@ msgid "Please enter work directory path."
 msgstr ""
 
 #: src/libs/GitLive/GitLive.php:558
-msgid "ローカルディレクトリを受動取得できませんでした。"
+msgid "ローカルディレクトリを自動取得できませんでした。"
 msgstr ""
 
 #: src/libs/GitLive/GitLive.php:585
