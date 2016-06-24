@@ -8,11 +8,11 @@ php:
   - hhvm
 
 before_script:
-  - curl www.enviphp.net/get/envi|sh
-
+  - git clone --recursive https://github.com/EnviMVC/EnviMVC3PHP.git Envi
+  - mkdir ./tmp
 
 script:
-  - envi
+  - ,/Envi/envi unittest-go ./test.yml
 
 after_script:
 
