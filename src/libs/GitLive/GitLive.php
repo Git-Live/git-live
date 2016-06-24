@@ -521,6 +521,7 @@ class GitLive extends GitBase
                 break;
             }
 
+            $is_auto_clone_dir = mb_ereg('/([^/]+?)(\.git)?$', $clone_repository, $match);
             while (true) {
                 $this->ncecho(_("Please enter work directory path.")."\n");
                 $this->ncecho(_("If you return in the blank, it becomes the default setting.")."\n");
@@ -533,7 +534,6 @@ class GitLive extends GitBase
                 }
                 break;
             }
-
         } else {
             $clone_repository    = $argv[2];
 
@@ -554,8 +554,8 @@ class GitLive extends GitBase
         }
 
         if ($clone_dir === NULL) {
-            if (!mb_ereg('/([^/]+?)(\.git)?$', $clone_repository, $match)) {
-                $this->ncecho(_('ローカルディレクトリを受動取得できませんでした。'));
+            if ($is_auto_clone_dir) {
+                $this->ncecho(_('ローカルディレクトリを自動取得できませんでした。'));
                 return;
             }
             $clone_dir = getcwd().DIRECTORY_SEPARATOR.$match[1];
