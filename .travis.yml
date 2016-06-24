@@ -12,6 +12,7 @@ before_script:
   - mkdir ./tmp
 
 script:
+  - php -i
   - ./Envi/envi unittest-go ./test.yml
 
 after_script:
