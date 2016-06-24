@@ -13,7 +13,7 @@ before_script:
 
 script:
   - ./Envi/envi unittest-go ./test.yml > ./tmp/test.log
-  - cat ./tmp/test.log |php ./test/status.php
+  - ./test/status.php ./tmp/test.log |php
 
 after_script:
 
