@@ -11,14 +11,14 @@ all:
     large:  10
     
   # 色を付けるかどうか
-  no_color: false
+  no_color: true
   # テスト毎にPHPプロセスを新規に立ち上げてテストする
   # segmentation fault とかが出る場合はtrueにしてください
   multi: false
   
   # テストカバレッジ
   code_coverage:
-    use: true
+    use: false
     # テストカバレッジの詳細表示を使用する
     use_coverage_detail: true
     # カバレッジ100%のメソッドは表示しない
