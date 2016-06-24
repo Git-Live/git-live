@@ -12,7 +12,7 @@ before_script:
   - mkdir ./tmp
 
 script:
-  - ,/Envi/envi unittest-go ./test.yml
+  - ./Envi/envi unittest-go ./test.yml
 
 after_script:
 
