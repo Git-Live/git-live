@@ -8,7 +8,7 @@ $finder = Symfony\Component\Finder\Finder::create()
     ->ignoreVCS(true);
 
 $fixers = [
-
+    'strict',
 
 ];
 

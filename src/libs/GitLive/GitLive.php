@@ -487,7 +487,7 @@ class GitLive extends GitBase
                 $this->ncecho(_("Please enter only your remote-repository.")."\n");
                 $this->ncecho(":");
                 $clone_repository = trim(fgets(STDIN, 1000));
-                if ($clone_repository == '') {
+                if ($clone_repository === '') {
                     $this->ncecho(":");
                     continue;
                 }
@@ -499,7 +499,7 @@ class GitLive extends GitBase
                 $this->ncecho(":");
                 $upstream_repository = trim(fgets(STDIN, 1000));
 
-                if ($upstream_repository == '') {
+                if ($upstream_repository === '') {
                     $this->ncecho(":");
                     continue;
                 }
@@ -514,7 +514,7 @@ class GitLive extends GitBase
 
                 $deploy_repository = trim(fgets(STDIN, 1000));
 
-                if ($deploy_repository == '') {
+                if ($deploy_repository === '') {
                     $deploy_repository = $upstream_repository;
                 }
                 break;
@@ -528,7 +528,7 @@ class GitLive extends GitBase
                 $this->ncecho(":");
                 $clone_dir = trim(fgets(STDIN, 1000));
 
-                if ($clone_dir == '') {
+                if ($clone_dir === '') {
                     $clone_dir = null;
                 }
                 break;
