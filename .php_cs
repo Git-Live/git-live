@@ -57,7 +57,6 @@ $fixers = [
     'phpdoc_trim',
     'phpdoc_type_to_var',
     'phpdoc_types',
-    'phpdoc_separation',
     'phpdoc_scalar',
     'phpdoc_params',
     'phpdoc_indent',
