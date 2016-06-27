@@ -38,13 +38,13 @@ class GitBase
      * @param       var_text $color OPTIONAL:NULL
      * @return      void
      */
-    public function debug($text, $color = NULL)
+    public function debug($text, $color = null)
     {
         global $is_debug;
         if (!$is_debug) {
             return;
         }
-        if ($color === NULL) {
+        if ($color === null) {
             $this->ncecho($text);
 
             return;
@@ -241,5 +241,4 @@ class GitBase
         $this->ncecho("{$indent}{$indent}{$indent}{$indent}"._("cloneするローカルのディレクトリ。")."\n");
     }
     /* ----------------------------------------- */
-
 }

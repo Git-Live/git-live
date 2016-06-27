@@ -30,6 +30,4 @@ namespace GitLive;
  */
 class exception extends \exception
 {
-
 }
-

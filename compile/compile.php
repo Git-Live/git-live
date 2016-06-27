@@ -33,7 +33,7 @@ $Autoloader->addNamespace('GitLive\Compile\Exception', __DIR__.'/libs/Exception'
 
 
 
-try{
+try {
     if (isset($argv[1]) && $argv[1] === 'create_phar') {
         $CreateMO = new \GitLive\Compile\Compiler\CreateMO;
         $CreateMO->execute();
@@ -58,5 +58,4 @@ try{
     chmod($compile_path, 0777);
     copy($compile_path, $install_path);
 } catch (exception $e) {
-
 }

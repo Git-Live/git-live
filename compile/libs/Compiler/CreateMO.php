@@ -15,7 +15,6 @@
 
 namespace GitLive\Compile\Compiler;
 
-
 /**
  * @category   GitCommand
  * @package    GitLive
@@ -50,9 +49,9 @@ class CreateMO
      */
     public function execute()
     {
-       foreach ($this->getCommandList(BASE_DIR.'/src') as $cmd) {
-           `$cmd`;
-       }
+        foreach ($this->getCommandList(BASE_DIR.'/src') as $cmd) {
+            `$cmd`;
+        }
     }
     /* ----------------------------------------- */
 
@@ -74,7 +73,6 @@ class CreateMO
                 unlink("{$lang}.mo");
                 $cmd = "msgfmt {$lang}.po -o {$lang}.mo";
                 yield $cmd;
-
             }
         }
     }

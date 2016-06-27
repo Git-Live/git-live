@@ -83,7 +83,6 @@ class CreatePhar
                         array(BASE_DIR.'/src' => '')
                     )
                 );
-
             }
         }
     }

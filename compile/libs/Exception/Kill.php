@@ -30,5 +30,4 @@ namespace GitLive\Compile\Exception;
  */
 class Kill extends \exception
 {
-
 }

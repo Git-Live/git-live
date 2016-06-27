@@ -1,6 +1,5 @@
 <?php
-foreach(file($argv[1]) as $stdin)
-{
+foreach (file($argv[1]) as $stdin) {
     if (!trim($stdin)) {
         continue;
     }
@@ -16,5 +15,4 @@ foreach(file($argv[1]) as $stdin)
             trigger_error($stdin, E_USER_ERROR);
         break;
     }
-
 }

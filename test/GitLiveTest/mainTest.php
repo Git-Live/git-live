@@ -55,7 +55,7 @@ class mainTest extends testCaseBase
     public function executeTest()
     {
         trigger_error("trigger_error test", E_USER_ERROR);
-        $this->assertTrue(True);
+        $this->assertTrue(true);
     }
 
 
@@ -68,5 +68,4 @@ class mainTest extends testCaseBase
     public function shutdown()
     {
     }
-
 }

@@ -432,7 +432,7 @@ class GitLive extends GitBase
         }
 
         if (!$repo) {
-            throw new exception ('release openされていません。');
+            throw new exception('release openされていません。');
         }
 
         return $repo;
@@ -463,7 +463,7 @@ class GitLive extends GitBase
         }
 
         if (!$repo) {
-            throw new exception ('release openされていません。');
+            throw new exception('release openされていません。');
         }
 
         return $repo;
@@ -492,7 +492,6 @@ class GitLive extends GitBase
                     continue;
                 }
                 break;
-
             }
 
             while (true) {
@@ -530,7 +529,7 @@ class GitLive extends GitBase
                 $clone_dir = trim(fgets(STDIN, 1000));
 
                 if ($clone_dir == '') {
-                    $clone_dir = NULL;
+                    $clone_dir = null;
                 }
                 break;
             }
@@ -542,18 +541,18 @@ class GitLive extends GitBase
                 $deploy_repository = $argv[4];
                 $clone_dir         = $argv[5];
             } elseif (!isset($argv[4])) {
-                $deploy_repository = NULL;
-                $clone_dir         = NULL;
+                $deploy_repository = null;
+                $clone_dir         = null;
             } elseif (strpos($argv[4], 'git') === 0 || strpos($argv[4], 'https:') === 0 || is_dir(realpath($argv[4]).'/.git/')) {
                 $deploy_repository = $argv[4];
-                $clone_dir         = NULL;
+                $clone_dir         = null;
             } else {
                 $clone_dir         = $argv[4];
-                $deploy_repository = NULL;
+                $deploy_repository = null;
             }
         }
 
-        if ($clone_dir === NULL) {
+        if ($clone_dir === null) {
             if (!$is_auto_clone_dir) {
                 $this->ncecho(_('ローカルディレクトリを自動取得できませんでした。'));
                 return;
@@ -566,7 +565,7 @@ class GitLive extends GitBase
         chdir($clone_dir);
         $this->GitCmdExecuter->remote(array('add', 'upstream', $upstream_repository));
 
-        if ($deploy_repository !== NULL) {
+        if ($deploy_repository !== null) {
             $this->GitCmdExecuter->remote(array('add', 'deploy', $deploy_repository));
         }
     }
@@ -763,13 +762,13 @@ class GitLive extends GitBase
             $this->featureStart($argv[3]);
         break;
         case 'publish':
-            $this->featurePublish(isset($argv[3]) ? $argv[3] : NULL);
+            $this->featurePublish(isset($argv[3]) ? $argv[3] : null);
         break;
         case 'push':
-            $this->featurePush(isset($argv[3]) ? $argv[3] : NULL);
+            $this->featurePush(isset($argv[3]) ? $argv[3] : null);
         break;
         case 'close':
-            $this->featureClose(isset($argv[3]) ? $argv[3] : NULL);
+            $this->featureClose(isset($argv[3]) ? $argv[3] : null);
         break;
         case 'track':
             if (!isset($argv[3])) {
@@ -780,7 +779,7 @@ class GitLive extends GitBase
             $this->featureTrack($argv[3]);
         break;
         case 'pull':
-            $this->featurePull(isset($argv[3]) ? $argv[3] : NULL);
+            $this->featurePull(isset($argv[3]) ? $argv[3] : null);
         break;
 
         default:
@@ -815,10 +814,10 @@ class GitLive extends GitBase
      * @param  var_text $repository OPTIONAL:NULL
      * @return void
      */
-    public function featurePublish($repository = NULL)
+    public function featurePublish($repository = null)
     {
         $this->GitCmdExecuter->fetch(array('--all'));
-        if ($repository === NULL) {
+        if ($repository === null) {
             $repository = $this->getSelfBranch();
         } elseif (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
@@ -834,9 +833,9 @@ class GitLive extends GitBase
      * @param  var_text $repository OPTIONAL:NULL
      * @return void
      */
-    public function featurePush($repository = NULL)
+    public function featurePush($repository = null)
     {
-        if ($repository === NULL) {
+        if ($repository === null) {
             $repository = $this->getSelfBranch();
         } elseif (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
@@ -873,9 +872,9 @@ class GitLive extends GitBase
      * @param  var_text $repository OPTIONAL:NULL
      * @return void
      */
-    public function featurePull($repository = NULL)
+    public function featurePull($repository = null)
     {
-        if ($repository === NULL) {
+        if ($repository === null) {
             $repository = $this->getSelfBranch();
         } elseif (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
@@ -891,10 +890,10 @@ class GitLive extends GitBase
      * @param  var_text $repository OPTIONAL:NULL
      * @return void
      */
-    public function featureClose($repository = NULL)
+    public function featureClose($repository = null)
     {
         $this->GitCmdExecuter->fetch(array('--all'));
-        if ($repository === NULL) {
+        if ($repository === null) {
             $repository = $this->getSelfBranch();
         } elseif (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
@@ -926,11 +925,11 @@ class GitLive extends GitBase
 
         if ($this->getSelfBranch() !== 'refs/heads/master') {
             $this->GitCmdExecuter->checkout($repo);
-            throw new exception ($mode.' '._('closeに失敗しました。')."\n"._(' masterがReleaseブランチより進んでいます。'));
+            throw new exception($mode.' '._('closeに失敗しました。')."\n"._(' masterがReleaseブランチより進んでいます。'));
         }
 
         $this->GitCmdExecuter->merge('deploy/'.$repo);
-        $diff = $this->GitCmdExecuter->diff(array('deploy/'.$repo ,'master'));
+        $diff = $this->GitCmdExecuter->diff(array('deploy/'.$repo, 'master'));
 
         if (strlen($diff) !== 0) {
             throw new exception($diff."\n".$mode.' '._('closeに失敗しました。'));
@@ -945,17 +944,17 @@ class GitLive extends GitBase
 
         if ($this->getSelfBranch() !== 'refs/heads/develop') {
             $this->GitCmdExecuter->checkout($repo);
-            throw new exception ($mode.'closeに失敗しました。');
+            throw new exception($mode.'closeに失敗しました。');
         }
 
         $this->GitCmdExecuter->merge('deploy/'.$repo);
 
         if ($mode === 'release' && !$force) {
-            $diff = $this->GitCmdExecuter->diff(array('deploy/'.$repo ,'develop'));
+            $diff = $this->GitCmdExecuter->diff(array('deploy/'.$repo, 'develop'));
         }
 
         if (strlen($diff) !== 0) {
-            throw new exception ($mode.' '._('closeに失敗しました。')."\n"._('developがReleaseブランチより進んでいます。'));
+            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('developがReleaseブランチより進んでいます。'));
         }
         $this->GitCmdExecuter->push('upstream', 'develop');
 
@@ -992,7 +991,7 @@ class GitLive extends GitBase
         $this->GitCmdExecuter->pull('upstream', $repo);
         $err =  $this->GitCmdExecuter->status(array($repo));
         if (strpos(trim($err), 'nothing to commit') === false) {
-            throw new exception ($err);
+            throw new exception($err);
         }
         $this->GitCmdExecuter->push('upstream', $repo);
         $this->GitCmdExecuter->push($this->deploy_repository_name, $repo);
@@ -1012,7 +1011,7 @@ class GitLive extends GitBase
         $this->GitCmdExecuter->pull('upstream', $repo);
         $err =  $this->GitCmdExecuter->status(array($repo));
         if (strpos($err, 'nothing to commit') === false) {
-            throw new exception ($err);
+            throw new exception($err);
         }
         $this->GitCmdExecuter->push('upstream', $repo);
     }

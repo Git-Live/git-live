@@ -51,7 +51,6 @@ class testCaseBase extends EnviTestCase
     public function __construct()
     {
         parent::__construct();
-
     }
     /* ----------------------------------------- */
 
@@ -77,7 +76,4 @@ class testCaseBase extends EnviTestCase
     {
     }
     /* ----------------------------------------- */
-
-
 }
-

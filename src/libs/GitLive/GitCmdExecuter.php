@@ -47,7 +47,7 @@ class GitCmdExecuter extends GitBase
     }
     /* ----------------------------------------- */
 
-    public function tag(array $options = NULL)
+    public function tag(array $options = null)
     {
         $cmd = 'git tag ';
         if (count($options)) {
@@ -61,7 +61,7 @@ class GitCmdExecuter extends GitBase
 
         return $res;
     }
-    public function copy(array $options = NULL)
+    public function copy(array $options = null)
     {
         $cmd = 'git clone ';
         if (count($options)) {
@@ -75,7 +75,7 @@ class GitCmdExecuter extends GitBase
 
         return $res;
     }
-    public function remote(array $options = NULL)
+    public function remote(array $options = null)
     {
         $cmd = 'git remote ';
         if (count($options)) {
@@ -89,7 +89,7 @@ class GitCmdExecuter extends GitBase
 
         return $res;
     }
-    public function status(array $options = NULL)
+    public function status(array $options = null)
     {
         $cmd = 'git status ';
         if (count($options)) {
@@ -103,7 +103,7 @@ class GitCmdExecuter extends GitBase
 
         return $res;
     }
-    public function diff(array $options = NULL)
+    public function diff(array $options = null)
     {
         $cmd = 'git diff ';
         if (count($options)) {
@@ -118,7 +118,7 @@ class GitCmdExecuter extends GitBase
         return $res;
     }
 
-    public function merge($branch, array $options = NULL)
+    public function merge($branch, array $options = null)
     {
         $cmd = 'git merge ';
         if (count($options)) {
@@ -134,7 +134,7 @@ class GitCmdExecuter extends GitBase
         return $res;
     }
 
-    public function fetch(array $options = NULL)
+    public function fetch(array $options = null)
     {
         $cmd = 'git fetch ';
         if (count($options)) {
@@ -149,7 +149,7 @@ class GitCmdExecuter extends GitBase
         return $res;
     }
 
-    public function checkout($branch, array $options = NULL)
+    public function checkout($branch, array $options = null)
     {
         $cmd = 'git checkout ';
         if (count($options)) {
@@ -164,7 +164,7 @@ class GitCmdExecuter extends GitBase
 
         return $res;
     }
-    public function branch(array $options = NULL)
+    public function branch(array $options = null)
     {
         $cmd = 'git branch ';
         if (count($options)) {
@@ -223,5 +223,4 @@ class GitCmdExecuter extends GitBase
 
         return $res;
     }
-
 }

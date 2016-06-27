@@ -43,7 +43,7 @@ require_once dirname(__FILE__).'/testCaseBase.php';
  * @since      File available since Release 1.0.0
  * @doc_ignore
  */
-class Scenario extends EnviTestScenario
+class scenario extends EnviTestScenario
 {
     public static $stack_data;
 
@@ -72,7 +72,7 @@ class Scenario extends EnviTestScenario
      */
     public static function getAttribute($k)
     {
-        return isset(self::$stack_data[$k]) ? self::$stack_data[$k] : NULL;
+        return isset(self::$stack_data[$k]) ? self::$stack_data[$k] : null;
     }
     /* ----------------------------------------- */
 
@@ -111,5 +111,4 @@ class Scenario extends EnviTestScenario
         return $arr;
     }
     /* ----------------------------------------- */
-
 }
