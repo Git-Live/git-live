@@ -19,7 +19,6 @@
  * @since      File available since Release 1.0.0
  * @doc_ignore
  */
-
 $scenario_dir = dirname(__FILE__).DIRECTORY_SEPARATOR;
 define('ENVI_MVC_APPKEY_PATH', $scenario_dir.'/../../config/');
 define('ENVI_TEST_YML', basename(dirname(__FILE__)).'.yml');

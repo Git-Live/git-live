@@ -13,7 +13,6 @@
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-
 umask(0);
 
 ini_set('max_execution_time', 0);
@@ -42,12 +41,12 @@ try {
         $CreatePhar->execute();
     }
 
-    $compile_path = BASE_DIR."/bin/git-live.phar";
+    $compile_path = BASE_DIR.'/bin/git-live.phar';
     if (is_file($compile_path)) {
         unlink($compile_path);
     }
 
-    $install_path = BASE_DIR."/git-live.php";
+    $install_path = BASE_DIR.'/git-live.php';
     if (is_file($install_path)) {
         unlink($install_path);
     }

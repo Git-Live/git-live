@@ -19,7 +19,6 @@
  * @since      File available since Release 1.0.0
  * @doc_ignore
  */
-
 define('APP_BASE', realpath(dirname(__FILE__).DIRECTORY_SEPARATOR.'../../apps/'.basename(dirname(__FILE__)).'/').DIRECTORY_SEPARATOR);
 
 /**

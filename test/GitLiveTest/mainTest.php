@@ -1,8 +1,5 @@
 <?php
 /**
- *
- *
- *
  * PHP versions 5
  *
  *
@@ -22,10 +19,6 @@
 
 
 /**
- *
- *
- *
- *
  * @category   %%project_category%%
  * @package    %%project_name%%
  * @subpackage %%subpackage_name%%
@@ -54,7 +47,7 @@ class mainTest extends testCaseBase
 
     public function executeTest()
     {
-        trigger_error("trigger_error test", E_USER_ERROR);
+        trigger_error('trigger_error test', E_USER_ERROR);
         $this->assertTrue(true);
     }
 

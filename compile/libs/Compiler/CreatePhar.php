@@ -12,7 +12,6 @@
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-
 namespace GitLive\Compile\Compiler;
 
 use Phar;
@@ -37,7 +36,7 @@ class CreatePhar
      * +-- コンストラクタ
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function __construct()
     {
@@ -51,7 +50,7 @@ class CreatePhar
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function execute()
     {
@@ -66,8 +65,8 @@ class CreatePhar
      * +--
      *
      * @access      protected
-     * @param       var_text $dir
-     * @return      array
+     * @param  var_text $dir
+     * @return array
      */
     protected function addFileList($dir)
     {

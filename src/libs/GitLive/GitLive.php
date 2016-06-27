@@ -12,7 +12,6 @@
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-
 namespace GitLive;
 
 /**
@@ -210,7 +209,7 @@ class GitLive extends GitBase
         $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
         $this->GitCmdExecuter->fetchPullRequest();
 
-        $repository = 'pullreq/'.$pull_request_number;
+        $repository          = 'pullreq/'.$pull_request_number;
         $upstream_repository = 'remotes/pr/'.$pull_request_number.'/head';
         $this->GitCmdExecuter->checkout($upstream_repository, array('-b', $repository));
     }
@@ -399,7 +398,7 @@ class GitLive extends GitBase
     {
         $remote = $this->GitCmdExecuter->remote();
         $remote = explode("\n", $remote);
-        $res =  array_search($this->deploy_repository_name, $remote) !== false;
+        $res    =  array_search($this->deploy_repository_name, $remote) !== false;
         if ($res === false) {
             throw new exception(
             sprintf(_('git live release を使用するには、%s リポジトリを設定して下さい。'), $this->deploy_repository_name)
@@ -422,7 +421,7 @@ class GitLive extends GitBase
         }
         $repository = $this->GitCmdExecuter->branch(array('-a'));
         $repository = explode("\n", $repository);
-        $repo = false;
+        $repo       = false;
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/upstream/release/')) {
                 mb_ereg('remotes/upstream/(release/[^/]*$)', $value, $match);
@@ -453,7 +452,7 @@ class GitLive extends GitBase
         }
         $repository = $this->GitCmdExecuter->branch(array('-a'));
         $repository = explode("\n", $repository);
-        $repo = false;
+        $repo       = false;
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/upstream/hotfix/')) {
                 mb_ereg('remotes/upstream/(hotfix/[^/]*$)', $value, $match);
@@ -484,33 +483,33 @@ class GitLive extends GitBase
         global $argv;
         if (!isset($argv[3])) {
             while (true) {
-                $this->ncecho(_("Please enter only your remote-repository.")."\n");
-                $this->ncecho(":");
+                $this->ncecho(_('Please enter only your remote-repository.')."\n");
+                $this->ncecho(':');
                 $clone_repository = trim(fgets(STDIN, 1000));
                 if ($clone_repository === '') {
-                    $this->ncecho(":");
+                    $this->ncecho(':');
                     continue;
                 }
                 break;
             }
 
             while (true) {
-                $this->ncecho(_("Please enter common remote-repository.")."\n");
-                $this->ncecho(":");
+                $this->ncecho(_('Please enter common remote-repository.')."\n");
+                $this->ncecho(':');
                 $upstream_repository = trim(fgets(STDIN, 1000));
 
                 if ($upstream_repository === '') {
-                    $this->ncecho(":");
+                    $this->ncecho(':');
                     continue;
                 }
                 break;
             }
 
             while (true) {
-                $this->ncecho(_("Please enter deploying dedicated remote-repository.")."\n");
-                $this->ncecho(_("If you return in the blank, it becomes the default setting.")."\n");
+                $this->ncecho(_('Please enter deploying dedicated remote-repository.')."\n");
+                $this->ncecho(_('If you return in the blank, it becomes the default setting.')."\n");
                 $this->ncecho("default:{$upstream_repository}"."\n");
-                $this->ncecho(":");
+                $this->ncecho(':');
 
                 $deploy_repository = trim(fgets(STDIN, 1000));
 
@@ -522,10 +521,10 @@ class GitLive extends GitBase
 
             $is_auto_clone_dir = mb_ereg('/([^/]+?)(\.git)?$', $clone_repository, $match);
             while (true) {
-                $this->ncecho(_("Please enter work directory path.")."\n");
-                $this->ncecho(_("If you return in the blank, it becomes the default setting.")."\n");
+                $this->ncecho(_('Please enter work directory path.')."\n");
+                $this->ncecho(_('If you return in the blank, it becomes the default setting.')."\n");
                 $this->ncecho("default:{$match[1]}"."\n");
-                $this->ncecho(":");
+                $this->ncecho(':');
                 $clone_dir = trim(fgets(STDIN, 1000));
 
                 if ($clone_dir === '') {
@@ -970,7 +969,7 @@ class GitLive extends GitBase
             $tag = $argv[3];
         } else {
             list(, $tag) = explode('/', $repo);
-            $tag = 'r'.$tag;
+            $tag         = 'r'.$tag;
         }
         $this->GitCmdExecuter->tag(array($tag));
         $this->GitCmdExecuter->tagPush('upstream');
@@ -1276,7 +1275,7 @@ class GitLive extends GitBase
      * +-- リリースを閉じる
      *
      * @access      public
-     * @param  boolean $force OPTIONAL:false
+     * @param  bool $force OPTIONAL:false
      * @return void
      */
     public function releaseClose($force = false)

@@ -12,7 +12,6 @@
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', -1);
 
@@ -41,7 +40,7 @@ setlocale(LC_ALL, $locale);
 
 
 list($lang, $code_set) = explode('.', $locale);
-$domain = substr($lang, 0, 2);
+$domain                = substr($lang, 0, 2);
 
 $Autoloader = new \GitLive\Autoloader;
 $Autoloader->register();
