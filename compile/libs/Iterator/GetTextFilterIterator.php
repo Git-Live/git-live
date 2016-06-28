@@ -33,7 +33,7 @@ class GetTextFilterIterator extends \RecursiveFilterIterator
      * +-- accept
      *
      * @access      public
-     * @return      bool
+     * @return bool
      */
     public function accept()
     {

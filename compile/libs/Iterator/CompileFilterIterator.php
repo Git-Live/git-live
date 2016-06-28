@@ -33,7 +33,7 @@ class CompileFilterIterator extends \RecursiveFilterIterator
      * +-- accept
      *
      * @access      public
-     * @return      bool
+     * @return bool
      */
     public function accept()
     {
