@@ -35,9 +35,9 @@ class GitBase
      * +--
      *
      * @access      public
-     * @param  var_text $text
-     * @param  var_text $color OPTIONAL:null
-     * @return void
+     * @param       var_text $text
+     * @param       var_text $color OPTIONAL:null
+     * @return      void
      */
     public function debug($text, $color = null)
     {
@@ -63,9 +63,9 @@ class GitBase
      * +-- 色つきecho
      *
      * @access      public
-     * @param  var_text $text
-     * @param  var_text $color
-     * @return void
+     * @param       var_text $text
+     * @param       var_text $color
+     * @return      void
      */
     public function cecho($text, $color)
     {
@@ -86,8 +86,8 @@ class GitBase
      * +-- 色なしecho
      *
      * @access      public
-     * @param  var_text $text
-     * @return void
+     * @param       var_text $text
+     * @return      void
      */
     public function ncecho($text)
     {
@@ -104,11 +104,11 @@ class GitBase
      * +-- コマンドのアップデート
      *
      * @access      public
-     * @return void
+     * @return      void
      */
     public function update()
     {
-        $url = 'https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php';
+        $url = 'https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar';
         file_put_contents(GIT_LIVE_INSTALL_DIR, file_get_contents($url));
     }
 
@@ -118,7 +118,7 @@ class GitBase
      * +-- バージョン表示
      *
      * @access      public
-     * @return void
+     * @return      void
      */
     public function version()
     {
@@ -132,7 +132,7 @@ class GitBase
      * +-- ヘルプの表示
      *
      * @access      public
-     * @return void
+     * @return      void
      */
     public function help()
     {
