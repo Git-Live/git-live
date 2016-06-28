@@ -24,7 +24,7 @@ $fixers = [
     'spaces_before_semicolon',
 
     // array syntax
-    'long_array_syntax',
+    // 'long_array_syntax',
     'single_array_no_trailing_comma',
     'multiline_array_trailing_comma',
 
@@ -62,7 +62,8 @@ $fixers = [
     'no_empty_lines_after_phpdocs',
 
     // use strict
-    'strict',
+    // 'strict',
+
 
 ];
 

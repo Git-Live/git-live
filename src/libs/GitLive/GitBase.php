@@ -1,15 +1,14 @@
 <?php
 /**
  * @category   GitCommand
- *
+ * @package    Git-Live
+ * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright Project Git Live
  * @license MIT
- *
  * @version    GIT: $Id$
- *
- * @link https://github.com/Git-Live/git-live
+ * @see https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
@@ -17,26 +16,28 @@ namespace GitLive;
 
 /**
  * @category   GitCommand
- *
+ * @package    Git-Live
+ * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright Project Git Live
  * @license MIT
- *
  * @version    GIT: $Id$
- *
- * @link https://github.com/Git-Live/git-live
+ * @see https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
 class GitBase
 {
     const VERSION = '0.1.3';
+
     /**
-     * +--.
+     * +--
      *
-     * @param var_text $text
-     * @param var_text $color OPTIONAL:NULL
+     * @access      public
+     * @param       var_text $text
+     * @param       var_text $color OPTIONAL:null
+     * @return      void
      */
     public function debug($text, $color = null)
     {
@@ -56,11 +57,15 @@ class GitBase
 
     /* ----------------------------------------- */
 
+
+
     /**
-     * +-- 色つきecho.
+     * +-- 色つきecho
      *
-     * @param var_text $text
-     * @param var_text $color
+     * @access      public
+     * @param       var_text $text
+     * @param       var_text $color
+     * @return      void
      */
     public function cecho($text, $color)
     {
@@ -76,10 +81,13 @@ class GitBase
 
     /* ----------------------------------------- */
 
+
     /**
-     * +-- 色なしecho.
+     * +-- 色なしecho
      *
-     * @param var_text $text
+     * @access      public
+     * @param       var_text $text
+     * @return      void
      */
     public function ncecho($text)
     {
@@ -93,7 +101,10 @@ class GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- コマンドのアップデート.
+     * +-- コマンドのアップデート
+     *
+     * @access      public
+     * @return      void
      */
     public function update()
     {
@@ -104,7 +115,10 @@ class GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- バージョン表示.
+     * +-- バージョン表示
+     *
+     * @access      public
+     * @return      void
      */
     public function version()
     {
@@ -115,7 +129,10 @@ class GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- ヘルプの表示.
+     * +-- ヘルプの表示
+     *
+     * @access      public
+     * @return      void
      */
     public function help()
     {

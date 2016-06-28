@@ -29,6 +29,12 @@ namespace GitLive\Compile\Iterator;
  */
 class CompileFilterIterator extends \RecursiveFilterIterator
 {
+    /**
+     * +-- accept
+     *
+     * @access      public
+     * @return      bool
+     */
     public function accept()
     {
         $iterator = $this->getInnerIterator();
@@ -46,4 +52,5 @@ class CompileFilterIterator extends \RecursiveFilterIterator
 
         return false;
     }
+    /* ----------------------------------------- */
 }

@@ -1,31 +1,32 @@
 <?php
 /**
  * @category   GitCommand
- *
+ * @package    Git-Live
+ * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright Project Git Live
  * @license MIT
- *
  * @version    GIT: $Id$
- *
- * @link https://github.com/Git-Live/git-live
+ * @see https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
+
+
 namespace GitLive;
+
 
 /**
  * @category   GitCommand
- *
+ * @package    Git-Live
+ * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright Project Git Live
  * @license MIT
- *
  * @version    GIT: $Id$
- *
- * @link https://github.com/Git-Live/git-live
+ * @see https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
@@ -34,8 +35,12 @@ class GitLive extends GitBase
     protected $deploy_repository_name = 'deploy';
     protected $GitCmdExecuter;
 
+
     /**
      * +-- コンストラクタ
+     *
+     * @access      public
+     * @return      void
      */
     public function __construct()
     {
@@ -44,8 +49,12 @@ class GitLive extends GitBase
 
     /* ----------------------------------------- */
 
+
     /**
-     * +-- 処理の実行.
+     * +-- 処理の実行
+     *
+     * @access      public
+     * @return      void
      */
     public function execute()
     {
@@ -107,7 +116,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- mergeを実行する.
+     * +-- mergeを実行する
+     *
+     * @access      public
+     * @return      void
      */
     public function log()
     {
@@ -131,7 +143,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- mergeを実行する.
+     * +-- mergeを実行する
+     *
+     * @access      public
+     * @return      void
      */
     public function merge()
     {
@@ -155,7 +170,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- プルリクエストの管理.
+     * +-- プルリクエストの管理
+     *
+     * @access      public
+     * @return      void
      */
     public function pr()
     {
@@ -198,9 +216,12 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- prTrack.
+     * +-- prTrack
      *
      * @param var_text $pull_request_number
+     *
+     * @access      public
+     * @return      void
      */
     public function prTrack($pull_request_number)
     {
@@ -217,9 +238,12 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- pr pull.
+     * +-- pr pull
      *
      * @param var_text $pull_request_number
+     *
+     * @access      public
+     * @return      void
      */
     public function prPull()
     {
@@ -242,9 +266,11 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- pr merge.
+     * +-- pr merge
      *
+     * @access      public
      * @param var_text $pull_request_number
+     * @return      void
      */
     public function prMerge($pull_request_number)
     {
@@ -260,7 +286,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- releaseを実行する.
+     * +-- releaseを実行する
+     *
+     * @access      public
+     * @return      void
      */
     public function release()
     {
@@ -307,7 +336,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- hotfixを実行する.
+     * +-- hotfixを実行する
+     *
+     * @access      public
+     * @return      void
      */
     public function hotfix()
     {
@@ -351,7 +383,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- リリースが空いているかどうか.
+     * +-- リリースが空いているかどうか
+     *
+     * @access      public
+     * @return      bool
      */
     public function isReleaseOpen()
     {
@@ -367,7 +402,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- ホットフィクスが空いているかどうか.
+     * +-- ホットフィクスが空いているかどうか
+     *
+     * @access      public
+     * @return      bool
      */
     public function isHotfixOpen()
     {
@@ -383,7 +421,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- releaseコマンド、hotfixコマンドが使用できるかどうか.
+     * +-- releaseコマンド、hotfixコマンドが使用できるかどうか
+     *
+     * @access      public
+     * @return      void
      */
     public function enableRelease()
     {
@@ -400,7 +441,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 使用しているリリースRepositoryの取得.
+     * +-- 使用しているリリースRepositoryの取得
+     *
+     * @access      public
+     * @return      string
      */
     public function getReleaseRepository()
     {
@@ -430,7 +474,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 使用しているhot fix Repositoryの取得.
+     * +-- 使用しているhot fix Repositoryの取得
+     *
+     * @access      public
+     * @return      string
      */
     public function getHotfixRepository()
     {
@@ -460,12 +507,14 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 初期化処理します.
+     * +-- 初期化処理します
      *
+     * @access      public
      * @param var_text $clone_repository
      * @param var_text $upstream_repository
      * @param var_text $deploy_repository
      * @param var_text $clone_dir
+     * @return      void
      */
     public function init()
     {
@@ -567,8 +616,9 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 今のブランチを取得する.
+     * +-- 今のブランチを取得する
      *
+     * @access      public
      * @return string
      */
     public function getSelfBranch()
@@ -584,7 +634,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- プッシュする.
+     * +-- プッシュする
+     *
+     * @access      public
+     * @return      void
      */
     public function push()
     {
@@ -601,7 +654,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- プルする.
+     * +-- プルする
+     *
+     * @access      public
+     * @return      void
      */
     public function pull()
     {
@@ -626,7 +682,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 諸々初期化します.
+     * +-- 諸々初期化します
+     *
+     * @access      public
+     * @return      void
      */
     public function start()
     {
@@ -641,7 +700,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 諸々リセットして初期化します.
+     * +-- 諸々リセットして初期化します
+     *
+     * @access      public
+     * @return      void
      */
     public function restart()
     {
@@ -667,7 +729,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- developをマージする.
+     * +-- developをマージする
+     *
+     * @access      public
+     * @return      void
      */
     public function mergeDevelop()
     {
@@ -679,7 +744,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- masterをマージする.
+     * +-- masterをマージする
+     *
+     * @access      public
+     * @return      void
      */
     public function mergeMaster()
     {
@@ -691,7 +759,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- developとの差分をみる.
+     * +-- developとの差分をみる
+     *
+     * @access      public
+     * @return      void
      */
     public function logDevelop()
     {
@@ -704,7 +775,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- masterとの差分を見る.
+     * +-- masterとの差分を見る
+     *
+     * @access      public
+     * @return      void
      */
     public function logMaster()
     {
@@ -717,7 +791,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- featureを実行する.
+     * +-- featureを実行する
+     *
+     * @access      public
+     * @return      void
      */
     public function feature()
     {
@@ -772,9 +849,12 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- featureを開始する.
+     * +-- featureを開始する
      *
+     *
+     * @access      public
      * @param var_text $repository
+     * @return      void
      */
     public function featureStart($repository)
     {
@@ -790,9 +870,11 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 共用Repositoryにfeatureを送信する.
+     * +-- 共用Repositoryにfeatureを送信する
      *
+     * @access      public
      * @param var_text $repository OPTIONAL:NULL
+     * @return      void
      */
     public function featurePublish($repository = null)
     {
@@ -809,9 +891,11 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 自分のリモートRepositoryにfeatureを送信する.
+     * +-- 自分のリモートRepositoryにfeatureを送信する
      *
+     * @access      public
      * @param var_text $repository OPTIONAL:NULL
+     * @return      void
      */
     public function featurePush($repository = null)
     {
@@ -827,9 +911,11 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 共用Repositoryから他人のfeatureを取得する.
+     * +-- 共用Repositoryから他人のfeatureを取得する
      *
+     * @access      public
      * @param var_text $repository
+     * @return      void
      */
     public function featureTrack($repository)
     {
@@ -848,9 +934,11 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 共用Repositoryからpullする.
+     * +-- 共用Repositoryからpullする
      *
+     * @access      public
      * @param var_text $repository OPTIONAL:NULL
+     * @return      void
      */
     public function featurePull($repository = null)
     {
@@ -866,9 +954,11 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- featureを閉じる.
+     * +-- featureを閉じる
      *
+     * @access      public
      * @param var_text $repository OPTIONAL:NULL
+     * @return      void
      */
     public function featureClose($repository = null)
     {
@@ -888,11 +978,13 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- hotfixCloseとreleaseClose共通処理.
+     * +-- hotfixCloseとreleaseClose共通処理
      *
+     * @access      public
      * @param var_text $repo
      * @param var_text $mode
      * @param var_text $force OPTIONAL:false
+     * @return      void
      */
     public function deployEnd($repo, $mode, $force = false)
     {
@@ -962,9 +1054,11 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- DeployブランチにSyncする.
+     * +-- DeployブランチにSyncする
      *
+     * @access      public
      * @param var_text $repo
+     * @return      void
      */
     public function deploySync($repo)
     {
@@ -983,9 +1077,11 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- upstream に pushする.
+     * +-- upstream に pushする
      *
+     * @access      public
      * @param var_text $repo
+     * @return      void
      */
     public function deployPush($repo)
     {
@@ -1002,7 +1098,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- hotfixを開く.
+     * +-- hotfixを開く
+     *
+     * @access      public
+     * @return      void
      */
     public function hotfixOpen()
     {
@@ -1032,7 +1131,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 誰かが開けたhotfixをトラックする.
+     * +-- 誰かが開けたhotfixをトラックする
+     *
+     * @access      public
+     * @return      void
      */
     public function hotfixTrack()
     {
@@ -1048,7 +1150,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 誰かが開けたhotfixをトラックする.
+     * +-- 誰かが開けたhotfixをトラックする
+     *
+     * @access      public
+     * @return      void
      */
     public function hotfixPull()
     {
@@ -1064,7 +1169,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- hotfixの状態を確かめる.
+     * +-- hotfixの状態を確かめる
+     *
+     * @access      public
+     * @return      void
      */
     public function hotfixState()
     {
@@ -1082,7 +1190,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- コードを各環境に反映する.
+     * +-- コードを各環境に反映する
+     *
+     * @access      public
+     * @return      void
      */
     public function hotfixSync()
     {
@@ -1098,7 +1209,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- コードを各環境に反映する.
+     * +-- コードを各環境に反映する
+     *
+     * @access      public
+     * @return      void
      */
     public function hotfixPush()
     {
@@ -1114,7 +1228,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- hotfixを閉じる.
+     * +-- hotfixを閉じる
+     *
+     * @access      public
+     * @return      void
      */
     public function hotfixClose()
     {
@@ -1129,7 +1246,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- リリースを開く.
+     * +-- リリースを開く
+     *
+     * @access      public
+     * @return      void
      */
     public function releaseOpen()
     {
@@ -1159,7 +1279,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 誰かが開けたリリースをトラックする.
+     * +-- 誰かが開けたリリースをトラックする
+     *
+     * @access      public
+     * @return      void
      */
     public function releaseTrack()
     {
@@ -1175,7 +1298,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- 誰かが開けたリリースをpullする.
+     * +-- 誰かが開けたリリースをpullする
+     *
+     * @access      public
+     * @return      void
      */
     public function releasePull()
     {
@@ -1191,7 +1317,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- リリースの状態を確かめる.
+     * +-- リリースの状態を確かめる
+     *
+     * @access      public
+     * @return      void
      */
     public function releaseState()
     {
@@ -1209,7 +1338,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- コードを各環境に反映する.
+     * +-- コードを各環境に反映する
+     *
+     * @access      public
+     * @return      void
      */
     public function releaseSync()
     {
@@ -1224,7 +1356,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- コードを各環境に反映する.
+     * +-- コードを各環境に反映する
+     *
+     * @access      public
+     * @return      void
      */
     public function releasePush()
     {
@@ -1239,7 +1374,10 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
-     * +-- リリースを閉じる.
+     * +-- リリースを閉じる
+     *
+     * @access      public
+     * @return      void
      *
      * @param bool $force OPTIONAL:false
      */
