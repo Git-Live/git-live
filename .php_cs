@@ -1,8 +1,7 @@
 <?php
 $finder = Symfony\Component\Finder\Finder::create()
-	->notPath('bin')
-	->notPath('.git')
-    ->in(__DIR__)
+    ->in(__DIR__.DIRECTORY_SEPARATOR.'src')
+    ->in(__DIR__.DIRECTORY_SEPARATOR.'compile')
     ->name('*.php')
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
@@ -16,7 +15,7 @@ $fixers = [
 
     // use
     'ordered_use',
-    'remove_leading_slash_use',
+    // 'remove_leading_slash_use',
     'remove_lines_between_uses',
 
     // semicolon

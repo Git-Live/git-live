@@ -1,13 +1,14 @@
 <?php
 /**
  * @category   GitCommand
- * @package    GitLive
- * @subpackage GitLiveFlow
+ *
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright Project Git Live
  * @license MIT
+ *
  * @version    GIT: $Id$
+ *
  * @link https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
@@ -16,13 +17,14 @@ namespace GitLive;
 
 /**
  * @category   GitCommand
- * @package    GitLive
- * @subpackage GitLiveFlow
+ *
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright Project Git Live
  * @license MIT
+ *
  * @version    GIT: $Id$
+ *
  * @link https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
@@ -30,9 +32,8 @@ namespace GitLive;
 class GitCmdExecuter extends GitBase
 {
     /**
-     * +--
+     * +--.
      *
-     * @access      public
      * @return string
      */
     public function fetchPullRequest()
@@ -54,6 +55,7 @@ class GitCmdExecuter extends GitBase
                 $cmd .= ' '.$option;
             }
         }
+
         $this->debug($cmd, 6);
         $res = `$cmd`;
         $this->debug($res);
@@ -68,6 +70,7 @@ class GitCmdExecuter extends GitBase
                 $cmd .= ' '.$option;
             }
         }
+
         $this->debug($cmd, 6);
         $res = `$cmd`;
         $this->debug($res);
@@ -82,6 +85,7 @@ class GitCmdExecuter extends GitBase
                 $cmd .= ' '.$option;
             }
         }
+
         $this->debug($cmd, 6);
         $res = `$cmd`;
         $this->debug($res);
@@ -96,6 +100,7 @@ class GitCmdExecuter extends GitBase
                 $cmd .= ' '.$option;
             }
         }
+
         $this->debug($cmd, 6);
         $res = `$cmd`;
         $this->debug($res);
@@ -110,6 +115,7 @@ class GitCmdExecuter extends GitBase
                 $cmd .= ' '.$option;
             }
         }
+
         $this->debug($cmd, 6);
         $res = `$cmd`;
         $this->debug($res);
@@ -125,6 +131,7 @@ class GitCmdExecuter extends GitBase
                 $cmd .= ' '.$option;
             }
         }
+
         $cmd .= ' '.$branch;
         $this->debug($cmd, 6);
         $res = `$cmd`;
@@ -141,6 +148,7 @@ class GitCmdExecuter extends GitBase
                 $cmd .= ' '.$option;
             }
         }
+
         $this->debug($cmd, 6);
         $res = `$cmd`;
         $this->debug($res);
@@ -156,6 +164,7 @@ class GitCmdExecuter extends GitBase
                 $cmd .= ' '.$option;
             }
         }
+
         $cmd .= ' '.$branch;
         $this->debug($cmd, 6);
         $res = `$cmd`;
@@ -171,6 +180,7 @@ class GitCmdExecuter extends GitBase
                 $cmd .= ' '.$option;
             }
         }
+
         $this->debug($cmd, 6);
         $res = `$cmd`;
         $this->debug($res);

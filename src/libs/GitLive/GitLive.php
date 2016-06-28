@@ -1,13 +1,14 @@
 <?php
 /**
  * @category   GitCommand
- * @package    GitLive
- * @subpackage GitLiveFlow
+ *
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright Project Git Live
  * @license MIT
+ *
  * @version    GIT: $Id$
+ *
  * @link https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
@@ -16,13 +17,14 @@ namespace GitLive;
 
 /**
  * @category   GitCommand
- * @package    GitLive
- * @subpackage GitLiveFlow
+ *
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright Project Git Live
  * @license MIT
+ *
  * @version    GIT: $Id$
+ *
  * @link https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
@@ -34,21 +36,16 @@ class GitLive extends GitBase
 
     /**
      * +-- コンストラクタ
-     *
-     * @access      public
-     * @return void
      */
     public function __construct()
     {
-        $this->GitCmdExecuter = new GitCmdExecuter;
+        $this->GitCmdExecuter = new GitCmdExecuter();
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 処理の実行
-     *
-     * @access      public
-     * @return void
+     * +-- 処理の実行.
      */
     public function execute()
     {
@@ -58,7 +55,13 @@ class GitLive extends GitBase
 
             return;
         }
+
         switch ($argv[1]) {
+        case '--version':
+        case '-v':
+            $this->version();
+        break;
+
         case 'start':
             $this->start();
         break;
@@ -100,13 +103,11 @@ class GitLive extends GitBase
         break;
         }
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- mergeを実行する
-     *
-     * @access      public
-     * @return void
+     * +-- mergeを実行する.
      */
     public function log()
     {
@@ -116,6 +117,7 @@ class GitLive extends GitBase
 
             return;
         }
+
         switch ($argv[2]) {
             case 'develop':
                 $this->logDevelop();
@@ -125,13 +127,11 @@ class GitLive extends GitBase
             break;
         }
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- mergeを実行する
-     *
-     * @access      public
-     * @return void
+     * +-- mergeを実行する.
      */
     public function merge()
     {
@@ -141,6 +141,7 @@ class GitLive extends GitBase
 
             return;
         }
+
         switch ($argv[2]) {
             case 'develop':
                 $this->mergeDevelop();
@@ -150,13 +151,11 @@ class GitLive extends GitBase
             break;
         }
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- プルリクエストの管理
-     *
-     * @access      public
-     * @return void
+     * +-- プルリクエストの管理.
      */
     public function pr()
     {
@@ -174,6 +173,7 @@ class GitLive extends GitBase
 
                 return;
             }
+
             $this->prTrack($argv[3]);
         break;
         case 'pull':
@@ -185,6 +185,7 @@ class GitLive extends GitBase
 
                 return;
             }
+
             $this->prMerge($argv[3]);
         break;
 
@@ -193,14 +194,13 @@ class GitLive extends GitBase
         break;
         }
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- prTrack
+     * +-- prTrack.
      *
-     * @access      public
-     * @param  var_text $pull_request_number
-     * @return void
+     * @param var_text $pull_request_number
      */
     public function prTrack($pull_request_number)
     {
@@ -213,14 +213,13 @@ class GitLive extends GitBase
         $upstream_repository = 'remotes/pr/'.$pull_request_number.'/head';
         $this->GitCmdExecuter->checkout($upstream_repository, array('-b', $repository));
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- pr pull
+     * +-- pr pull.
      *
-     * @access      public
-     * @param  var_text $pull_request_number
-     * @return void
+     * @param var_text $pull_request_number
      */
     public function prPull()
     {
@@ -228,6 +227,7 @@ class GitLive extends GitBase
         if (!mb_ereg('/pullreq/([0-9]+)', $branch, $match)) {
             return;
         }
+
         $pull_request_number = $match[1];
 
         $this->GitCmdExecuter->fetch(array('--all'));
@@ -238,14 +238,13 @@ class GitLive extends GitBase
         $upstream_repository = 'pull/'.$pull_request_number.'/head';
         $this->GitCmdExecuter->pull('upstream', $upstream_repository);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- pr merge
+     * +-- pr merge.
      *
-     * @access      public
-     * @param  var_text $pull_request_number
-     * @return void
+     * @param var_text $pull_request_number
      */
     public function prMerge($pull_request_number)
     {
@@ -257,13 +256,11 @@ class GitLive extends GitBase
         $upstream_repository = 'pull/'.$pull_request_number.'/head';
         $this->GitCmdExecuter->pull('upstream', $upstream_repository);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- releaseを実行する
-     *
-     * @access      public
-     * @return void
+     * +-- releaseを実行する.
      */
     public function release()
     {
@@ -273,6 +270,7 @@ class GitLive extends GitBase
 
             return;
         }
+
         $this->GitCmdExecuter->fetch(array('--all'));
         $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
         $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
@@ -305,13 +303,11 @@ class GitLive extends GitBase
         break;
         }
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- hotfixを実行する
-     *
-     * @access      public
-     * @return void
+     * +-- hotfixを実行する.
      */
     public function hotfix()
     {
@@ -321,6 +317,7 @@ class GitLive extends GitBase
 
             return;
         }
+
         $this->GitCmdExecuter->fetch(array('--all'));
         $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
         $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
@@ -350,13 +347,11 @@ class GitLive extends GitBase
         break;
         }
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- リリースが空いているかどうか
-     *
-     * @access      public
-     * @return void
+     * +-- リリースが空いているかどうか.
      */
     public function isReleaseOpen()
     {
@@ -368,13 +363,11 @@ class GitLive extends GitBase
 
         return true;
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- ホットフィクスが空いているかどうか
-     *
-     * @access      public
-     * @return void
+     * +-- ホットフィクスが空いているかどうか.
      */
     public function isHotfixOpen()
     {
@@ -386,32 +379,28 @@ class GitLive extends GitBase
 
         return true;
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- releaseコマンド、hotfixコマンドが使用できるかどうか
-     *
-     * @access      public
-     * @return void
+     * +-- releaseコマンド、hotfixコマンドが使用できるかどうか.
      */
     public function enableRelease()
     {
         $remote = $this->GitCmdExecuter->remote();
         $remote = explode("\n", $remote);
-        $res    =  array_search($this->deploy_repository_name, $remote) !== false;
+        $res    = array_search($this->deploy_repository_name, $remote) !== false;
         if ($res === false) {
             throw new exception(
             sprintf(_('git live release を使用するには、%s リポジトリを設定して下さい。'), $this->deploy_repository_name)
             );
         }
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 使用しているリリースRepositoryの取得
-     *
-     * @access      public
-     * @return void
+     * +-- 使用しているリリースRepositoryの取得.
      */
     public function getReleaseRepository()
     {
@@ -419,6 +408,7 @@ class GitLive extends GitBase
         if ($repo) {
             return $repo;
         }
+
         $repository = $this->GitCmdExecuter->branch(array('-a'));
         $repository = explode("\n", $repository);
         $repo       = false;
@@ -436,13 +426,11 @@ class GitLive extends GitBase
 
         return $repo;
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 使用しているhot fix Repositoryの取得
-     *
-     * @access      public
-     * @return void
+     * +-- 使用しているhot fix Repositoryの取得.
      */
     public function getHotfixRepository()
     {
@@ -450,6 +438,7 @@ class GitLive extends GitBase
         if ($repo) {
             return $repo;
         }
+
         $repository = $this->GitCmdExecuter->branch(array('-a'));
         $repository = explode("\n", $repository);
         $repo       = false;
@@ -467,16 +456,16 @@ class GitLive extends GitBase
 
         return $repo;
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 初期化処理します
+     * +-- 初期化処理します.
      *
-     * @param  var_text $clone_repository
-     * @param  var_text $upstream_repository
-     * @param  var_text $deploy_repository
-     * @param  var_text $clone_dir
-     * @return void
+     * @param var_text $clone_repository
+     * @param var_text $upstream_repository
+     * @param var_text $deploy_repository
+     * @param var_text $clone_dir
      */
     public function init()
     {
@@ -490,6 +479,7 @@ class GitLive extends GitBase
                     $this->ncecho(':');
                     continue;
                 }
+
                 break;
             }
 
@@ -502,6 +492,7 @@ class GitLive extends GitBase
                     $this->ncecho(':');
                     continue;
                 }
+
                 break;
             }
 
@@ -516,6 +507,7 @@ class GitLive extends GitBase
                 if ($deploy_repository === '') {
                     $deploy_repository = $upstream_repository;
                 }
+
                 break;
             }
 
@@ -530,10 +522,11 @@ class GitLive extends GitBase
                 if ($clone_dir === '') {
                     $clone_dir = null;
                 }
+
                 break;
             }
         } else {
-            $clone_repository    = $argv[2];
+            $clone_repository = $argv[2];
 
             $upstream_repository = $argv[3];
             if (isset($argv[5])) {
@@ -554,8 +547,10 @@ class GitLive extends GitBase
         if ($clone_dir === null) {
             if (!$is_auto_clone_dir) {
                 $this->ncecho(_('ローカルディレクトリを自動取得できませんでした。'));
+
                 return;
             }
+
             $clone_dir = getcwd().DIRECTORY_SEPARATOR.$match[1];
         }
 
@@ -568,12 +563,12 @@ class GitLive extends GitBase
             $this->GitCmdExecuter->remote(array('add', 'deploy', $deploy_repository));
         }
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 今のブランチを取得する
+     * +-- 今のブランチを取得する.
      *
-     * @access      public
      * @return string
      */
     public function getSelfBranch()
@@ -585,13 +580,11 @@ class GitLive extends GitBase
 
         return trim($self_blanch);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- プッシュする
-     *
-     * @access      public
-     * @return void
+     * +-- プッシュする.
      */
     public function push()
     {
@@ -604,13 +597,11 @@ class GitLive extends GitBase
 
         $this->GitCmdExecuter->push($remote, $branch);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- プルする
-     *
-     * @access      public
-     * @return void
+     * +-- プルする.
      */
     public function pull()
     {
@@ -625,17 +616,17 @@ class GitLive extends GitBase
             if (strpos($branch, 'refs/heads/release') || strpos($branch, 'refs/heads/hotfix')) {
                 $remote = 'upstream';
             }
+
         break;
         }
+
         $this->GitCmdExecuter->pull($remote, $branch);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 諸々初期化します
-     *
-     * @access      public
-     * @return void
+     * +-- 諸々初期化します.
      */
     public function start()
     {
@@ -646,13 +637,11 @@ class GitLive extends GitBase
         $this->GitCmdExecuter->pull('upstream', 'master');
         $this->GitCmdExecuter->push('origin', 'master');
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 諸々リセットして初期化します
-     *
-     * @access      public
-     * @return void
+     * +-- 諸々リセットして初期化します.
      */
     public function restart()
     {
@@ -674,13 +663,11 @@ class GitLive extends GitBase
         $this->GitCmdExecuter->fetch(array('--all'));
         $this->GitCmdExecuter->fetch(array('-p'));
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- developをマージする
-     *
-     * @access      public
-     * @return void
+     * +-- developをマージする.
      */
     public function mergeDevelop()
     {
@@ -688,13 +675,11 @@ class GitLive extends GitBase
         $this->GitCmdExecuter->fetch(array('-p'));
         $this->GitCmdExecuter->merge('upstream/develop');
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- masterをマージする
-     *
-     * @access      public
-     * @return void
+     * +-- masterをマージする.
      */
     public function mergeMaster()
     {
@@ -702,43 +687,37 @@ class GitLive extends GitBase
         $this->GitCmdExecuter->fetch(array('-p'));
         $this->GitCmdExecuter->merge('upstream/master');
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- developとの差分をみる
-     *
-     * @access      public
-     * @return void
+     * +-- developとの差分をみる.
      */
     public function logDevelop()
     {
         $this->GitCmdExecuter->fetch(array('--all'));
         $this->GitCmdExecuter->fetch(array('-p'));
         $repository = $this->getSelfBranch();
-        $this->ncecho($this->GitCmdExecuter->log('develop', $repository, '--left-right'));
+        $this->ncecho($this->GitCmdExecuter->log('upstream/develop', $repository, '--left-right'));
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- masterとの差分を見る
-     *
-     * @access      public
-     * @return void
+     * +-- masterとの差分を見る.
      */
     public function logMaster()
     {
         $this->GitCmdExecuter->fetch(array('--all'));
         $this->GitCmdExecuter->fetch(array('-p'));
         $repository = $this->getSelfBranch();
-        $this->ncecho($this->GitCmdExecuter->log('master', $repository, '--left-right'));
+        $this->ncecho($this->GitCmdExecuter->log('upstream/master', $repository, '--left-right'));
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- featureを実行する
-     *
-     * @access      public
-     * @return void
+     * +-- featureを実行する.
      */
     public function feature()
     {
@@ -751,6 +730,7 @@ class GitLive extends GitBase
 
             return;
         }
+
         switch ($argv[2]) {
         case 'start':
             if (!isset($argv[3])) {
@@ -758,6 +738,7 @@ class GitLive extends GitBase
 
                 return;
             }
+
             $this->featureStart($argv[3]);
         break;
         case 'publish':
@@ -775,6 +756,7 @@ class GitLive extends GitBase
 
                 return;
             }
+
             $this->featureTrack($argv[3]);
         break;
         case 'pull':
@@ -786,14 +768,13 @@ class GitLive extends GitBase
         break;
         }
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- featureを開始する
+     * +-- featureを開始する.
      *
-     * @access      public
-     * @param  var_text $repository
-     * @return void
+     * @param var_text $repository
      */
     public function featureStart($repository)
     {
@@ -801,17 +782,17 @@ class GitLive extends GitBase
         if (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
+
         $this->GitCmdExecuter->checkout('upstream/develop');
         $this->GitCmdExecuter->checkout($repository, array('-b'));
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 共用Repositoryにfeatureを送信する
+     * +-- 共用Repositoryにfeatureを送信する.
      *
-     * @access      public
-     * @param  var_text $repository OPTIONAL:NULL
-     * @return void
+     * @param var_text $repository OPTIONAL:NULL
      */
     public function featurePublish($repository = null)
     {
@@ -821,16 +802,16 @@ class GitLive extends GitBase
         } elseif (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
+
         $this->GitCmdExecuter->push('upstream', $repository);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 自分のリモートRepositoryにfeatureを送信する
+     * +-- 自分のリモートRepositoryにfeatureを送信する.
      *
-     * @access      public
-     * @param  var_text $repository OPTIONAL:NULL
-     * @return void
+     * @param var_text $repository OPTIONAL:NULL
      */
     public function featurePush($repository = null)
     {
@@ -839,22 +820,23 @@ class GitLive extends GitBase
         } elseif (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
+
         $this->GitCmdExecuter->push('origin', $repository);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 共用Repositoryから他人のfeatureを取得する
+     * +-- 共用Repositoryから他人のfeatureを取得する.
      *
-     * @access      public
-     * @param  var_text $repository
-     * @return void
+     * @param var_text $repository
      */
     public function featureTrack($repository)
     {
         if (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
+
         $self_repository = $this->getSelfBranch();
         $this->GitCmdExecuter->pull('upstream', $repository);
 
@@ -862,14 +844,13 @@ class GitLive extends GitBase
             $this->GitCmdExecuter->checkout($repository);
         }
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 共用Repositoryからpullする
+     * +-- 共用Repositoryからpullする.
      *
-     * @access      public
-     * @param  var_text $repository OPTIONAL:NULL
-     * @return void
+     * @param var_text $repository OPTIONAL:NULL
      */
     public function featurePull($repository = null)
     {
@@ -878,16 +859,16 @@ class GitLive extends GitBase
         } elseif (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
+
         $this->GitCmdExecuter->pull('upstream', $repository);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- featureを閉じる
+     * +-- featureを閉じる.
      *
-     * @access      public
-     * @param  var_text $repository OPTIONAL:NULL
-     * @return void
+     * @param var_text $repository OPTIONAL:NULL
      */
     public function featureClose($repository = null)
     {
@@ -897,21 +878,21 @@ class GitLive extends GitBase
         } elseif (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
+
         $this->GitCmdExecuter->push('upstream', ':'.$repository);
         $this->GitCmdExecuter->push('origin', ':'.$repository);
         $this->GitCmdExecuter->checkout('develop');
         $this->GitCmdExecuter->branch(array('-D', $repository));
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- hotfixCloseとreleaseClose共通処理
+     * +-- hotfixCloseとreleaseClose共通処理.
      *
-     * @access      public
-     * @param  var_text $repo
-     * @param  var_text $mode
-     * @param  var_text $force OPTIONAL:false
-     * @return void
+     * @param var_text $repo
+     * @param var_text $mode
+     * @param var_text $force OPTIONAL:false
      */
     public function deployEnd($repo, $mode, $force = false)
     {
@@ -933,6 +914,7 @@ class GitLive extends GitBase
         if (strlen($diff) !== 0) {
             throw new exception($diff."\n".$mode.' '._('closeに失敗しました。'));
         }
+
         $this->GitCmdExecuter->push('upstream', 'master');
         $this->GitCmdExecuter->push('deploy', 'master');
 
@@ -955,6 +937,7 @@ class GitLive extends GitBase
         if (strlen($diff) !== 0) {
             throw new exception($mode.' '._('closeに失敗しました。')."\n"._('developがReleaseブランチより進んでいます。'));
         }
+
         $this->GitCmdExecuter->push('upstream', 'develop');
 
         // Repositoryの掃除
@@ -971,56 +954,55 @@ class GitLive extends GitBase
             list(, $tag) = explode('/', $repo);
             $tag         = 'r'.$tag;
         }
+
         $this->GitCmdExecuter->tag(array($tag));
         $this->GitCmdExecuter->tagPush('upstream');
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- DeployブランチにSyncする
+     * +-- DeployブランチにSyncする.
      *
-     * @access      public
-     * @param  var_text $repo
-     * @return void
+     * @param var_text $repo
      */
     public function deploySync($repo)
     {
         $this->GitCmdExecuter->checkout($repo, array('-b'));
         $this->GitCmdExecuter->pull('deploy', $repo);
         $this->GitCmdExecuter->pull('upstream', $repo);
-        $err =  $this->GitCmdExecuter->status(array($repo));
+        $err = $this->GitCmdExecuter->status(array($repo));
         if (strpos(trim($err), 'nothing to commit') === false) {
             throw new exception($err);
         }
+
         $this->GitCmdExecuter->push('upstream', $repo);
         $this->GitCmdExecuter->push($this->deploy_repository_name, $repo);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- upstream に pushする
+     * +-- upstream に pushする.
      *
-     * @access      public
-     * @param  var_text $repo
-     * @return void
+     * @param var_text $repo
      */
     public function deployPush($repo)
     {
         $this->GitCmdExecuter->checkout($repo);
         $this->GitCmdExecuter->pull('upstream', $repo);
-        $err =  $this->GitCmdExecuter->status(array($repo));
+        $err = $this->GitCmdExecuter->status(array($repo));
         if (strpos($err, 'nothing to commit') === false) {
             throw new exception($err);
         }
+
         $this->GitCmdExecuter->push('upstream', $repo);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- hotfixを開く
-     *
-     * @access      public
-     * @return void
+     * +-- hotfixを開く.
      */
     public function hotfixOpen()
     {
@@ -1037,6 +1019,7 @@ class GitLive extends GitBase
                 throw new exception(_('既にhotfix open されています。')."\n".$value);
             }
         }
+
         $hotfix_rep = 'hotfix/'.date('Ymdhis');
 
         $this->GitCmdExecuter->checkout('upstream/master');
@@ -1045,47 +1028,43 @@ class GitLive extends GitBase
         $this->GitCmdExecuter->push('upstream', $hotfix_rep);
         $this->GitCmdExecuter->push('deploy', $hotfix_rep);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 誰かが開けたhotfixをトラックする
-     *
-     * @access      public
-     * @return void
+     * +-- 誰かが開けたhotfixをトラックする.
      */
     public function hotfixTrack()
     {
         if (!$this->isHotfixOpen()) {
             throw new exception(_('hotfix openされていません。'));
         }
+
         $repo = $this->getHotfixRepository();
         $this->GitCmdExecuter->pull('deploy', $repo);
         $this->GitCmdExecuter->checkout($repo);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 誰かが開けたhotfixをトラックする
-     *
-     * @access      public
-     * @return void
+     * +-- 誰かが開けたhotfixをトラックする.
      */
     public function hotfixPull()
     {
         if (!$this->isHotfixOpen()) {
             throw new exception(_('hotfix openされていません。'));
         }
+
         $repo = $this->getHotfixRepository();
         $this->GitCmdExecuter->pull('upstream', $repo);
         $this->GitCmdExecuter->checkout($repo);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- hotfixの状態を確かめる
-     *
-     * @access      public
-     * @return void
+     * +-- hotfixの状態を確かめる.
      */
     public function hotfixState()
     {
@@ -1096,15 +1075,14 @@ class GitLive extends GitBase
 
             return;
         }
+
         $this->ncecho("hotfix is close.\n");
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- コードを各環境に反映する
-     *
-     * @access      public
-     * @return void
+     * +-- コードを各環境に反映する.
      */
     public function hotfixSync()
     {
@@ -1116,13 +1094,11 @@ class GitLive extends GitBase
 
         $this->deploySync($repo);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- コードを各環境に反映する
-     *
-     * @access      public
-     * @return void
+     * +-- コードを各環境に反映する.
      */
     public function hotfixPush()
     {
@@ -1134,13 +1110,11 @@ class GitLive extends GitBase
 
         $this->deployPush($repo);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- hotfixを閉じる
-     *
-     * @access      public
-     * @return void
+     * +-- hotfixを閉じる.
      */
     public function hotfixClose()
     {
@@ -1151,13 +1125,11 @@ class GitLive extends GitBase
         $repo = $this->getHotfixRepository();
         $this->deployEnd($repo, 'hotfix');
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- リリースを開く
-     *
-     * @access      public
-     * @return void
+     * +-- リリースを開く.
      */
     public function releaseOpen()
     {
@@ -1174,6 +1146,7 @@ class GitLive extends GitBase
                 throw new exception(_('既にrelease open されています。'.$value));
             }
         }
+
         $release_rep = 'release/'.date('Ymdhis');
 
         $this->GitCmdExecuter->checkout('upstream/develop');
@@ -1182,47 +1155,43 @@ class GitLive extends GitBase
         $this->GitCmdExecuter->push('upstream', $release_rep);
         $this->GitCmdExecuter->push('deploy', $release_rep);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 誰かが開けたリリースをトラックする
-     *
-     * @access      public
-     * @return void
+     * +-- 誰かが開けたリリースをトラックする.
      */
     public function releaseTrack()
     {
         if (!$this->isReleaseOpen()) {
             throw new exception(_('release openされていません。'));
         }
+
         $repo = $this->getReleaseRepository();
         $this->GitCmdExecuter->pull('deploy', $repo);
         $this->GitCmdExecuter->checkout($repo);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 誰かが開けたリリースをpullする
-     *
-     * @access      public
-     * @return void
+     * +-- 誰かが開けたリリースをpullする.
      */
     public function releasePull()
     {
         if (!$this->isReleaseOpen()) {
             throw new exception(_('release openされていません。'));
         }
+
         $repo = $this->getReleaseRepository();
         $this->GitCmdExecuter->pull('upstream', $repo);
         $this->GitCmdExecuter->checkout($repo);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- リリースの状態を確かめる
-     *
-     * @access      public
-     * @return void
+     * +-- リリースの状態を確かめる.
      */
     public function releaseState()
     {
@@ -1233,15 +1202,14 @@ class GitLive extends GitBase
 
             return;
         }
+
         $this->ncecho("release is close.\n");
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- コードを各環境に反映する
-     *
-     * @access      public
-     * @return void
+     * +-- コードを各環境に反映する.
      */
     public function releaseSync()
     {
@@ -1252,13 +1220,11 @@ class GitLive extends GitBase
         $repo = $this->getReleaseRepository();
         $this->deploySync($repo);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- コードを各環境に反映する
-     *
-     * @access      public
-     * @return void
+     * +-- コードを各環境に反映する.
      */
     public function releasePush()
     {
@@ -1269,14 +1235,13 @@ class GitLive extends GitBase
         $repo = $this->getReleaseRepository();
         $this->deployPush($repo);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- リリースを閉じる
+     * +-- リリースを閉じる.
      *
-     * @access      public
-     * @param  bool $force OPTIONAL:false
-     * @return void
+     * @param bool $force OPTIONAL:false
      */
     public function releaseClose($force = false)
     {
@@ -1288,6 +1253,8 @@ class GitLive extends GitBase
         $repo = $this->getReleaseRepository();
         $this->deployEnd($repo, 'release', $force);
     }
+
     /* ----------------------------------------- */
 }
+
 /* ----------------------------------------- */

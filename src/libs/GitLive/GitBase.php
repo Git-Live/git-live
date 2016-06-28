@@ -1,13 +1,14 @@
 <?php
 /**
  * @category   GitCommand
- * @package    GitLive
- * @subpackage GitLiveFlow
+ *
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright Project Git Live
  * @license MIT
+ *
  * @version    GIT: $Id$
+ *
  * @link https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
@@ -16,26 +17,26 @@ namespace GitLive;
 
 /**
  * @category   GitCommand
- * @package    GitLive
- * @subpackage GitLiveFlow
+ *
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright Project Git Live
  * @license MIT
+ *
  * @version    GIT: $Id$
+ *
  * @link https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
 class GitBase
 {
+    const VERSION = '0.1.3';
     /**
-     * +--
+     * +--.
      *
-     * @access      public
-     * @param  var_text $text
-     * @param  var_text $color OPTIONAL:NULL
-     * @return void
+     * @param var_text $text
+     * @param var_text $color OPTIONAL:NULL
      */
     public function debug($text, $color = null)
     {
@@ -43,22 +44,23 @@ class GitBase
         if (!$is_debug) {
             return;
         }
+
         if ($color === null) {
             $this->ncecho($text);
 
             return;
         }
+
         $this->cecho($text, $color);
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 色つきecho
+     * +-- 色つきecho.
      *
-     * @access      public
-     * @param  var_text $text
-     * @param  var_text $color
-     * @return void
+     * @param var_text $text
+     * @param var_text $color
      */
     public function cecho($text, $color)
     {
@@ -67,50 +69,58 @@ class GitBase
 
             return;
         }
+
         $cmd = 'echo -e "\e[3'.$color.'m'.escapeshellarg($text).'\e[m"';
-        `$cmd`;
+        echo `$cmd`;
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- 色なしecho
+     * +-- 色なしecho.
      *
-     * @access      public
-     * @param  var_text $text
-     * @return void
+     * @param var_text $text
      */
     public function ncecho($text)
     {
         if (DIRECTORY_SEPARATOR === '\\') {
             $text = mb_convert_encoding($text, 'SJIS-win', 'utf8');
         }
+
         echo $text;
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- コマンドのアップデート
-     *
-     * @access      public
-     * @return void
+     * +-- コマンドのアップデート.
      */
     public function update()
     {
         $url = 'https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php';
         file_put_contents(GIT_LIVE_INSTALL_DIR, file_get_contents($url));
     }
+
     /* ----------------------------------------- */
 
     /**
-     * +-- ヘルプの表示
-     *
-     * @access      public
-     * @return void
+     * +-- バージョン表示.
+     */
+    public function version()
+    {
+        $indent = '    ';
+        $this->ncecho('Git Live version '.self::VERSION."\n");
+    }
+
+    /* ----------------------------------------- */
+
+    /**
+     * +-- ヘルプの表示.
      */
     public function help()
     {
         $indent = '    ';
-        $this->ncecho("GIT-LIVE(1){$indent}{$indent}{$indent}{$indent}{$indent}Git Manual{$indent}{$indent}{$indent}{$indent}{$indent}GIT-LIVE(1)\n");
+        $this->ncecho('Git Live version '.self::VERSION."\n");
         $this->ncecho("NAME\n");
         $this->ncecho("{$indent}{$indent}git-live - "._('安全で効率的な、リポジトリ運用をサポートします。')."\n");
         $this->ncecho("SYNOPSIS\n");
@@ -239,5 +249,6 @@ class GitBase
         $this->ncecho("{$indent}{$indent}{$indent}".'clone_dir：'."\n");
         $this->ncecho("{$indent}{$indent}{$indent}{$indent}"._('cloneするローカルのディレクトリ。')."\n");
     }
+
     /* ----------------------------------------- */
 }
