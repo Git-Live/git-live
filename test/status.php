@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set('Europe/London');
+
 foreach (file($argv[1]) as $stdin) {
     if (!trim($stdin)) {
         continue;
