@@ -1,6 +1,7 @@
 # Git Live Flow
-<img src="https://travis-ci.org/Git-Live/git-live.svg?branch=master">
-
+<img src="">
+[![travis-ci](https://travis-ci.org/Git-Live/git-live.svg?branch=master)](https://travis-ci.org/)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Git-Live/git-live/master/LICENSE)
 ## git-flow
 
 [git-flow](http://nvie.com/posts/a-successful-git-branching-model/)
