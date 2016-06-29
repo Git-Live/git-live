@@ -39,9 +39,17 @@ git-liveを使用するためには、PHP5.4以上が必要です。
 ### Unix系OS
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-wget https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php
-chmod 0777 ./git-live.php
-sudo cp ./git-live.php /usr/bin/git-live
+$ wget https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php -O git-live
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+もしくは
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$ curl https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php -o git-live
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+その後、
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$ chmod 0777 ./git-live
+$ sudo mv ./git-live /usr/local/bin/git-live
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
