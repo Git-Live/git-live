@@ -21,7 +21,7 @@
  */
 
 ini_set( 'display_errors', 1 );
-date_default_timezone_set(date_default_timezone_get());
+date_default_timezone_set('Europe/London');
 
 
 define('BASE_DIR', dirname(__DIR__));
