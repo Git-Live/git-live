@@ -47,9 +47,11 @@ $Autoloader->register();
 
 
 if (GIT_LIVE_VERSION === 'phar') {
+    $Autoloader->addNamespace('GitLive\Driver', 'phar://git-live.phar/libs/GitLive/Driver');
     $Autoloader->addNamespace('GitLive', 'phar://git-live.phar/libs/GitLive');
     bindtextdomain($domain, 'phar://git-live.phar/lang/');
 } else {
+    $Autoloader->addNamespace('GitLive\Driver', __DIR__.'/libs/GitLive/Driver');
     $Autoloader->addNamespace('GitLive', __DIR__.'/libs/GitLive');
     bindtextdomain($domain, __DIR__.'/lang/');
 }

@@ -8,7 +8,7 @@
  * @copyright Project Git Live
  * @license MIT
  * @version    GIT: $Id$
- * @see https://github.com/Git-Live/git-live
+ * @link https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
@@ -23,7 +23,7 @@ namespace GitLive;
  * @copyright Project Git Live
  * @license MIT
  * @version    GIT: $Id$
- * @see https://github.com/Git-Live/git-live
+ * @link https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
@@ -41,6 +41,7 @@ class Autoloader
      * Register loader with SPL autoloader stack.
      *
      * @return void
+     * @codeCoverageIgnore
      */
     public function register()
     {
@@ -137,9 +138,7 @@ class Autoloader
             // replace the namespace prefix with the base directory,
             // replace namespace separators with directory separators
             // in the relative class name, append with .php
-            $file = $base_dir
-                  . str_replace('\\', '/', $relative_class)
-                  . '.php';
+            $file = $base_dir. str_replace('\\', '/', $relative_class). '.php';
 
             // if the mapped file exists, require it
             if ($this->requireFile($file)) {
@@ -147,9 +146,10 @@ class Autoloader
                 return $file;
             }
         }
-
+        // @codeCoverageIgnoreStart
         // never found it
         return false;
+        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -164,6 +164,8 @@ class Autoloader
             require $file;
             return true;
         }
+        // @codeCoverageIgnoreStart
         return false;
+        // @codeCoverageIgnoreEnd
     }
 }

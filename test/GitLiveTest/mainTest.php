@@ -47,7 +47,6 @@ class mainTest extends testCaseBase
 
     public function executeTest()
     {
-        trigger_error('trigger_error test', E_USER_ERROR);
         $this->assertTrue(true);
     }
 

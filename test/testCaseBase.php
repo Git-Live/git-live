@@ -19,7 +19,28 @@
  * @since      File available since Release 1.0.0
  * @doc_ignore
  */
-define('APP_BASE', realpath(dirname(__FILE__).DIRECTORY_SEPARATOR.'../../apps/'.basename(dirname(__FILE__)).'/').DIRECTORY_SEPARATOR);
+define('BASE_DIR', dirname(__DIR__));
+
+define('GIT_LIVE_INSTALL_DIR', BASE_DIR.'/.install_file');
+
+
+
+ini_set( 'display_errors', 1 );
+
+if (!class_exists('\GitLive\Autoloader', false)) {
+    include BASE_DIR.'/src/libs/GitLive/Autoloader.php';
+}
+
+$Autoloader = new \GitLive\Autoloader;
+$Autoloader->register();
+$Autoloader->addNamespace('GitLive\Compile\Compiler', BASE_DIR.'/compile/libs/Compiler');
+$Autoloader->addNamespace('GitLive\Compile\Iterator', BASE_DIR.'/compile/libs/Iterator');
+$Autoloader->addNamespace('GitLive\Compile\Exception', BASE_DIR.'/compile/libs/Exception');
+$Autoloader->addNamespace('GitLive\Mock', BASE_DIR.'/test/Mock/GitLive');
+$Autoloader->addNamespace('GitLive\Mock\Driver', BASE_DIR.'/test/Mock/GitLive/Driver');
+$Autoloader->addNamespace('GitLive\Driver', __DIR__.'/libs/GitLive/Driver');
+$Autoloader->addNamespace('GitLive', BASE_DIR.'/src/libs/GitLive');
+
 
 /**
  * テストのベースクラス

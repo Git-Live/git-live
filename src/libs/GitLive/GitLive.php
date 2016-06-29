@@ -8,7 +8,7 @@
  * @copyright Project Git Live
  * @license MIT
  * @version    GIT: $Id$
- * @see https://github.com/Git-Live/git-live
+ * @link https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
@@ -23,14 +23,14 @@ namespace GitLive;
  * @copyright Project Git Live
  * @license MIT
  * @version    GIT: $Id$
- * @see https://github.com/Git-Live/git-live
+ * @link https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
 class GitLive extends GitBase
 {
-    protected $deploy_repository_name = 'deploy';
     protected $GitCmdExecuter;
+    protected $Driver;
 
 
     /**
@@ -38,6 +38,7 @@ class GitLive extends GitBase
      *
      * @access      public
      * @return void
+     * @codeCoverageIgnore
      */
     public function __construct()
     {
@@ -46,6 +47,52 @@ class GitLive extends GitBase
 
     /* ----------------------------------------- */
 
+    /**
+     * +--
+     *
+     * @access      public
+     * @param  string                     $driver_name
+     * @return \GitLive\Driver\DriverBase
+     * @codeCoverageIgnore
+     */
+    public function Driver($driver_name)
+    {
+        if (!isset($this->Driver[$driver_name])) {
+            $class_name                 = '\GitLive\Driver'.'\\'.$driver_name;
+            $this->Driver[$driver_name] = new $class_name($this);
+        }
+
+        return $this->Driver[$driver_name];
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +-- \GitLive\GitCmdExecuter取得
+     *
+     * @access      public
+     * @return \GitLive\GitCmdExecuter
+     * @codeCoverageIgnore
+     */
+    public function getGitCmdExecuter()
+    {
+        return $this->GitCmdExecuter;
+    }
+    /* ----------------------------------------- */
+
+
+    /**
+     * +-- 引数配列を返す
+     *
+     * @access      public
+     * @return array
+     * @codeCoverageIgnore
+     */
+    public function getArgv()
+    {
+        global $argv;
+        return $argv;
+    }
+    /* ----------------------------------------- */
 
     /**
      * +-- 処理の実行
@@ -55,9 +102,10 @@ class GitLive extends GitBase
      */
     public function execute()
     {
-        global $argv;
+        $argv = $this->getArgv();
+
         if (!isset($argv[1])) {
-            $this->help();
+            $this->Driver('Help')->help();
 
             return;
         }
@@ -65,23 +113,23 @@ class GitLive extends GitBase
         switch ($argv[1]) {
         case '--version':
         case '-v':
-            $this->version();
+            $this->Driver('Help')->version();
         break;
 
         case 'start':
-            $this->start();
+            $this->Driver('Init')->start();
         break;
         case 'merge':
-            $this->merge();
+            $this->Driver('Merge')->merge();
         break;
         case 'log':
-            $this->log();
+            $this->Driver('Log')->log();
         break;
         case 'restart':
-            $this->restart();
+            $this->Driver('Init')->restart();
         break;
         case 'update':
-            $this->update();
+            $this->Driver('Update')->update();
         break;
         case 'push':
             $this->push();
@@ -90,300 +138,36 @@ class GitLive extends GitBase
             $this->pull();
         break;
         case 'feature':
-            $this->feature();
+            $this->Driver('Feature')->feature();
         break;
         case 'pr':
-            $this->pr();
+            $this->Driver('PullRequest')->pr();
         break;
         case 'init':
-            $this->init();
+            $this->Driver('Init')->init();
         break;
         case 'release':
-            $this->release();
+            $this->Driver('Release')->release();
         break;
         case 'hotfix':
-            $this->hotfix();
+            $this->Driver('Hotfix')->hotfix();
         break;
         default:
-            $this->help();
+            $this->Driver('Help')->help();
         break;
         }
     }
 
     /* ----------------------------------------- */
 
-    /**
-     * +-- mergeを実行する
-     *
-     * @access      public
-     * @return void
-     */
-    public function log()
-    {
-        global $argv;
-        if (!isset($argv[2])) {
-            $this->help();
 
-            return;
-        }
-
-        switch ($argv[2]) {
-            case 'develop':
-                $this->logDevelop();
-            break;
-            case 'master':
-                $this->logMaster();
-            break;
-        }
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- mergeを実行する
-     *
-     * @access      public
-     * @return void
-     */
-    public function merge()
-    {
-        global $argv;
-        if (!isset($argv[2])) {
-            $this->help();
-
-            return;
-        }
-
-        switch ($argv[2]) {
-            case 'develop':
-                $this->mergeDevelop();
-            break;
-            case 'master':
-                $this->mergeMaster();
-            break;
-        }
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- プルリクエストの管理
-     *
-     * @access      public
-     * @return void
-     */
-    public function pr()
-    {
-        global $argv;
-        if (!isset($argv[2])) {
-            $this->help();
-
-            return;
-        }
-
-        switch ($argv[2]) {
-        case 'track':
-            if (!isset($argv[3])) {
-                $this->help();
-
-                return;
-            }
-
-            $this->prTrack($argv[3]);
-        break;
-        case 'pull':
-            $this->prPull();
-        break;
-        case 'merge':
-            if (!isset($argv[3])) {
-                $this->help();
-
-                return;
-            }
-
-            $this->prMerge($argv[3]);
-        break;
-
-        default:
-            $this->help();
-        break;
-        }
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- prTrack
-     *
-     * @param var_text $pull_request_number
-     *
-     * @access      public
-     * @return void
-     */
-    public function prTrack($pull_request_number)
-    {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
-        $this->GitCmdExecuter->fetchPullRequest();
-
-        $repository          = 'pullreq/'.$pull_request_number;
-        $upstream_repository = 'remotes/pr/'.$pull_request_number.'/head';
-        $this->GitCmdExecuter->checkout($upstream_repository, array('-b', $repository));
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- pr pull
-     *
-     * @param var_text $pull_request_number
-     *
-     * @access      public
-     * @return void
-     */
-    public function prPull()
-    {
-        $branch = $this->getSelfBranch();
-        if (!mb_ereg('/pullreq/([0-9]+)', $branch, $match)) {
-            return;
-        }
-
-        $pull_request_number = $match[1];
-
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
-        $this->GitCmdExecuter->fetchPullRequest();
-
-        $upstream_repository = 'pull/'.$pull_request_number.'/head';
-        $this->GitCmdExecuter->pull('upstream', $upstream_repository);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- pr merge
-     *
-     * @access      public
-     * @param  var_text $pull_request_number
-     * @return void
-     */
-    public function prMerge($pull_request_number)
-    {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
-        $this->GitCmdExecuter->fetchPullRequest();
-
-        $upstream_repository = 'pull/'.$pull_request_number.'/head';
-        $this->GitCmdExecuter->pull('upstream', $upstream_repository);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- releaseを実行する
-     *
-     * @access      public
-     * @return void
-     */
-    public function release()
-    {
-        global $argv;
-        if (!isset($argv[2])) {
-            $this->help();
-
-            return;
-        }
-
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
-        $this->enableRelease();
-        switch ($argv[2]) {
-        case 'open':
-            $this->releaseOpen();
-        break;
-        case 'close':
-            $this->releaseClose();
-        break;
-        case 'close-force':
-            $this->releaseClose(true);
-        break;
-        case 'sync':
-            $this->releaseSync();
-        break;
-        case 'state':
-            $this->releaseState();
-        break;
-        case 'pull':
-            $this->releasePull();
-        break;
-        case 'push':
-            $this->releasePush();
-        break;
-
-        default:
-            $this->help();
-        break;
-        }
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- hotfixを実行する
-     *
-     * @access      public
-     * @return void
-     */
-    public function hotfix()
-    {
-        global $argv;
-        if (!isset($argv[2])) {
-            $this->help();
-
-            return;
-        }
-
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
-        $this->enableRelease();
-        switch ($argv[2]) {
-        case 'open':
-            $this->hotfixOpen();
-        break;
-        case 'close':
-            $this->hotfixClose();
-        break;
-        case 'sync':
-            $this->hotfixSync();
-        break;
-        case 'state':
-            $this->hotfixState();
-        break;
-        case 'pull':
-            $this->hotfixPull();
-        break;
-        case 'push':
-            $this->hotfixPush();
-        break;
-
-        default:
-            $this->help();
-        break;
-        }
-    }
-
-    /* ----------------------------------------- */
 
     /**
      * +-- リリースが空いているかどうか
      *
      * @access      public
      * @return bool
+     * @codeCoverageIgnore
      */
     public function isReleaseOpen()
     {
@@ -403,6 +187,7 @@ class GitLive extends GitBase
      *
      * @access      public
      * @return bool
+     * @codeCoverageIgnore
      */
     public function isHotfixOpen()
     {
@@ -426,7 +211,7 @@ class GitLive extends GitBase
     public function enableRelease()
     {
         $remote = $this->GitCmdExecuter->remote();
-        $remote = explode("\n", $remote);
+        $remote = explode("\n", trim($remote));
         $res    = array_search($this->deploy_repository_name, $remote) !== false;
         if ($res === false) {
             throw new exception(
@@ -434,7 +219,6 @@ class GitLive extends GitBase
             );
         }
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -445,17 +229,11 @@ class GitLive extends GitBase
      */
     public function getReleaseRepository()
     {
-        static $repo;
-        if ($repo) {
-            return $repo;
-        }
-
         $repository = $this->GitCmdExecuter->branch(array('-a'));
-        $repository = explode("\n", $repository);
+        $repository = explode("\n", trim($repository));
         $repo       = false;
         foreach ($repository as $value) {
-            if (strpos($value, 'remotes/upstream/release/')) {
-                mb_ereg('remotes/upstream/(release/[^/]*$)', $value, $match);
+            if (mb_ereg('remotes/upstream/(release/[^/]*$)', $value, $match)) {
                 $repo = $match[1];
                 break;
             }
@@ -478,24 +256,19 @@ class GitLive extends GitBase
      */
     public function getHotfixRepository()
     {
-        static $repo;
-        if ($repo) {
-            return $repo;
-        }
-
         $repository = $this->GitCmdExecuter->branch(array('-a'));
-        $repository = explode("\n", $repository);
+        $repository = explode("\n", trim($repository));
+
         $repo       = false;
         foreach ($repository as $value) {
-            if (strpos($value, 'remotes/upstream/hotfix/')) {
-                mb_ereg('remotes/upstream/(hotfix/[^/]*$)', $value, $match);
+            if (mb_ereg('remotes/upstream/(hotfix/[^/]*$)', $value, $match)) {
                 $repo = $match[1];
                 break;
             }
         }
 
         if (!$repo) {
-            throw new exception('release openされていません。');
+            throw new exception('hotfix openされていません。');
         }
 
         return $repo;
@@ -503,114 +276,6 @@ class GitLive extends GitBase
 
     /* ----------------------------------------- */
 
-    /**
-     * +-- 初期化処理します
-     *
-     * @access      public
-     * @param  var_text $clone_repository
-     * @param  var_text $upstream_repository
-     * @param  var_text $deploy_repository
-     * @param  var_text $clone_dir
-     * @return void
-     */
-    public function init()
-    {
-        global $argv;
-        if (!isset($argv[3])) {
-            while (true) {
-                $this->ncecho(_('Please enter only your remote-repository.')."\n");
-                $this->ncecho(':');
-                $clone_repository = trim(fgets(STDIN, 1000));
-                if ($clone_repository === '') {
-                    $this->ncecho(':');
-                    continue;
-                }
-
-                break;
-            }
-
-            while (true) {
-                $this->ncecho(_('Please enter common remote-repository.')."\n");
-                $this->ncecho(':');
-                $upstream_repository = trim(fgets(STDIN, 1000));
-
-                if ($upstream_repository === '') {
-                    $this->ncecho(':');
-                    continue;
-                }
-
-                break;
-            }
-
-            while (true) {
-                $this->ncecho(_('Please enter deploying dedicated remote-repository.')."\n");
-                $this->ncecho(_('If you return in the blank, it becomes the default setting.')."\n");
-                $this->ncecho("default:{$upstream_repository}"."\n");
-                $this->ncecho(':');
-
-                $deploy_repository = trim(fgets(STDIN, 1000));
-
-                if ($deploy_repository === '') {
-                    $deploy_repository = $upstream_repository;
-                }
-
-                break;
-            }
-
-            $is_auto_clone_dir = mb_ereg('/([^/]+?)(\.git)?$', $clone_repository, $match);
-            while (true) {
-                $this->ncecho(_('Please enter work directory path.')."\n");
-                $this->ncecho(_('If you return in the blank, it becomes the default setting.')."\n");
-                $this->ncecho("default:{$match[1]}"."\n");
-                $this->ncecho(':');
-                $clone_dir = trim(fgets(STDIN, 1000));
-
-                if ($clone_dir === '') {
-                    $clone_dir = null;
-                }
-
-                break;
-            }
-        } else {
-            $clone_repository = $argv[2];
-
-            $upstream_repository = $argv[3];
-            if (isset($argv[5])) {
-                $deploy_repository = $argv[4];
-                $clone_dir         = $argv[5];
-            } elseif (!isset($argv[4])) {
-                $deploy_repository = null;
-                $clone_dir         = null;
-            } elseif (strpos($argv[4], 'git') === 0 || strpos($argv[4], 'https:') === 0 || is_dir(realpath($argv[4]).'/.git/')) {
-                $deploy_repository = $argv[4];
-                $clone_dir         = null;
-            } else {
-                $clone_dir         = $argv[4];
-                $deploy_repository = null;
-            }
-        }
-
-        if ($clone_dir === null) {
-            if (!$is_auto_clone_dir) {
-                $this->ncecho(_('ローカルディレクトリを自動取得できませんでした。'));
-
-                return;
-            }
-
-            $clone_dir = getcwd().DIRECTORY_SEPARATOR.$match[1];
-        }
-
-        $this->GitCmdExecuter->copy(array('--recursive', $clone_repository, $clone_dir));
-
-        chdir($clone_dir);
-        $this->GitCmdExecuter->remote(array('add', 'upstream', $upstream_repository));
-
-        if ($deploy_repository !== null) {
-            $this->GitCmdExecuter->remote(array('add', 'deploy', $deploy_repository));
-        }
-    }
-
-    /* ----------------------------------------- */
 
     /**
      * +-- 今のブランチを取得する
@@ -641,7 +306,7 @@ class GitLive extends GitBase
         $branch = $this->getSelfBranch();
         $remote = 'origin';
 
-        if (strpos($branch, 'refs/heads/release') || strpos($branch, 'refs/heads/hotfix')) {
+        if (strpos($branch, 'refs/heads/release') !== false || strpos($branch, 'refs/heads/hotfix') !== false) {
             $remote = 'upstream';
         }
 
@@ -666,7 +331,7 @@ class GitLive extends GitBase
             $remote = 'upstream';
             break;
         default:
-            if (strpos($branch, 'refs/heads/release') || strpos($branch, 'refs/heads/hotfix')) {
+            if (strpos($branch, 'refs/heads/release') !== false || strpos($branch, 'refs/heads/hotfix') !== false) {
                 $remote = 'upstream';
             }
 
@@ -674,302 +339,6 @@ class GitLive extends GitBase
         }
 
         $this->GitCmdExecuter->pull($remote, $branch);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- 諸々初期化します
-     *
-     * @access      public
-     * @return void
-     */
-    public function start()
-    {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p'));
-        $this->GitCmdExecuter->pull('upstream', 'develop');
-        $this->GitCmdExecuter->push('origin', 'develop');
-        $this->GitCmdExecuter->pull('upstream', 'master');
-        $this->GitCmdExecuter->push('origin', 'master');
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- 諸々リセットして初期化します
-     *
-     * @access      public
-     * @return void
-     */
-    public function restart()
-    {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p'));
-        $this->GitCmdExecuter->checkout('temp', array('-b'));
-        $this->GitCmdExecuter->branch(array('-d', 'develop'));
-        $this->GitCmdExecuter->branch(array('-d', 'master'));
-        $this->GitCmdExecuter->push('origin', ':develop');
-        $this->GitCmdExecuter->push('origin', ':master');
-
-        $this->GitCmdExecuter->checkout('upstream/develop');
-        $this->GitCmdExecuter->checkout('develop', array('-b'));
-        $this->GitCmdExecuter->push('origin', 'develop');
-
-        $this->GitCmdExecuter->checkout('upstream/master');
-        $this->GitCmdExecuter->checkout('master', array('-b'));
-        $this->GitCmdExecuter->push('origin', 'master');
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p'));
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- developをマージする
-     *
-     * @access      public
-     * @return void
-     */
-    public function mergeDevelop()
-    {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p'));
-        $this->GitCmdExecuter->merge('upstream/develop');
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- masterをマージする
-     *
-     * @access      public
-     * @return void
-     */
-    public function mergeMaster()
-    {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p'));
-        $this->GitCmdExecuter->merge('upstream/master');
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- developとの差分をみる
-     *
-     * @access      public
-     * @return void
-     */
-    public function logDevelop()
-    {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p'));
-        $repository = $this->getSelfBranch();
-        $this->ncecho($this->GitCmdExecuter->log('upstream/develop', $repository, '--left-right'));
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- masterとの差分を見る
-     *
-     * @access      public
-     * @return void
-     */
-    public function logMaster()
-    {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p'));
-        $repository = $this->getSelfBranch();
-        $this->ncecho($this->GitCmdExecuter->log('upstream/master', $repository, '--left-right'));
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- featureを実行する
-     *
-     * @access      public
-     * @return void
-     */
-    public function feature()
-    {
-        global $argv;
-        $this->GitCmdExecuter->fetch(array('upstream'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
-        // $this->enableRelease();
-        if (!isset($argv[2])) {
-            $this->help();
-
-            return;
-        }
-
-        switch ($argv[2]) {
-        case 'start':
-            if (!isset($argv[3])) {
-                $this->help();
-
-                return;
-            }
-
-            $this->featureStart($argv[3]);
-        break;
-        case 'publish':
-            $this->featurePublish(isset($argv[3]) ? $argv[3] : null);
-        break;
-        case 'push':
-            $this->featurePush(isset($argv[3]) ? $argv[3] : null);
-        break;
-        case 'close':
-            $this->featureClose(isset($argv[3]) ? $argv[3] : null);
-        break;
-        case 'track':
-            if (!isset($argv[3])) {
-                $this->help();
-
-                return;
-            }
-
-            $this->featureTrack($argv[3]);
-        break;
-        case 'pull':
-            $this->featurePull(isset($argv[3]) ? $argv[3] : null);
-        break;
-
-        default:
-            $this->help();
-        break;
-        }
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- featureを開始する
-     *
-     *
-     * @access      public
-     * @param  var_text $repository
-     * @return void
-     */
-    public function featureStart($repository)
-    {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        if (strpos($repository, 'feature/') !== 0) {
-            $repository = 'feature/'.$repository;
-        }
-
-        $this->GitCmdExecuter->checkout('upstream/develop');
-        $this->GitCmdExecuter->checkout($repository, array('-b'));
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- 共用Repositoryにfeatureを送信する
-     *
-     * @access      public
-     * @param  var_text $repository OPTIONAL:NULL
-     * @return void
-     */
-    public function featurePublish($repository = null)
-    {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        if ($repository === null) {
-            $repository = $this->getSelfBranch();
-        } elseif (strpos($repository, 'feature/') !== 0) {
-            $repository = 'feature/'.$repository;
-        }
-
-        $this->GitCmdExecuter->push('upstream', $repository);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- 自分のリモートRepositoryにfeatureを送信する
-     *
-     * @access      public
-     * @param  var_text $repository OPTIONAL:NULL
-     * @return void
-     */
-    public function featurePush($repository = null)
-    {
-        if ($repository === null) {
-            $repository = $this->getSelfBranch();
-        } elseif (strpos($repository, 'feature/') !== 0) {
-            $repository = 'feature/'.$repository;
-        }
-
-        $this->GitCmdExecuter->push('origin', $repository);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- 共用Repositoryから他人のfeatureを取得する
-     *
-     * @access      public
-     * @param  var_text $repository
-     * @return void
-     */
-    public function featureTrack($repository)
-    {
-        if (strpos($repository, 'feature/') !== 0) {
-            $repository = 'feature/'.$repository;
-        }
-
-        $self_repository = $this->getSelfBranch();
-        $this->GitCmdExecuter->pull('upstream', $repository);
-
-        if ($self_repository !== $repository) {
-            $this->GitCmdExecuter->checkout($repository);
-        }
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- 共用Repositoryからpullする
-     *
-     * @access      public
-     * @param  var_text $repository OPTIONAL:NULL
-     * @return void
-     */
-    public function featurePull($repository = null)
-    {
-        if ($repository === null) {
-            $repository = $this->getSelfBranch();
-        } elseif (strpos($repository, 'feature/') !== 0) {
-            $repository = 'feature/'.$repository;
-        }
-
-        $this->GitCmdExecuter->pull('upstream', $repository);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- featureを閉じる
-     *
-     * @access      public
-     * @param  var_text $repository OPTIONAL:NULL
-     * @return void
-     */
-    public function featureClose($repository = null)
-    {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        if ($repository === null) {
-            $repository = $this->getSelfBranch();
-        } elseif (strpos($repository, 'feature/') !== 0) {
-            $repository = 'feature/'.$repository;
-        }
-
-        $this->GitCmdExecuter->push('upstream', ':'.$repository);
-        $this->GitCmdExecuter->push('origin', ':'.$repository);
-        $this->GitCmdExecuter->checkout('develop');
-        $this->GitCmdExecuter->branch(array('-D', $repository));
     }
 
     /* ----------------------------------------- */
@@ -985,7 +354,7 @@ class GitLive extends GitBase
      */
     public function deployEnd($repo, $mode, $force = false)
     {
-        global $argv;
+        $argv = $this->getArgv();
 
         // マスターのマージ
         $this->GitCmdExecuter->checkout('deploy/master');
@@ -994,7 +363,7 @@ class GitLive extends GitBase
 
         if ($this->getSelfBranch() !== 'refs/heads/master') {
             $this->GitCmdExecuter->checkout($repo);
-            throw new exception($mode.' '._('closeに失敗しました。')."\n"._(' masterがReleaseブランチより進んでいます。'));
+            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('masterがReleaseブランチより進んでいます。'));
         }
 
         $this->GitCmdExecuter->merge('deploy/'.$repo);
@@ -1014,7 +383,7 @@ class GitLive extends GitBase
 
         if ($this->getSelfBranch() !== 'refs/heads/develop') {
             $this->GitCmdExecuter->checkout($repo);
-            throw new exception($mode.'closeに失敗しました。');
+            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('developがReleaseブランチより進んでいます。'));
         }
 
         $this->GitCmdExecuter->merge('deploy/'.$repo);
@@ -1037,6 +406,7 @@ class GitLive extends GitBase
         // タグ付け
         $this->GitCmdExecuter->fetch(array('upstream'));
         $this->GitCmdExecuter->checkout('upstream/master');
+
         if (isset($argv[3])) {
             $tag = $argv[3];
         } else {
@@ -1090,303 +460,6 @@ class GitLive extends GitBase
         }
 
         $this->GitCmdExecuter->push('upstream', $repo);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- hotfixを開く
-     *
-     * @access      public
-     * @return void
-     */
-    public function hotfixOpen()
-    {
-        if ($this->isReleaseOpen()) {
-            throw new exception(_('既にrelease open されています。'));
-        } elseif ($this->isHotfixOpen()) {
-            throw new exception(_('既にhotfix open されています。'));
-        }
-
-        $repository = $this->GitCmdExecuter->branch(array('-a'));
-        $repository = explode("\n", $repository);
-        foreach ($repository as $value) {
-            if (strpos($value, 'remotes/'.$this->deploy_repository_name.'/hotfix/')) {
-                throw new exception(_('既にhotfix open されています。')."\n".$value);
-            }
-        }
-
-        $hotfix_rep = 'hotfix/'.date('Ymdhis');
-
-        $this->GitCmdExecuter->checkout('upstream/master');
-        $this->GitCmdExecuter->checkout($hotfix_rep, array('-b'));
-
-        $this->GitCmdExecuter->push('upstream', $hotfix_rep);
-        $this->GitCmdExecuter->push('deploy', $hotfix_rep);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- 誰かが開けたhotfixをトラックする
-     *
-     * @access      public
-     * @return void
-     */
-    public function hotfixTrack()
-    {
-        if (!$this->isHotfixOpen()) {
-            throw new exception(_('hotfix openされていません。'));
-        }
-
-        $repo = $this->getHotfixRepository();
-        $this->GitCmdExecuter->pull('deploy', $repo);
-        $this->GitCmdExecuter->checkout($repo);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- 誰かが開けたhotfixをトラックする
-     *
-     * @access      public
-     * @return void
-     */
-    public function hotfixPull()
-    {
-        if (!$this->isHotfixOpen()) {
-            throw new exception(_('hotfix openされていません。'));
-        }
-
-        $repo = $this->getHotfixRepository();
-        $this->GitCmdExecuter->pull('upstream', $repo);
-        $this->GitCmdExecuter->checkout($repo);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- hotfixの状態を確かめる
-     *
-     * @access      public
-     * @return void
-     */
-    public function hotfixState()
-    {
-        if ($this->isHotfixOpen()) {
-            $repo = $this->getHotfixRepository();
-            $this->ncecho($this->GitCmdExecuter->log('master', $repo));
-            $this->ncecho("hotfix is open.\n");
-
-            return;
-        }
-
-        $this->ncecho("hotfix is close.\n");
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- コードを各環境に反映する
-     *
-     * @access      public
-     * @return void
-     */
-    public function hotfixSync()
-    {
-        if (!$this->isHotfixOpen()) {
-            throw new exception(_('hotfix openされていません。'));
-        }
-
-        $repo = $this->getHotfixRepository();
-
-        $this->deploySync($repo);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- コードを各環境に反映する
-     *
-     * @access      public
-     * @return void
-     */
-    public function hotfixPush()
-    {
-        if (!$this->isHotfixOpen()) {
-            throw new exception(_('hotfix openされていません。'));
-        }
-
-        $repo = $this->getHotfixRepository();
-
-        $this->deployPush($repo);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- hotfixを閉じる
-     *
-     * @access      public
-     * @return void
-     */
-    public function hotfixClose()
-    {
-        if (!$this->isHotfixOpen()) {
-            throw new exception(_('hotfix openされていません。'));
-        }
-
-        $repo = $this->getHotfixRepository();
-        $this->deployEnd($repo, 'hotfix');
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- リリースを開く
-     *
-     * @access      public
-     * @return void
-     */
-    public function releaseOpen()
-    {
-        if ($this->isReleaseOpen()) {
-            throw new exception(_('既にrelease open されています。'));
-        } elseif ($this->isHotfixOpen()) {
-            throw new exception(_('既にhotfix open されています。'));
-        }
-
-        $repository = $this->GitCmdExecuter->branch(array('-a'));
-        $repository = explode("\n", $repository);
-        foreach ($repository as $value) {
-            if (strpos($value, 'remotes/'.$this->deploy_repository_name.'/release/')) {
-                throw new exception(_('既にrelease open されています。'.$value));
-            }
-        }
-
-        $release_rep = 'release/'.date('Ymdhis');
-
-        $this->GitCmdExecuter->checkout('upstream/develop');
-        $this->GitCmdExecuter->checkout($release_rep, array('-b'));
-
-        $this->GitCmdExecuter->push('upstream', $release_rep);
-        $this->GitCmdExecuter->push('deploy', $release_rep);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- 誰かが開けたリリースをトラックする
-     *
-     * @access      public
-     * @return void
-     */
-    public function releaseTrack()
-    {
-        if (!$this->isReleaseOpen()) {
-            throw new exception(_('release openされていません。'));
-        }
-
-        $repo = $this->getReleaseRepository();
-        $this->GitCmdExecuter->pull('deploy', $repo);
-        $this->GitCmdExecuter->checkout($repo);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- 誰かが開けたリリースをpullする
-     *
-     * @access      public
-     * @return void
-     */
-    public function releasePull()
-    {
-        if (!$this->isReleaseOpen()) {
-            throw new exception(_('release openされていません。'));
-        }
-
-        $repo = $this->getReleaseRepository();
-        $this->GitCmdExecuter->pull('upstream', $repo);
-        $this->GitCmdExecuter->checkout($repo);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- リリースの状態を確かめる
-     *
-     * @access      public
-     * @return void
-     */
-    public function releaseState()
-    {
-        if ($this->isReleaseOpen()) {
-            $repo = $this->getReleaseRepository();
-            $this->ncecho($this->GitCmdExecuter->log('master', $repo));
-            $this->ncecho("release is open.\n");
-
-            return;
-        }
-
-        $this->ncecho("release is close.\n");
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- コードを各環境に反映する
-     *
-     * @access      public
-     * @return void
-     */
-    public function releaseSync()
-    {
-        if (!$this->isReleaseOpen()) {
-            throw new exception(_('release openされていません。'));
-        }
-
-        $repo = $this->getReleaseRepository();
-        $this->deploySync($repo);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- コードを各環境に反映する
-     *
-     * @access      public
-     * @return void
-     */
-    public function releasePush()
-    {
-        if (!$this->isReleaseOpen()) {
-            throw new exception(_('release openされていません。'));
-        }
-
-        $repo = $this->getReleaseRepository();
-        $this->deployPush($repo);
-    }
-
-    /* ----------------------------------------- */
-
-    /**
-     * +-- リリースを閉じる
-     *
-     * @access      public
-     * @return void
-     *
-     * @param bool $force OPTIONAL:false
-     */
-    public function releaseClose($force = false)
-    {
-        global $argv;
-        if (!$this->isReleaseOpen()) {
-            throw new exception(_('release openされていません。'));
-        }
-
-        $repo = $this->getReleaseRepository();
-        $this->deployEnd($repo, 'release', $force);
     }
 
     /* ----------------------------------------- */

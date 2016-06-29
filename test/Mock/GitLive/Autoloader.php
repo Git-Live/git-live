@@ -12,7 +12,7 @@
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-namespace GitLive;
+namespace GitLive\Mock;
 
 /**
  * @category   GitCommand
@@ -27,6 +27,18 @@ namespace GitLive;
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-class exception extends \exception
+
+class Autoloader extends \GitLive\Autoloader
 {
+    protected $files = array();
+
+    public function setFiles(array $files)
+    {
+        $this->files = $files;
+    }
+
+    protected function requireFile($file)
+    {
+        return in_array($file, $this->files);
+    }
 }

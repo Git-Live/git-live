@@ -20,8 +20,9 @@ ini_set('memory_limit', -1);
 
 define('BASE_DIR', dirname(__DIR__));
 
-include BASE_DIR.'/src/libs/GitLive/Autoloader.php';
-
+if (!class_exists('\GitLive\Autoloader', false)) {
+    include BASE_DIR.'/src/libs/GitLive/Autoloader.php';
+}
 
 
 $Autoloader = new \GitLive\Autoloader;

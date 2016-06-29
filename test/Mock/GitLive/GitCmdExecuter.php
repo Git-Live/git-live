@@ -12,7 +12,10 @@
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-namespace GitLive;
+namespace GitLive\Mock;
+
+
+
 
 /**
  * @category   GitCommand
@@ -27,6 +30,23 @@ namespace GitLive;
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-class exception extends \exception
+
+class GitCmdExecuter extends \GitLive\GitCmdExecuter
 {
+
+    /**
+     * +-- Commandの実行
+     *
+     * @access      public
+     * @param       string $cmd
+     * @return      string
+     * @codeCoverageIgnore
+     */
+    public function exec($cmd)
+    {
+        return $cmd;
+    }
+    /* ----------------------------------------- */
+
+
 }

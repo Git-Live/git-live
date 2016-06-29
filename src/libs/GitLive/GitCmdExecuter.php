@@ -8,7 +8,7 @@
  * @copyright Project Git Live
  * @license MIT
  * @version    GIT: $Id$
- * @see https://github.com/Git-Live/git-live
+ * @link https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
@@ -23,7 +23,7 @@ namespace GitLive;
  * @copyright Project Git Live
  * @license MIT
  * @version    GIT: $Id$
- * @see https://github.com/Git-Live/git-live
+ * @link https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
@@ -37,197 +37,98 @@ class GitCmdExecuter extends GitBase
     public function fetchPullRequest()
     {
         $cmd = "git fetch upstream '+refs/pull/*:refs/remotes/pr/*'";
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
 
-        return $res;
+        return $this->exec($cmd);
     }
     /* ----------------------------------------- */
 
     public function tag(array $options = null)
     {
-        $cmd = 'git tag ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
+        $cmd = $this->createCmd('tag', $options);
 
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
+        return $this->exec($cmd);
     }
     public function copy(array $options = null)
     {
-        $cmd = 'git clone ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
+        $cmd = $this->createCmd('clone', $options);
 
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
+        return $this->exec($cmd);
     }
     public function remote(array $options = null)
     {
-        $cmd = 'git remote ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
+        $cmd = $this->createCmd('remote', $options);
 
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
+        return $this->exec($cmd);
     }
     public function status(array $options = null)
     {
-        $cmd = 'git status ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
+        $cmd = $this->createCmd('status', $options);
 
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
+        return $this->exec($cmd);
     }
     public function diff(array $options = null)
     {
-        $cmd = 'git diff ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
+        $cmd = $this->createCmd('diff', $options);
 
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
+        return $this->exec($cmd);
     }
 
     public function merge($branch, array $options = null)
     {
-        $cmd = 'git merge ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
-
+        $cmd = $this->createCmd('merge', $options);
         $cmd .= ' '.$branch;
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
+        return $this->exec($cmd);
     }
 
     public function fetch(array $options = null)
     {
-        $cmd = 'git fetch ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
-
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
+        $cmd = $this->createCmd('fetch', $options);
+        return $this->exec($cmd);
     }
 
     public function checkout($branch, array $options = null)
     {
-        $cmd = 'git checkout ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
-
+        $cmd = $this->createCmd('checkout', $options);
         $cmd .= ' '.$branch;
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
 
-        return $res;
+        return $this->exec($cmd);
     }
     public function branch(array $options = null)
     {
-        $cmd = 'git branch ';
-        if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
-        }
-
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
+        $cmd = $this->createCmd('branch', $options);
+        return $this->exec($cmd);
     }
     public function pull($remote, $branch = '')
     {
-        $cmd = 'git pull ';
-
-        $cmd .= ' '.$remote.' '.$branch;
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
+        $cmd = $this->createCmd('pull', [$remote, $branch]);
+        return $this->exec($cmd);
     }
 
     public function push($remote, $branch = '')
     {
-        $cmd = 'git push ';
-
-        $cmd .= ' '.$remote.' '.$branch;
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
+        $cmd = $this->createCmd('push', [$remote, $branch]);
+        return $this->exec($cmd);
     }
     public function tagPush($remote)
     {
-        $cmd = 'git push ';
-
-        $cmd .= ' '.$remote.' --tags';
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
-
-        return $res;
+        $cmd = $this->createCmd('push', [$remote, '--tags']);
+        return $this->exec($cmd);
     }
 
     public function log($left, $right, $option = '')
     {
-        $cmd = 'git log --pretty=fuller --name-status '
-            .$option.' '.$left.'..'.$right;
-        $this->debug($cmd, 6);
-        $res = `$cmd`;
-        $this->debug($res);
+        $cmd = $this->createCmd('log', ['--pretty=fuller', '--name-status', $option, $left.'..'.$right]);
+        return $this->exec($cmd);
+    }
 
-        return $res;
+    protected function createCmd($git_task, array $options = null)
+    {
+        $cmd = 'git '.$git_task;
+        if (count($options)) {
+            foreach ($options as $option) {
+                $cmd .= ' '.$option;
+            }
+        }
+        return $cmd;
     }
 }
