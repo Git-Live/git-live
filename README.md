@@ -2,6 +2,11 @@
 
 [![travis-ci](https://travis-ci.org/Git-Live/git-live.svg?branch=master)](https://travis-ci.org/)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Git-Live/git-live/master/LICENSE)
+![php-version](https://img.shields.io/badge/php-5.3-blue.svg)
+![php-version](https://img.shields.io/badge/php-5.4-blue.svg)
+![php-version](https://img.shields.io/badge/php-5.5-blue.svg)
+![php-version](https://img.shields.io/badge/php-5.6-blue.svg)
+![php-version](https://img.shields.io/badge/php-hhvm-blue.svg)
 ## git-flow
 
 [git-flow](http://nvie.com/posts/a-successful-git-branching-model/)
