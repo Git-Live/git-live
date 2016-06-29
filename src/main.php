@@ -30,6 +30,13 @@ if (!class_exists('\GitLive\Autoloader', false)) {
     include 'libs/GitLive/Autoloader.php';
 }
 
+if (!function_exists('_')) {
+    function _($str) {
+        return $str;
+    }
+}
+
+
 // LANG
 $locale = trim(`echo \$LANG`);
 if (empty($locale)) {

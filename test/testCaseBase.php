@@ -23,7 +23,11 @@ define('BASE_DIR', dirname(__DIR__));
 
 define('GIT_LIVE_INSTALL_DIR', BASE_DIR.'/.install_file');
 
-
+if (!function_exists('_')) {
+    function _($str) {
+        return $str;
+    }
+}
 
 ini_set( 'display_errors', 1 );
 
