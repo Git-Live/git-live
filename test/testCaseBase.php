@@ -19,6 +19,11 @@
  * @since      File available since Release 1.0.0
  * @doc_ignore
  */
+
+ini_set( 'display_errors', 1 );
+date_default_timezone_set(date_default_timezone_get());
+
+
 define('BASE_DIR', dirname(__DIR__));
 
 define('GIT_LIVE_INSTALL_DIR', BASE_DIR.'/.install_file');
@@ -29,7 +34,6 @@ if (!function_exists('_')) {
     }
 }
 
-ini_set( 'display_errors', 1 );
 
 if (!class_exists('\GitLive\Autoloader', false)) {
     include BASE_DIR.'/src/libs/GitLive/Autoloader.php';

@@ -15,7 +15,7 @@
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', -1);
 
-
+date_default_timezone_set(date_default_timezone_get());
 
 $is_debug = true;
 
