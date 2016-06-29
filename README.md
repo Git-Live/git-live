@@ -1,4 +1,5 @@
 # Git Live Flow
+<img src="https://travis-ci.org/Git-Live/git-live.svg?branch=master">
 
 ## git-flow
 
