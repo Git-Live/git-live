@@ -41,8 +41,6 @@ class GitLive extends \GitLive\GitLive
         $this->GitCmdExecuter = \EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
         $this->GitCmdExecuter->shouldReceive('exec')
         ->andNoBypass();
-
-
     }
 
     /* ----------------------------------------- */
@@ -52,13 +50,13 @@ class GitLive extends \GitLive\GitLive
      * +--
      *
      * @access      public
-     * @param       string $driver_name
-     * @return      \GitLive\Driver\DriverBase
+     * @param  string                     $driver_name
+     * @return \GitLive\Driver\DriverBase
      */
     public function Driver($driver_name)
     {
         if (!isset($this->Driver[$driver_name])) {
-            $class_name = '\GitLive\Driver'."\\".$driver_name;
+            $class_name                 = '\GitLive\Driver'.'\\'.$driver_name;
             $this->Driver[$driver_name] = new $class_name($this);
         }
 
@@ -100,9 +98,6 @@ class GitLive extends \GitLive\GitLive
     }
 
     /* ----------------------------------------- */
-
-
-
 }
 
 /* ----------------------------------------- */

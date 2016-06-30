@@ -45,60 +45,31 @@ class Init extends DriverBase
     {
         $argv = $this->getArgv();
         if (!isset($argv[3])) {
-            while (true) {
-                $this->ncecho(_('Please enter only your remote-repository.')."\n");
-                $this->ncecho(':');
-                $clone_repository = trim(fgets(STDIN, 1000));
-                if ($clone_repository === '') {
-                    $this->ncecho(':');
-                    continue;
-                }
-
-                break;
-            }
-
-            while (true) {
-                $this->ncecho(_('Please enter common remote-repository.')."\n");
-                $this->ncecho(':');
-                $upstream_repository = trim(fgets(STDIN, 1000));
-
-                if ($upstream_repository === '') {
-                    $this->ncecho(':');
-                    continue;
-                }
-
-                break;
-            }
-
-            while (true) {
-                $this->ncecho(_('Please enter deploying dedicated remote-repository.')."\n");
-                $this->ncecho(_('If you return in the blank, it becomes the default setting.')."\n");
-                $this->ncecho("default:{$upstream_repository}"."\n");
-                $this->ncecho(':');
-
-                $deploy_repository = trim(fgets(STDIN, 1000));
-
-                if ($deploy_repository === '') {
-                    $deploy_repository = $upstream_repository;
-                }
-
-                break;
-            }
+            $clone_repository = $this->interactiveShell(_('Please enter only your remote-repository.'));
+            $upstream_repository = $this->interactiveShell(_('Please enter common remote-repository.'));
+            $deploy_repository = $this->interactiveShell(
+                [
+                _('Please enter deploying dedicated remote-repository.'),
+                _('If you return in the blank, it becomes the default setting.'),
+                "default:{$upstream_repository}",
+                ]
+            , $upstream_repository);
 
             $is_auto_clone_dir = mb_ereg('/([^/]+?)(\.git)?$', $clone_repository, $match);
-            while (true) {
-                $this->ncecho(_('Please enter work directory path.')."\n");
-                $this->ncecho(_('If you return in the blank, it becomes the default setting.')."\n");
-                $this->ncecho("default:{$match[1]}"."\n");
-                $this->ncecho(':');
-                $clone_dir = trim(fgets(STDIN, 1000));
-
-                if ($clone_dir === '') {
-                    $clone_dir = null;
-                }
-
-                break;
+            $auto_clone_dir = null;
+            if ($is_auto_clone_dir) {
+                $auto_clone_dir = $match[1];
             }
+
+            $clone_dir = $this->interactiveShell(
+                [
+                _('Please enter work directory path.'),
+                _('If you return in the blank, it becomes the default setting.'),
+                "default:{$auto_clone_dir}",
+                ]
+            , $upstream_repository);
+
+
         } else {
             $clone_repository = $argv[2];
 

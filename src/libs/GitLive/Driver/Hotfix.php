@@ -74,6 +74,11 @@ class Hotfix extends DeployBase
             $this->hotfixPush();
         break;
 
+        case 'track':
+            $this->enableRelease();
+            $this->hotfixTrack();
+        break;
+
         default:
             $this->Driver('Help')->help();
         break;
@@ -100,8 +105,7 @@ class Hotfix extends DeployBase
         $repository = explode("\n", trim($repository));
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/'.$this->deploy_repository_name.'/hotfix/') !== false) {
-                throw new exception(_('既にhotfix open されています。')."\n".$value);
-            }
+                throw new exception(_('既にhotfix open されています。'.$value));            }
         }
 
         $hotfix_rep = 'hotfix/'.date('Ymdhis');
@@ -128,6 +132,7 @@ class Hotfix extends DeployBase
         }
 
         $repo = $this->getHotfixRepository();
+        $this->GitCmdExecuter->pull('upstream', $repo);
         $this->GitCmdExecuter->pull('deploy', $repo);
         $this->GitCmdExecuter->checkout($repo);
     }

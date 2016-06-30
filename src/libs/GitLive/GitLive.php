@@ -285,7 +285,7 @@ class GitLive extends GitBase
      */
     public function getSelfBranch()
     {
-        $self_blanch = `git symbolic-ref HEAD 2>/dev/null`;
+        $self_blanch = $this->exec('git symbolic-ref HEAD 2>/dev/null');
         if (!$self_blanch) {
             throw new exception(_('git repositoryではありません。'));
         }
@@ -325,7 +325,8 @@ class GitLive extends GitBase
     {
         $branch = $this->getSelfBranch();
         $remote = 'origin';
-        switch ($branch) {
+
+        switch ((string)$branch) {
         case 'refs/heads/develop':
         case 'refs/heads/master':
             $remote = 'upstream';
@@ -363,7 +364,7 @@ class GitLive extends GitBase
 
         if ($this->getSelfBranch() !== 'refs/heads/master') {
             $this->GitCmdExecuter->checkout($repo);
-            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('masterがReleaseブランチより進んでいます。'));
+            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('masterが'.ucwords($mode).'ブランチより進んでいます。'));
         }
 
         $this->GitCmdExecuter->merge('deploy/'.$repo);
@@ -383,7 +384,7 @@ class GitLive extends GitBase
 
         if ($this->getSelfBranch() !== 'refs/heads/develop') {
             $this->GitCmdExecuter->checkout($repo);
-            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('developがReleaseブランチより進んでいます。'));
+            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('developが'.ucwords($mode).'ブランチより進んでいます。'));
         }
 
         $this->GitCmdExecuter->merge('deploy/'.$repo);
@@ -393,7 +394,7 @@ class GitLive extends GitBase
         }
 
         if (strlen($diff) !== 0) {
-            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('developがReleaseブランチより進んでいます。'));
+            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('developが'.ucwords($mode).'ブランチより進んでいます。'));
         }
 
         $this->GitCmdExecuter->push('upstream', 'develop');

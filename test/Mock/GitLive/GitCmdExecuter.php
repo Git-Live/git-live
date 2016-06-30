@@ -14,9 +14,6 @@
  */
 namespace GitLive\Mock;
 
-
-
-
 /**
  * @category   GitCommand
  * @package    Git-Live
@@ -30,7 +27,6 @@ namespace GitLive\Mock;
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-
 class GitCmdExecuter extends \GitLive\GitCmdExecuter
 {
 
@@ -38,8 +34,8 @@ class GitCmdExecuter extends \GitLive\GitCmdExecuter
      * +-- Commandの実行
      *
      * @access      public
-     * @param       string $cmd
-     * @return      string
+     * @param  string $cmd
+     * @return string
      * @codeCoverageIgnore
      */
     public function exec($cmd)
@@ -47,6 +43,4 @@ class GitCmdExecuter extends \GitLive\GitCmdExecuter
         return $cmd;
     }
     /* ----------------------------------------- */
-
-
 }

@@ -52,6 +52,9 @@ class Log extends DriverBase
             case 'master':
                 $this->logMaster();
             break;
+            default:
+                $this->Driver('Help')->help();
+            break;
         }
     }
 

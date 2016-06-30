@@ -55,7 +55,7 @@ class GitCmdExecuterTest extends testCaseBase
     {
         $res = $this->call($this->instance, 'createCmd', array('pull', array('upstream', 'master')));
 
-        $this->assertSame("git pull upstream master", $res);
+        $this->assertSame('git pull upstream master', $res);
     }
 
     public function tagTest()
@@ -67,7 +67,7 @@ class GitCmdExecuterTest extends testCaseBase
         ->andNoBypass();
 
         $res = $instance->tag(['--fooo', 'baaaa']);
-        $this->assertSame("git tag --fooo baaaa", $res);
+        $this->assertSame('git tag --fooo baaaa', $res);
     }
 
     public function copyTest()
@@ -79,7 +79,7 @@ class GitCmdExecuterTest extends testCaseBase
         ->andNoBypass();
 
         $res = $instance->copy(['--fooo', 'baaaa']);
-        $this->assertSame("git clone --fooo baaaa", $res);
+        $this->assertSame('git clone --fooo baaaa', $res);
     }
     public function remoteTest()
     {
@@ -90,7 +90,7 @@ class GitCmdExecuterTest extends testCaseBase
         ->andNoBypass();
 
         $res = $instance->remote(['--fooo', 'baaaa']);
-        $this->assertSame("git remote --fooo baaaa", $res);
+        $this->assertSame('git remote --fooo baaaa', $res);
     }
     public function statusTest()
     {
@@ -101,7 +101,7 @@ class GitCmdExecuterTest extends testCaseBase
         ->andNoBypass();
 
         $res = $instance->status(['--fooo', 'baaaa']);
-        $this->assertSame("git status --fooo baaaa", $res);
+        $this->assertSame('git status --fooo baaaa', $res);
     }
     public function diffTest()
     {
@@ -112,7 +112,7 @@ class GitCmdExecuterTest extends testCaseBase
         ->andNoBypass();
 
         $res = $instance->diff(['--fooo', 'baaaa']);
-        $this->assertSame("git diff --fooo baaaa", $res);
+        $this->assertSame('git diff --fooo baaaa', $res);
     }
 
     public function mergeTest()
@@ -124,7 +124,7 @@ class GitCmdExecuterTest extends testCaseBase
         ->andNoBypass();
 
         $res = $instance->merge('origin', ['--fooo', 'baaaa']);
-        $this->assertSame("git merge --fooo baaaa origin", $res);
+        $this->assertSame('git merge --fooo baaaa origin', $res);
     }
 
     public function fetchTest()
@@ -136,7 +136,7 @@ class GitCmdExecuterTest extends testCaseBase
         ->andNoBypass();
 
         $res = $instance->fetch(['--fooo', 'baaaa']);
-        $this->assertSame("git fetch --fooo baaaa", $res);
+        $this->assertSame('git fetch --fooo baaaa', $res);
     }
 
     public function checkoutTest()
@@ -148,7 +148,7 @@ class GitCmdExecuterTest extends testCaseBase
         ->andNoBypass();
 
         $res = $instance->checkout('origin', ['--fooo', 'baaaa']);
-        $this->assertSame("git checkout --fooo baaaa origin", $res);
+        $this->assertSame('git checkout --fooo baaaa origin', $res);
     }
     public function branchTest()
     {
@@ -159,7 +159,7 @@ class GitCmdExecuterTest extends testCaseBase
         ->andNoBypass();
 
         $res = $instance->branch(['--fooo', 'baaaa']);
-        $this->assertSame("git branch --fooo baaaa", $res);
+        $this->assertSame('git branch --fooo baaaa', $res);
     }
     public function pullTest()
     {
@@ -170,7 +170,7 @@ class GitCmdExecuterTest extends testCaseBase
         ->andNoBypass();
 
         $res = $instance->pull('origin', 'master');
-        $this->assertSame("git pull origin master", $res);
+        $this->assertSame('git pull origin master', $res);
     }
 
     public function pushTest()
@@ -182,13 +182,12 @@ class GitCmdExecuterTest extends testCaseBase
         ->andNoBypass();
 
         $res = $instance->push('origin', 'master');
-        $this->assertSame("git push origin master", $res);
-
+        $this->assertSame('git push origin master', $res);
     }
     public function tagPushTest()
     {
         $remote = 'origin';
-        $cmd = 'git push';
+        $cmd    = 'git push';
         $cmd .= ' '.$remote.' --tags';
 
         $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
@@ -199,14 +198,13 @@ class GitCmdExecuterTest extends testCaseBase
 
         $res = $instance->tagPush($remote);
         $this->assertSame($cmd, $res);
-
     }
 
     public function logTest()
     {
         $option = 'hoge';
-        $left = 'asdfsadfsafa';
-        $right = 'juyioyuiyoyu';
+        $left   = 'asdfsadfsafa';
+        $right  = 'juyioyuiyoyu';
 
         $cmd = 'git log --pretty=fuller --name-status '
             .$option.' '.$left.'..'.$right;
@@ -219,7 +217,6 @@ class GitCmdExecuterTest extends testCaseBase
 
         $res = $instance->log($left, $right, $option);
         $this->assertSame($cmd, $res);
-
     }
 
     /**

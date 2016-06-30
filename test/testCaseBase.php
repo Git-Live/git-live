@@ -19,8 +19,7 @@
  * @since      File available since Release 1.0.0
  * @doc_ignore
  */
-
-ini_set( 'display_errors', 1 );
+ini_set('display_errors', 1);
 date_default_timezone_set('Europe/London');
 
 
@@ -29,7 +28,8 @@ define('BASE_DIR', dirname(__DIR__));
 define('GIT_LIVE_INSTALL_DIR', BASE_DIR.'/.install_file');
 
 if (!function_exists('_')) {
-    function _($str) {
+    function _($str)
+    {
         return $str;
     }
 }

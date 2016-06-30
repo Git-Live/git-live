@@ -48,19 +48,88 @@ class GitLiveTest extends testCaseBase
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
+     */
+    public function getSelfBranchTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $e        = null;
+        try {
+            $instance->shouldReceive('exec')
+            ->andReturn('refs/heads/unit_testing/unit_testing');
+
+            $res = $instance->getSelfBranch();
+
+        } catch (exception $e) {
+        }
+        $mock_trace = EnviMockLight::getMockTraceList();
+        $command_list = [];
+        foreach ($mock_trace as $item) {
+            if ($item['method_name'] === 'exec') {
+                $command_list[] = $item['arguments'][0];
+            }
+        }
+
+        // var_export($command_list);
+        $needle_command_list = array (
+            'git symbolic-ref HEAD 2>/dev/null',
+        );
+        $this->assertSame($needle_command_list, $command_list);
+
+        $this->assertNull($e);
+        $this->assertSame($res, 'refs/heads/unit_testing/unit_testing');
+
+
+
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $e        = null;
+        try {
+            $instance->shouldReceive('exec')
+            ->andReturn('');
+
+            $res = $instance->getSelfBranch();
+
+        } catch (exception $e) {
+        }
+        $mock_trace = EnviMockLight::getMockTraceList();
+        $command_list = [];
+        foreach ($mock_trace as $item) {
+            if ($item['method_name'] === 'exec') {
+                $command_list[] = $item['arguments'][0];
+            }
+        }
+
+        // var_export($command_list);
+        $needle_command_list = array (
+            'git symbolic-ref HEAD 2>/dev/null',
+        );
+        $this->assertSame($needle_command_list, $command_list);
+
+        $this->assertInstanceOf('exception', $e);
+
+
+
+    }
+    /* ----------------------------------------- */
+
+
+
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
      */
     public function enableReleaseTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
-        $e = null;
+        $e        = null;
         try {
             $instance->getGitCmdExecuter()->shouldReceive('remote')
             ->andReturn(join("\n", ['deploy', 'origin', 'upstream'])."\n");
 
             $instance->enableRelease();
         } catch (exception $e) {
-
         }
         $this->assertNull($e);
     }
@@ -71,18 +140,17 @@ class GitLiveTest extends testCaseBase
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function enableReleaseDisabledTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
-        $e = null;
+        $e        = null;
         try {
             $instance->getGitCmdExecuter()->shouldReceive('remote')
-            ->andReturn("origin");
+            ->andReturn('origin');
             $instance->enableRelease();
         } catch (exception $e) {
-
         }
         $this->assertInstanceOf('exception', $e);
     }
@@ -93,7 +161,7 @@ class GitLiveTest extends testCaseBase
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function getHotfixRepositoryTest()
     {
@@ -104,7 +172,6 @@ class GitLiveTest extends testCaseBase
         try {
             $res = $instance->getHotfixRepository();
         } catch (exception $e) {
-
         }
         $this->assertSame('hotfix/20160629050505', $res);
         $this->assertNull($e);
@@ -118,9 +185,7 @@ class GitLiveTest extends testCaseBase
         $e = null;
         try {
             $res = $instance->getHotfixRepository();
-
         } catch (exception $e) {
-
         }
 
 
@@ -133,7 +198,7 @@ class GitLiveTest extends testCaseBase
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function getReleaseRepositoryTest()
     {
@@ -144,7 +209,6 @@ class GitLiveTest extends testCaseBase
         try {
             $res = $instance->getReleaseRepository();
         } catch (exception $e) {
-
         }
         $this->assertSame('release/20160629050505', $res);
         $this->assertNull($e);
@@ -157,9 +221,7 @@ class GitLiveTest extends testCaseBase
         $e = null;
         try {
             $res = $instance->getReleaseRepository();
-
         } catch (exception $e) {
-
         }
 
 

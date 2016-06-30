@@ -47,7 +47,7 @@ class Driver_HelpTest extends testCaseBase
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function executeBlankTest()
     {
@@ -71,12 +71,11 @@ class Driver_HelpTest extends testCaseBase
     /* ----------------------------------------- */
 
 
-
     /**
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function executeReleaseBlankTest()
     {
@@ -102,7 +101,7 @@ class Driver_HelpTest extends testCaseBase
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function executeReleaseUndefinedOptionTest()
     {
@@ -126,12 +125,345 @@ class Driver_HelpTest extends testCaseBase
 
 
 
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
+     */
+    public function executePullRequestBlankTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'pr']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+
+
+
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'pr', 'track']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+
+
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'pr', 'merge']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+
+        return $instance;
+    }
+    /* ----------------------------------------- */
 
     /**
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
+     */
+    public function executePullRequestUndefinedOptionTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'pr', 'undefined_option']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+        return $instance;
+    }
+    /* ----------------------------------------- */
+
+
+
+
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
+     */
+    public function executeLogBlankTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'log']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+        return $instance;
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
+     */
+    public function executeLogUndefinedOptionTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'log', 'undefined_option']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+        return $instance;
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
+     */
+    public function executeMergeBlankTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'merge']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+        return $instance;
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
+     */
+    public function executeMergeUndefinedOptionTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'merge', 'undefined_option']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+        return $instance;
+    }
+    /* ----------------------------------------- */
+
+
+
+
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
+     */
+    public function executeFeatureBlankTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'feature']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'feature', 'start']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'feature', 'track']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+        return $instance;
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
+     */
+    public function executeFeatureUndefinedOptionTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'feature', 'undefined_option']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+        return $instance;
+    }
+    /* ----------------------------------------- */
+
+
+
+
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
+     */
+    public function executeHotfixBlankTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'hotfix']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+        return $instance;
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
+     */
+    public function executeHotfixUndefinedOptionTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'hotfix', 'undefined_option']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+        return $instance;
+    }
+    /* ----------------------------------------- */
+
+
+
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
      * @depends    executeBlankTest
      */
     public function executeHelpTest($instance)
@@ -159,7 +491,7 @@ class Driver_HelpTest extends testCaseBase
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      * @depends    executeBlankTest
      */
     public function executeVersionTest($instance)
@@ -177,7 +509,7 @@ class Driver_HelpTest extends testCaseBase
 
         $mock_trace = EnviMockLight::getMockTraceList();
         $this->assertSame('getArgv', $mock_trace[0]['method_name']);
-        $this->assertTrue(mb_ereg('Git Live version', $contents) == true    );
+        $this->assertTrue(mb_ereg('Git Live version', $contents) == true);
 
 
         EnviMockLight::free($instance);

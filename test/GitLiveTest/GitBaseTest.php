@@ -46,7 +46,7 @@ class GitBaseTest extends testCaseBase
      * +-- 色を指定しないdebugメッセージ
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function debug1Test()
     {
@@ -57,10 +57,10 @@ class GitBaseTest extends testCaseBase
         ->andReturnAugment();
         $instance->shouldReceive('cecho')
         ->with('hogehoge')
-        ->never ()
+        ->never()
         ->andReturnAugment();
 
-        $res = $instance->debug('hogehoge');
+        $res        = $instance->debug('hogehoge');
         $mock_trace = EnviMockLight::getMockTraceList();
         $this->assertSame('ncecho', $mock_trace[0]['method_name']);
     }
@@ -71,7 +71,7 @@ class GitBaseTest extends testCaseBase
      * +-- 色を指定したdebugメッセージ
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function debug2Test()
     {
@@ -85,7 +85,7 @@ class GitBaseTest extends testCaseBase
         ->once()
         ->andReturnAugment();
 
-        $res = $instance->debug('hogehoge', 12);
+        $res        = $instance->debug('hogehoge', 12);
         $mock_trace = EnviMockLight::getMockTraceList();
         $this->assertSame('cecho', $mock_trace[0]['method_name']);
     }
@@ -96,7 +96,7 @@ class GitBaseTest extends testCaseBase
      * +-- デバッグモードオフ
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function debug3Test()
     {
@@ -113,8 +113,8 @@ class GitBaseTest extends testCaseBase
         ->never()
         ->andReturnAugment();
 
-        $res = $instance->debug('hogehoge', 12);
-        $res = $instance->debug('hogehoge');
+        $res        = $instance->debug('hogehoge', 12);
+        $res        = $instance->debug('hogehoge');
         $mock_trace = EnviMockLight::getMockTraceList();
         $this->assertCount(2, $mock_trace);
 

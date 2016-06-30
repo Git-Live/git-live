@@ -58,6 +58,40 @@ class GitBase
     /* ----------------------------------------- */
 
     /**
+     * +-- 対話シェル
+     *
+     * @access      public
+     * @param       var_text $shell_message
+     * @param       bool|string $using_default OPTIONAL:false
+     * @return      string
+     */
+    public function interactiveShell($shell_message, $using_default = false)
+    {
+        if (is_array($shell_message)) {
+            $shell_message = join("\n", $shell_message);
+        }
+        $shell_message .= "\n";
+
+        $this->ncecho($shell_message);
+        while (true) {
+            $this->ncecho($shell_message);
+            $this->ncecho(':');
+            $res = trim(fgets(STDIN, 1000));
+            if ($res === '') {
+                if ($using_default === false) {
+                    $this->ncecho(':');
+                    continue;
+                }
+                $res = $using_default;
+            }
+
+            break;
+        }
+        return $res;
+    }
+    /* ----------------------------------------- */
+
+    /**
      * +-- Commandの実行
      *
      * @access      public

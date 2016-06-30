@@ -31,7 +31,7 @@
  * @since      File available since Release 1.0.0
  * @doc_ignore
  */
-class Driver_UpdateTest extends testCaseBase
+class Driver_MergeTest extends testCaseBase
 {
     protected $instance;
 
@@ -48,33 +48,68 @@ class Driver_UpdateTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function updateTest()
+    public function mergeDevelopTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
-        $instance->shouldReceive('file_get_contents')
-        ->with('https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar')
-        ->once()
-        ->andReturnAugment();
-
-        $instance->shouldReceive('file_put_contents')
-        ->with(GIT_LIVE_INSTALL_DIR, 'https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar')
-        ->once()
-        ->andReturnAugment();
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'update']);
+        ->andReturn([__FILE__, 'merge', 'develop']);
 
         $instance->execute();
         $mock_trace = EnviMockLight::getMockTraceList();
+        $command_list = [];
+        foreach ($mock_trace as $item) {
+            if ($item['method_name'] === 'exec') {
+                $command_list[] = $item['arguments'][0];
+            }
+        }
+        // var_export($command_list);
+        $needle_command_list = array (
+            'git fetch --all',
+            'git fetch -p',
+            'git merge upstream/develop',
+        );
+        $this->assertSame($needle_command_list, $command_list);
 
-        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
-        $this->assertSame('file_get_contents', $mock_trace[1]['method_name']);
-        $this->assertSame('file_put_contents', $mock_trace[2]['method_name']);
+
     }
     /* ----------------------------------------- */
 
 
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
+     */
+    public function mergeMasterTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->twice()
+        ->andReturn([__FILE__, 'merge', 'master']);
+
+        $instance->execute();
+        $mock_trace = EnviMockLight::getMockTraceList();
+        $command_list = [];
+        foreach ($mock_trace as $item) {
+            if ($item['method_name'] === 'exec') {
+                $command_list[] = $item['arguments'][0];
+            }
+        }
+        // var_export($command_list);
+        $needle_command_list = array (
+            'git fetch --all',
+            'git fetch -p',
+            'git merge upstream/master',
+        );
+        $this->assertSame($needle_command_list, $command_list);
+
+
+    }
+    /* ----------------------------------------- */
 
 
     /**

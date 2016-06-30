@@ -84,6 +84,11 @@ class Release extends DeployBase
             $this->releasePush();
         break;
 
+        case 'track':
+            $this->enableRelease();
+            $this->releaseTrack();
+        break;
+
         default:
             $this->Driver('Help')->help();
         break;
@@ -139,6 +144,7 @@ class Release extends DeployBase
         }
 
         $repo = $this->getReleaseRepository();
+        $this->GitCmdExecuter->pull('upstream', $repo);
         $this->GitCmdExecuter->pull('deploy', $repo);
         $this->GitCmdExecuter->checkout($repo);
     }

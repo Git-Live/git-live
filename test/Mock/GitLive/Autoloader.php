@@ -27,7 +27,6 @@ namespace GitLive\Mock;
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-
 class Autoloader extends \GitLive\Autoloader
 {
     protected $files = array();

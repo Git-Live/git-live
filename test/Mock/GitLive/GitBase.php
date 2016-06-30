@@ -14,9 +14,6 @@
  */
 namespace GitLive\Mock;
 
-
-
-
 /**
  * @category   GitCommand
  * @package    Git-Live
@@ -30,7 +27,6 @@ namespace GitLive\Mock;
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-
 class GitBase extends \GitLive\GitBase
 {
     public function isDebug()

@@ -31,7 +31,8 @@ if (!class_exists('\GitLive\Autoloader', false)) {
 }
 
 if (!function_exists('_')) {
-    function _($str) {
+    function _($str)
+    {
         return $str;
     }
 }

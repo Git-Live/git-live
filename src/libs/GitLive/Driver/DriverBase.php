@@ -133,6 +133,22 @@ class DriverBase extends \GitLive\GitBase
     /* ----------------------------------------- */
 
 
+
+    /**
+     * +-- 対話シェル
+     *
+     * @access      public
+     * @param       var_text $shell_message
+     * @param       bool|string $using_default OPTIONAL:false
+     * @return      string
+     */
+    public function interactiveShell($shell_message, $using_default = false)
+    {
+        return $this->GitLive->interactiveShell($shell_message, $using_default);
+    }
+    /* ----------------------------------------- */
+
+
     /**
      * +-- デバッグメッセージ
      *
@@ -196,6 +212,4 @@ class DriverBase extends \GitLive\GitBase
         return $this->GitLive->isWin();
     }
     /* ----------------------------------------- */
-
-
 }

@@ -31,7 +31,7 @@
  * @since      File available since Release 1.0.0
  * @doc_ignore
  */
-class Driver_ReleaseTest extends testCaseBase
+class Driver_HotfixTest extends testCaseBase
 {
     protected $instance;
 
@@ -49,15 +49,15 @@ class Driver_ReleaseTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function executeReleaseOpenTest()
+    public function executeHotfixOpenTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'release', 'open']);
+        ->andReturn([__FILE__, 'hotfix', 'open']);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
@@ -65,10 +65,10 @@ class Driver_ReleaseTest extends testCaseBase
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(false);
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
@@ -90,10 +90,10 @@ class Driver_ReleaseTest extends testCaseBase
             'git fetch -p deploy',
             'git fetch -p upstream',
             'git branch -a',
-            'git checkout upstream/develop',
-            'git checkout -b release/'.$rep_name,
-            'git push upstream release/'.$rep_name,
-            'git push deploy release/'.$rep_name,
+            'git checkout upstream/master',
+            'git checkout -b hotfix/'.$rep_name,
+            'git push upstream hotfix/'.$rep_name,
+            'git push deploy hotfix/'.$rep_name,
         );
 
         $this->assertSame($needle_command_list, $command_list);
@@ -102,55 +102,25 @@ class Driver_ReleaseTest extends testCaseBase
         $this->assertTrue(true);
 
 
-        // isReleaseOpen のエラー処理
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
-
-        $instance->shouldReceive('enableRelease')
-        ->andReturn(true);
-
-        $instance->shouldReceive('release')
-        ->once()
-        ->andNoBypass();
-
-        $instance->shouldReceive('getArgv')
-        ->twice()
-        ->andReturn([__FILE__, 'release', 'open']);
-        $instance->shouldReceive('isReleaseOpen')
-        ->once()
-        ->andReturn(true);
-        $instance->shouldReceive('isHotfixOpen')
-        ->once()
-        ->andReturn(false);
-        $e = null;
-        try {
-            $instance->execute();
-        } catch (exception $e) {
-        }
-        $this->assertSame('既にrelease open されています。', $e->getMessage());
-        $this->assertInstanceOf('exception', $e);
-
-
-
         // isHotfixOpen のエラー処理
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'release', 'open']);
-        $instance->shouldReceive('isReleaseOpen')
-        ->once()
-        ->andReturn(false);
+        ->andReturn([__FILE__, 'hotfix', 'open']);
         $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
-
+        $instance->shouldReceive('isReleaseOpen')
+        ->once()
+        ->andReturn(false);
         $e = null;
         try {
             $instance->execute();
@@ -159,32 +129,62 @@ class Driver_ReleaseTest extends testCaseBase
         $this->assertSame('既にhotfix open されています。', $e->getMessage());
         $this->assertInstanceOf('exception', $e);
 
+
+
+        // isReleaseOpen のエラー処理
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('enableRelease')
+        ->andReturn(true);
+
+        $instance->shouldReceive('hotfix')
+        ->once()
+        ->andNoBypass();
+
+        $instance->shouldReceive('getArgv')
+        ->twice()
+        ->andReturn([__FILE__, 'hotfix', 'open']);
+        $instance->shouldReceive('isHotfixOpen')
+        ->once()
+        ->andReturn(false);
+        $instance->shouldReceive('isReleaseOpen')
+        ->once()
+        ->andReturn(true);
+
+        $e = null;
+        try {
+            $instance->execute();
+        } catch (exception $e) {
+        }
+        $this->assertSame('既にrelease open されています。', $e->getMessage());
+        $this->assertInstanceOf('exception', $e);
+
         // ローカルのリポジトリ確認
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(false);
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/deploy/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/deploy/hotfix/20160629050505'])."\n");
 
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'release', 'open']);
+        ->andReturn([__FILE__, 'hotfix', 'open']);
 
 
         $e = null;
@@ -192,7 +192,7 @@ class Driver_ReleaseTest extends testCaseBase
             $instance->execute();
         } catch (exception $e) {
         }
-        $this->assertSame('既にrelease open されています。'.'remotes/deploy/release/20160629050505', $e->getMessage());
+        $this->assertSame('既にhotfix open されています。'.'remotes/deploy/hotfix/20160629050505', $e->getMessage());
         $this->assertInstanceOf('exception', $e);
     }
     /* ----------------------------------------- */
@@ -204,30 +204,30 @@ class Driver_ReleaseTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function executeReleaseCloseSuccessTest()
+    public function executeHotfixCloseSuccessTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close']);
+        ->andReturn([__FILE__, 'hotfix', 'close']);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
 
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
@@ -246,7 +246,7 @@ class Driver_ReleaseTest extends testCaseBase
 
         $this->assertNull($e);
 
-        $arguments['diff'] = [['deploy/release/20160629050505', 'master'], ['deploy/release/20160629050505', 'develop']];
+        $arguments['diff'] = [['deploy/hotfix/20160629050505', 'master'], ['deploy/hotfix/20160629050505', 'develop']];
 
         $command_list = [];
         foreach ($mock_trace as $item) {
@@ -263,15 +263,15 @@ class Driver_ReleaseTest extends testCaseBase
             'git fetch -p upstream',
             'git checkout deploy/master',
             'git checkout -b master',
-            'git merge deploy/release/20160629050505',
+            'git merge deploy/hotfix/20160629050505',
             'git push upstream master',
             'git push deploy master',
             'git checkout upstream/develop',
             'git checkout -b develop',
-            'git merge deploy/release/20160629050505',
+            'git merge deploy/hotfix/20160629050505',
             'git push upstream develop',
-            'git push deploy :release/20160629050505',
-            'git push upstream :release/20160629050505',
+            'git push deploy :hotfix/20160629050505',
+            'git push upstream :hotfix/20160629050505',
             'git fetch upstream',
             'git checkout upstream/master',
             'git tag r20160629050505',
@@ -289,30 +289,30 @@ class Driver_ReleaseTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function executeReleaseCloseForceSuccessWithTagnameTest()
+    public function executeHotfixCloseSuccessWithTagnameTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close-force', 'tag_name']);
+        ->andReturn([__FILE__, 'hotfix', 'close', 'tag_name']);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
 
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
@@ -330,7 +330,7 @@ class Driver_ReleaseTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
         $this->assertNull($e);
 
-        $arguments['diff'] = [['deploy/release/20160629050505', 'master'], ['deploy/release/20160629050505', 'develop']];
+        $arguments['diff'] = [['deploy/hotfix/20160629050505', 'master'], ['deploy/hotfix/20160629050505', 'develop']];
 
         $arguments['tag_name'] = false;
         $command_list          = [];
@@ -353,15 +353,15 @@ class Driver_ReleaseTest extends testCaseBase
             'git fetch -p upstream',
             'git checkout deploy/master',
             'git checkout -b master',
-            'git merge deploy/release/20160629050505',
+            'git merge deploy/hotfix/20160629050505',
             'git push upstream master',
             'git push deploy master',
             'git checkout upstream/develop',
             'git checkout -b develop',
-            'git merge deploy/release/20160629050505',
+            'git merge deploy/hotfix/20160629050505',
             'git push upstream develop',
-            'git push deploy :release/20160629050505',
-            'git push upstream :release/20160629050505',
+            'git push deploy :hotfix/20160629050505',
+            'git push upstream :hotfix/20160629050505',
             'git fetch upstream',
             'git checkout upstream/master',
             'git tag tag_name',
@@ -379,30 +379,30 @@ class Driver_ReleaseTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function executeReleaseCloseNotReleaseOpenErrorTest()
+    public function executeHotfixCloseNotHotfixOpenErrorTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close']);
-
-        $instance->shouldReceive('isReleaseOpen')
-        ->once()
-        ->andReturn(false);
+        ->andReturn([__FILE__, 'hotfix', 'close']);
 
         $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(false);
 
+        $instance->shouldReceive('isReleaseOpen')
+        ->once()
+        ->andReturn(false);
+
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
@@ -422,7 +422,7 @@ class Driver_ReleaseTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame('release openされていません。', $e->getMessage());
+        $this->assertSame('hotfix openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -433,30 +433,30 @@ class Driver_ReleaseTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function executeReleaseCloseDiffErrorTest()
+    public function executeHotfixCloseDiffErrorTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close']);
+        ->andReturn([__FILE__, 'hotfix', 'close']);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
 
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->once()
@@ -476,7 +476,7 @@ class Driver_ReleaseTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame("差分\nrelease closeに失敗しました。", $e->getMessage());
+        $this->assertSame("差分\nhotfix closeに失敗しました。", $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -490,30 +490,30 @@ class Driver_ReleaseTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function executeReleaseCloseDiff2ErrorTest()
+    public function executeHotfixCloseDiff2SuccessTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close']);
+        ->andReturn([__FILE__, 'hotfix', 'close']);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
 
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturnConsecutive(['', '差分']);
@@ -529,13 +529,46 @@ class Driver_ReleaseTest extends testCaseBase
         try {
             $instance->execute();
         } catch (exception $e) {
-            // var_dump($e->getMessage());
+            var_dump($e->getMessage());
         }
 
         $mock_trace = EnviMockLight::getMockTraceList();
+        $this->assertNull($e);
 
-        $this->assertInstanceOf('exception', $e);
-        $this->assertSame("release closeに失敗しました。\ndevelopがReleaseブランチより進んでいます。", $e->getMessage());
+        $arguments['diff'] = [['deploy/hotfix/20160629050505', 'master'], ['deploy/hotfix/20160629050505', 'develop']];
+
+        $command_list          = [];
+        foreach ($mock_trace as $item) {
+            if ($item['method_name'] === 'diff') {
+                $this->assertSame($item['arguments'], [array_shift($arguments['diff'])]);
+            }
+            if ($item['method_name'] === 'exec') {
+                $command_list[] = $item['arguments'][0];
+            }
+        }
+
+
+        $needle_command_list = array(
+            'git fetch --all',
+            'git fetch -p deploy',
+            'git fetch -p upstream',
+            'git checkout deploy/master',
+            'git checkout -b master',
+            'git merge deploy/hotfix/20160629050505',
+            'git push upstream master',
+            'git push deploy master',
+            'git checkout upstream/develop',
+            'git checkout -b develop',
+            'git merge deploy/hotfix/20160629050505',
+            'git push upstream develop',
+            'git push deploy :hotfix/20160629050505',
+            'git push upstream :hotfix/20160629050505',
+            'git fetch upstream',
+            'git checkout upstream/master',
+            'git tag r20160629050505',
+            'git push upstream --tags',
+        );
+        $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
 
@@ -548,30 +581,30 @@ class Driver_ReleaseTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function executeReleaseCloseGetSelfBranchErrorTest()
+    public function executeHotfixCloseGetSelfBranchErrorTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close']);
+        ->andReturn([__FILE__, 'hotfix', 'close']);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
 
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
@@ -591,7 +624,7 @@ class Driver_ReleaseTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame("release closeに失敗しました。\nmasterがReleaseブランチより進んでいます。", $e->getMessage());
+        $this->assertSame("hotfix closeに失敗しました。\nmasterがHotfixブランチより進んでいます。", $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -603,30 +636,30 @@ class Driver_ReleaseTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function executeReleaseCloseGetSelfBranchError2Test()
+    public function executeHotfixCloseGetSelfBranchError2Test()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close']);
+        ->andReturn([__FILE__, 'hotfix', 'close']);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
 
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
@@ -646,7 +679,7 @@ class Driver_ReleaseTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame("release closeに失敗しました。\ndevelopがReleaseブランチより進んでいます。", $e->getMessage());
+        $this->assertSame("hotfix closeに失敗しました。\ndevelopがHotfixブランチより進んでいます。", $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -658,30 +691,30 @@ class Driver_ReleaseTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function executeReleaseSyncSuccessTest()
+    public function executeHotfixSyncSuccessTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'sync']);
+        ->andReturn([__FILE__, 'hotfix', 'sync']);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
 
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
@@ -711,11 +744,11 @@ nothing to commit, working directory clean');
           'git fetch --all',
           'git fetch -p deploy',
           'git fetch -p upstream',
-          'git checkout -b release/20160629050505',
-          'git pull deploy release/20160629050505',
-          'git pull upstream release/20160629050505',
-          'git push upstream release/20160629050505',
-          'git push deploy release/20160629050505',
+          'git checkout -b hotfix/20160629050505',
+          'git pull deploy hotfix/20160629050505',
+          'git pull upstream hotfix/20160629050505',
+          'git push upstream hotfix/20160629050505',
+          'git push deploy hotfix/20160629050505',
         );
 
         $this->assertSame($needle_command_list, $command_list);
@@ -731,30 +764,30 @@ nothing to commit, working directory clean');
      * @access      public
      * @return void
      */
-    public function executeReleaseErrorCannotAutomaticallyMergeTest()
+    public function executeHotfixErrorCannotAutomaticallyMergeTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'sync']);
+        ->andReturn([__FILE__, 'hotfix', 'sync']);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
 
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
@@ -779,9 +812,9 @@ nothing to commit, working directory clean');
           'git fetch --all',
           'git fetch -p deploy',
           'git fetch -p upstream',
-          'git checkout -b release/20160629050505',
-          'git pull deploy release/20160629050505',
-          'git pull upstream release/20160629050505',
+          'git checkout -b hotfix/20160629050505',
+          'git pull deploy hotfix/20160629050505',
+          'git pull upstream hotfix/20160629050505',
 
         );
 
@@ -799,30 +832,30 @@ nothing to commit, working directory clean');
      * @access      public
      * @return void
      */
-    public function executeReleaseErrorReleaseNotOpenTest()
+    public function executeHotfixErrorHotfixNotOpenTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'sync']);
-
-        $instance->shouldReceive('isReleaseOpen')
-        ->once()
-        ->andReturn(false);
+        ->andReturn([__FILE__, 'hotfix', 'sync']);
 
         $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(false);
 
+        $instance->shouldReceive('isReleaseOpen')
+        ->once()
+        ->andReturn(false);
+
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
@@ -837,7 +870,7 @@ nothing to commit, working directory clean');
 
         $this->assertInstanceOf('exception', $e);
 
-        $this->assertSame('release openされていません。', $e->getMessage());
+        $this->assertSame('hotfix openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -850,30 +883,30 @@ nothing to commit, working directory clean');
      * @access      public
      * @return void
      */
-    public function executeReleaseStatusOpenSuccessTest()
+    public function executeHotfixStatusOpenSuccessTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'state']);
+        ->andReturn([__FILE__, 'hotfix', 'state']);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
 
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
 
         $instance->shouldReceive('ncecho')
@@ -901,11 +934,11 @@ nothing to commit, working directory clean');
             'git fetch --all',
             'git fetch -p deploy',
             'git fetch -p upstream',
-            'git log --pretty=fuller --name-status deploy/master..release/20160629050505',
+            'git log --pretty=fuller --name-status deploy/master..hotfix/20160629050505',
         );
 
         $this->assertSame($needle_command_list, $command_list);
-        $this->assertSame($mock_trace[count($mock_trace) - 1]['arguments'][0], "release is open.\n");
+        $this->assertSame($mock_trace[count($mock_trace) - 1]['arguments'][0], "hotfix is open.\n");
     }
     /* ----------------------------------------- */
 
@@ -918,31 +951,31 @@ nothing to commit, working directory clean');
      * @access      public
      * @return void
      */
-    public function executeReleaseStatusCloseSuccessTest()
+    public function executeHotfixStatusCloseSuccessTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'state']);
-
-        $instance->shouldReceive('isReleaseOpen')
-        ->once()
-        ->andReturn(false);
-
+        ->andReturn([__FILE__, 'hotfix', 'state']);
 
         $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(false);
 
+
+        $instance->shouldReceive('isReleaseOpen')
+        ->once()
+        ->andReturn(false);
+
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
 
         $instance->shouldReceive('ncecho')
@@ -959,96 +992,7 @@ nothing to commit, working directory clean');
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertNull($e);
-        $this->assertSame($mock_trace[count($mock_trace) - 1]['arguments'][0], "release is close.\n");
-    }
-    /* ----------------------------------------- */
-
-
-
-    /**
-     * +-- 分岐にないけど、差分があっても無視するパターン
-     *
-     *
-     * @access      public
-     * @return void
-     */
-    public function executeReleaseCloseDiff2SuccessTest()
-    {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
-
-        $instance->shouldReceive('enableRelease')
-        ->andReturn(true);
-
-        $instance->shouldReceive('release')
-        ->once()
-        ->andNoBypass();
-
-        $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close-force']);
-
-        $instance->shouldReceive('isReleaseOpen')
-        ->once()
-        ->andReturn(true);
-
-        $instance->shouldReceive('isHotfixOpen')
-        ->once()
-        ->andReturn(false);
-
-        $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
-
-        $instance->getGitCmdExecuter()->shouldReceive('diff')
-        ->andReturnConsecutive(['', '差分']);
-
-        $instance->shouldReceive('getSelfBranch')
-        ->twice()
-        ->andReturnConsecutive(['refs/heads/master', 'refs/heads/develop']);
-
-
-        $e = null;
-        try {
-            $instance->execute();
-        } catch (exception $e) {
-            var_dump($e->getMessage());
-        }
-
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $this->assertNull($e);
-
-        $arguments['diff'] = [['deploy/release/20160629050505', 'master'], ['deploy/release/20160629050505', 'develop']];
-
-        $command_list          = [];
-        foreach ($mock_trace as $item) {
-            if ($item['method_name'] === 'diff') {
-                $this->assertSame($item['arguments'], [array_shift($arguments['diff'])]);
-            }
-            if ($item['method_name'] === 'exec') {
-                $command_list[] = $item['arguments'][0];
-            }
-        }
-
-
-        $needle_command_list = array(
-            'git fetch --all',
-            'git fetch -p deploy',
-            'git fetch -p upstream',
-            'git checkout deploy/master',
-            'git checkout -b master',
-            'git merge deploy/release/20160629050505',
-            'git push upstream master',
-            'git push deploy master',
-            'git checkout upstream/develop',
-            'git checkout -b develop',
-            'git merge deploy/release/20160629050505',
-            'git push upstream develop',
-            'git push deploy :release/20160629050505',
-            'git push upstream :release/20160629050505',
-            'git fetch upstream',
-            'git checkout upstream/master',
-            'git tag r20160629050505',
-            'git push upstream --tags',
-        );
-        $this->assertSame($needle_command_list, $command_list);
+        $this->assertSame($mock_trace[count($mock_trace) - 1]['arguments'][0], "hotfix is close.\n");
     }
     /* ----------------------------------------- */
 
@@ -1060,30 +1004,30 @@ nothing to commit, working directory clean');
      * @access      public
      * @return void
      */
-    public function executeReleasePullSuccessTest()
+    public function executeHotfixPullSuccessTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'pull']);
+        ->andReturn([__FILE__, 'hotfix', 'pull']);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
 
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
 
         $e = null;
@@ -1107,8 +1051,8 @@ nothing to commit, working directory clean');
             'git fetch --all',
             'git fetch -p deploy',
             'git fetch -p upstream',
-            'git pull upstream release/20160629050505',
-            'git checkout release/20160629050505',
+            'git pull upstream hotfix/20160629050505',
+            'git checkout hotfix/20160629050505',
         );
 
         $this->assertSame($needle_command_list, $command_list);
@@ -1124,30 +1068,30 @@ nothing to commit, working directory clean');
      * @access      public
      * @return void
      */
-    public function executeReleasePullErrorReleaseIsNotOpenTest()
+    public function executeHotfixPullErrorHotfixIsNotOpenTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'pull']);
-
-        $instance->shouldReceive('isReleaseOpen')
-        ->once()
-        ->andReturn(false);
+        ->andReturn([__FILE__, 'hotfix', 'pull']);
 
         $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(false);
 
+        $instance->shouldReceive('isReleaseOpen')
+        ->once()
+        ->andReturn(false);
+
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
 
         $e = null;
@@ -1160,7 +1104,7 @@ nothing to commit, working directory clean');
 
         $this->assertInstanceOf('exception', $e);
 
-        $this->assertSame('release openされていません。', $e->getMessage());
+        $this->assertSame('hotfix openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -1174,30 +1118,30 @@ nothing to commit, working directory clean');
      * @access      public
      * @return void
      */
-    public function executeReleaseTrackSuccessTest()
+    public function executeHotfixTrackSuccessTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'track']);
+        ->andReturn([__FILE__, 'hotfix', 'track']);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
 
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
 
         $e = null;
@@ -1221,9 +1165,9 @@ nothing to commit, working directory clean');
             'git fetch --all',
             'git fetch -p deploy',
             'git fetch -p upstream',
-            'git pull upstream release/20160629050505',
-            'git pull deploy release/20160629050505',
-            'git checkout release/20160629050505',
+            'git pull upstream hotfix/20160629050505',
+            'git pull deploy hotfix/20160629050505',
+            'git checkout hotfix/20160629050505',
         );
 
         $this->assertSame($needle_command_list, $command_list);
@@ -1239,30 +1183,30 @@ nothing to commit, working directory clean');
      * @access      public
      * @return void
      */
-    public function executeReleaseTrackErrorReleaseIsNotOpenTest()
+    public function executeHotfixTrackErrorHotfixIsNotOpenTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'track']);
-
-        $instance->shouldReceive('isReleaseOpen')
-        ->once()
-        ->andReturn(false);
+        ->andReturn([__FILE__, 'hotfix', 'track']);
 
         $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(false);
 
+        $instance->shouldReceive('isReleaseOpen')
+        ->once()
+        ->andReturn(false);
+
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
 
         $e = null;
@@ -1275,7 +1219,7 @@ nothing to commit, working directory clean');
 
         $this->assertInstanceOf('exception', $e);
 
-        $this->assertSame('release openされていません。', $e->getMessage());
+        $this->assertSame('hotfix openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -1288,30 +1232,30 @@ nothing to commit, working directory clean');
      * @access      public
      * @return void
      */
-    public function executeReleasePushSuccessTest()
+    public function executeHotfixPushSuccessTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'push']);
+        ->andReturn([__FILE__, 'hotfix', 'push']);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
 
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
         ->andReturn('On branch master
@@ -1341,9 +1285,9 @@ nothing to commit, working directory clean');
             'git fetch --all',
             'git fetch -p deploy',
             'git fetch -p upstream',
-            'git checkout release/20160629050505',
-            'git pull upstream release/20160629050505',
-            'git push upstream release/20160629050505',
+            'git checkout hotfix/20160629050505',
+            'git pull upstream hotfix/20160629050505',
+            'git push upstream hotfix/20160629050505',
         );
 
         $this->assertSame($needle_command_list, $command_list);
@@ -1358,30 +1302,30 @@ nothing to commit, working directory clean');
      * @access      public
      * @return void
      */
-    public function executeReleasePushErrorReleaseIsNotOpenTest()
+    public function executeHotfixPushErrorHotfixIsNotOpenTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'push']);
-
-        $instance->shouldReceive('isReleaseOpen')
-        ->once()
-        ->andReturn(false);
+        ->andReturn([__FILE__, 'hotfix', 'push']);
 
         $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(false);
 
+        $instance->shouldReceive('isReleaseOpen')
+        ->once()
+        ->andReturn(false);
+
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
 
         $e = null;
@@ -1394,7 +1338,7 @@ nothing to commit, working directory clean');
 
         $this->assertInstanceOf('exception', $e);
 
-        $this->assertSame('release openされていません。', $e->getMessage());
+        $this->assertSame('hotfix openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -1406,30 +1350,30 @@ nothing to commit, working directory clean');
      * @access      public
      * @return void
      */
-    public function executeReleasePushErrorStatusErrorTest()
+    public function executeHotfixPushErrorStatusErrorTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
-        $instance->shouldReceive('release')
+        $instance->shouldReceive('hotfix')
         ->once()
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'push']);
+        ->andReturn([__FILE__, 'hotfix', 'push']);
 
-        $instance->shouldReceive('isReleaseOpen')
+        $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(true);
 
-        $instance->shouldReceive('isHotfixOpen')
+        $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
         ->andReturn('おかしなステータス');

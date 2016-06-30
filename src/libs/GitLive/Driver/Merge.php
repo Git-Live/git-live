@@ -52,6 +52,9 @@ class Merge extends DriverBase
             case 'master':
                 $this->mergeMaster();
             break;
+            default:
+                $this->Driver('Help')->help();
+            break;
         }
     }
 

@@ -81,7 +81,7 @@ class AutoloaderTest extends testCaseBase
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      * @test
      */
     public function testExistingFile()
@@ -99,7 +99,7 @@ class AutoloaderTest extends testCaseBase
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      * @test
      */
     public function testMissingFile()
@@ -112,7 +112,7 @@ class AutoloaderTest extends testCaseBase
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      * @test
      */
     public function testDeepFile()
@@ -126,7 +126,7 @@ class AutoloaderTest extends testCaseBase
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      * @test
      */
     public function testConfusion()
