@@ -39,11 +39,11 @@ git-liveを使用するためには、PHP5.4以上が必要です。
 ### Unix系OS
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-$ wget https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php -O git-live
+$ wget https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar -O git-live
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 もしくは
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-$ curl https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php -o git-live
+$ curl https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar -o git-live
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 その後、
