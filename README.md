@@ -1,5 +1,12 @@
 # Git Live Flow
 
+[![travis-ci](https://travis-ci.org/Git-Live/git-live.svg?branch=master)](https://travis-ci.org/)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Git-Live/git-live/master/LICENSE)
+![php-version](https://img.shields.io/badge/php-5.3-blue.svg)
+![php-version](https://img.shields.io/badge/php-5.4-blue.svg)
+![php-version](https://img.shields.io/badge/php-5.5-blue.svg)
+![php-version](https://img.shields.io/badge/php-5.6-blue.svg)
+![php-version](https://img.shields.io/badge/php-hhvm-blue.svg)
 ## git-flow
 
 [git-flow](http://nvie.com/posts/a-successful-git-branching-model/)
@@ -32,9 +39,17 @@ git-liveを使用するためには、PHP5.4以上が必要です。
 ### Unix系OS
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-wget https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php
-chmod 0777 ./git-live.php
-sudo cp ./git-live.php /usr/bin/git-live
+$ wget https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php -O git-live
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+もしくは
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$ curl https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php -o git-live
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+その後、
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+$ chmod 0777 ./git-live
+$ sudo mv ./git-live /usr/local/bin/git-live
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
