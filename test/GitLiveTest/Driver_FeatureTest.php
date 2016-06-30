@@ -50,15 +50,15 @@ class Driver_FeatureTest extends testCaseBase
      */
     public function featureStartTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'feature', 'start', 'unit_testing']);
+        ->andReturn(array(__FILE__, 'feature', 'start', 'unit_testing'));
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
@@ -75,15 +75,15 @@ class Driver_FeatureTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
 
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'feature', 'start', 'feature/unit_testing2']);
+        ->andReturn(array(__FILE__, 'feature', 'start', 'feature/unit_testing2'));
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
@@ -110,22 +110,22 @@ class Driver_FeatureTest extends testCaseBase
      */
     public function featurePublishTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'feature', 'publish', 'unit_testing']);
+        ->andReturn(array(__FILE__, 'feature', 'publish', 'unit_testing'));
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch upstream',
             'git fetch -p upstream',
             'git fetch --all',
@@ -135,33 +135,32 @@ class Driver_FeatureTest extends testCaseBase
 
 
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'feature', 'publish']);
+        ->andReturn(array(__FILE__, 'feature', 'publish'));
 
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('feature/unit_testing2');
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch upstream',
             'git fetch -p upstream',
             'git fetch --all',
             'git push upstream feature/unit_testing2',
         );
         $this->assertSame($needle_command_list, $command_list);
-
     }
     /* ----------------------------------------- */
 
@@ -176,22 +175,22 @@ class Driver_FeatureTest extends testCaseBase
      */
     public function featurePushTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'feature', 'push', 'unit_testing']);
+        ->andReturn(array(__FILE__, 'feature', 'push', 'unit_testing'));
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch upstream',
             'git fetch -p upstream',
             'git push origin feature/unit_testing',
@@ -200,32 +199,31 @@ class Driver_FeatureTest extends testCaseBase
 
 
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'feature', 'push']);
+        ->andReturn(array(__FILE__, 'feature', 'push'));
 
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('feature/unit_testing2');
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch upstream',
             'git fetch -p upstream',
             'git push origin feature/unit_testing2',
         );
         $this->assertSame($needle_command_list, $command_list);
-
     }
     /* ----------------------------------------- */
 
@@ -241,22 +239,22 @@ class Driver_FeatureTest extends testCaseBase
      */
     public function featurePullTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'feature', 'pull', 'unit_testing']);
+        ->andReturn(array(__FILE__, 'feature', 'pull', 'unit_testing'));
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch upstream',
             'git fetch -p upstream',
             'git pull upstream feature/unit_testing',
@@ -265,32 +263,31 @@ class Driver_FeatureTest extends testCaseBase
 
 
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'feature', 'pull']);
+        ->andReturn(array(__FILE__, 'feature', 'pull'));
 
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('feature/unit_testing2');
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch upstream',
             'git fetch -p upstream',
             'git pull upstream feature/unit_testing2',
         );
         $this->assertSame($needle_command_list, $command_list);
-
     }
     /* ----------------------------------------- */
 
@@ -304,26 +301,26 @@ class Driver_FeatureTest extends testCaseBase
      */
     public function featureTrackTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'feature', 'track', 'unit_testing']);
+        ->andReturn(array(__FILE__, 'feature', 'track', 'unit_testing'));
 
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('master');
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch upstream',
             'git fetch -p upstream',
             'git pull upstream feature/unit_testing',
@@ -333,26 +330,26 @@ class Driver_FeatureTest extends testCaseBase
 
 
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'feature', 'track', 'feature/unit_testing2']);
+        ->andReturn(array(__FILE__, 'feature', 'track', 'feature/unit_testing2'));
 
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('feature/unit_testing2');
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch upstream',
             'git fetch -p upstream',
             'git pull upstream feature/unit_testing2',
@@ -371,21 +368,21 @@ class Driver_FeatureTest extends testCaseBase
      */
     public function featureCloseTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'feature', 'close', 'unit_testing']);
+        ->andReturn(array(__FILE__, 'feature', 'close', 'unit_testing'));
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch upstream',
             'git fetch -p upstream',
             'git fetch --all',
@@ -398,25 +395,25 @@ class Driver_FeatureTest extends testCaseBase
 
 
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'feature', 'close']);
+        ->andReturn(array(__FILE__, 'feature', 'close'));
 
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('feature/unit_testing2');
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch upstream',
             'git fetch -p upstream',
             'git fetch --all',
@@ -426,9 +423,6 @@ class Driver_FeatureTest extends testCaseBase
             'git branch -D feature/unit_testing2',
         );
         $this->assertSame($needle_command_list, $command_list);
-
-
-
     }
     /* ----------------------------------------- */
 

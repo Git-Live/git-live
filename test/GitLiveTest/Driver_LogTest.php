@@ -50,11 +50,11 @@ class Driver_LogTest extends testCaseBase
      */
     public function mergeDevelopTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'log', 'develop']);
+        ->andReturn(array(__FILE__, 'log', 'develop'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -66,23 +66,21 @@ class Driver_LogTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch --all',
             'git fetch -p',
             'git log --pretty=fuller --name-status --left-right upstream/develop..feature/unit_testing',
 
         );
         $this->assertSame($needle_command_list, $command_list);
-
-
     }
     /* ----------------------------------------- */
 
@@ -95,11 +93,11 @@ class Driver_LogTest extends testCaseBase
      */
     public function mergeMasterTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'log', 'master']);
+        ->andReturn(array(__FILE__, 'log', 'master'));
 
         $instance->shouldReceive('getSelfBranch')
         ->once()
@@ -109,22 +107,20 @@ class Driver_LogTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch --all',
             'git fetch -p',
             'git log --pretty=fuller --name-status --left-right upstream/master..feature/unit_testing',
         );
         $this->assertSame($needle_command_list, $command_list);
-
-
     }
     /* ----------------------------------------- */
 

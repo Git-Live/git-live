@@ -50,7 +50,7 @@ class Driver_UpdateTest extends testCaseBase
      */
     public function updateTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $instance->shouldReceive('file_get_contents')
         ->with('https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar')
         ->once()
@@ -63,7 +63,7 @@ class Driver_UpdateTest extends testCaseBase
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'update']);
+        ->andReturn(array(__FILE__, 'update'));
 
         $instance->execute();
         $mock_trace = EnviMockLight::getMockTraceList();

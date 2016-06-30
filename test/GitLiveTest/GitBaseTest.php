@@ -50,7 +50,7 @@ class GitBaseTest extends testCaseBase
      */
     public function debug1Test()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitBase', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitBase', array(), false);
         $instance->shouldReceive('ncecho')
         ->with('hogehoge')
         ->once()
@@ -75,7 +75,7 @@ class GitBaseTest extends testCaseBase
      */
     public function debug2Test()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitBase', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitBase', array(), false);
         $instance->shouldReceive('ncecho')
         ->with('hogehoge')
         ->never()
@@ -100,7 +100,7 @@ class GitBaseTest extends testCaseBase
      */
     public function debug3Test()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitBase', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitBase', array(), false);
         $instance->shouldReceive('isDebug')
         ->andReturn(false);
 

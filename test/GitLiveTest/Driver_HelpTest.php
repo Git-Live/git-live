@@ -51,11 +51,11 @@ class Driver_HelpTest extends testCaseBase
      */
     public function executeBlankTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->once()
-        ->andReturn([__FILE__]);
+        ->andReturn(array(__FILE__));
 
         ob_start();
         $instance->execute();
@@ -79,10 +79,10 @@ class Driver_HelpTest extends testCaseBase
      */
     public function executeReleaseBlankTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release']);
+        ->andReturn(array(__FILE__, 'release'));
 
         ob_start();
         $instance->execute();
@@ -105,10 +105,10 @@ class Driver_HelpTest extends testCaseBase
      */
     public function executeReleaseUndefinedOptionTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'undefined_option']);
+        ->andReturn(array(__FILE__, 'release', 'undefined_option'));
 
         ob_start();
         $instance->execute();
@@ -133,10 +133,10 @@ class Driver_HelpTest extends testCaseBase
      */
     public function executePullRequestBlankTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'pr']);
+        ->andReturn(array(__FILE__, 'pr'));
 
         ob_start();
         $instance->execute();
@@ -150,10 +150,10 @@ class Driver_HelpTest extends testCaseBase
 
 
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'pr', 'track']);
+        ->andReturn(array(__FILE__, 'pr', 'track'));
 
         ob_start();
         $instance->execute();
@@ -166,10 +166,10 @@ class Driver_HelpTest extends testCaseBase
 
 
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'pr', 'merge']);
+        ->andReturn(array(__FILE__, 'pr', 'merge'));
 
         ob_start();
         $instance->execute();
@@ -193,10 +193,10 @@ class Driver_HelpTest extends testCaseBase
      */
     public function executePullRequestUndefinedOptionTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'pr', 'undefined_option']);
+        ->andReturn(array(__FILE__, 'pr', 'undefined_option'));
 
         ob_start();
         $instance->execute();
@@ -222,10 +222,10 @@ class Driver_HelpTest extends testCaseBase
      */
     public function executeLogBlankTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'log']);
+        ->andReturn(array(__FILE__, 'log'));
 
         ob_start();
         $instance->execute();
@@ -248,10 +248,10 @@ class Driver_HelpTest extends testCaseBase
      */
     public function executeLogUndefinedOptionTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'log', 'undefined_option']);
+        ->andReturn(array(__FILE__, 'log', 'undefined_option'));
 
         ob_start();
         $instance->execute();
@@ -274,10 +274,10 @@ class Driver_HelpTest extends testCaseBase
      */
     public function executeMergeBlankTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'merge']);
+        ->andReturn(array(__FILE__, 'merge'));
 
         ob_start();
         $instance->execute();
@@ -300,10 +300,10 @@ class Driver_HelpTest extends testCaseBase
      */
     public function executeMergeUndefinedOptionTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'merge', 'undefined_option']);
+        ->andReturn(array(__FILE__, 'merge', 'undefined_option'));
 
         ob_start();
         $instance->execute();
@@ -329,10 +329,10 @@ class Driver_HelpTest extends testCaseBase
      */
     public function executeFeatureBlankTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'feature']);
+        ->andReturn(array(__FILE__, 'feature'));
 
         ob_start();
         $instance->execute();
@@ -343,10 +343,10 @@ class Driver_HelpTest extends testCaseBase
         $this->assertSame('getArgv', $mock_trace[0]['method_name']);
         $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'feature', 'start']);
+        ->andReturn(array(__FILE__, 'feature', 'start'));
 
         ob_start();
         $instance->execute();
@@ -358,10 +358,10 @@ class Driver_HelpTest extends testCaseBase
         $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
 
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'feature', 'track']);
+        ->andReturn(array(__FILE__, 'feature', 'track'));
 
         ob_start();
         $instance->execute();
@@ -384,10 +384,10 @@ class Driver_HelpTest extends testCaseBase
      */
     public function executeFeatureUndefinedOptionTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'feature', 'undefined_option']);
+        ->andReturn(array(__FILE__, 'feature', 'undefined_option'));
 
         ob_start();
         $instance->execute();
@@ -413,10 +413,10 @@ class Driver_HelpTest extends testCaseBase
      */
     public function executeHotfixBlankTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'hotfix']);
+        ->andReturn(array(__FILE__, 'hotfix'));
 
         ob_start();
         $instance->execute();
@@ -439,10 +439,10 @@ class Driver_HelpTest extends testCaseBase
      */
     public function executeHotfixUndefinedOptionTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'hotfix', 'undefined_option']);
+        ->andReturn(array(__FILE__, 'hotfix', 'undefined_option'));
 
         ob_start();
         $instance->execute();
@@ -469,10 +469,10 @@ class Driver_HelpTest extends testCaseBase
     public function executeHelpTest($instance)
     {
         EnviMockLight::free($instance);
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $instance->shouldReceive('getArgv')
         ->once()
-        ->andReturn([__FILE__, 'help']);
+        ->andReturn(array(__FILE__, 'help'));
 
         ob_start();
         $instance->execute();
@@ -499,7 +499,7 @@ class Driver_HelpTest extends testCaseBase
         EnviMockLight::free($instance);
         $instance->shouldReceive('getArgv')
         ->once()
-        ->andReturn([__FILE__, '-v']);
+        ->andReturn(array(__FILE__, '-v'));
 
 
         ob_start();
@@ -515,7 +515,7 @@ class Driver_HelpTest extends testCaseBase
         EnviMockLight::free($instance);
         $instance->shouldReceive('getArgv')
         ->once()
-        ->andReturn([__FILE__, '--version']);
+        ->andReturn(array(__FILE__, '--version'));
 
 
         ob_start();

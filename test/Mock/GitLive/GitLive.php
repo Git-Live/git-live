@@ -38,7 +38,7 @@ class GitLive extends \GitLive\GitLive
     public function __construct()
     {
         class_exists('\GitLive\Mock\GitCmdExecuter');
-        $this->GitCmdExecuter = \EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $this->GitCmdExecuter = \EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $this->GitCmdExecuter->shouldReceive('exec')
         ->andNoBypass();
     }

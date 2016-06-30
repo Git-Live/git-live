@@ -50,11 +50,11 @@ class Driver_PullRequestTest extends testCaseBase
      */
     public function prPullTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'pr', 'pull']);
+        ->andReturn(array(__FILE__, 'pr', 'pull'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -63,15 +63,15 @@ class Driver_PullRequestTest extends testCaseBase
 
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch --all',
             'git fetch -p deploy',
             'git fetch -p upstream',
@@ -83,11 +83,11 @@ class Driver_PullRequestTest extends testCaseBase
 
 
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'pr', 'pull']);
+        ->andReturn(array(__FILE__, 'pr', 'pull'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -96,15 +96,15 @@ class Driver_PullRequestTest extends testCaseBase
 
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
         );
         $this->assertSame($needle_command_list, $command_list);
     }
@@ -119,12 +119,11 @@ class Driver_PullRequestTest extends testCaseBase
      */
     public function prMergeTest()
     {
-
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'pr', 'merge', '111']);
+        ->andReturn(array(__FILE__, 'pr', 'merge', '111'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -133,15 +132,15 @@ class Driver_PullRequestTest extends testCaseBase
 
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch --all',
             'git fetch -p deploy',
             'git fetch -p upstream',
@@ -152,11 +151,11 @@ class Driver_PullRequestTest extends testCaseBase
 
 
         // トラックされたプルリクエスト用の処理
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'pr', 'merge', '101']);
+        ->andReturn(array(__FILE__, 'pr', 'merge', '101'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -165,15 +164,15 @@ class Driver_PullRequestTest extends testCaseBase
 
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch --all',
             'git fetch -p deploy',
             'git fetch -p upstream',
@@ -181,8 +180,6 @@ class Driver_PullRequestTest extends testCaseBase
             'git pull upstream pull/101/head',
         );
         $this->assertSame($needle_command_list, $command_list);
-
-
     }
     /* ----------------------------------------- */
 
@@ -197,12 +194,11 @@ class Driver_PullRequestTest extends testCaseBase
      */
     public function prTrackTest()
     {
-
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'pr', 'track', '111']);
+        ->andReturn(array(__FILE__, 'pr', 'track', '111'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -211,15 +207,15 @@ class Driver_PullRequestTest extends testCaseBase
 
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch --all',
             'git fetch -p deploy',
             'git fetch -p upstream',
@@ -230,11 +226,11 @@ class Driver_PullRequestTest extends testCaseBase
 
 
         // トラックされたプルリクエスト用の処理
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'pr', 'track', '101']);
+        ->andReturn(array(__FILE__, 'pr', 'track', '101'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -243,15 +239,15 @@ class Driver_PullRequestTest extends testCaseBase
 
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch --all',
             'git fetch -p deploy',
             'git fetch -p upstream',
@@ -259,8 +255,6 @@ class Driver_PullRequestTest extends testCaseBase
             'git checkout -b pullreq/101 remotes/pr/101/head',
         );
         $this->assertSame($needle_command_list, $command_list);
-
-
     }
     /* ----------------------------------------- */
 

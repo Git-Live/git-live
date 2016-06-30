@@ -52,18 +52,17 @@ class GitLiveTest extends testCaseBase
      */
     public function getSelfBranchTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $e        = null;
         try {
             $instance->shouldReceive('exec')
             ->andReturn('refs/heads/unit_testing/unit_testing');
 
             $res = $instance->getSelfBranch();
-
         } catch (exception $e) {
         }
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
@@ -71,7 +70,7 @@ class GitLiveTest extends testCaseBase
         }
 
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git symbolic-ref HEAD 2>/dev/null',
         );
         $this->assertSame($needle_command_list, $command_list);
@@ -81,18 +80,17 @@ class GitLiveTest extends testCaseBase
 
 
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $e        = null;
         try {
             $instance->shouldReceive('exec')
             ->andReturn('');
 
             $res = $instance->getSelfBranch();
-
         } catch (exception $e) {
         }
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
@@ -100,15 +98,12 @@ class GitLiveTest extends testCaseBase
         }
 
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git symbolic-ref HEAD 2>/dev/null',
         );
         $this->assertSame($needle_command_list, $command_list);
 
         $this->assertInstanceOf('exception', $e);
-
-
-
     }
     /* ----------------------------------------- */
 
@@ -122,11 +117,11 @@ class GitLiveTest extends testCaseBase
      */
     public function enableReleaseTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $e        = null;
         try {
             $instance->getGitCmdExecuter()->shouldReceive('remote')
-            ->andReturn(join("\n", ['deploy', 'origin', 'upstream'])."\n");
+            ->andReturn(join("\n", array('deploy', 'origin', 'upstream'))."\n");
 
             $instance->enableRelease();
         } catch (exception $e) {
@@ -144,7 +139,7 @@ class GitLiveTest extends testCaseBase
      */
     public function enableReleaseDisabledTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $e        = null;
         try {
             $instance->getGitCmdExecuter()->shouldReceive('remote')
@@ -165,9 +160,9 @@ class GitLiveTest extends testCaseBase
      */
     public function getHotfixRepositoryTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/hotfix/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
         $e = null;
         try {
             $res = $instance->getHotfixRepository();
@@ -178,9 +173,9 @@ class GitLiveTest extends testCaseBase
 
 
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master'])."\n");
+        ->andReturn(join("\n", array('develop', 'master'))."\n");
 
         $e = null;
         try {
@@ -202,9 +197,9 @@ class GitLiveTest extends testCaseBase
      */
     public function getReleaseRepositoryTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
         $e = null;
         try {
             $res = $instance->getReleaseRepository();
@@ -214,9 +209,9 @@ class GitLiveTest extends testCaseBase
         $this->assertNull($e);
 
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master'])."\n");
+        ->andReturn(join("\n", array('develop', 'master'))."\n");
 
         $e = null;
         try {

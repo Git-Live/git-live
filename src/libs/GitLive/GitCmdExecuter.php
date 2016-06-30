@@ -100,27 +100,27 @@ class GitCmdExecuter extends GitBase
     }
     public function pull($remote, $branch = '')
     {
-        $cmd = $this->createCmd('pull', [$remote, $branch]);
+        $cmd = $this->createCmd('pull', array($remote, $branch));
         return $this->exec($cmd);
     }
 
     public function push($remote, $branch = '')
     {
-        $cmd = $this->createCmd('push', [$remote, $branch]);
+        $cmd = $this->createCmd('push', array($remote, $branch));
         return $this->exec($cmd);
     }
     public function tagPush($remote)
     {
-        $cmd = $this->createCmd('push', [$remote, '--tags']);
+        $cmd = $this->createCmd('push', array($remote, '--tags'));
         return $this->exec($cmd);
     }
 
     public function log($left, $right, $option = '')
     {
         if (empty($option)) {
-            $cmd = $this->createCmd('log', ['--pretty=fuller', '--name-status', $left.'..'.$right]);
+            $cmd = $this->createCmd('log', array('--pretty=fuller', '--name-status', $left.'..'.$right));
         } else {
-            $cmd = $this->createCmd('log', ['--pretty=fuller', '--name-status', $option, $left.'..'.$right]);
+            $cmd = $this->createCmd('log', array('--pretty=fuller', '--name-status', $option, $left.'..'.$right));
         }
 
         return $this->exec($cmd);

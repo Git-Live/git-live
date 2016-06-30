@@ -51,11 +51,11 @@ class Driver_ReleaseTest extends testCaseBase
      */
     public function executeReleaseOpenTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'release', 'open']);
+        ->andReturn(array(__FILE__, 'release', 'open'));
 
         $instance->shouldReceive('release')
         ->once()
@@ -77,7 +77,7 @@ class Driver_ReleaseTest extends testCaseBase
 
         $mock_trace = EnviMockLight::getMockTraceList();
 
-        $command_list = [];
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
@@ -103,7 +103,7 @@ class Driver_ReleaseTest extends testCaseBase
 
 
         // isReleaseOpen のエラー処理
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -114,7 +114,7 @@ class Driver_ReleaseTest extends testCaseBase
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'release', 'open']);
+        ->andReturn(array(__FILE__, 'release', 'open'));
         $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(true);
@@ -132,7 +132,7 @@ class Driver_ReleaseTest extends testCaseBase
 
 
         // isHotfixOpen のエラー処理
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -143,7 +143,7 @@ class Driver_ReleaseTest extends testCaseBase
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'release', 'open']);
+        ->andReturn(array(__FILE__, 'release', 'open'));
         $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
@@ -160,7 +160,7 @@ class Driver_ReleaseTest extends testCaseBase
         $this->assertInstanceOf('exception', $e);
 
         // ローカルのリポジトリ確認
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -171,7 +171,7 @@ class Driver_ReleaseTest extends testCaseBase
 
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/deploy/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/deploy/release/20160629050505'))."\n");
 
 
         $instance->shouldReceive('enableRelease')
@@ -184,7 +184,7 @@ class Driver_ReleaseTest extends testCaseBase
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'release', 'open']);
+        ->andReturn(array(__FILE__, 'release', 'open'));
 
 
         $e = null;
@@ -206,7 +206,7 @@ class Driver_ReleaseTest extends testCaseBase
      */
     public function executeReleaseCloseSuccessTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -216,7 +216,7 @@ class Driver_ReleaseTest extends testCaseBase
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close']);
+        ->andReturn(array(__FILE__, 'release', 'close'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -227,14 +227,14 @@ class Driver_ReleaseTest extends testCaseBase
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
         $instance->shouldReceive('getSelfBranch')
         ->twice()
-        ->andReturnConsecutive(['refs/heads/master', 'refs/heads/develop']);
+        ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
         $e = null;
         try {
@@ -246,12 +246,12 @@ class Driver_ReleaseTest extends testCaseBase
 
         $this->assertNull($e);
 
-        $arguments['diff'] = [['deploy/release/20160629050505', 'master'], ['deploy/release/20160629050505', 'develop']];
+        $arguments['diff'] = array(array('deploy/release/20160629050505', 'master'), array('deploy/release/20160629050505', 'develop'));
 
-        $command_list = [];
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'diff') {
-                $this->assertEquals($item['arguments'], [array_shift($arguments['diff'])]);
+                $this->assertEquals($item['arguments'], array(array_shift($arguments['diff'])));
             }
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
@@ -291,7 +291,7 @@ class Driver_ReleaseTest extends testCaseBase
      */
     public function executeReleaseCloseForceSuccessWithTagnameTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -301,7 +301,7 @@ class Driver_ReleaseTest extends testCaseBase
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close-force', 'tag_name']);
+        ->andReturn(array(__FILE__, 'release', 'close-force', 'tag_name'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -312,14 +312,14 @@ class Driver_ReleaseTest extends testCaseBase
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
         $instance->shouldReceive('getSelfBranch')
         ->twice()
-        ->andReturnConsecutive(['refs/heads/master', 'refs/heads/develop']);
+        ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
         $e = null;
         try {
@@ -330,13 +330,13 @@ class Driver_ReleaseTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
         $this->assertNull($e);
 
-        $arguments['diff'] = [['deploy/release/20160629050505', 'master'], ['deploy/release/20160629050505', 'develop']];
+        $arguments['diff'] = array(array('deploy/release/20160629050505', 'master'), array('deploy/release/20160629050505', 'develop'));
 
         $arguments['tag_name'] = false;
-        $command_list          = [];
+        $command_list          = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'diff') {
-                $this->assertSame($item['arguments'], [array_shift($arguments['diff'])]);
+                $this->assertSame($item['arguments'], array(array_shift($arguments['diff'])));
             } elseif ($item['method_name'] === 'exec' && $item['arguments'][0] === 'git tag tag_name') {
                 $arguments['tag_name'] = true;
             }
@@ -381,7 +381,7 @@ class Driver_ReleaseTest extends testCaseBase
      */
     public function executeReleaseCloseNotReleaseOpenErrorTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -391,7 +391,7 @@ class Driver_ReleaseTest extends testCaseBase
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close']);
+        ->andReturn(array(__FILE__, 'release', 'close'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -402,14 +402,14 @@ class Driver_ReleaseTest extends testCaseBase
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
         $instance->shouldReceive('getSelfBranch')
         ->twice()
-        ->andReturnConsecutive(['refs/heads/master', 'refs/heads/develop']);
+        ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
 
         $e = null;
@@ -435,7 +435,7 @@ class Driver_ReleaseTest extends testCaseBase
      */
     public function executeReleaseCloseDiffErrorTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -445,7 +445,7 @@ class Driver_ReleaseTest extends testCaseBase
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close']);
+        ->andReturn(array(__FILE__, 'release', 'close'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -456,15 +456,15 @@ class Driver_ReleaseTest extends testCaseBase
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->once()
-        ->andReturnConsecutive(['差分']);
+        ->andReturnConsecutive(array('差分'));
 
         $instance->shouldReceive('getSelfBranch')
         ->once()
-        ->andReturnConsecutive(['refs/heads/master']);
+        ->andReturnConsecutive(array('refs/heads/master'));
 
         $e = null;
         try {
@@ -492,7 +492,7 @@ class Driver_ReleaseTest extends testCaseBase
      */
     public function executeReleaseCloseDiff2ErrorTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -502,7 +502,7 @@ class Driver_ReleaseTest extends testCaseBase
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close']);
+        ->andReturn(array(__FILE__, 'release', 'close'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -513,14 +513,14 @@ class Driver_ReleaseTest extends testCaseBase
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
-        ->andReturnConsecutive(['', '差分']);
+        ->andReturnConsecutive(array('', '差分'));
 
         $instance->shouldReceive('getSelfBranch')
         ->twice()
-        ->andReturnConsecutive(['refs/heads/master', 'refs/heads/develop']);
+        ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
 
 
@@ -550,7 +550,7 @@ class Driver_ReleaseTest extends testCaseBase
      */
     public function executeReleaseCloseGetSelfBranchErrorTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -560,7 +560,7 @@ class Driver_ReleaseTest extends testCaseBase
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close']);
+        ->andReturn(array(__FILE__, 'release', 'close'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -571,14 +571,14 @@ class Driver_ReleaseTest extends testCaseBase
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
         $instance->shouldReceive('getSelfBranch')
         ->once()
-        ->andReturnConsecutive(['', 'refs/heads/develop']);
+        ->andReturnConsecutive(array('', 'refs/heads/develop'));
 
 
         $e = null;
@@ -605,7 +605,7 @@ class Driver_ReleaseTest extends testCaseBase
      */
     public function executeReleaseCloseGetSelfBranchError2Test()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -615,7 +615,7 @@ class Driver_ReleaseTest extends testCaseBase
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close']);
+        ->andReturn(array(__FILE__, 'release', 'close'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -626,14 +626,14 @@ class Driver_ReleaseTest extends testCaseBase
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
         $instance->shouldReceive('getSelfBranch')
         ->twice()
-        ->andReturnConsecutive(['refs/heads/master', '']);
+        ->andReturnConsecutive(array('refs/heads/master', ''));
 
 
         $e = null;
@@ -660,7 +660,7 @@ class Driver_ReleaseTest extends testCaseBase
      */
     public function executeReleaseSyncSuccessTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -670,7 +670,7 @@ class Driver_ReleaseTest extends testCaseBase
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'sync']);
+        ->andReturn(array(__FILE__, 'release', 'sync'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -681,7 +681,7 @@ class Driver_ReleaseTest extends testCaseBase
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
@@ -700,7 +700,7 @@ nothing to commit, working directory clean');
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertNull($e);
-        $command_list = [];
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
@@ -733,7 +733,7 @@ nothing to commit, working directory clean');
      */
     public function executeReleaseErrorCannotAutomaticallyMergeTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -743,7 +743,7 @@ nothing to commit, working directory clean');
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'sync']);
+        ->andReturn(array(__FILE__, 'release', 'sync'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -754,7 +754,7 @@ nothing to commit, working directory clean');
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
@@ -768,7 +768,7 @@ nothing to commit, working directory clean');
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $command_list = [];
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
@@ -801,7 +801,7 @@ nothing to commit, working directory clean');
      */
     public function executeReleaseErrorReleaseNotOpenTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -811,7 +811,7 @@ nothing to commit, working directory clean');
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'sync']);
+        ->andReturn(array(__FILE__, 'release', 'sync'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -822,7 +822,7 @@ nothing to commit, working directory clean');
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
@@ -852,7 +852,7 @@ nothing to commit, working directory clean');
      */
     public function executeReleaseStatusOpenSuccessTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -862,7 +862,7 @@ nothing to commit, working directory clean');
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'state']);
+        ->andReturn(array(__FILE__, 'release', 'state'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -873,7 +873,7 @@ nothing to commit, working directory clean');
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
 
         $instance->shouldReceive('ncecho')
@@ -890,7 +890,7 @@ nothing to commit, working directory clean');
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertNull($e);
-        $command_list = [];
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
@@ -920,7 +920,7 @@ nothing to commit, working directory clean');
      */
     public function executeReleaseStatusCloseSuccessTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -930,7 +930,7 @@ nothing to commit, working directory clean');
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'state']);
+        ->andReturn(array(__FILE__, 'release', 'state'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -942,7 +942,7 @@ nothing to commit, working directory clean');
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
 
         $instance->shouldReceive('ncecho')
@@ -974,7 +974,7 @@ nothing to commit, working directory clean');
      */
     public function executeReleaseCloseDiff2SuccessTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -984,7 +984,7 @@ nothing to commit, working directory clean');
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'close-force']);
+        ->andReturn(array(__FILE__, 'release', 'close-force'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -995,14 +995,14 @@ nothing to commit, working directory clean');
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
-        ->andReturnConsecutive(['', '差分']);
+        ->andReturnConsecutive(array('', '差分'));
 
         $instance->shouldReceive('getSelfBranch')
         ->twice()
-        ->andReturnConsecutive(['refs/heads/master', 'refs/heads/develop']);
+        ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
 
         $e = null;
@@ -1015,12 +1015,12 @@ nothing to commit, working directory clean');
         $mock_trace = EnviMockLight::getMockTraceList();
         $this->assertNull($e);
 
-        $arguments['diff'] = [['deploy/release/20160629050505', 'master'], ['deploy/release/20160629050505', 'develop']];
+        $arguments['diff'] = array(array('deploy/release/20160629050505', 'master'), array('deploy/release/20160629050505', 'develop'));
 
-        $command_list          = [];
+        $command_list          = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'diff') {
-                $this->assertSame($item['arguments'], [array_shift($arguments['diff'])]);
+                $this->assertSame($item['arguments'], array(array_shift($arguments['diff'])));
             }
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
@@ -1062,7 +1062,7 @@ nothing to commit, working directory clean');
      */
     public function executeReleasePullSuccessTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -1072,7 +1072,7 @@ nothing to commit, working directory clean');
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'pull']);
+        ->andReturn(array(__FILE__, 'release', 'pull'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -1083,7 +1083,7 @@ nothing to commit, working directory clean');
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
 
         $e = null;
@@ -1095,7 +1095,7 @@ nothing to commit, working directory clean');
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertNull($e);
-        $command_list = [];
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
@@ -1126,7 +1126,7 @@ nothing to commit, working directory clean');
      */
     public function executeReleasePullErrorReleaseIsNotOpenTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -1136,7 +1136,7 @@ nothing to commit, working directory clean');
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'pull']);
+        ->andReturn(array(__FILE__, 'release', 'pull'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -1147,7 +1147,7 @@ nothing to commit, working directory clean');
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
 
         $e = null;
@@ -1176,7 +1176,7 @@ nothing to commit, working directory clean');
      */
     public function executeReleaseTrackSuccessTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -1186,7 +1186,7 @@ nothing to commit, working directory clean');
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'track']);
+        ->andReturn(array(__FILE__, 'release', 'track'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -1197,7 +1197,7 @@ nothing to commit, working directory clean');
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
 
         $e = null;
@@ -1209,7 +1209,7 @@ nothing to commit, working directory clean');
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertNull($e);
-        $command_list = [];
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
@@ -1241,7 +1241,7 @@ nothing to commit, working directory clean');
      */
     public function executeReleaseTrackErrorReleaseIsNotOpenTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -1251,7 +1251,7 @@ nothing to commit, working directory clean');
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'track']);
+        ->andReturn(array(__FILE__, 'release', 'track'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -1262,7 +1262,7 @@ nothing to commit, working directory clean');
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
 
         $e = null;
@@ -1290,7 +1290,7 @@ nothing to commit, working directory clean');
      */
     public function executeReleasePushSuccessTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -1300,7 +1300,7 @@ nothing to commit, working directory clean');
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'push']);
+        ->andReturn(array(__FILE__, 'release', 'push'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -1311,7 +1311,7 @@ nothing to commit, working directory clean');
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
         ->andReturn('On branch master
@@ -1329,7 +1329,7 @@ nothing to commit, working directory clean');
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertNull($e);
-        $command_list = [];
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
@@ -1360,7 +1360,7 @@ nothing to commit, working directory clean');
      */
     public function executeReleasePushErrorReleaseIsNotOpenTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -1370,7 +1370,7 @@ nothing to commit, working directory clean');
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'push']);
+        ->andReturn(array(__FILE__, 'release', 'push'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -1381,7 +1381,7 @@ nothing to commit, working directory clean');
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
 
         $e = null;
@@ -1408,7 +1408,7 @@ nothing to commit, working directory clean');
      */
     public function executeReleasePushErrorStatusErrorTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
@@ -1418,7 +1418,7 @@ nothing to commit, working directory clean');
         ->andNoBypass();
 
         $instance->shouldReceive('getArgv')
-        ->andReturn([__FILE__, 'release', 'push']);
+        ->andReturn(array(__FILE__, 'release', 'push'));
 
         $instance->shouldReceive('isReleaseOpen')
         ->once()
@@ -1429,7 +1429,7 @@ nothing to commit, working directory clean');
         ->andReturn(false);
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
-        ->andReturn(join("\n", ['develop', 'master', 'remotes/upstream/release/20160629050505'])."\n");
+        ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
         ->andReturn('おかしなステータス');

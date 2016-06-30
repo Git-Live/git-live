@@ -58,12 +58,27 @@ class GitBase
     /* ----------------------------------------- */
 
     /**
+     * +-- chdirへのAlias
+     *
+     * @access      public
+     * @param  string $dir
+     * @return bool
+     * @codeCoverageIgnore
+     */
+    public function chdir($dir)
+    {
+        return chdir($dir);
+    }
+    /* ----------------------------------------- */
+
+    /**
      * +-- 対話シェル
      *
      * @access      public
-     * @param       var_text $shell_message
-     * @param       bool|string $using_default OPTIONAL:false
-     * @return      string
+     * @param  var_text    $shell_message
+     * @param  bool|string $using_default OPTIONAL:false
+     * @return string
+     * @codeCoverageIgnore
      */
     public function interactiveShell($shell_message, $using_default = false)
     {
@@ -71,15 +86,12 @@ class GitBase
             $shell_message = join("\n", $shell_message);
         }
         $shell_message .= "\n";
-
-        $this->ncecho($shell_message);
         while (true) {
             $this->ncecho($shell_message);
             $this->ncecho(':');
             $res = trim(fgets(STDIN, 1000));
             if ($res === '') {
                 if ($using_default === false) {
-                    $this->ncecho(':');
                     continue;
                 }
                 $res = $using_default;

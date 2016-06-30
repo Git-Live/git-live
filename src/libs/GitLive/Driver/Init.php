@@ -44,64 +44,67 @@ class Init extends DriverBase
     public function init()
     {
         $argv = $this->getArgv();
+
         if (!isset($argv[3])) {
-            $clone_repository = $this->interactiveShell(_('Please enter only your remote-repository.'));
+            $clone_repository    = $this->interactiveShell(_('Please enter only your remote-repository.'));
             $upstream_repository = $this->interactiveShell(_('Please enter common remote-repository.'));
-            $deploy_repository = $this->interactiveShell(
-                [
+            $deploy_repository   = $this->interactiveShell(array(
                 _('Please enter deploying dedicated remote-repository.'),
                 _('If you return in the blank, it becomes the default setting.'),
                 "default:{$upstream_repository}",
-                ]
-            , $upstream_repository);
-
+                ), $upstream_repository);
             $is_auto_clone_dir = mb_ereg('/([^/]+?)(\.git)?$', $clone_repository, $match);
-            $auto_clone_dir = null;
+            $auto_clone_dir    = null;
             if ($is_auto_clone_dir) {
                 $auto_clone_dir = $match[1];
             }
 
-            $clone_dir = $this->interactiveShell(
-                [
+            $clone_dir = $this->interactiveShell(array(
                 _('Please enter work directory path.'),
                 _('If you return in the blank, it becomes the default setting.'),
                 "default:{$auto_clone_dir}",
-                ]
-            , $upstream_repository);
-
-
+                ), $auto_clone_dir);
         } else {
-            $clone_repository = $argv[2];
-
+            $clone_repository    = $argv[2];
+            $is_auto_clone_dir   = false;
             $upstream_repository = $argv[3];
             if (isset($argv[5])) {
                 $deploy_repository = $argv[4];
                 $clone_dir         = $argv[5];
             } elseif (!isset($argv[4])) {
-                $deploy_repository = null;
+                $deploy_repository = $argv[3];
                 $clone_dir         = null;
+                $is_auto_clone_dir = mb_ereg('/([^/]+?)(\.git)?$', $clone_repository, $match);
+                $auto_clone_dir    = null;
+                if ($is_auto_clone_dir) {
+                    $auto_clone_dir    = $match[1];
+                    $clone_dir         = $auto_clone_dir;
+                }
             } elseif (strpos($argv[4], 'git') === 0 || strpos($argv[4], 'https:') === 0 || is_dir(realpath($argv[4]).'/.git/')) {
                 $deploy_repository = $argv[4];
                 $clone_dir         = null;
+                $is_auto_clone_dir = mb_ereg('/([^/]+?)(\.git)?$', $clone_repository, $match);
+                $auto_clone_dir    = null;
+                if ($is_auto_clone_dir) {
+                    $auto_clone_dir    = $match[1];
+                    $clone_dir         = $auto_clone_dir;
+                }
             } else {
                 $clone_dir         = $argv[4];
                 $deploy_repository = null;
             }
         }
 
-        if ($clone_dir === null) {
+        if (empty($clone_dir)) {
             if (!$is_auto_clone_dir) {
-                $this->ncecho(_('ローカルディレクトリを自動取得できませんでした。'));
-
-                return;
+                throw new exception(_('ローカルディレクトリを自動取得できませんでした。'));
             }
-
-            $clone_dir = getcwd().DIRECTORY_SEPARATOR.$match[1];
+            $clone_dir = $auto_clone_dir;
         }
 
         $this->GitCmdExecuter->copy(array('--recursive', $clone_repository, $clone_dir));
 
-        chdir($clone_dir);
+        $this->chdir($clone_dir);
         $this->GitCmdExecuter->remote(array('add', 'upstream', $upstream_repository));
 
         if ($deploy_repository !== null) {

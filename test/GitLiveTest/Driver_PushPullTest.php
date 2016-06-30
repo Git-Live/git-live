@@ -51,11 +51,11 @@ class Driver_PushPullTest extends testCaseBase
     public function pushTest()
     {
         // feature
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'push']);
+        ->andReturn(array(__FILE__, 'push'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -67,26 +67,26 @@ class Driver_PushPullTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
-            'git push origin refs/heads/feature/unit_testing'
+        $needle_command_list = array(
+            'git push origin refs/heads/feature/unit_testing',
         );
         $this->assertSame($needle_command_list, $command_list);
 
 
         // develop
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'push']);
+        ->andReturn(array(__FILE__, 'push'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -98,27 +98,27 @@ class Driver_PushPullTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
-            'git push origin refs/heads/develop'
+        $needle_command_list = array(
+            'git push origin refs/heads/develop',
         );
         $this->assertSame($needle_command_list, $command_list);
 
 
 
         // master
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'push']);
+        ->andReturn(array(__FILE__, 'push'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -130,27 +130,27 @@ class Driver_PushPullTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
-            'git push origin refs/heads/master'
+        $needle_command_list = array(
+            'git push origin refs/heads/master',
         );
         $this->assertSame($needle_command_list, $command_list);
 
 
 
         // release
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'push']);
+        ->andReturn(array(__FILE__, 'push'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -162,27 +162,27 @@ class Driver_PushPullTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
-            'git push upstream refs/heads/release/20160629050505'
+        $needle_command_list = array(
+            'git push upstream refs/heads/release/20160629050505',
         );
         $this->assertSame($needle_command_list, $command_list);
 
 
 
         // hotfix
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'push']);
+        ->andReturn(array(__FILE__, 'push'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -194,20 +194,18 @@ class Driver_PushPullTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
-            'git push upstream refs/heads/hotfix/20160629050505'
+        $needle_command_list = array(
+            'git push upstream refs/heads/hotfix/20160629050505',
         );
         $this->assertSame($needle_command_list, $command_list);
-
-
     }
     /* ----------------------------------------- */
 
@@ -223,11 +221,11 @@ class Driver_PushPullTest extends testCaseBase
     {
 
         // feature
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'pull']);
+        ->andReturn(array(__FILE__, 'pull'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -239,26 +237,26 @@ class Driver_PushPullTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
-            'git pull origin refs/heads/feature/unit_testing'
+        $needle_command_list = array(
+            'git pull origin refs/heads/feature/unit_testing',
         );
         $this->assertSame($needle_command_list, $command_list);
 
 
         // develop
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'pull']);
+        ->andReturn(array(__FILE__, 'pull'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -270,27 +268,27 @@ class Driver_PushPullTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
-            'git pull upstream refs/heads/develop'
+        $needle_command_list = array(
+            'git pull upstream refs/heads/develop',
         );
         $this->assertSame($needle_command_list, $command_list);
 
 
 
         // master
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'pull']);
+        ->andReturn(array(__FILE__, 'pull'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -302,27 +300,27 @@ class Driver_PushPullTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
-            'git pull upstream refs/heads/master'
+        $needle_command_list = array(
+            'git pull upstream refs/heads/master',
         );
         $this->assertSame($needle_command_list, $command_list);
 
 
 
         // release
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'pull']);
+        ->andReturn(array(__FILE__, 'pull'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -334,27 +332,27 @@ class Driver_PushPullTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
-            'git pull upstream refs/heads/release/20160629050505'
+        $needle_command_list = array(
+            'git pull upstream refs/heads/release/20160629050505',
         );
         $this->assertSame($needle_command_list, $command_list);
 
 
 
         // hotfix
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'pull']);
+        ->andReturn(array(__FILE__, 'pull'));
 
 
         $instance->shouldReceive('getSelfBranch')
@@ -366,21 +364,18 @@ class Driver_PushPullTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
-            'git pull upstream refs/heads/hotfix/20160629050505'
+        $needle_command_list = array(
+            'git pull upstream refs/heads/hotfix/20160629050505',
         );
         $this->assertSame($needle_command_list, $command_list);
-
-
-
     }
     /* ----------------------------------------- */
 

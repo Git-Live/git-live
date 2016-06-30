@@ -50,29 +50,27 @@ class Driver_MergeTest extends testCaseBase
      */
     public function mergeDevelopTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'merge', 'develop']);
+        ->andReturn(array(__FILE__, 'merge', 'develop'));
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch --all',
             'git fetch -p',
             'git merge upstream/develop',
         );
         $this->assertSame($needle_command_list, $command_list);
-
-
     }
     /* ----------------------------------------- */
 
@@ -85,29 +83,27 @@ class Driver_MergeTest extends testCaseBase
      */
     public function mergeMasterTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
-        ->andReturn([__FILE__, 'merge', 'master']);
+        ->andReturn(array(__FILE__, 'merge', 'master'));
 
         $instance->execute();
-        $mock_trace = EnviMockLight::getMockTraceList();
-        $command_list = [];
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
                 $command_list[] = $item['arguments'][0];
             }
         }
         // var_export($command_list);
-        $needle_command_list = array (
+        $needle_command_list = array(
             'git fetch --all',
             'git fetch -p',
             'git merge upstream/master',
         );
         $this->assertSame($needle_command_list, $command_list);
-
-
     }
     /* ----------------------------------------- */
 

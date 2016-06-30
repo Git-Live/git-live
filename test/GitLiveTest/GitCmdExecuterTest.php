@@ -60,112 +60,112 @@ class GitCmdExecuterTest extends testCaseBase
 
     public function tagTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('tag', ['--fooo', 'baaaa'])
+        ->with('tag', array('--fooo', 'baaaa'))
         ->once()
         ->andNoBypass();
 
-        $res = $instance->tag(['--fooo', 'baaaa']);
+        $res = $instance->tag(array('--fooo', 'baaaa'));
         $this->assertSame('git tag --fooo baaaa', $res);
     }
 
     public function copyTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('clone', ['--fooo', 'baaaa'])
+        ->with('clone', array('--fooo', 'baaaa'))
         ->once()
         ->andNoBypass();
 
-        $res = $instance->copy(['--fooo', 'baaaa']);
+        $res = $instance->copy(array('--fooo', 'baaaa'));
         $this->assertSame('git clone --fooo baaaa', $res);
     }
     public function remoteTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('remote', ['--fooo', 'baaaa'])
+        ->with('remote', array('--fooo', 'baaaa'))
         ->once()
         ->andNoBypass();
 
-        $res = $instance->remote(['--fooo', 'baaaa']);
+        $res = $instance->remote(array('--fooo', 'baaaa'));
         $this->assertSame('git remote --fooo baaaa', $res);
     }
     public function statusTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('status', ['--fooo', 'baaaa'])
+        ->with('status', array('--fooo', 'baaaa'))
         ->once()
         ->andNoBypass();
 
-        $res = $instance->status(['--fooo', 'baaaa']);
+        $res = $instance->status(array('--fooo', 'baaaa'));
         $this->assertSame('git status --fooo baaaa', $res);
     }
     public function diffTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('diff', ['--fooo', 'baaaa'])
+        ->with('diff', array('--fooo', 'baaaa'))
         ->once()
         ->andNoBypass();
 
-        $res = $instance->diff(['--fooo', 'baaaa']);
+        $res = $instance->diff(array('--fooo', 'baaaa'));
         $this->assertSame('git diff --fooo baaaa', $res);
     }
 
     public function mergeTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('merge', ['--fooo', 'baaaa'])
+        ->with('merge', array('--fooo', 'baaaa'))
         ->once()
         ->andNoBypass();
 
-        $res = $instance->merge('origin', ['--fooo', 'baaaa']);
+        $res = $instance->merge('origin', array('--fooo', 'baaaa'));
         $this->assertSame('git merge --fooo baaaa origin', $res);
     }
 
     public function fetchTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('fetch', ['--fooo', 'baaaa'])
+        ->with('fetch', array('--fooo', 'baaaa'))
         ->once()
         ->andNoBypass();
 
-        $res = $instance->fetch(['--fooo', 'baaaa']);
+        $res = $instance->fetch(array('--fooo', 'baaaa'));
         $this->assertSame('git fetch --fooo baaaa', $res);
     }
 
     public function checkoutTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('checkout', ['--fooo', 'baaaa'])
+        ->with('checkout', array('--fooo', 'baaaa'))
         ->once()
         ->andNoBypass();
 
-        $res = $instance->checkout('origin', ['--fooo', 'baaaa']);
+        $res = $instance->checkout('origin', array('--fooo', 'baaaa'));
         $this->assertSame('git checkout --fooo baaaa origin', $res);
     }
     public function branchTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('branch', ['--fooo', 'baaaa'])
+        ->with('branch', array('--fooo', 'baaaa'))
         ->once()
         ->andNoBypass();
 
-        $res = $instance->branch(['--fooo', 'baaaa']);
+        $res = $instance->branch(array('--fooo', 'baaaa'));
         $this->assertSame('git branch --fooo baaaa', $res);
     }
     public function pullTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('pull', ['origin', 'master'])
+        ->with('pull', array('origin', 'master'))
         ->once()
         ->andNoBypass();
 
@@ -175,9 +175,9 @@ class GitCmdExecuterTest extends testCaseBase
 
     public function pushTest()
     {
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('push', ['origin', 'master'])
+        ->with('push', array('origin', 'master'))
         ->once()
         ->andNoBypass();
 
@@ -190,9 +190,9 @@ class GitCmdExecuterTest extends testCaseBase
         $cmd    = 'git push';
         $cmd .= ' '.$remote.' --tags';
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('push', [$remote, '--tags'])
+        ->with('push', array($remote, '--tags'))
         ->once()
         ->andNoBypass();
 
@@ -209,9 +209,9 @@ class GitCmdExecuterTest extends testCaseBase
         $cmd = 'git log --pretty=fuller --name-status '
             .$option.' '.$left.'..'.$right;
 
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', [], false);
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('log', ['--pretty=fuller', '--name-status', $option, $left.'..'.$right])
+        ->with('log', array('--pretty=fuller', '--name-status', $option, $left.'..'.$right))
         ->once()
         ->andNoBypass();
 

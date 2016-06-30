@@ -105,7 +105,8 @@ class Hotfix extends DeployBase
         $repository = explode("\n", trim($repository));
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/'.$this->deploy_repository_name.'/hotfix/') !== false) {
-                throw new exception(_('既にhotfix open されています。'.$value));            }
+                throw new exception(_('既にhotfix open されています。'.$value));
+            }
         }
 
         $hotfix_rep = 'hotfix/'.date('Ymdhis');

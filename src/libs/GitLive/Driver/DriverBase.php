@@ -132,15 +132,27 @@ class DriverBase extends \GitLive\GitBase
 
     /* ----------------------------------------- */
 
-
+    /**
+     * +-- chdirへのAlias
+     *
+     * @access      public
+     * @param  var_text $dir
+     * @return void
+     * @codeCoverageIgnore
+     */
+    public function chdir($dir)
+    {
+        return $this->GitLive->chdir($dir);
+    }
+    /* ----------------------------------------- */
 
     /**
      * +-- 対話シェル
      *
      * @access      public
-     * @param       var_text $shell_message
-     * @param       bool|string $using_default OPTIONAL:false
-     * @return      string
+     * @param  var_text    $shell_message
+     * @param  bool|string $using_default OPTIONAL:false
+     * @return string
      */
     public function interactiveShell($shell_message, $using_default = false)
     {
@@ -158,6 +170,7 @@ class DriverBase extends \GitLive\GitBase
      * @param  var_text $text
      * @param  var_text $color OPTIONAL:null
      * @return void
+     * @codeCoverageIgnore
      */
     public function debug($text, $color = null)
     {
