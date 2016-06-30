@@ -79,5 +79,5 @@ try {
     $GitLive = new GitLive\GitLive;
     $GitLive->execute();
 } catch (exception $e) {
-    $this->ncecho($e->getMessage()."\n");
+    $GitLive->ncecho($e->getMessage()."\n");
 }
