@@ -78,7 +78,7 @@ class Driver_HelpTest extends testCaseBase
      * @access      public
      * @return      void
      */
-    public function executeReleaseTest()
+    public function executeReleaseBlankTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
 
@@ -97,6 +97,34 @@ class Driver_HelpTest extends testCaseBase
         return $instance;
     }
     /* ----------------------------------------- */
+
+    /**
+     * +--
+     *
+     * @access      public
+     * @return      void
+     */
+    public function executeReleaseUndefinedOptionTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', [], false);
+
+        $instance->shouldReceive('getArgv')
+        ->andReturn([__FILE__, 'release', 'undefined_option']);
+
+        ob_start();
+        $instance->execute();
+        $contents = ob_get_contents();
+        ob_end_clean();
+        $mock_trace = EnviMockLight::getMockTraceList();
+
+        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+
+        return $instance;
+    }
+    /* ----------------------------------------- */
+
+
 
 
     /**

@@ -48,24 +48,29 @@ class Hotfix extends DeployBase
         $this->GitCmdExecuter->fetch(array('--all'));
         $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
         $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
-        $this->enableRelease();
         switch ($argv[2]) {
         case 'open':
+            $this->enableRelease();
             $this->hotfixOpen();
         break;
         case 'close':
+            $this->enableRelease();
             $this->hotfixClose();
         break;
         case 'sync':
+            $this->enableRelease();
             $this->hotfixSync();
         break;
         case 'state':
+            $this->enableRelease();
             $this->hotfixState();
         break;
         case 'pull':
+            $this->enableRelease();
             $this->hotfixPull();
         break;
         case 'push':
+            $this->enableRelease();
             $this->hotfixPush();
         break;
 
@@ -158,7 +163,7 @@ class Hotfix extends DeployBase
     {
         if ($this->isHotfixOpen()) {
             $repo = $this->getHotfixRepository();
-            $this->ncecho($this->GitCmdExecuter->log('master', $repo));
+            $this->ncecho($this->GitCmdExecuter->log('deploy/master', $repo));
             $this->ncecho("hotfix is open.\n");
 
             return;

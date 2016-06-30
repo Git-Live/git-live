@@ -29,7 +29,7 @@ use GitLive\GitBase;
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-class DriverBase extends GitBase
+class DriverBase extends \GitLive\GitBase
 {
     protected $GitLive;
     protected $GitCmdExecuter;
@@ -50,20 +50,6 @@ class DriverBase extends GitBase
     }
     /* ----------------------------------------- */
 
-
-
-    /**
-     * +-- 引数配列を返す
-     *
-     * @access      public
-     * @return array
-     * @codeCoverageIgnore
-     */
-    public function getArgv()
-    {
-        return $this->GitLive->getArgv();
-    }
-    /* ----------------------------------------- */
 
     /**
      * +-- 今のブランチを取得する
@@ -92,4 +78,124 @@ class DriverBase extends GitBase
         return $this->GitLive->Driver($driver_name);
     }
     /* ----------------------------------------- */
+
+
+    /**
+     * +-- 引数配列を返す
+     *
+     * 単体テストを楽にするために、処理を上書きして委譲する
+     *
+     * @access      public
+     * @return array
+     * @codeCoverageIgnore
+     */
+    public function getArgv()
+    {
+        return $this->GitLive->getArgv();
+    }
+    /* ----------------------------------------- */
+
+
+    /**
+     * +-- 色つきecho
+     *
+     * 単体テストを楽にするために、処理を上書きして委譲する
+     *
+     * @access      public
+     * @param  var_text $text
+     * @param  var_text $color
+     * @return void
+     * @codeCoverageIgnore
+     */
+    public function cecho($text, $color)
+    {
+        return $this->GitLive->cecho($text, $color);
+    }
+
+    /* ----------------------------------------- */
+
+
+    /**
+     * +-- 色なしecho
+     *
+     * 単体テストを楽にするために、処理を上書きして委譲する
+     *
+     * @access      public
+     * @param  var_text $text
+     * @return void
+     * @codeCoverageIgnore
+     */
+    public function ncecho($text)
+    {
+        return $this->GitLive->ncecho($text);
+    }
+
+    /* ----------------------------------------- */
+
+
+    /**
+     * +-- デバッグメッセージ
+     *
+     * 単体テストを楽にするために、処理を上書きして委譲する
+     *
+     * @access      public
+     * @param  var_text $text
+     * @param  var_text $color OPTIONAL:null
+     * @return void
+     */
+    public function debug($text, $color = null)
+    {
+        return $this->GitLive->debug($text, $color);
+    }
+
+    /* ----------------------------------------- */
+
+    /**
+     * +-- Commandの実行
+     *
+     * 単体テストを楽にするために、処理を上書きして委譲する
+     *
+     * @access      public
+     * @param  string $cmd
+     * @return string
+     * @codeCoverageIgnore
+     */
+    public function exec($cmd)
+    {
+        return $this->GitLive->exec($cmd);
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +-- デバッグモードかどうか
+     *
+     * 単体テストを楽にするために、処理を上書きして委譲する
+     *
+     * @access      public
+     * @return bool
+     * @codeCoverageIgnore
+     */
+    public function isDebug()
+    {
+        return $this->GitLive->isDebug();
+    }
+    /* ----------------------------------------- */
+
+
+    /**
+     * +-- Windowsかどうか
+     *
+     * 単体テストを楽にするために、処理を上書きして委譲する
+     *
+     * @access      public
+     * @return bool
+     * @codeCoverageIgnore
+     */
+    public function isWin()
+    {
+        return $this->GitLive->isWin();
+    }
+    /* ----------------------------------------- */
+
+
 }

@@ -117,7 +117,12 @@ class GitCmdExecuter extends GitBase
 
     public function log($left, $right, $option = '')
     {
-        $cmd = $this->createCmd('log', ['--pretty=fuller', '--name-status', $option, $left.'..'.$right]);
+        if (empty($option)) {
+            $cmd = $this->createCmd('log', ['--pretty=fuller', '--name-status', $left.'..'.$right]);
+        } else {
+            $cmd = $this->createCmd('log', ['--pretty=fuller', '--name-status', $option, $left.'..'.$right]);
+        }
+
         return $this->exec($cmd);
     }
 
@@ -125,9 +130,7 @@ class GitCmdExecuter extends GitBase
     {
         $cmd = 'git '.$git_task;
         if (count($options)) {
-            foreach ($options as $option) {
-                $cmd .= ' '.$option;
-            }
+            $cmd .= ' '.join(' ', $options);
         }
         return $cmd;
     }

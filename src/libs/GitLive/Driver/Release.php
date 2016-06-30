@@ -48,33 +48,39 @@ class Release extends DeployBase
         $this->GitCmdExecuter->fetch(array('--all'));
         $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
         $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
-        $this->enableRelease();
         switch ($argv[2]) {
         case 'open':
+            $this->enableRelease();
             $this->releaseOpen();
         break;
 
         case 'close':
+            $this->enableRelease();
             $this->releaseClose();
         break;
 
         case 'close-force':
+            $this->enableRelease();
             $this->releaseClose(true);
         break;
 
         case 'sync':
+            $this->enableRelease();
             $this->releaseSync();
         break;
 
         case 'state':
+            $this->enableRelease();
             $this->releaseState();
         break;
 
         case 'pull':
+            $this->enableRelease();
             $this->releasePull();
         break;
 
         case 'push':
+            $this->enableRelease();
             $this->releasePush();
         break;
 
@@ -168,7 +174,7 @@ class Release extends DeployBase
     {
         if ($this->isReleaseOpen()) {
             $repo = $this->getReleaseRepository();
-            $this->ncecho($this->GitCmdExecuter->log('master', $repo));
+            $this->ncecho($this->GitCmdExecuter->log('deploy/master', $repo));
             $this->ncecho("release is open.\n");
 
             return;

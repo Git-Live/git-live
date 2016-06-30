@@ -243,7 +243,7 @@ class GitLive extends GitBase
             throw new exception('release openされていません。');
         }
 
-        return $repo;
+        return trim($repo);
     }
 
     /* ----------------------------------------- */
