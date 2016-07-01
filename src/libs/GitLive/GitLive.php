@@ -115,7 +115,6 @@ class GitLive extends GitBase
         case '-v':
             $this->Driver('Help')->version();
         break;
-
         case 'start':
             $this->Driver('Init')->start();
         break;
@@ -231,7 +230,8 @@ class GitLive extends GitBase
     {
         $repository = $this->GitCmdExecuter->branch(array('-a'));
         $repository = explode("\n", trim($repository));
-        $repo       = false;
+
+        $repo = false;
         foreach ($repository as $value) {
             if (mb_ereg('remotes/upstream/(release/[^/]*$)', $value, $match)) {
                 $repo = $match[1];
@@ -259,7 +259,7 @@ class GitLive extends GitBase
         $repository = $this->GitCmdExecuter->branch(array('-a'));
         $repository = explode("\n", trim($repository));
 
-        $repo       = false;
+        $repo = false;
         foreach ($repository as $value) {
             if (mb_ereg('remotes/upstream/(hotfix/[^/]*$)', $value, $match)) {
                 $repo = $match[1];
@@ -433,6 +433,7 @@ class GitLive extends GitBase
         $this->GitCmdExecuter->checkout($repo, array('-b'));
         $this->GitCmdExecuter->pull('deploy', $repo);
         $this->GitCmdExecuter->pull('upstream', $repo);
+
         $err = $this->GitCmdExecuter->status(array($repo));
         if (strpos(trim($err), 'nothing to commit') === false) {
             throw new exception($err);
@@ -455,6 +456,7 @@ class GitLive extends GitBase
     {
         $this->GitCmdExecuter->checkout($repo);
         $this->GitCmdExecuter->pull('upstream', $repo);
+
         $err = $this->GitCmdExecuter->status(array($repo));
         if (strpos($err, 'nothing to commit') === false) {
             throw new exception($err);
