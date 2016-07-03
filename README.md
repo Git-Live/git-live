@@ -6,6 +6,7 @@
 ![php-version](https://img.shields.io/badge/php-5.4-blue.svg)
 ![php-version](https://img.shields.io/badge/php-5.5-blue.svg)
 ![php-version](https://img.shields.io/badge/php-5.6-blue.svg)
+![php-version](https://img.shields.io/badge/php-7.0-blue.svg)
 ![php-version](https://img.shields.io/badge/php-hhvm-blue.svg)
 ## git-flow
 
@@ -32,7 +33,7 @@ git-liveは、phpで作られた、git コマンドの集合体です。
 
 git liveフローを実施するために必要なコマンドが集まっています。
 
-git-liveを使用するためには、PHP5.4以上が必要です。
+git-liveを使用するためには、PHP5.3以上が必要です。
 
 ## インストール方法
 
