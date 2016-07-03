@@ -1,5 +1,9 @@
 <?php
-date_default_timezone_set('Europe/London');
+if (!ini_get('date.timezone')) {
+    $TZ = @date_default_timezone_get();
+    date_default_timezone_set($TZ ? $TZ : 'Europe/London');
+}
+
 
 foreach (file($argv[1]) as $stdin) {
     if (!trim($stdin)) {

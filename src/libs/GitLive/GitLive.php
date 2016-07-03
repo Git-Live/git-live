@@ -81,20 +81,6 @@ class GitLive extends GitBase
 
 
     /**
-     * +-- 引数配列を返す
-     *
-     * @access      public
-     * @return array
-     * @codeCoverageIgnore
-     */
-    public function getArgv()
-    {
-        global $argv;
-        return $argv;
-    }
-    /* ----------------------------------------- */
-
-    /**
      * +-- 処理の実行
      *
      * @access      public

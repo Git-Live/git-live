@@ -33,6 +33,20 @@ class GitBase
     const VERSION                     = '0.1.5';
 
     /**
+     * +-- 引数配列を返す
+     *
+     * @access      public
+     * @return array
+     * @codeCoverageIgnore
+     */
+    public function getArgv()
+    {
+        global $argv;
+        return $argv;
+    }
+    /* ----------------------------------------- */
+
+    /**
      * +--
      *
      * @access      public
@@ -113,9 +127,9 @@ class GitBase
      */
     public function exec($cmd)
     {
-        $this->debug($cmd, 6);
+        $this->cecho($cmd, 6);
         $res = `$cmd`;
-        $this->debug($res);
+        $this->ncecho($res);
         return $res;
     }
     /* ----------------------------------------- */
@@ -134,6 +148,148 @@ class GitBase
     }
     /* ----------------------------------------- */
 
+    /**
+     * +-- quietモードかどうか
+     *
+     * @access      public
+     * @return bool
+     * @codeCoverageIgnore
+     */
+    public function isQuiet()
+    {
+        static $is_quiet;
+        if (empty($is_quiet)) {
+            $is_quiet = $this->isOption('-q') || $this->isOption('--quiet');
+        }
+        return $is_quiet;
+    }
+    /* ----------------------------------------- */
+
+
+    /**
+     * +-- 引数の取得
+     *
+     * 指定した引数の次の値(-f "filename"のfilename)
+     * を取得します。<br />
+     * 存在しない場合は、
+     * $default_paramの値を返す。
+     *
+     * @access      public
+     * @param  string $name
+     * @param  mix    $default_param (optional:false)
+     * @return mix
+     */
+    public function getOption($name, $default_param = false)
+    {
+        static $fargv;
+        $argv = $this->getArgv();
+        if (empty($fargv)) {
+            $fargv = array_flip($argv);
+        }
+
+        if (isset($fargv[$name])) {
+            $x = $fargv[$name] + 1;
+            if (isset($argv[$x])) {
+                return $argv[$x];
+            }
+        }
+        foreach ($argv as $v) {
+            if (strpos($v, $name.'=') !== false) {
+                return mb_substr($v, strpos($v, '=') + 1);
+            } elseif (strpos($v, $name.':') !== false) {
+                return mb_substr($v, strpos($v, ':') + 1);
+            }
+        }
+        return $default_param;
+    }
+    /* ----------------------------------------- */
+
+
+
+    /**
+     * +-- 引数の取得
+     *
+     * 指定した引数の次の値(-f "filename"のfilename)
+     * を取得します。<br />
+     * 存在しない場合は、
+     * $default_paramの値を返す。
+     *
+     * @access      public
+     * @param  string $name
+     * @return array
+     */
+    public function getOptions($name)
+    {
+        $argv = $this->getArgv();
+
+        $res = array();
+        foreach ($argv as $k => $v) {
+            if (strpos($v, $name.'=') !== false) {
+                $res[] = mb_substr($v, strpos($v, '=') + 1);
+            } elseif (strpos($v, $name.':') !== false) {
+                $res[] = mb_substr($v, strpos($v, ':') + 1);
+            } elseif ($v === $name) {
+                $x = $k + 1;
+                if (isset($argv[$x])) {
+                    $res[] = $argv[$x];
+                }
+            }
+        }
+        return $res;
+    }
+    /* ----------------------------------------- */
+
+
+    /**
+     * +--$nameで指定された引数が存在するかどうかを確認する
+     *
+     * @access      public
+     * @param  string $name
+     * @return bool
+     */
+    public function isOption($name)
+    {
+        static $fargv;
+
+        if (empty($fargv)) {
+            $fargv = $this->getFargv();
+        }
+
+        return isset($fargv[$name]);
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +-- Fargvを返す
+     *
+     * @access      public
+     * @return array
+     */
+    public function getFargv()
+    {
+        $argv = $this->getArgv();
+        foreach ($argv as $k => $item) {
+            if (strpos($item, '--') === 0 && $item !== '--') {
+                if (strpos($item, '=')) {
+                    list($item, ) = explode('=', $item, 2);
+                } elseif (strpos($item, ':')) {
+                    list($item, ) = explode(':', $item, 2);
+                }
+                $fargv[$item] = $k;
+            } elseif (strpos($item, '-') === 0 && $item !== '--'  && $item !== '-') {
+                $arr = str_split($item, 1);
+                array_shift($arr);
+                foreach ($arr as $item) {
+                    $fargv['-'.$item] = $k;
+                }
+            } else {
+                $fargv[$item] = $k;
+            }
+        }
+
+        return $fargv;
+    }
+    /* ----------------------------------------- */
 
     /**
      * +-- Windowsかどうか
@@ -160,6 +316,9 @@ class GitBase
      */
     public function cecho($text, $color)
     {
+        if ($this->isQuiet()) {
+            return;
+        }
         if ($this->isWin()) {
             $this->ncecho($text);
 
@@ -183,6 +342,9 @@ class GitBase
      */
     public function ncecho($text)
     {
+        if ($this->isQuiet()) {
+            return;
+        }
         if ($this->isWin()) {
             $text = mb_convert_encoding($text, 'SJIS-win', 'utf8');
         }

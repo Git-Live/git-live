@@ -15,7 +15,14 @@
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', -1);
 
-date_default_timezone_set(date_default_timezone_get());
+if (!ini_get('date.timezone')) {
+    $TZ = @date_default_timezone_get();
+    date_default_timezone_set($TZ ? $TZ : 'Europe/London');
+}
+
+var_dump($_SERVER);
+var_dump(`echo \$LANG`);
+die;
 
 $is_debug = true;
 
@@ -31,6 +38,7 @@ if (!class_exists('\GitLive\Autoloader', false)) {
 }
 
 
+// get-textが有効かどうかで処理を分けるい
 $is_get_text = false;
 if (!function_exists('_')) {
     function _($str)
@@ -68,7 +76,6 @@ if (GIT_LIVE_VERSION === 'phar') {
     if ($is_get_text) {
         bindtextdomain($domain, 'phar://git-live.phar/lang/');
     }
-
 } else {
     $Autoloader->addNamespace('GitLive\Driver', __DIR__.'/libs/GitLive/Driver');
     $Autoloader->addNamespace('GitLive', __DIR__.'/libs/GitLive');
@@ -79,16 +86,14 @@ if (GIT_LIVE_VERSION === 'phar') {
 
 
 
-
-
-
 try {
-    if (DIRECTORY_SEPARATOR === '\\') {
+    $GitLive = new GitLive\GitLive;
+
+    if ($GitLive->isWin()) {
         mb_internal_encoding('utf8');
         mb_http_output('sjis-win');
         mb_http_input('sjis-win');
     }
-    $GitLive = new GitLive\GitLive;
     $GitLive->execute();
 } catch (exception $e) {
     $GitLive->ncecho($e->getMessage()."\n");
