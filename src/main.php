@@ -20,9 +20,7 @@ if (!ini_get('date.timezone')) {
     date_default_timezone_set($TZ ? $TZ : 'Europe/London');
 }
 
-var_dump($_SERVER);
-var_dump(`echo \$LANG`);
-die;
+
 
 $is_debug = true;
 
