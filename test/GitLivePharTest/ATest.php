@@ -45,7 +45,6 @@ class ATest extends testCaseBase
     public function initialize()
     {
         $this->free();
-
     }
     /* ----------------------------------------- */
 
@@ -59,10 +58,10 @@ class ATest extends testCaseBase
         chmod($this->test_bin, 0777);
 
 
-        $this->origin_dir = $this->test_dir.DIRECTORY_SEPARATOR.'origin.git';
+        $this->origin_dir   = $this->test_dir.DIRECTORY_SEPARATOR.'origin.git';
         $this->upstream_dir = $this->test_dir.DIRECTORY_SEPARATOR.'upstream.git';
-        $this->deploy_dir = $this->test_dir.DIRECTORY_SEPARATOR.'deploy.git';
-        $this->local_dir = $this->test_dir.DIRECTORY_SEPARATOR.'local';
+        $this->deploy_dir   = $this->test_dir.DIRECTORY_SEPARATOR.'deploy.git';
+        $this->local_dir    = $this->test_dir.DIRECTORY_SEPARATOR.'local';
 
 
         if (is_dir($this->test_dir)) {
@@ -81,23 +80,23 @@ class ATest extends testCaseBase
         $cmd_std_o =  `git branch develop`;
         chdir($this->test_dir);
 
-        $cmd = join(' ', ['git', 'clone', '--recursive', $this->upstream_dir, $this->origin_dir]);
+        $cmd       = join(' ', array('git', 'clone', '--recursive', $this->upstream_dir, $this->origin_dir));
         $cmd_std_o = `$cmd 2>&1`;
-        $cmd = join(' ', ['git', 'clone', '--recursive', $this->upstream_dir, $this->deploy_dir]);
+        $cmd       = join(' ', array('git', 'clone', '--recursive', $this->upstream_dir, $this->deploy_dir));
         $cmd_std_o = `$cmd 2>&1`;
-        return [''];
+        return array('');
     }
 
     /**
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      * @dataProvider dataProvider
      */
     public function executeInitTest()
     {
-        $cmd = join(' ', [$this->test_bin, 'init', $this->origin_dir, $this->upstream_dir, $this->deploy_dir, $this->local_dir]);
+        $cmd = join(' ', array($this->test_bin, 'init', $this->origin_dir, $this->upstream_dir, $this->deploy_dir, $this->local_dir));
         `$cmd 2>&1`;
 
         $this->assertFileExists($this->local_dir.DIRECTORY_SEPARATOR.'test.txt');
@@ -115,12 +114,12 @@ class ATest extends testCaseBase
      * +--
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function executeFeatureStartTest()
     {
         chdir($this->local_dir);
-        $cmd = join(' ', [$this->test_bin, 'feature', 'start', 'test_feature']);
+        $cmd = join(' ', array($this->test_bin, 'feature', 'start', 'test_feature'));
         `$cmd 2>&1`;
         $cmd_std_o = `git branch`;
         $this->assertRegExp('\* feature/test_feature', $cmd_std_o);

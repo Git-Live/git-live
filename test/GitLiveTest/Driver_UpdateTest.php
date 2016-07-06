@@ -66,7 +66,7 @@ class Driver_UpdateTest extends testCaseBase
 
 
         $instance->shouldReceive('isOption')
-        ->andReturnMap([['--no_cache'], ['-c']], [false, false]);
+        ->andReturnMap(array(array('--no_cache'), array('-c')), array(false, false));
 
 
         $instance->execute();
@@ -105,7 +105,7 @@ class Driver_UpdateTest extends testCaseBase
 
 
         $instance->shouldReceive('isOption')
-        ->andReturnMap([['--no_cache'], ['-c']], [true, false]);
+        ->andReturnMap(array(array('--no_cache'), array('-c')), array(true, false));
 
         $instance->execute();
         $mock_trace = EnviMockLight::getMockTraceList();
@@ -141,7 +141,7 @@ class Driver_UpdateTest extends testCaseBase
         ->andReturn(array(__FILE__, 'update', '--no_cache'));
 
         $instance->shouldReceive('isOption')
-        ->andReturnMap([['--no_cache'], ['-c']], [false, true]);
+        ->andReturnMap(array(array('--no_cache'), array('-c')), array(false, true));
 
         $instance->execute();
         $mock_trace = EnviMockLight::getMockTraceList();
