@@ -14,7 +14,7 @@ all:
   no_color: true
   # テスト毎にPHPプロセスを新規に立ち上げてテストする
   # segmentation fault とかが出る場合はtrueにしてください
-  multi: false
+  multi: true
   
   # テストカバレッジ
   code_coverage:

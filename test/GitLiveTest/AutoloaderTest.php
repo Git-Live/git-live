@@ -17,7 +17,6 @@
  * @doc_ignore
  */
 
-
 /**
  * @category   %%project_category%%
  * @package    %%project_name%%
@@ -48,7 +47,6 @@ class AutoloaderTest extends testCaseBase
             '/vendor/foo.bar.baz.dib.zim.gir/src/ClassName.php',
         ));
 
-
         $this->loader->addNamespace(
             'Foo\Bar',
             '/vendor/foo.bar/tests'
@@ -68,7 +66,6 @@ class AutoloaderTest extends testCaseBase
             'Foo\Bar\Baz\Dib\Zim\Gir',
             '/vendor/foo.bar.baz.dib.zim.gir/src'
         );
-
 
         $this->loader->addNamespace(
             'Foo\Bar',

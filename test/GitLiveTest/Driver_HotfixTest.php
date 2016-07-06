@@ -17,7 +17,6 @@
  * @doc_ignore
  */
 
-
 /**
  * @category   %%project_category%%
  * @package    %%project_name%%
@@ -42,7 +41,6 @@ class Driver_HotfixTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
     /**
      * +--
      *
@@ -61,7 +59,6 @@ class Driver_HotfixTest extends testCaseBase
         ->once()
         ->andNoBypass();
 
-
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
@@ -73,7 +70,6 @@ class Driver_HotfixTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-
 
         $mock_trace = EnviMockLight::getMockTraceList();
 
@@ -98,9 +94,7 @@ class Driver_HotfixTest extends testCaseBase
 
         $this->assertSame($needle_command_list, $command_list);
 
-
         $this->assertTrue(true);
-
 
         // isHotfixOpen のエラー処理
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
@@ -128,8 +122,6 @@ class Driver_HotfixTest extends testCaseBase
         }
         $this->assertSame('既にhotfix open されています。', $e->getMessage());
         $this->assertInstanceOf('exception', $e);
-
-
 
         // isReleaseOpen のエラー処理
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
@@ -169,14 +161,11 @@ class Driver_HotfixTest extends testCaseBase
         ->once()
         ->andReturn(false);
 
-
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/deploy/hotfix/20160629050505'))."\n");
 
-
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
-
 
         $instance->shouldReceive('hotfix')
         ->once()
@@ -185,7 +174,6 @@ class Driver_HotfixTest extends testCaseBase
         $instance->shouldReceive('getArgv')
         ->twice()
         ->andReturn(array(__FILE__, 'hotfix', 'open'));
-
 
         $e = null;
         try {
@@ -196,7 +184,6 @@ class Driver_HotfixTest extends testCaseBase
         $this->assertInstanceOf('exception', $e);
     }
     /* ----------------------------------------- */
-
 
     /**
      * +--
@@ -280,8 +267,6 @@ class Driver_HotfixTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -371,8 +356,6 @@ class Driver_HotfixTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
     /**
      * +--
      *
@@ -411,7 +394,6 @@ class Driver_HotfixTest extends testCaseBase
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
-
         $e = null;
         try {
             $instance->execute();
@@ -425,7 +407,6 @@ class Driver_HotfixTest extends testCaseBase
         $this->assertSame('hotfix openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
-
 
     /**
      * +--
@@ -480,10 +461,6 @@ class Driver_HotfixTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
-
-
     /**
      * +--
      *
@@ -522,9 +499,6 @@ class Driver_HotfixTest extends testCaseBase
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
-
-
-
         $e = null;
         try {
             $instance->execute();
@@ -546,7 +520,6 @@ class Driver_HotfixTest extends testCaseBase
                 $command_list[] = $item['arguments'][0];
             }
         }
-
 
         $needle_command_list = array(
             'git fetch --all',
@@ -571,9 +544,6 @@ class Driver_HotfixTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -613,7 +583,6 @@ class Driver_HotfixTest extends testCaseBase
         ->once()
         ->andReturnConsecutive(array('', 'refs/heads/develop'));
 
-
         $e = null;
         try {
             $instance->execute();
@@ -627,8 +596,6 @@ class Driver_HotfixTest extends testCaseBase
         $this->assertSame("hotfix closeに失敗しました。\nmasterがHotfixブランチより進んでいます。", $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -668,7 +635,6 @@ class Driver_HotfixTest extends testCaseBase
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', ''));
 
-
         $e = null;
         try {
             $instance->execute();
@@ -682,8 +648,6 @@ class Driver_HotfixTest extends testCaseBase
         $this->assertSame("hotfix closeに失敗しました。\ndevelopがHotfixブランチより進んでいます。", $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -715,7 +679,6 @@ class Driver_HotfixTest extends testCaseBase
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
-
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
         ->andReturn('On branch master
@@ -755,9 +718,6 @@ nothing to commit, working directory clean');
     }
     /* ----------------------------------------- */
 
-
-
-
     /**
      * +--
      *
@@ -788,7 +748,6 @@ nothing to commit, working directory clean');
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
-
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
         ->andReturn('ステータスエラー');
@@ -824,8 +783,6 @@ nothing to commit, working directory clean');
     }
     /* ----------------------------------------- */
 
-
-
     /**
      * +--
      *
@@ -857,7 +814,6 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
 
-
         $instance->getGitCmdExecuter()->shouldReceive('status')
         ->andReturn('ステータスエラー');
 
@@ -873,9 +829,6 @@ nothing to commit, working directory clean');
         $this->assertSame('hotfix openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -908,11 +861,8 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
 
-
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
-
-
 
         $e = null;
         try {
@@ -942,9 +892,6 @@ nothing to commit, working directory clean');
     }
     /* ----------------------------------------- */
 
-
-
-
     /**
      * +--
      *
@@ -969,7 +916,6 @@ nothing to commit, working directory clean');
         ->once()
         ->andReturn(false);
 
-
         $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
@@ -977,11 +923,8 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
 
-
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
-
-
 
         $e = null;
         try {
@@ -995,8 +938,6 @@ nothing to commit, working directory clean');
         $this->assertSame($mock_trace[count($mock_trace) - 1]['arguments'][0], "hotfix is close.\n");
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -1029,7 +970,6 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
 
-
         $e = null;
         try {
             $instance->execute();
@@ -1046,7 +986,6 @@ nothing to commit, working directory clean');
             }
         }
 
-
         $needle_command_list = array(
             'git fetch --all',
             'git fetch -p deploy',
@@ -1058,9 +997,6 @@ nothing to commit, working directory clean');
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -1093,7 +1029,6 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
 
-
         $e = null;
         try {
             $instance->execute();
@@ -1101,16 +1036,11 @@ nothing to commit, working directory clean');
         }
         $mock_trace = EnviMockLight::getMockTraceList();
 
-
         $this->assertInstanceOf('exception', $e);
 
         $this->assertSame('hotfix openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
-
-
 
     /**
      * +--
@@ -1143,7 +1073,6 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
 
-
         $e = null;
         try {
             $instance->execute();
@@ -1160,7 +1089,6 @@ nothing to commit, working directory clean');
             }
         }
 
-
         $needle_command_list = array(
             'git fetch --all',
             'git fetch -p deploy',
@@ -1173,9 +1101,6 @@ nothing to commit, working directory clean');
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -1208,7 +1133,6 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
 
-
         $e = null;
         try {
             $instance->execute();
@@ -1216,15 +1140,11 @@ nothing to commit, working directory clean');
         }
         $mock_trace = EnviMockLight::getMockTraceList();
 
-
         $this->assertInstanceOf('exception', $e);
 
         $this->assertSame('hotfix openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -1280,7 +1200,6 @@ nothing to commit, working directory clean');
             }
         }
 
-
         $needle_command_list = array(
             'git fetch --all',
             'git fetch -p deploy',
@@ -1293,8 +1212,6 @@ nothing to commit, working directory clean');
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -1327,7 +1244,6 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
 
-
         $e = null;
         try {
             $instance->execute();
@@ -1335,14 +1251,11 @@ nothing to commit, working directory clean');
         }
         $mock_trace = EnviMockLight::getMockTraceList();
 
-
         $this->assertInstanceOf('exception', $e);
 
         $this->assertSame('hotfix openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -1385,16 +1298,11 @@ nothing to commit, working directory clean');
         }
         $mock_trace = EnviMockLight::getMockTraceList();
 
-
         $this->assertInstanceOf('exception', $e);
 
         $this->assertSame('おかしなステータス', $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
-
-
 
     /**
      * +-- 終了処理

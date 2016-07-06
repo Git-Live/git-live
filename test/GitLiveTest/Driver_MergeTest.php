@@ -17,7 +17,6 @@
  * @doc_ignore
  */
 
-
 /**
  * @category   %%project_category%%
  * @package    %%project_name%%
@@ -74,7 +73,6 @@ class Driver_MergeTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
     /**
      * +--
      *
@@ -106,7 +104,6 @@ class Driver_MergeTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
 
     /**
      * +-- 終了処理

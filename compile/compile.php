@@ -24,14 +24,11 @@ if (!class_exists('\GitLive\Autoloader', false)) {
     include BASE_DIR.'/src/libs/GitLive/Autoloader.php';
 }
 
-
 $Autoloader = new \GitLive\Autoloader;
 $Autoloader->register();
 $Autoloader->addNamespace('GitLive\Compile\Compiler', __DIR__.'/libs/Compiler');
 $Autoloader->addNamespace('GitLive\Compile\Iterator', __DIR__.'/libs/Iterator');
 $Autoloader->addNamespace('GitLive\Compile\Exception', __DIR__.'/libs/Exception');
-
-
 
 try {
     if (isset($argv[1]) && $argv[1] === 'create_phar') {

@@ -99,8 +99,6 @@ class DeployBase extends DriverBase
 
     /* ----------------------------------------- */
 
-
-
     /**
      * +-- hotfixCloseとreleaseClose共通処理
      *

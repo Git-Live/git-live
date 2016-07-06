@@ -60,7 +60,6 @@ class Merge extends DriverBase
 
     /* ----------------------------------------- */
 
-
     /**
      * +-- developをマージする
      *

@@ -12,7 +12,7 @@
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-namespace GitLive;
+namespace GitLive\Mock;
 
 /**
  * @category   GitCommand

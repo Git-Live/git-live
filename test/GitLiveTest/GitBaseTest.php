@@ -17,7 +17,6 @@
  * @doc_ignore
  */
 
-
 /**
  * @category   %%project_category%%
  * @package    %%project_name%%
@@ -66,7 +65,6 @@ class GitBaseTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
     /**
      * +-- 色を指定したdebugメッセージ
      *
@@ -90,7 +88,6 @@ class GitBaseTest extends testCaseBase
         $this->assertSame('cecho', $mock_trace[0]['method_name']);
     }
     /* ----------------------------------------- */
-
 
     /**
      * +-- デバッグモードオフ
@@ -122,7 +119,6 @@ class GitBaseTest extends testCaseBase
         $this->assertSame('isDebug', $mock_trace[1]['method_name']);
     }
     /* ----------------------------------------- */
-
 
     /**
      * +-- デバッグモードオフ
@@ -164,8 +160,6 @@ class GitBaseTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
     /**
      * +-- デバッグモードオフ
      *
@@ -190,8 +184,6 @@ class GitBaseTest extends testCaseBase
         );
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +-- デバッグモードオフ
@@ -236,7 +228,6 @@ class GitBaseTest extends testCaseBase
         $this->assertTrue($instance->isOption('-s'));
         $this->assertTrue($instance->isOption('-t'));
 
-
         $this->assertSame('neko', $instance->getOption('-q'));
         $this->assertSame('pengin', $instance->getOption('-e'));
         $this->assertSame('inu', $instance->getOption('-h'));
@@ -247,7 +238,6 @@ class GitBaseTest extends testCaseBase
         $this->assertSame(true, $instance->getOption('--ddddd', true));
     }
     /* ----------------------------------------- */
-
 
     /**
      * +-- デバッグモードオフ
@@ -261,8 +251,6 @@ class GitBaseTest extends testCaseBase
         $instance->shouldReceive('getArgv')
         ->andReturn(array(__FILE__, '-arst', '-z', '-q', 'neko', '-e=pengin', '-h=inu', '--pop:1234', '--open', '1204', '--joinon=0987', '-t', 'aaaa', '-t', 'bbbb'));
 
-
-
         $this->assertSame(array('neko'), $instance->getOptions('-q'));
         $this->assertSame(array('pengin'), $instance->getOptions('-e'));
         $this->assertSame(array('inu'), $instance->getOptions('-h'));
@@ -274,9 +262,6 @@ class GitBaseTest extends testCaseBase
         $this->assertSame(array(), $instance->getOptions('--ddddd', true));
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +-- 終了処理

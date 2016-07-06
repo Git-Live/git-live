@@ -17,7 +17,6 @@
  * @doc_ignore
  */
 
-
 /**
  * @category   %%project_category%%
  * @package    %%project_name%%
@@ -41,8 +40,6 @@ class GitLiveTest extends testCaseBase
         $this->free();
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -78,8 +75,6 @@ class GitLiveTest extends testCaseBase
         $this->assertNull($e);
         $this->assertSame($res, 'refs/heads/unit_testing/unit_testing');
 
-
-
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $e        = null;
         try {
@@ -107,8 +102,6 @@ class GitLiveTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
     /**
      * +--
      *
@@ -130,7 +123,6 @@ class GitLiveTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
     /**
      * +--
      *
@@ -151,7 +143,6 @@ class GitLiveTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
     /**
      * +--
      *
@@ -171,8 +162,6 @@ class GitLiveTest extends testCaseBase
         $this->assertSame('hotfix/20160629050505', $res);
         $this->assertNull($e);
 
-
-
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master'))."\n");
@@ -183,11 +172,9 @@ class GitLiveTest extends testCaseBase
         } catch (exception $e) {
         }
 
-
         $this->assertInstanceOf('exception', $e);
     }
     /* ----------------------------------------- */
-
 
     /**
      * +--
@@ -208,7 +195,6 @@ class GitLiveTest extends testCaseBase
         $this->assertSame('release/20160629050505', $res);
         $this->assertNull($e);
 
-
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master'))."\n");
@@ -219,13 +205,9 @@ class GitLiveTest extends testCaseBase
         } catch (exception $e) {
         }
 
-
         $this->assertInstanceOf('exception', $e);
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +-- 終了処理

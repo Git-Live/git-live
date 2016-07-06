@@ -17,7 +17,6 @@
  * @doc_ignore
  */
 
-
 /**
  * @category   %%project_category%%
  * @package    %%project_name%%
@@ -42,7 +41,6 @@ class Driver_ReleaseTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
     /**
      * +--
      *
@@ -61,7 +59,6 @@ class Driver_ReleaseTest extends testCaseBase
         ->once()
         ->andNoBypass();
 
-
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
 
@@ -73,7 +70,6 @@ class Driver_ReleaseTest extends testCaseBase
         ->andReturn(false);
 
         $instance->execute();
-
 
         $mock_trace = EnviMockLight::getMockTraceList();
 
@@ -98,9 +94,7 @@ class Driver_ReleaseTest extends testCaseBase
 
         $this->assertSame($needle_command_list, $command_list);
 
-
         $this->assertTrue(true);
-
 
         // isReleaseOpen のエラー処理
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
@@ -128,8 +122,6 @@ class Driver_ReleaseTest extends testCaseBase
         }
         $this->assertSame('既にrelease open されています。', $e->getMessage());
         $this->assertInstanceOf('exception', $e);
-
-
 
         // isHotfixOpen のエラー処理
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
@@ -169,14 +161,11 @@ class Driver_ReleaseTest extends testCaseBase
         ->once()
         ->andReturn(false);
 
-
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/deploy/release/20160629050505'))."\n");
 
-
         $instance->shouldReceive('enableRelease')
         ->andReturn(true);
-
 
         $instance->shouldReceive('release')
         ->once()
@@ -185,7 +174,6 @@ class Driver_ReleaseTest extends testCaseBase
         $instance->shouldReceive('getArgv')
         ->twice()
         ->andReturn(array(__FILE__, 'release', 'open'));
-
 
         $e = null;
         try {
@@ -196,7 +184,6 @@ class Driver_ReleaseTest extends testCaseBase
         $this->assertInstanceOf('exception', $e);
     }
     /* ----------------------------------------- */
-
 
     /**
      * +--
@@ -280,8 +267,6 @@ class Driver_ReleaseTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -371,8 +356,6 @@ class Driver_ReleaseTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
     /**
      * +--
      *
@@ -411,7 +394,6 @@ class Driver_ReleaseTest extends testCaseBase
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
-
         $e = null;
         try {
             $instance->execute();
@@ -425,7 +407,6 @@ class Driver_ReleaseTest extends testCaseBase
         $this->assertSame('release openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
-
 
     /**
      * +--
@@ -480,10 +461,6 @@ class Driver_ReleaseTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
-
-
     /**
      * +--
      *
@@ -522,9 +499,6 @@ class Driver_ReleaseTest extends testCaseBase
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
-
-
-
         $e = null;
         try {
             $instance->execute();
@@ -538,9 +512,6 @@ class Driver_ReleaseTest extends testCaseBase
         $this->assertSame("release closeに失敗しました。\ndevelopがReleaseブランチより進んでいます。", $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -580,7 +551,6 @@ class Driver_ReleaseTest extends testCaseBase
         ->once()
         ->andReturnConsecutive(array('', 'refs/heads/develop'));
 
-
         $e = null;
         try {
             $instance->execute();
@@ -594,8 +564,6 @@ class Driver_ReleaseTest extends testCaseBase
         $this->assertSame("release closeに失敗しました。\nmasterがReleaseブランチより進んでいます。", $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -635,7 +603,6 @@ class Driver_ReleaseTest extends testCaseBase
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', ''));
 
-
         $e = null;
         try {
             $instance->execute();
@@ -649,8 +616,6 @@ class Driver_ReleaseTest extends testCaseBase
         $this->assertSame("release closeに失敗しました。\ndevelopがReleaseブランチより進んでいます。", $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -682,7 +647,6 @@ class Driver_ReleaseTest extends testCaseBase
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
-
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
         ->andReturn('On branch master
@@ -722,9 +686,6 @@ nothing to commit, working directory clean');
     }
     /* ----------------------------------------- */
 
-
-
-
     /**
      * +--
      *
@@ -755,7 +716,6 @@ nothing to commit, working directory clean');
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
-
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
         ->andReturn('ステータスエラー');
@@ -791,8 +751,6 @@ nothing to commit, working directory clean');
     }
     /* ----------------------------------------- */
 
-
-
     /**
      * +--
      *
@@ -824,7 +782,6 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
-
         $instance->getGitCmdExecuter()->shouldReceive('status')
         ->andReturn('ステータスエラー');
 
@@ -840,9 +797,6 @@ nothing to commit, working directory clean');
         $this->assertSame('release openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -875,11 +829,8 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
-
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
-
-
 
         $e = null;
         try {
@@ -909,9 +860,6 @@ nothing to commit, working directory clean');
     }
     /* ----------------------------------------- */
 
-
-
-
     /**
      * +--
      *
@@ -936,7 +884,6 @@ nothing to commit, working directory clean');
         ->once()
         ->andReturn(false);
 
-
         $instance->shouldReceive('isHotfixOpen')
         ->once()
         ->andReturn(false);
@@ -944,11 +891,8 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
-
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
-
-
 
         $e = null;
         try {
@@ -962,8 +906,6 @@ nothing to commit, working directory clean');
         $this->assertSame($mock_trace[count($mock_trace) - 1]['arguments'][0], "release is close.\n");
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +-- 分岐にないけど、差分があっても無視するパターン
@@ -1004,7 +946,6 @@ nothing to commit, working directory clean');
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
-
         $e = null;
         try {
             $instance->execute();
@@ -1026,7 +967,6 @@ nothing to commit, working directory clean');
                 $command_list[] = $item['arguments'][0];
             }
         }
-
 
         $needle_command_list = array(
             'git fetch --all',
@@ -1051,8 +991,6 @@ nothing to commit, working directory clean');
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -1085,7 +1023,6 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
-
         $e = null;
         try {
             $instance->execute();
@@ -1102,7 +1039,6 @@ nothing to commit, working directory clean');
             }
         }
 
-
         $needle_command_list = array(
             'git fetch --all',
             'git fetch -p deploy',
@@ -1114,9 +1050,6 @@ nothing to commit, working directory clean');
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -1149,7 +1082,6 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
-
         $e = null;
         try {
             $instance->execute();
@@ -1157,16 +1089,11 @@ nothing to commit, working directory clean');
         }
         $mock_trace = EnviMockLight::getMockTraceList();
 
-
         $this->assertInstanceOf('exception', $e);
 
         $this->assertSame('release openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
-
-
 
     /**
      * +--
@@ -1199,7 +1126,6 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
-
         $e = null;
         try {
             $instance->execute();
@@ -1216,7 +1142,6 @@ nothing to commit, working directory clean');
             }
         }
 
-
         $needle_command_list = array(
             'git fetch --all',
             'git fetch -p deploy',
@@ -1229,9 +1154,6 @@ nothing to commit, working directory clean');
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -1264,7 +1186,6 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
-
         $e = null;
         try {
             $instance->execute();
@@ -1272,15 +1193,11 @@ nothing to commit, working directory clean');
         }
         $mock_trace = EnviMockLight::getMockTraceList();
 
-
         $this->assertInstanceOf('exception', $e);
 
         $this->assertSame('release openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -1336,7 +1253,6 @@ nothing to commit, working directory clean');
             }
         }
 
-
         $needle_command_list = array(
             'git fetch --all',
             'git fetch -p deploy',
@@ -1349,8 +1265,6 @@ nothing to commit, working directory clean');
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -1383,7 +1297,6 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
-
         $e = null;
         try {
             $instance->execute();
@@ -1391,14 +1304,11 @@ nothing to commit, working directory clean');
         }
         $mock_trace = EnviMockLight::getMockTraceList();
 
-
         $this->assertInstanceOf('exception', $e);
 
         $this->assertSame('release openされていません。', $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -1441,16 +1351,11 @@ nothing to commit, working directory clean');
         }
         $mock_trace = EnviMockLight::getMockTraceList();
 
-
         $this->assertInstanceOf('exception', $e);
 
         $this->assertSame('おかしなステータス', $e->getMessage());
     }
     /* ----------------------------------------- */
-
-
-
-
 
     /**
      * +-- 終了処理

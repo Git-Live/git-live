@@ -34,7 +34,6 @@ class DriverBase extends \GitLive\GitBase
     protected $GitLive;
     protected $GitCmdExecuter;
 
-
     /**
      * +-- コンストラクタ
      *
@@ -49,7 +48,6 @@ class DriverBase extends \GitLive\GitBase
         $this->GitCmdExecuter = $GitLive->getGitCmdExecuter();
     }
     /* ----------------------------------------- */
-
 
     /**
      * +-- 今のブランチを取得する
@@ -79,7 +77,6 @@ class DriverBase extends \GitLive\GitBase
     }
     /* ----------------------------------------- */
 
-
     /**
      * +-- 引数配列を返す
      *
@@ -95,6 +92,58 @@ class DriverBase extends \GitLive\GitBase
     }
     /* ----------------------------------------- */
 
+    /**
+     * +-- 引数の取得
+     *
+     * 指定した引数の次の値(-f "filename"のfilename)
+     * を取得します。<br />
+     * 存在しない場合は、
+     * $default_paramの値を返す。
+     *
+     * @access      public
+     * @param  string $name
+     * @param  mix    $default_param (optional:false)
+     * @return mix
+     * @codeCoverageIgnore
+     */
+    public function getOption($name, $default_param = false)
+    {
+        return $this->GitLive->getOption($name, $default_param);
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +-- 引数の取得
+     *
+     * 指定した引数の次の値(-f "filename"のfilename)
+     * を取得します。<br />
+     * 存在しない場合は、
+     * $default_paramの値を返す。
+     *
+     * @access      public
+     * @param  string $name
+     * @return array
+     * @codeCoverageIgnore
+     */
+    public function getOptions($name)
+    {
+        return $this->GitLive->getOptions($name);
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +--$nameで指定された引数が存在するかどうかを確認する
+     *
+     * @access      public
+     * @param  string $name
+     * @return bool
+     * @codeCoverageIgnore
+     */
+    public function isOption($name)
+    {
+        return $this->GitLive->isOption($name);
+    }
+    /* ----------------------------------------- */
 
     /**
      * +-- 色つきecho
@@ -111,9 +160,7 @@ class DriverBase extends \GitLive\GitBase
     {
         return $this->GitLive->cecho($text, $color);
     }
-
     /* ----------------------------------------- */
-
 
     /**
      * +-- 色なしecho
@@ -159,7 +206,6 @@ class DriverBase extends \GitLive\GitBase
         return $this->GitLive->interactiveShell($shell_message, $using_default);
     }
     /* ----------------------------------------- */
-
 
     /**
      * +-- デバッグメッセージ
@@ -209,7 +255,6 @@ class DriverBase extends \GitLive\GitBase
         return $this->GitLive->isDebug();
     }
     /* ----------------------------------------- */
-
 
     /**
      * +-- Windowsかどうか

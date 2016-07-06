@@ -17,7 +17,6 @@
  * @doc_ignore
  */
 
-
 /**
  * @category   %%project_category%%
  * @package    %%project_name%%
@@ -74,7 +73,6 @@ class Driver_FeatureTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
@@ -100,7 +98,6 @@ class Driver_FeatureTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
 
     /**
      * +--
@@ -133,8 +130,6 @@ class Driver_FeatureTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
-
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
@@ -163,9 +158,6 @@ class Driver_FeatureTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -197,8 +189,6 @@ class Driver_FeatureTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
-
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
@@ -226,10 +216,6 @@ class Driver_FeatureTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
-
-
 
     /**
      * +--
@@ -261,8 +247,6 @@ class Driver_FeatureTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
-
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
@@ -290,8 +274,6 @@ class Driver_FeatureTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -328,8 +310,6 @@ class Driver_FeatureTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
-
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
@@ -357,8 +337,6 @@ class Driver_FeatureTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -393,8 +371,6 @@ class Driver_FeatureTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
-
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
@@ -425,11 +401,6 @@ class Driver_FeatureTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
-
-
-
 
     /**
      * +-- 終了処理

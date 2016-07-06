@@ -32,7 +32,6 @@ class GitLive extends GitBase
     protected $GitCmdExecuter;
     protected $Driver;
 
-
     /**
      * +-- コンストラクタ
      *
@@ -78,7 +77,6 @@ class GitLive extends GitBase
         return $this->GitCmdExecuter;
     }
     /* ----------------------------------------- */
-
 
     /**
      * +-- 処理の実行
@@ -144,8 +142,6 @@ class GitLive extends GitBase
     }
 
     /* ----------------------------------------- */
-
-
 
     /**
      * +-- リリースが空いているかどうか
@@ -261,7 +257,6 @@ class GitLive extends GitBase
     }
 
     /* ----------------------------------------- */
-
 
     /**
      * +-- 今のブランチを取得する

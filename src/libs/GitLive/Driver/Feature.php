@@ -30,7 +30,6 @@ namespace GitLive\Driver;
 class Feature extends DriverBase
 {
 
-
     /**
      * +-- featureを実行する
      *
