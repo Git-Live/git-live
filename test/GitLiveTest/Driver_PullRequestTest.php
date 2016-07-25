@@ -17,7 +17,6 @@
  * @doc_ignore
  */
 
-
 /**
  * @category   %%project_category%%
  * @package    %%project_name%%
@@ -56,11 +55,9 @@ class Driver_PullRequestTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pr', 'pull'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/pullreq/10');
-
 
         $instance->execute();
         $mock_trace   = EnviMockLight::getMockTraceList();
@@ -81,19 +78,15 @@ class Driver_PullRequestTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
-
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
         ->twice()
         ->andReturn(array(__FILE__, 'pr', 'pull'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/master');
-
 
         $instance->execute();
         $mock_trace   = EnviMockLight::getMockTraceList();
@@ -110,7 +103,6 @@ class Driver_PullRequestTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
     /**
      * +--
      *
@@ -125,11 +117,9 @@ class Driver_PullRequestTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pr', 'merge', '111'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/feature/unit_testing');
-
 
         $instance->execute();
         $mock_trace   = EnviMockLight::getMockTraceList();
@@ -149,7 +139,6 @@ class Driver_PullRequestTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
         // トラックされたプルリクエスト用の処理
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -157,11 +146,9 @@ class Driver_PullRequestTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pr', 'merge', '101'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/pullreq/10');
-
 
         $instance->execute();
         $mock_trace   = EnviMockLight::getMockTraceList();
@@ -183,9 +170,6 @@ class Driver_PullRequestTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
-
     /**
      * +--
      *
@@ -200,11 +184,9 @@ class Driver_PullRequestTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pr', 'track', '111'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/feature/unit_testing');
-
 
         $instance->execute();
         $mock_trace   = EnviMockLight::getMockTraceList();
@@ -224,7 +206,6 @@ class Driver_PullRequestTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
         // トラックされたプルリクエスト用の処理
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -232,11 +213,9 @@ class Driver_PullRequestTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pr', 'track', '101'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/pullreq/10');
-
 
         $instance->execute();
         $mock_trace   = EnviMockLight::getMockTraceList();
@@ -257,9 +236,6 @@ class Driver_PullRequestTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +-- 終了処理

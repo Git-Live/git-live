@@ -17,7 +17,6 @@
  * @doc_ignore
  */
 
-
 /**
  * @category   %%project_category%%
  * @package    %%project_name%%
@@ -56,11 +55,9 @@ class Driver_LogTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'log', 'develop'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('feature/unit_testing');
-
 
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
@@ -83,7 +80,6 @@ class Driver_LogTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
 
     /**
      * +--
@@ -123,7 +119,6 @@ class Driver_LogTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
 
     /**
      * +-- 終了処理

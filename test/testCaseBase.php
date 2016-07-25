@@ -22,7 +22,6 @@
 ini_set('display_errors', 1);
 date_default_timezone_set('Europe/London');
 
-
 define('BASE_DIR', dirname(__DIR__));
 
 define('GIT_LIVE_INSTALL_DIR', BASE_DIR.'/.install_file');
@@ -33,7 +32,6 @@ if (!function_exists('_')) {
         return $str;
     }
 }
-
 
 if (!class_exists('\GitLive\Autoloader', false)) {
     include BASE_DIR.'/src/libs/GitLive/Autoloader.php';
@@ -48,7 +46,6 @@ $Autoloader->addNamespace('GitLive\Mock', BASE_DIR.'/test/Mock/GitLive');
 $Autoloader->addNamespace('GitLive\Mock\Driver', BASE_DIR.'/test/Mock/GitLive/Driver');
 $Autoloader->addNamespace('GitLive\Driver', __DIR__.'/libs/GitLive/Driver');
 $Autoloader->addNamespace('GitLive', BASE_DIR.'/src/libs/GitLive');
-
 
 /**
  * テストのベースクラス
@@ -92,7 +89,6 @@ class testCaseBase extends EnviTestCase
     {
     }
     /* ----------------------------------------- */
-
 
     /**
      * +-- 終了処理をする

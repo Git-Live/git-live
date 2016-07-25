@@ -17,7 +17,6 @@
  * @doc_ignore
  */
 
-
 /**
  * @category   %%project_category%%
  * @package    %%project_name%%
@@ -57,11 +56,9 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'push'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/feature/unit_testing');
-
 
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
@@ -80,7 +77,6 @@ class Driver_PushPullTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
         // develop
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -88,11 +84,9 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'push'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/develop');
-
 
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
@@ -111,8 +105,6 @@ class Driver_PushPullTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
-
         // master
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -120,11 +112,9 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'push'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/master');
-
 
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
@@ -143,8 +133,6 @@ class Driver_PushPullTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
-
         // release
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -152,11 +140,9 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'push'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/release/20160629050505');
-
 
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
@@ -175,8 +161,6 @@ class Driver_PushPullTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
-
         // hotfix
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -184,11 +168,9 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'push'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/hotfix/20160629050505');
-
 
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
@@ -209,8 +191,6 @@ class Driver_PushPullTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
     /**
      * +--
      *
@@ -227,11 +207,9 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pull'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/feature/unit_testing');
-
 
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
@@ -250,7 +228,6 @@ class Driver_PushPullTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
         // develop
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -258,11 +235,9 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pull'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/develop');
-
 
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
@@ -281,8 +256,6 @@ class Driver_PushPullTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
-
         // master
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -290,11 +263,9 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pull'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/master');
-
 
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
@@ -313,8 +284,6 @@ class Driver_PushPullTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
-
         // release
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -322,11 +291,9 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pull'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/release/20160629050505');
-
 
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
@@ -345,8 +312,6 @@ class Driver_PushPullTest extends testCaseBase
         );
         $this->assertSame($needle_command_list, $command_list);
 
-
-
         // hotfix
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -354,11 +319,9 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pull'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('refs/heads/hotfix/20160629050505');
-
 
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
@@ -378,7 +341,6 @@ class Driver_PushPullTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
 
     /**
      * +-- 終了処理

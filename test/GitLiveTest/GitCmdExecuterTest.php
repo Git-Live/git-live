@@ -17,7 +17,6 @@
  * @doc_ignore
  */
 
-
 /**
  * @category   %%project_category%%
  * @package    %%project_name%%
@@ -42,14 +41,12 @@ class GitCmdExecuterTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
     public function fetchPullRequestTest()
     {
         $res = $this->instance->fetchPullRequest();
 
         $this->assertSame("git fetch upstream '+refs/pull/*:refs/remotes/pr/*'", $res);
     }
-
 
     public function createCmdTest()
     {

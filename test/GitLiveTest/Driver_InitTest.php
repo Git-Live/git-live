@@ -17,7 +17,6 @@
  * @doc_ignore
  */
 
-
 /**
  * @category   %%project_category%%
  * @package    %%project_name%%
@@ -56,11 +55,9 @@ class Driver_InitTest extends testCaseBase
         ->once()
         ->andReturn(array(__FILE__, 'start'));
 
-
         $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('feature/unit_testing');
-
 
         $instance->shouldReceive('ncecho')
         ->andReturn(false);
@@ -85,7 +82,6 @@ class Driver_InitTest extends testCaseBase
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
-
 
     /**
      * +--
@@ -138,8 +134,6 @@ class Driver_InitTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
     /**
      * +--
      *
@@ -163,10 +157,8 @@ class Driver_InitTest extends testCaseBase
         $instance->shouldReceive('chdir')
         ->andReturn(false);
 
-
         $instance->shouldReceive('interactiveShell')
         ->andReturnConsecutive(array('git@github.com:SelfUser/git-live.git', 'git@github.com:Git-Live/git-live.git', 'git@github.com:DeployUser/git-live.git', 'unit_testing_clone_dir'));
-
 
         $instance->execute();
         $mock_trace             = EnviMockLight::getMockTraceList();
@@ -228,8 +220,6 @@ class Driver_InitTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
     /**
      * +--
      *
@@ -253,10 +243,8 @@ class Driver_InitTest extends testCaseBase
         $instance->shouldReceive('chdir')
         ->andReturn(false);
 
-
         $instance->shouldReceive('interactiveShell')
         ->andReturnConsecutive(array('git@github.com:SelfUser/git-live.git', 'git@github.com:Git-Live/git-live.git', 'git@github.com:Git-Live/git-live.git', ''));
-
 
         $instance->execute();
         $mock_trace             = EnviMockLight::getMockTraceList();
@@ -317,9 +305,6 @@ class Driver_InitTest extends testCaseBase
         $this->assertSame('git-live', $chdir_list[0]);
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -351,7 +336,6 @@ class Driver_InitTest extends testCaseBase
         $instance->shouldReceive('chdir')
         ->andReturn(false);
 
-
         $instance->execute();
         $mock_trace             = EnviMockLight::getMockTraceList();
         $command_list           = array();
@@ -376,8 +360,6 @@ class Driver_InitTest extends testCaseBase
         $this->assertSame('unit_testing_clone_dir', $chdir_list[0]);
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +--
@@ -407,7 +389,6 @@ class Driver_InitTest extends testCaseBase
         $instance->shouldReceive('chdir')
         ->andReturn(false);
 
-
         $instance->execute();
         $mock_trace             = EnviMockLight::getMockTraceList();
         $command_list           = array();
@@ -432,9 +413,6 @@ class Driver_InitTest extends testCaseBase
         $this->assertSame('git-live', $chdir_list[0]);
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -465,7 +443,6 @@ class Driver_InitTest extends testCaseBase
         $instance->shouldReceive('chdir')
         ->andReturn(false);
 
-
         $instance->execute();
         $mock_trace             = EnviMockLight::getMockTraceList();
         $command_list           = array();
@@ -490,9 +467,6 @@ class Driver_InitTest extends testCaseBase
         $this->assertSame('git-live', $chdir_list[0]);
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -523,7 +497,6 @@ class Driver_InitTest extends testCaseBase
         $instance->shouldReceive('chdir')
         ->andReturn(false);
 
-
         $instance->execute();
         $mock_trace             = EnviMockLight::getMockTraceList();
         $command_list           = array();
@@ -548,9 +521,6 @@ class Driver_InitTest extends testCaseBase
         $this->assertSame('git-live', $chdir_list[0]);
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -597,8 +567,6 @@ class Driver_InitTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
     /**
      * +--
      *
@@ -643,8 +611,6 @@ class Driver_InitTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
     /**
      * +--
      *
@@ -674,7 +640,6 @@ class Driver_InitTest extends testCaseBase
         $instance->shouldReceive('chdir')
         ->andReturn(false);
 
-
         $instance->execute();
         $mock_trace             = EnviMockLight::getMockTraceList();
         $command_list           = array();
@@ -698,9 +663,6 @@ class Driver_InitTest extends testCaseBase
         $this->assertSame('unit_testing_clone_dir', $chdir_list[0]);
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +-- 終了処理

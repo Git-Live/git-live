@@ -17,7 +17,6 @@
  * @doc_ignore
  */
 
-
 /**
  * @category   %%project_category%%
  * @package    %%project_name%%
@@ -41,7 +40,6 @@ class Driver_HelpTest extends testCaseBase
         $this->free();
     }
     /* ----------------------------------------- */
-
 
     /**
      * +--
@@ -69,7 +67,6 @@ class Driver_HelpTest extends testCaseBase
         return $instance;
     }
     /* ----------------------------------------- */
-
 
     /**
      * +--
@@ -123,8 +120,6 @@ class Driver_HelpTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
     /**
      * +--
      *
@@ -147,9 +142,6 @@ class Driver_HelpTest extends testCaseBase
         $this->assertSame('getArgv', $mock_trace[0]['method_name']);
         $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
 
-
-
-
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
@@ -164,8 +156,6 @@ class Driver_HelpTest extends testCaseBase
         $this->assertSame('getArgv', $mock_trace[0]['method_name']);
         $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
 
-
-
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
@@ -179,7 +169,6 @@ class Driver_HelpTest extends testCaseBase
 
         $this->assertSame('getArgv', $mock_trace[0]['method_name']);
         $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
-
 
         return $instance;
     }
@@ -210,9 +199,6 @@ class Driver_HelpTest extends testCaseBase
         return $instance;
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -318,9 +304,6 @@ class Driver_HelpTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
-
     /**
      * +--
      *
@@ -356,7 +339,6 @@ class Driver_HelpTest extends testCaseBase
 
         $this->assertSame('getArgv', $mock_trace[0]['method_name']);
         $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
-
 
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -401,9 +383,6 @@ class Driver_HelpTest extends testCaseBase
         return $instance;
     }
     /* ----------------------------------------- */
-
-
-
 
     /**
      * +--
@@ -457,8 +436,6 @@ class Driver_HelpTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
-
     /**
      * +--
      *
@@ -486,7 +463,6 @@ class Driver_HelpTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
-
     /**
      * +--
      *
@@ -501,7 +477,6 @@ class Driver_HelpTest extends testCaseBase
         ->once()
         ->andReturn(array(__FILE__, '-v'));
 
-
         ob_start();
         $instance->execute();
         $contents = ob_get_contents();
@@ -511,12 +486,10 @@ class Driver_HelpTest extends testCaseBase
         $this->assertSame('getArgv', $mock_trace[0]['method_name']);
         $this->assertTrue(mb_ereg('Git Live version', $contents) == true);
 
-
         EnviMockLight::free($instance);
         $instance->shouldReceive('getArgv')
         ->once()
         ->andReturn(array(__FILE__, '--version'));
-
 
         ob_start();
         $instance->execute();
@@ -528,8 +501,6 @@ class Driver_HelpTest extends testCaseBase
         $this->assertTrue(mb_ereg('Git Live version', $contents) == true);
     }
     /* ----------------------------------------- */
-
-
 
     /**
      * +-- 終了処理

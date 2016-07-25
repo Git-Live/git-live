@@ -4,7 +4,6 @@ if (!ini_get('date.timezone')) {
     date_default_timezone_set($TZ ? $TZ : 'Europe/London');
 }
 
-
 foreach (file($argv[1]) as $stdin) {
     if (!trim($stdin)) {
         continue;

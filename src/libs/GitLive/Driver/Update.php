@@ -39,6 +39,10 @@ class Update extends DriverBase
     public function update()
     {
         $url = 'https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar';
+        if ($this->isOption('--no_cache') || $this->isOption('-c')) {
+            $url = 'https://github.com/Git-Live/git-live/raw/master/bin/git-live.phar';
+        }
+
         $this->GitLive->file_put_contents(GIT_LIVE_INSTALL_DIR, $this->GitLive->file_get_contents($url));
     }
 

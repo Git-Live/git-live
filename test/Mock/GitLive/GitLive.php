@@ -45,7 +45,6 @@ class GitLive extends \GitLive\GitLive
 
     /* ----------------------------------------- */
 
-
     /**
      * +--
      *
@@ -64,9 +63,6 @@ class GitLive extends \GitLive\GitLive
     }
     /* ----------------------------------------- */
 
-
-
-
     /**
      * +-- 色つきecho
      *
@@ -82,7 +78,6 @@ class GitLive extends \GitLive\GitLive
     }
 
     /* ----------------------------------------- */
-
 
     /**
      * +-- 色なしecho

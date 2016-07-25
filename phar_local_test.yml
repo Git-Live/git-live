@@ -11,7 +11,7 @@ all:
     large:  10
 
   # 色を付けるかどうか
-  no_color: true
+  no_color: false
   # テスト毎にPHPプロセスを新規に立ち上げてテストする
   # segmentation fault とかが出る場合はtrueにしてください
   multi: false
@@ -37,9 +37,7 @@ all:
     dirs:
       # テストファイルのディレクトリ
 
-      GitLiveTest: "<?php echo $test_dir.DIRECTORY_SEPARATOR.$app_name.DIRECTORY_SEPARATOR; ?>GitLiveTest<?php echo DIRECTORY_SEPARATOR;?>"
       GitLivePharTest: "<?php echo $test_dir.DIRECTORY_SEPARATOR.$app_name.DIRECTORY_SEPARATOR; ?>GitLivePharTest<?php echo DIRECTORY_SEPARATOR;?>"
-
 
   app:
     # リクエストURL

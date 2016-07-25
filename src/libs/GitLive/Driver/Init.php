@@ -30,7 +30,6 @@ namespace GitLive\Driver;
 class Init extends DriverBase
 {
 
-
     /**
      * +-- 初期化処理します
      *
@@ -113,7 +112,6 @@ class Init extends DriverBase
     }
 
     /* ----------------------------------------- */
-
 
     /**
      * +-- 諸々初期化します
