@@ -305,8 +305,9 @@ class Driver_FeatureTest extends testCaseBase
         $needle_command_list = array(
             'git fetch upstream',
             'git fetch -p upstream',
+            'git checkout upstream/feature/unit_testing',
+            'git checkout -b feature/unit_testing',
             'git pull upstream feature/unit_testing',
-            'git checkout feature/unit_testing',
         );
         $this->assertSame($needle_command_list, $command_list);
 

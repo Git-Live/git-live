@@ -159,16 +159,17 @@ class Feature extends DriverBase
      */
     public function featureTrack($repository)
     {
+        $self_repository = $this->getSelfBranch();
         if (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
-
-        $self_repository = $this->getSelfBranch();
-        $this->GitCmdExecuter->pull('upstream', $repository);
-
         if ($self_repository !== $repository) {
-            $this->GitCmdExecuter->checkout($repository);
+            $this->GitCmdExecuter->checkout('upstream/'.$repository);
+            $this->GitCmdExecuter->checkout($repository, array('-b'));
         }
+
+
+        $this->GitCmdExecuter->pull('upstream', $repository);
     }
     /* ----------------------------------------- */
 
