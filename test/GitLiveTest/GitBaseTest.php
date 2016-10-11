@@ -134,7 +134,7 @@ class GitBaseTest extends testCaseBase
 
         $fargv = $instance->getFargv();
         $this->assertSame(array(
-              '/home/suzunone/git-live/test/GitLiveTest/GitBaseTest.php' => 0,
+              __FILE__                                                   => 0,
               '-a'                                                       => 1,
               '-r'                                                       => 1,
               '-s'                                                       => 1,
