@@ -115,6 +115,7 @@ class ATest extends testCaseBase
      *
      * @access      public
      * @return void
+     * @depend executeInitTest
      */
     public function executeFeatureStartTest()
     {
