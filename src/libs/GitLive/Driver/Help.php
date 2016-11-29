@@ -59,6 +59,8 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}git-live - "._('安全で効率的な、リポジトリ運用をサポートします。')."\n");
         $this->ncecho("SYNOPSIS\n");
         $this->ncecho("{$indent}{$indent}git live feature start <feature name>\n");
+        $this->ncecho("{$indent}{$indent}git live feature change <feature name>\n");
+        $this->ncecho("{$indent}{$indent}git live feature checkout <feature name>\n");
         $this->ncecho("{$indent}{$indent}git live feature publish\n");
         $this->ncecho("{$indent}{$indent}git live feature track\n");
         $this->ncecho("{$indent}{$indent}git live feature push\n");
@@ -79,6 +81,7 @@ class Help extends DriverBase
 
         $this->ncecho("{$indent}{$indent}git live release open <release name>\n");
         $this->ncecho("{$indent}{$indent}git live release close\n");
+        $this->ncecho("{$indent}{$indent}git live release close-force\n");
         $this->ncecho("{$indent}{$indent}git live release sync\n");
         $this->ncecho("{$indent}{$indent}git live release state\n");
         $this->ncecho("{$indent}{$indent}git live release track\n");
@@ -102,6 +105,10 @@ class Help extends DriverBase
         $this->ncecho("OPTIONS\n");
         $this->ncecho("{$indent}{$indent}feature start <feature name>\n");
         $this->ncecho("{$indent}{$indent}{$indent}"._("新たな開発用ブランチを'upstream'(共通リモートサーバー)の'develop'ブランチをベースとして作成し、開発用ブランチにスイッチします。")."\n");
+        $this->ncecho("{$indent}{$indent}feature checkout <feature name>\n");
+        $this->ncecho("{$indent}{$indent}{$indent}"._("作成済の別featureに移動します。")."\n");
+        $this->ncecho("{$indent}{$indent}feature change <feature name>\n");
+        $this->ncecho("{$indent}{$indent}{$indent}"._("git live feature checkoutへのエイリアスです。")."\n");
         $this->ncecho("{$indent}{$indent}feature publish\n");
         $this->ncecho("{$indent}{$indent}{$indent}"._("複数人と同じ開発ブランチで作業するとき、自分の変更分を'upstream'(共通リモートサーバー)にプッシュします。")."\n");
         $this->ncecho("{$indent}{$indent}feature track <feature name>\n");
@@ -139,6 +146,10 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}{$indent}{$indent}"._('リリース作業を開始するため、release用のブランチを作成します。')."\n");
         $this->ncecho("{$indent}{$indent}release close\n");
         $this->ncecho("{$indent}{$indent}{$indent}"._("releaseを終了し、'master'と'develop'にコードをマージし、タグを作成します。")."\n");
+
+        $this->ncecho("{$indent}{$indent}release close-force\n");
+        $this->ncecho("{$indent}{$indent}{$indent}"._("releaseを終了し、'master'と'develop'にコードをマージし、タグを作成します。developとの差分を確認しないことに注意してください。")."\n");
+
         $this->ncecho("{$indent}{$indent}release sync\n");
         $this->ncecho("{$indent}{$indent}{$indent}"._('git live release pullとgit live release pushを連続で実行します。')."\n");
         $this->ncecho("{$indent}{$indent}release state\n");

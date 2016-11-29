@@ -80,6 +80,11 @@ class Feature extends DriverBase
             $this->featurePull(isset($argv[3]) ? $argv[3] : null);
         break;
 
+        case 'checkout':
+        case 'change':
+            $this->featureChange(isset($argv[3]) ? $argv[3] : null);
+        break;
+
         default:
             $this->Driver('Help')->help();
         break;
@@ -108,6 +113,27 @@ class Feature extends DriverBase
     }
 
     /* ----------------------------------------- */
+
+    /**
+     * +-- featureを開始する
+     *
+     *
+     * @access      public
+     * @param  var_text $repository
+     * @return void
+     */
+    public function featureChange($repository)
+    {
+        $this->GitCmdExecuter->fetch(array('--all'));
+        if (strpos($repository, 'feature/') !== 0) {
+            $repository = 'feature/'.$repository;
+        }
+
+        $this->GitCmdExecuter->checkout($repository);
+    }
+
+    /* ----------------------------------------- */
+
 
     /**
      * +-- 共用Repositoryにfeatureを送信する
