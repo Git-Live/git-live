@@ -216,6 +216,11 @@ class Driver_ReleaseTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
+        $instance->shouldReceive('patchApplyCheck')
+        ->twice()
+        ->andReturn(true);
+
+
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
@@ -298,6 +303,11 @@ class Driver_ReleaseTest extends testCaseBase
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
+
+        $instance->shouldReceive('patchApplyCheck')
+        ->twice()
+        ->andReturn(true);
+
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
@@ -387,6 +397,11 @@ class Driver_ReleaseTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
+
+        $instance->shouldReceive('patchApplyCheck')
+        ->twice()
+        ->andReturn(true);
+
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
@@ -438,6 +453,11 @@ class Driver_ReleaseTest extends testCaseBase
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
+
+        $instance->shouldReceive('patchApplyCheck')
+        ->twice()
+        ->andReturn(true);
+
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->once()
@@ -492,6 +512,11 @@ class Driver_ReleaseTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
+        $instance->shouldReceive('patchApplyCheck')
+        ->twice()
+        ->andReturn(true);
+
+
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturnConsecutive(array('', '差分'));
 
@@ -544,6 +569,11 @@ class Driver_ReleaseTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
 
+        $instance->shouldReceive('patchApplyCheck')
+        ->twice()
+        ->andReturn(true);
+
+
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
@@ -595,6 +625,11 @@ class Driver_ReleaseTest extends testCaseBase
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/release/20160629050505'))."\n");
+
+
+        $instance->shouldReceive('patchApplyCheck')
+        ->twice()
+        ->andReturn(true);
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');

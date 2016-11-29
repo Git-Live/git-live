@@ -96,7 +96,7 @@ class Init extends DriverBase
 
         if (empty($clone_dir)) {
             if (!$is_auto_clone_dir) {
-                throw new exception(_('ローカルディレクトリを自動取得できませんでした。'));
+                throw new exception(_('Could not automatically get the local directory.'));
             }
             $clone_dir = $auto_clone_dir;
         }

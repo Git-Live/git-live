@@ -563,7 +563,7 @@ class Driver_InitTest extends testCaseBase
         // var_dump($mock_trace);
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame('ローカルディレクトリを自動取得できませんでした。', $e->getMessage());
+        $this->assertSame('Could not automatically get the local directory.', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -607,7 +607,7 @@ class Driver_InitTest extends testCaseBase
         // var_dump($mock_trace);
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame('ローカルディレクトリを自動取得できませんでした。', $e->getMessage());
+        $this->assertSame('Could not automatically get the local directory.', $e->getMessage());
     }
     /* ----------------------------------------- */
 

@@ -276,6 +276,25 @@ class GitLive extends GitBase
 
     /* ----------------------------------------- */
 
+
+    /**
+     * +-- コンフリクト確認
+     *
+     * @access      public
+     * @param       var_text $from
+     * @return      bool
+     */
+    public function patchApplyCheck($from)
+    {
+        $cmd = 'git format-patch `git rev-parse --abbrev-ref HEAD`..'.$from.' --stdout| git apply --check';
+        $res = $this->exec($cmd);
+        $res = trim($res);
+        return empty($res);
+    }
+    /* ----------------------------------------- */
+
+
+
     /**
      * +-- プッシュする
      *
@@ -345,6 +364,10 @@ class GitLive extends GitBase
 
         if ($this->getSelfBranch() !== 'refs/heads/master') {
             $this->GitCmdExecuter->checkout($repo);
+            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('masterが'.ucwords($mode).'ブランチより進んでいます。'));
+        }
+
+        if (!$this->patchApplyCheck('deploy/'.$repo)) {
             throw new exception($mode.' '._('closeに失敗しました。')."\n"._('masterが'.ucwords($mode).'ブランチより進んでいます。'));
         }
 
