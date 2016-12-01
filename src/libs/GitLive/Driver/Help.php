@@ -126,6 +126,12 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}{$indent}"._('pr trackしたプルリクエストの内容を最新化')."\n");
         $this->ncecho("{$indent}{$indent}pr merge <pull request number>\n");
         $this->ncecho("{$indent}{$indent}{$indent}"._('プルリクエストの内容をマージする。')."\n");
+        $this->ncecho("{$indent}{$indent}pr feature start-soft <pull request number> <feature name>\n");
+        $this->ncecho("{$indent}{$indent}{$indent}"._('プルリクエストから新たなfeatureを作成します。')."\n");
+        $this->ncecho("{$indent}{$indent}pr feature start <pull request number> <feature name>\n");
+        $this->ncecho("{$indent}{$indent}{$indent}"._('プルリクエストをマージした新しいfeatureを作成する。')."\n");
+
+
 
         $this->ncecho("{$indent}{$indent}hotfix open <release name>\n");
         $this->ncecho("{$indent}{$indent}{$indent}"._("緊急対応のため、'upstream'(共通リモートサーバー)の'master'ブランチからhotfixを開始します。")."\n");
