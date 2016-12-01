@@ -68,6 +68,34 @@ class PullRequest extends DriverBase
             $this->prMerge($argv[3]);
         break;
 
+        case 'feature':
+            if (!isset($argv[3])) {
+                $this->Driver('Help')->help();
+                return;
+            }
+
+            if ($argv[3] === 'start') {
+                if (!isset($argv[5])) {
+                    $this->Driver('Help')->help();
+                    return;
+                }
+
+                $this->featureStart($argv[4], $argv[5]);
+                return;
+            } elseif ($argv[3] === 'start-soft') {
+                if (!isset($argv[5])) {
+                    $this->Driver('Help')->help();
+                    return;
+                }
+
+                $this->featureStartSoft($argv[4], $argv[5]);
+                return;
+            }
+
+            $this->Driver('Help')->help();
+
+        break;
+
         default:
             $this->Driver('Help')->help();
         break;
@@ -75,6 +103,46 @@ class PullRequest extends DriverBase
     }
 
     /* ----------------------------------------- */
+
+    public function featureStart($pull_request_number, $repository)
+    {
+        $this->GitCmdExecuter->fetch(array('--all'));
+        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
+        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
+        $this->GitCmdExecuter->fetchPullRequest();
+
+        if (strpos($repository, 'feature/') !== 0) {
+            $repository = 'feature/'.$repository;
+        }
+
+        $this->GitCmdExecuter->checkout('upstream/develop');
+        $this->GitCmdExecuter->checkout($repository, array('-b'));
+        $self_repository = $this->getSelfBranch();
+
+        if (!'refs/heads/'.$repository === $self_repository) {
+            throw new \GitLive\exception(_('feature の作成に失敗'));
+        }
+
+        $upstream_repository = 'pull/'.$pull_request_number.'/head';
+        $this->GitCmdExecuter->pull('upstream', $upstream_repository);
+    }
+
+
+    public function featureStartSoft($pull_request_number, $repository)
+    {
+        $this->GitCmdExecuter->fetch(array('--all'));
+        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
+        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
+        $this->GitCmdExecuter->fetchPullRequest();
+
+        if (strpos($repository, 'feature/') !== 0) {
+            $repository = 'feature/'.$repository;
+        }
+
+        $upstream_repository = 'remotes/pr/'.$pull_request_number.'/head';
+        $this->GitCmdExecuter->checkout($upstream_repository);
+        $this->GitCmdExecuter->checkout($upstream_repository, array('-b', $repository));
+    }
 
     /**
      * +-- prTrack
