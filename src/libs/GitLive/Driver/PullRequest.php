@@ -101,14 +101,20 @@ class PullRequest extends DriverBase
         break;
         }
     }
-
     /* ----------------------------------------- */
 
+    /**
+     * +-- pr feature start
+     *
+     * @access      public
+     * @param       var_text $pull_request_number
+     * @param       var_text $repository
+     * @return      void
+     */
     public function featureStart($pull_request_number, $repository)
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
         $this->GitCmdExecuter->fetchPullRequest();
 
         if (strpos($repository, 'feature/') !== 0) {
@@ -117,7 +123,7 @@ class PullRequest extends DriverBase
 
         $this->GitCmdExecuter->checkout('upstream/develop');
         $this->GitCmdExecuter->checkout($repository, array('-b'));
-        $self_repository = $this->getSelfBranch();
+        $self_repository = $this->getSelfBranchRef();
 
         if (!'refs/heads/'.$repository === $self_repository) {
             throw new \GitLive\exception(_('feature の作成に失敗'));
@@ -126,13 +132,20 @@ class PullRequest extends DriverBase
         $upstream_repository = 'pull/'.$pull_request_number.'/head';
         $this->GitCmdExecuter->pull('upstream', $upstream_repository);
     }
+    /* ----------------------------------------- */
 
-
+    /**
+     * +-- pr feature start-soft
+     *
+     * @access      public
+     * @param       var_text $pull_request_number
+     * @param       var_text $repository
+     * @return      void
+     */
     public function featureStartSoft($pull_request_number, $repository)
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
         $this->GitCmdExecuter->fetchPullRequest();
 
         if (strpos($repository, 'feature/') !== 0) {
@@ -143,6 +156,7 @@ class PullRequest extends DriverBase
         $this->GitCmdExecuter->checkout($upstream_repository);
         $this->GitCmdExecuter->checkout($upstream_repository, array('-b', $repository));
     }
+    /* ----------------------------------------- */
 
     /**
      * +-- prTrack
@@ -154,16 +168,14 @@ class PullRequest extends DriverBase
      */
     public function prTrack($pull_request_number)
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
         $this->GitCmdExecuter->fetchPullRequest();
 
         $repository          = 'pullreq/'.$pull_request_number;
         $upstream_repository = 'remotes/pr/'.$pull_request_number.'/head';
         $this->GitCmdExecuter->checkout($upstream_repository, array('-b', $repository));
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -176,22 +188,20 @@ class PullRequest extends DriverBase
      */
     public function prPull()
     {
-        $branch = $this->getSelfBranch();
+        $branch = $this->getSelfBranchRef();
         if (!mb_ereg('/pullreq/([0-9]+)', $branch, $match)) {
             return;
         }
 
         $pull_request_number = $match[1];
 
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
         $this->GitCmdExecuter->fetchPullRequest();
 
         $upstream_repository = 'pull/'.$pull_request_number.'/head';
         $this->GitCmdExecuter->pull('upstream', $upstream_repository);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -203,14 +213,12 @@ class PullRequest extends DriverBase
      */
     public function prMerge($pull_request_number)
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
         $this->GitCmdExecuter->fetchPullRequest();
 
         $upstream_repository = 'pull/'.$pull_request_number.'/head';
         $this->GitCmdExecuter->pull('upstream', $upstream_repository);
     }
-
     /* ----------------------------------------- */
 }

@@ -264,7 +264,7 @@ class GitLive extends GitBase
      * @access      public
      * @return string
      */
-    public function getSelfBranch()
+    public function getSelfBranchRef()
     {
         $self_blanch = $this->exec('git symbolic-ref HEAD 2>/dev/null');
         if (!$self_blanch) {
@@ -275,6 +275,27 @@ class GitLive extends GitBase
     }
 
     /* ----------------------------------------- */
+
+
+    /**
+     * +-- 今のブランチを取得する
+     *
+     * @access      public
+     * @return string
+     */
+    public function getSelfBranch()
+    {
+        $self_blanch = $this->exec('git rev-parse --abbrev-ref HEAD 2>/dev/null');
+        if (!$self_blanch) {
+            throw new exception(_('git repositoryではありません。'));
+        }
+
+        return trim($self_blanch);
+    }
+
+    /* ----------------------------------------- */
+
+
 
 
     /**
@@ -303,7 +324,7 @@ class GitLive extends GitBase
      */
     public function push()
     {
-        $branch = $this->getSelfBranch();
+        $branch = $this->getSelfBranchRef();
         $remote = 'origin';
 
         if (strpos($branch, 'refs/heads/release') !== false || strpos($branch, 'refs/heads/hotfix') !== false) {
@@ -323,7 +344,7 @@ class GitLive extends GitBase
      */
     public function pull()
     {
-        $branch = $this->getSelfBranch();
+        $branch = $this->getSelfBranchRef();
         $remote = 'origin';
 
         switch ((string)$branch) {
@@ -362,7 +383,7 @@ class GitLive extends GitBase
         $this->GitCmdExecuter->branch(array('-D', 'master'));
         $this->GitCmdExecuter->checkout('master', array('-b'));
 
-        if ($this->getSelfBranch() !== 'refs/heads/master') {
+        if ($this->getSelfBranchRef() !== 'refs/heads/master') {
             $this->GitCmdExecuter->checkout($repo);
             throw new exception($mode.' '._('closeに失敗しました。')."\n"._('masterが'.ucwords($mode).'ブランチより進んでいます。'));
         }
@@ -386,7 +407,7 @@ class GitLive extends GitBase
         $this->GitCmdExecuter->branch(array('-D', 'develop'));
         $this->GitCmdExecuter->checkout('develop', array('-b'));
 
-        if ($this->getSelfBranch() !== 'refs/heads/develop') {
+        if ($this->getSelfBranchRef() !== 'refs/heads/develop') {
             $this->GitCmdExecuter->checkout($repo);
             throw new exception($mode.' '._('closeに失敗しました。')."\n"._('developが'.ucwords($mode).'ブランチより進んでいます。'));
         }
@@ -421,6 +442,8 @@ class GitLive extends GitBase
 
         $this->GitCmdExecuter->tag(array($tag));
         $this->GitCmdExecuter->tagPush('upstream');
+
+        $this->GitCmdExecuter->checkout('develop');
     }
 
     /* ----------------------------------------- */

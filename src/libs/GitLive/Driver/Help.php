@@ -41,7 +41,6 @@ class Help extends DriverBase
     {
         $this->ncecho('Git Live version '.self::VERSION."\n");
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -61,6 +60,7 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}git live feature start <feature name>\n");
         $this->ncecho("{$indent}{$indent}git live feature change <feature name>\n");
         $this->ncecho("{$indent}{$indent}git live feature checkout <feature name>\n");
+        $this->ncecho("{$indent}{$indent}git live feature list\n");
         $this->ncecho("{$indent}{$indent}git live feature publish\n");
         $this->ncecho("{$indent}{$indent}git live feature track\n");
         $this->ncecho("{$indent}{$indent}git live feature push\n");
@@ -70,6 +70,9 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}git live pr track\n");
         $this->ncecho("{$indent}{$indent}git live pr pull\n");
         $this->ncecho("{$indent}{$indent}git live pr merge\n");
+        $this->ncecho("{$indent}{$indent}git live pr feature start-soft <pull request number> <feature name>\n");
+        $this->ncecho("{$indent}{$indent}git live pr feature start <pull request number> <feature name>\n");
+
 
         $this->ncecho("{$indent}{$indent}git live hotfix open <release name>\n");
         $this->ncecho("{$indent}{$indent}git live hotfix close\n");
@@ -109,6 +112,8 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}{$indent}"._("作成済の別featureに移動します。")."\n");
         $this->ncecho("{$indent}{$indent}feature change <feature name>\n");
         $this->ncecho("{$indent}{$indent}{$indent}"._("git live feature checkoutへのエイリアスです。")."\n");
+        $this->ncecho("{$indent}{$indent}feature list\n");
+        $this->ncecho("{$indent}{$indent}{$indent}"._("featureの一覧を取得します。")."\n");
         $this->ncecho("{$indent}{$indent}feature publish\n");
         $this->ncecho("{$indent}{$indent}{$indent}"._("複数人と同じ開発ブランチで作業するとき、自分の変更分を'upstream'(共通リモートサーバー)にプッシュします。")."\n");
         $this->ncecho("{$indent}{$indent}feature track <feature name>\n");
@@ -200,6 +205,5 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}{$indent}".'clone_dir：'."\n");
         $this->ncecho("{$indent}{$indent}{$indent}{$indent}"._('cloneするローカルのディレクトリ。')."\n");
     }
-
     /* ----------------------------------------- */
 }

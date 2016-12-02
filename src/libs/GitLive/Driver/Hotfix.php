@@ -45,9 +45,8 @@ class Hotfix extends DeployBase
             return;
         }
 
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
         switch ($argv[2]) {
         case 'open':
             $this->enableRelease();
@@ -84,7 +83,6 @@ class Hotfix extends DeployBase
         break;
         }
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -117,7 +115,6 @@ class Hotfix extends DeployBase
         $this->GitCmdExecuter->push('upstream', $hotfix_rep);
         $this->GitCmdExecuter->push('deploy', $hotfix_rep);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -137,7 +134,6 @@ class Hotfix extends DeployBase
         $this->GitCmdExecuter->pull('deploy', $repo);
         $this->GitCmdExecuter->checkout($repo);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -156,7 +152,6 @@ class Hotfix extends DeployBase
         $this->GitCmdExecuter->pull('upstream', $repo);
         $this->GitCmdExecuter->checkout($repo);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -177,7 +172,6 @@ class Hotfix extends DeployBase
 
         $this->ncecho("hotfix is close.\n");
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -196,7 +190,6 @@ class Hotfix extends DeployBase
 
         $this->deploySync($repo);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -215,7 +208,6 @@ class Hotfix extends DeployBase
 
         $this->deployPush($repo);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -233,6 +225,5 @@ class Hotfix extends DeployBase
         $repo = $this->getHotfixRepository();
         $this->deployEnd($repo, 'hotfix');
     }
-
     /* ----------------------------------------- */
 }

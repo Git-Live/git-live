@@ -55,7 +55,7 @@ class Driver_LogTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'log', 'develop'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing');
 
@@ -95,7 +95,7 @@ class Driver_LogTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'log', 'master'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing');
 

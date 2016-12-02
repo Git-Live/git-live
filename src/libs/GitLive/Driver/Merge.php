@@ -57,7 +57,6 @@ class Merge extends DriverBase
             break;
         }
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -68,11 +67,10 @@ class Merge extends DriverBase
      */
     public function mergeDevelop()
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p'));
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
         $this->GitCmdExecuter->merge('upstream/develop');
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -83,10 +81,9 @@ class Merge extends DriverBase
      */
     public function mergeMaster()
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p'));
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
         $this->GitCmdExecuter->merge('upstream/master');
     }
-
     /* ----------------------------------------- */
 }

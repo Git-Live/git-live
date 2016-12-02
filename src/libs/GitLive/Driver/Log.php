@@ -57,7 +57,6 @@ class Log extends DriverBase
             break;
         }
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -68,12 +67,10 @@ class Log extends DriverBase
      */
     public function logDevelop()
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p'));
-        $repository = $this->getSelfBranch();
+        $this->Driver('Fetch')->all();
+        $repository = $this->getSelfBranchRef();
         $this->ncecho($this->GitCmdExecuter->log('upstream/develop', $repository, '--left-right'));
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -84,11 +81,9 @@ class Log extends DriverBase
      */
     public function logMaster()
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p'));
-        $repository = $this->getSelfBranch();
+        $this->Driver('Fetch')->all();
+        $repository = $this->getSelfBranchRef();
         $this->ncecho($this->GitCmdExecuter->log('upstream/master', $repository, '--left-right'));
     }
-
     /* ----------------------------------------- */
 }

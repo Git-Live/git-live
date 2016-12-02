@@ -47,7 +47,7 @@ class GitLiveTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function getSelfBranchTest()
+    public function getSelfBranchRefTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
         $e        = null;
@@ -55,7 +55,7 @@ class GitLiveTest extends testCaseBase
             $instance->shouldReceive('exec')
             ->andReturn('refs/heads/unit_testing/unit_testing');
 
-            $res = $instance->getSelfBranch();
+            $res = $instance->getSelfBranchRef();
         } catch (exception $e) {
         }
         $mock_trace   = EnviMockLight::getMockTraceList();
@@ -81,7 +81,7 @@ class GitLiveTest extends testCaseBase
             $instance->shouldReceive('exec')
             ->andReturn('');
 
-            $res = $instance->getSelfBranch();
+            $res = $instance->getSelfBranchRef();
         } catch (exception $e) {
         }
         $mock_trace   = EnviMockLight::getMockTraceList();

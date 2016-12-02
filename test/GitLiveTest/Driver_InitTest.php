@@ -55,7 +55,7 @@ class Driver_InitTest extends testCaseBase
         ->once()
         ->andReturn(array(__FILE__, 'start'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing');
 
@@ -97,7 +97,7 @@ class Driver_InitTest extends testCaseBase
         ->once()
         ->andReturn(array(__FILE__, 'restart'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing');
 
@@ -148,7 +148,7 @@ class Driver_InitTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'init'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing');
 
@@ -234,7 +234,7 @@ class Driver_InitTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'init'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing');
 
@@ -327,7 +327,7 @@ class Driver_InitTest extends testCaseBase
             )
         );
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing');
 
@@ -380,7 +380,7 @@ class Driver_InitTest extends testCaseBase
             )
         );
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing');
 
@@ -434,7 +434,7 @@ class Driver_InitTest extends testCaseBase
             )
         );
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing');
 
@@ -488,7 +488,7 @@ class Driver_InitTest extends testCaseBase
             )
         );
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing');
 
@@ -542,7 +542,7 @@ class Driver_InitTest extends testCaseBase
             )
         );
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing');
 
@@ -586,7 +586,7 @@ class Driver_InitTest extends testCaseBase
             )
         );
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing');
 
@@ -631,7 +631,7 @@ class Driver_InitTest extends testCaseBase
             )
         );
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing');
 

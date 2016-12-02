@@ -56,7 +56,7 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'push'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/feature/unit_testing');
 
@@ -84,7 +84,7 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'push'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/develop');
 
@@ -112,7 +112,7 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'push'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/master');
 
@@ -140,7 +140,7 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'push'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/release/20160629050505');
 
@@ -168,7 +168,7 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'push'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/hotfix/20160629050505');
 
@@ -207,7 +207,7 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pull'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/feature/unit_testing');
 
@@ -235,7 +235,7 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pull'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/develop');
 
@@ -263,7 +263,7 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pull'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/master');
 
@@ -291,7 +291,7 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pull'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/release/20160629050505');
 
@@ -319,7 +319,7 @@ class Driver_PushPullTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pull'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/hotfix/20160629050505');
 
