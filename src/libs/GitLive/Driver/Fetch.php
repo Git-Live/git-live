@@ -27,23 +27,39 @@ namespace GitLive\Driver;
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-class Update extends DriverBase
+class Fetch extends DriverBase
 {
 
+
     /**
-     * +-- コマンドのアップデート
+     * +-- upstream からfetchする
+     *
      *
      * @access      public
+     * @param  var_text $repository
      * @return void
      */
-    public function update()
+    public function upstream()
     {
-        $url = 'https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar';
-        if ($this->isOption('--no_cache') || $this->isOption('-c')) {
-            $url = 'https://github.com/Git-Live/git-live/raw/master/bin/git-live.phar';
-        }
-
-        $this->GitLive->file_put_contents(GIT_LIVE_INSTALL_DIR, $this->GitLive->file_get_contents($url));
+        $this->GitCmdExecuter->fetch(array('upstream'));
+        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
     }
     /* ----------------------------------------- */
+
+
+
+    /**
+     * +-- --allでフェッチする
+     *
+     * @access      public
+     * @param  var_text $repository OPTIONAL:NULL
+     * @return void
+     */
+    public function all()
+    {
+        $this->GitCmdExecuter->fetch(array('--all'));
+        $this->GitCmdExecuter->fetch(array('-p'));
+    }
+    /* ----------------------------------------- */
+
 }

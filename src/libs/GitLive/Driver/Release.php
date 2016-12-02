@@ -45,9 +45,9 @@ class Release extends DeployBase
             return;
         }
 
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
+
         switch ($argv[2]) {
         case 'open':
             $this->enableRelease();
@@ -94,7 +94,6 @@ class Release extends DeployBase
         break;
         }
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -128,7 +127,6 @@ class Release extends DeployBase
         $this->GitCmdExecuter->push('upstream', $release_rep);
         $this->GitCmdExecuter->push('deploy', $release_rep);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -148,7 +146,6 @@ class Release extends DeployBase
         $this->GitCmdExecuter->pull('deploy', $repo);
         $this->GitCmdExecuter->checkout($repo);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -167,7 +164,6 @@ class Release extends DeployBase
         $this->GitCmdExecuter->pull('upstream', $repo);
         $this->GitCmdExecuter->checkout($repo);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -188,7 +184,6 @@ class Release extends DeployBase
 
         $this->ncecho("release is close.\n");
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -206,7 +201,6 @@ class Release extends DeployBase
         $repo = $this->getReleaseRepository();
         $this->deploySync($repo);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -224,7 +218,6 @@ class Release extends DeployBase
         $repo = $this->getReleaseRepository();
         $this->deployPush($repo);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -245,6 +238,5 @@ class Release extends DeployBase
         $repo = $this->getReleaseRepository();
         $this->deployEnd($repo, 'release', $force);
     }
-
     /* ----------------------------------------- */
 }

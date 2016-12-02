@@ -55,7 +55,7 @@ class Driver_PullRequestTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pr', 'pull'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/pullreq/10');
 
@@ -84,7 +84,7 @@ class Driver_PullRequestTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pr', 'pull'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/master');
 
@@ -117,7 +117,7 @@ class Driver_PullRequestTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pr', 'merge', '111'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/feature/unit_testing');
 
@@ -146,7 +146,7 @@ class Driver_PullRequestTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pr', 'merge', '101'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/pullreq/10');
 
@@ -184,7 +184,7 @@ class Driver_PullRequestTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pr', 'track', '111'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/feature/unit_testing');
 
@@ -213,7 +213,7 @@ class Driver_PullRequestTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'pr', 'track', '101'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('refs/heads/pullreq/10');
 

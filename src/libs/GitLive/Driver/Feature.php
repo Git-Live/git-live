@@ -39,14 +39,13 @@ class Feature extends DriverBase
     public function feature()
     {
         $argv = $this->getArgv();
-        $this->GitCmdExecuter->fetch(array('upstream'));
-        $this->GitCmdExecuter->fetch(array('-p', 'upstream'));
-        // $this->enableRelease();
+
         if (!isset($argv[2])) {
-            $this->Driver('Help')->help();
+            $this->featureList();
 
             return;
         }
+
 
         switch ($argv[2]) {
         case 'start':
@@ -80,6 +79,10 @@ class Feature extends DriverBase
             $this->featurePull(isset($argv[3]) ? $argv[3] : null);
         break;
 
+        case 'list':
+            $this->featureList();
+        break;
+
         case 'checkout':
         case 'change':
             $this->featureChange(isset($argv[3]) ? $argv[3] : null);
@@ -90,8 +93,21 @@ class Feature extends DriverBase
         break;
         }
     }
-
     /* ----------------------------------------- */
+
+    /**
+     * +-- featureの一覧を取得する
+     *
+     *
+     * @access      public
+     * @return void
+     */
+    public function featureList()
+    {
+        $this->GitCmdExecuter->branch(array('--list', '"feature/*"'));
+    }
+    /* ----------------------------------------- */
+
 
     /**
      * +-- featureを開始する
@@ -103,7 +119,8 @@ class Feature extends DriverBase
      */
     public function featureStart($repository)
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
         if (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
@@ -111,7 +128,6 @@ class Feature extends DriverBase
         $this->GitCmdExecuter->checkout('upstream/develop');
         $this->GitCmdExecuter->checkout($repository, array('-b'));
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -124,14 +140,12 @@ class Feature extends DriverBase
      */
     public function featureChange($repository)
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
         if (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
 
         $this->GitCmdExecuter->checkout($repository);
     }
-
     /* ----------------------------------------- */
 
 
@@ -144,16 +158,16 @@ class Feature extends DriverBase
      */
     public function featurePublish($repository = null)
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
         if ($repository === null) {
-            $repository = $this->getSelfBranch();
+            $repository = $this->getSelfBranchRef();
         } elseif (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
 
         $this->GitCmdExecuter->push('upstream', $repository);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -165,15 +179,16 @@ class Feature extends DriverBase
      */
     public function featurePush($repository = null)
     {
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
         if ($repository === null) {
-            $repository = $this->getSelfBranch();
+            $repository = $this->getSelfBranchRef();
         } elseif (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
 
         $this->GitCmdExecuter->push('origin', $repository);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -185,7 +200,9 @@ class Feature extends DriverBase
      */
     public function featureTrack($repository)
     {
-        $self_repository = $this->getSelfBranch();
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
+        $self_repository = $this->getSelfBranchRef();
         if (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
@@ -193,7 +210,6 @@ class Feature extends DriverBase
             $this->GitCmdExecuter->checkout('upstream/'.$repository);
             $this->GitCmdExecuter->checkout($repository, array('-b'));
         }
-
 
         $this->GitCmdExecuter->pull('upstream', $repository);
     }
@@ -208,15 +224,16 @@ class Feature extends DriverBase
      */
     public function featurePull($repository = null)
     {
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
         if ($repository === null) {
-            $repository = $this->getSelfBranch();
+            $repository = $this->getSelfBranchRef();
         } elseif (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
 
         $this->GitCmdExecuter->pull('upstream', $repository);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -228,9 +245,10 @@ class Feature extends DriverBase
      */
     public function featureClose($repository = null)
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
         if ($repository === null) {
-            $repository = $this->getSelfBranch();
+            $repository = $this->getSelfBranchRef();
         } elseif (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
@@ -240,6 +258,6 @@ class Feature extends DriverBase
         $this->GitCmdExecuter->checkout('develop');
         $this->GitCmdExecuter->branch(array('-D', $repository));
     }
-
     /* ----------------------------------------- */
+
 }

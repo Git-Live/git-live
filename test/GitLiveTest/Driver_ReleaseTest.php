@@ -224,7 +224,7 @@ class Driver_ReleaseTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
@@ -312,7 +312,7 @@ class Driver_ReleaseTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
@@ -405,7 +405,7 @@ class Driver_ReleaseTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
@@ -463,7 +463,7 @@ class Driver_ReleaseTest extends testCaseBase
         ->once()
         ->andReturnConsecutive(array('差分'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturnConsecutive(array('refs/heads/master'));
 
@@ -520,7 +520,7 @@ class Driver_ReleaseTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturnConsecutive(array('', '差分'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
@@ -544,7 +544,7 @@ class Driver_ReleaseTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function executeReleaseCloseGetSelfBranchErrorTest()
+    public function executeReleaseClosegetSelfBranchRefErrorTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -577,7 +577,7 @@ class Driver_ReleaseTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturnConsecutive(array('', 'refs/heads/develop'));
 
@@ -601,7 +601,7 @@ class Driver_ReleaseTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function executeReleaseCloseGetSelfBranchError2Test()
+    public function executeReleaseClosegetSelfBranchRefError2Test()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -634,7 +634,7 @@ class Driver_ReleaseTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', ''));
 
@@ -977,7 +977,7 @@ nothing to commit, working directory clean');
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturnConsecutive(array('', '差分'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 

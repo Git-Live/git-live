@@ -41,7 +41,6 @@ class DeployBase extends DriverBase
     {
         return $this->GitLive->isReleaseOpen();
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -55,7 +54,6 @@ class DeployBase extends DriverBase
     {
         return $this->GitLive->isHotfixOpen();
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -82,7 +80,6 @@ class DeployBase extends DriverBase
     {
         return $this->GitLive->getReleaseRepository();
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -96,7 +93,6 @@ class DeployBase extends DriverBase
     {
         return $this->GitLive->getHotfixRepository();
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -113,7 +109,6 @@ class DeployBase extends DriverBase
     {
         return $this->GitLive->deployEnd($repo, $mode, $force);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -128,7 +123,6 @@ class DeployBase extends DriverBase
     {
         return $this->GitLive->deploySync($repo);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -143,6 +137,5 @@ class DeployBase extends DriverBase
     {
         return $this->GitLive->deployPush($repo);
     }
-
     /* ----------------------------------------- */
 }

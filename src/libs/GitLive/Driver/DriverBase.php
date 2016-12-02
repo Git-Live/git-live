@@ -56,11 +56,10 @@ class DriverBase extends \GitLive\GitBase
      * @return string
      * @codeCoverageIgnore
      */
-    public function getSelfBranch()
+    public function getSelfBranchRef()
     {
-        return $this->GitLive->getSelfBranch();
+        return $this->GitLive->getSelfBranchRef();
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -176,7 +175,6 @@ class DriverBase extends \GitLive\GitBase
     {
         return $this->GitLive->ncecho($text);
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -222,7 +220,6 @@ class DriverBase extends \GitLive\GitBase
     {
         return $this->GitLive->debug($text, $color);
     }
-
     /* ----------------------------------------- */
 
     /**

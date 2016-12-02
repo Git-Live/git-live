@@ -110,7 +110,6 @@ class Init extends DriverBase
             $this->GitCmdExecuter->remote(array('add', 'deploy', $deploy_repository));
         }
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -121,14 +120,12 @@ class Init extends DriverBase
      */
     public function start()
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p'));
+        $this->Driver('Fetch')->all();
         $this->GitCmdExecuter->pull('upstream', 'develop');
         $this->GitCmdExecuter->push('origin', 'develop');
         $this->GitCmdExecuter->pull('upstream', 'master');
         $this->GitCmdExecuter->push('origin', 'master');
     }
-
     /* ----------------------------------------- */
 
     /**
@@ -139,8 +136,7 @@ class Init extends DriverBase
      */
     public function restart()
     {
-        $this->GitCmdExecuter->fetch(array('--all'));
-        $this->GitCmdExecuter->fetch(array('-p'));
+        $this->Driver('Fetch')->all();
         $this->GitCmdExecuter->checkout('temp', array('-b'));
         $this->GitCmdExecuter->branch(array('-d', 'develop'));
         $this->GitCmdExecuter->branch(array('-d', 'master'));
@@ -157,6 +153,5 @@ class Init extends DriverBase
         $this->GitCmdExecuter->fetch(array('--all'));
         $this->GitCmdExecuter->fetch(array('-p'));
     }
-
     /* ----------------------------------------- */
 }

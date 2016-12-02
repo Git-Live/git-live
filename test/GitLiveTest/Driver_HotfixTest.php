@@ -219,7 +219,7 @@ class Driver_HotfixTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
@@ -306,7 +306,7 @@ class Driver_HotfixTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
@@ -398,7 +398,7 @@ class Driver_HotfixTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
@@ -455,7 +455,7 @@ class Driver_HotfixTest extends testCaseBase
         ->once()
         ->andReturnConsecutive(array('差分'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturnConsecutive(array('refs/heads/master'));
 
@@ -511,7 +511,7 @@ class Driver_HotfixTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturnConsecutive(array('', '差分'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', 'refs/heads/develop'));
 
@@ -567,7 +567,7 @@ class Driver_HotfixTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function executeHotfixCloseGetSelfBranchErrorTest()
+    public function executeHotfixClosegetSelfBranchRefErrorTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -599,7 +599,7 @@ class Driver_HotfixTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturnConsecutive(array('', 'refs/heads/develop'));
 
@@ -623,7 +623,7 @@ class Driver_HotfixTest extends testCaseBase
      * @access      public
      * @return void
      */
-    public function executeHotfixCloseGetSelfBranchError2Test()
+    public function executeHotfixClosegetSelfBranchRefError2Test()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
@@ -655,7 +655,7 @@ class Driver_HotfixTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->twice()
         ->andReturnConsecutive(array('refs/heads/master', ''));
 

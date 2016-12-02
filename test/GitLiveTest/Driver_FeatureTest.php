@@ -136,7 +136,7 @@ class Driver_FeatureTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'feature', 'publish'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing2');
 
@@ -195,7 +195,7 @@ class Driver_FeatureTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'feature', 'push'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing2');
 
@@ -253,7 +253,7 @@ class Driver_FeatureTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'feature', 'pull'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing2');
 
@@ -289,7 +289,7 @@ class Driver_FeatureTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'feature', 'track', 'unit_testing'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('master');
 
@@ -317,7 +317,7 @@ class Driver_FeatureTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'feature', 'track', 'feature/unit_testing2'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing2');
 
@@ -378,7 +378,7 @@ class Driver_FeatureTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'feature', 'close'));
 
-        $instance->shouldReceive('getSelfBranch')
+        $instance->shouldReceive('getSelfBranchRef')
         ->once()
         ->andReturn('feature/unit_testing2');
 
