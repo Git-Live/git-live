@@ -62,6 +62,22 @@ class DriverBase extends \GitLive\GitBase
     }
     /* ----------------------------------------- */
 
+
+    /**
+     * +-- 今のブランチを取得する
+     *
+     * @access      public
+     * @return string
+     */
+    public function getSelfBranch()
+    {
+        return $this->GitLive->getSelfBranch();
+    }
+
+    /* ----------------------------------------- */
+
+
+
     /**
      * +--
      *

@@ -248,7 +248,7 @@ class Feature extends DriverBase
         $this->Driver('Fetch')->all();
         $this->Driver('Fetch')->upstream();
         if ($repository === null) {
-            $repository = $this->getSelfBranchRef();
+            $repository = $this->getSelfBranch();
         } elseif (strpos($repository, 'feature/') !== 0) {
             $repository = 'feature/'.$repository;
         }
