@@ -47,6 +47,7 @@ class Hotfix extends DeployBase
 
         $this->Driver('Fetch')->all();
         $this->Driver('Fetch')->upstream();
+
         switch ($argv[2]) {
         case 'open':
             $this->enableRelease();
@@ -130,14 +131,15 @@ class Hotfix extends DeployBase
         }
 
         $repo = $this->getHotfixRepository();
+        $this->deployTrack($repo);
+
         $this->GitCmdExecuter->pull('upstream', $repo);
         $this->GitCmdExecuter->pull('deploy', $repo);
-        $this->GitCmdExecuter->checkout($repo);
     }
     /* ----------------------------------------- */
 
     /**
-     * +-- 誰かが開けたhotfixをトラックする
+     * +-- 誰かが開けたhotfixをpullする
      *
      * @access      public
      * @return void
@@ -150,7 +152,7 @@ class Hotfix extends DeployBase
 
         $repo = $this->getHotfixRepository();
         $this->GitCmdExecuter->pull('upstream', $repo);
-        $this->GitCmdExecuter->checkout($repo);
+        $this->GitCmdExecuter->pull($this->deploy_repository_name, $repo);
     }
     /* ----------------------------------------- */
 

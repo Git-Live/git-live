@@ -468,7 +468,7 @@ class GitLive extends GitBase
         if ($this->isBranchExits($repo)) {
             $this->GitCmdExecuter->checkout($repo, array());
         } else {
-            $this->GitCmdExecuter->checkout('remote/upstream/'.$repo);
+            $this->GitCmdExecuter->checkout('remote/'.$this->deploy_repository_name.'/'.$repo);
             $this->GitCmdExecuter->checkout($repo, array('-b'));
         }
     }
@@ -512,7 +512,7 @@ class GitLive extends GitBase
             throw new exception('undefined '.$repo);
         }
 
-        $this->GitCmdExecuter->checkout($repo);
+        $this->GitCmdExecuter->deployTrack($repo);
         $this->GitCmdExecuter->pull('upstream', $repo);
 
         $err = $this->GitCmdExecuter->status(array($repo));
