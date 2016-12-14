@@ -296,13 +296,21 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
 
-
+    public function isBranchExits($branch_name)
+    {
+        $branch_list_tmp = explode("\n", $this->GitCmdExecuter->branch());
+        $branch_list = [];
+        foreach ($branch_list_tmp as $k => $branch_name_ck) {
+            $branch_list[$branch_name_ck] = trim(mb_ereg_replace('^[*]', '', $branch_name_ck));
+        }
+        return isset($branch_list[$branch_name]);
+    }
 
     /**
      * +-- コンフリクト確認
      *
      * @access      public
-     * @param       var_text $from
+     * @param       string $from
      * @return      bool
      */
     public function patchApplyCheck($from)
@@ -449,6 +457,24 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
     /**
+     * +-- DeployブランチをTrackする
+     *
+     * @access      public
+     * @param       var_text $repo
+     * @return      void
+     */
+    public function deployTrack($repo)
+    {
+        if ($this->isBranchExits($repo)) {
+            $this->GitCmdExecuter->checkout($repo, array());
+        } else {
+            $this->GitCmdExecuter->checkout('remote/upstream/'.$repo);
+            $this->GitCmdExecuter->checkout($repo, array('-b'));
+        }
+    }
+    /* ----------------------------------------- */
+
+    /**
      * +-- DeployブランチにSyncする
      *
      * @access      public
@@ -457,7 +483,8 @@ class GitLive extends GitBase
      */
     public function deploySync($repo)
     {
-        $this->GitCmdExecuter->checkout($repo, array('-b'));
+        $this->deployTrack($repo);
+
         $this->GitCmdExecuter->pull('deploy', $repo);
         $this->GitCmdExecuter->pull('upstream', $repo);
 
@@ -481,6 +508,10 @@ class GitLive extends GitBase
      */
     public function deployPush($repo)
     {
+        if (!$this->isBranchExits($repo)) {
+            throw new exception('undefined '.$repo);
+        }
+
         $this->GitCmdExecuter->checkout($repo);
         $this->GitCmdExecuter->pull('upstream', $repo);
 

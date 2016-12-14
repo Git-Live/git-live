@@ -142,6 +142,8 @@ class Release extends DeployBase
         }
 
         $repo = $this->getReleaseRepository();
+
+        $this->deployTrack($repo);
         $this->GitCmdExecuter->pull('upstream', $repo);
         $this->GitCmdExecuter->pull('deploy', $repo);
         $this->GitCmdExecuter->checkout($repo);
