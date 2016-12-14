@@ -125,7 +125,7 @@ class Release extends DeployBase
         $this->GitCmdExecuter->checkout($release_rep, array('-b'));
 
         $this->GitCmdExecuter->push('upstream', $release_rep);
-        $this->GitCmdExecuter->push('deploy', $release_rep);
+        $this->GitCmdExecuter->push($this->deploy_repository_name, $release_rep);
     }
     /* ----------------------------------------- */
 
@@ -142,9 +142,10 @@ class Release extends DeployBase
         }
 
         $repo = $this->getReleaseRepository();
+
+        $this->deployTrack($repo);
         $this->GitCmdExecuter->pull('upstream', $repo);
-        $this->GitCmdExecuter->pull('deploy', $repo);
-        $this->GitCmdExecuter->checkout($repo);
+        $this->GitCmdExecuter->pull($this->deploy_repository_name, $repo);
     }
     /* ----------------------------------------- */
 
@@ -162,7 +163,7 @@ class Release extends DeployBase
 
         $repo = $this->getReleaseRepository();
         $this->GitCmdExecuter->pull('upstream', $repo);
-        $this->GitCmdExecuter->checkout($repo);
+        $this->GitCmdExecuter->pull($this->deploy_repository_name, $repo);
     }
     /* ----------------------------------------- */
 
@@ -204,7 +205,7 @@ class Release extends DeployBase
     /* ----------------------------------------- */
 
     /**
-     * +-- コードを各環境に反映する
+     * +-- コードをupstreamに反映する
      *
      * @access      public
      * @return void

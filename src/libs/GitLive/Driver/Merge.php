@@ -52,10 +52,65 @@ class Merge extends DriverBase
             case 'master':
                 $this->mergeMaster();
             break;
+            case 'state':
+                if (!isset($argv[3])) {
+                    $this->Driver('Help')->help();
+                    return;
+                }
+                switch ($argv[3]) {
+                    case 'develop':
+                        $this->stateDevelop();
+                    break;
+                    case 'master':
+                        $this->stateMaster();
+                    break;
+                    default:
+                        $this->Driver('Help')->help();
+                    break;
+                }
+            break;
             default:
                 $this->Driver('Help')->help();
             break;
         }
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +-- developマージの事前確認
+     *
+     * @access      public
+     * @return      void
+     */
+    public function stateDevelop()
+    {
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
+        $res = $this->patchApplyCheck('upstream/develop');
+        if ($res) {
+            $this->ncecho("merge develop is not Conflict.\n");
+            return;
+        }
+        $this->ncecho("merge develop is Conflict.\n");
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +-- masterマージの事前確認
+     *
+     * @access      public
+     * @return      void
+     */
+    public function stateMaster()
+    {
+        $this->Driver('Fetch')->all();
+        $this->Driver('Fetch')->upstream();
+        $res = $this->patchApplyCheck('upstream/master');
+        if ($res) {
+            $this->ncecho("merge develop is not Conflict.\n");
+            return;
+        }
+        $this->ncecho("merge develop is Conflict.\n");
     }
     /* ----------------------------------------- */
 

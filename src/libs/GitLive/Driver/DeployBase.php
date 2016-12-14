@@ -95,6 +95,22 @@ class DeployBase extends DriverBase
     }
     /* ----------------------------------------- */
 
+
+    /**
+     * +-- デプロイ用リポジトリをTrackする
+     *
+     * @access      public
+     * @param  var_text $repo
+     * @return bool
+     * @codeCoverageIgnore
+     */
+    public function deployTrack($repo)
+    {
+        return $this->GitLive->deployTrack($repo);
+    }
+    /* ----------------------------------------- */
+
+
     /**
      * +-- hotfixCloseとreleaseClose共通処理
      *
