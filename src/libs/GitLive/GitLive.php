@@ -512,8 +512,10 @@ class GitLive extends GitBase
             throw new exception('undefined '.$repo);
         }
 
-        $this->GitCmdExecuter->deployTrack($repo);
+        $this->GitCmdExecuter->checkout($repo);
+
         $this->GitCmdExecuter->pull('upstream', $repo);
+        $this->GitCmdExecuter->pull($this->deploy_repository_name, $repo);
 
         $err = $this->GitCmdExecuter->status(array($repo));
         if (strpos($err, 'nothing to commit') === false) {
