@@ -9,7 +9,7 @@ foreach (file($argv[1]) as $stdin) {
         continue;
     }
     switch (true) {
-        case strpos($stdin, '[OK]') !== false && strpos($stdin, '[NG]') === false:
+        case (strpos($stdin, '[OK]') !== false && strpos($stdin, '[NG]') === false):
         case strpos($stdin, 'testing only :') !== false:
         case strpos($stdin, 'assertions test end') !== false:
         case strpos($stdin, 'memory usage') !== false:

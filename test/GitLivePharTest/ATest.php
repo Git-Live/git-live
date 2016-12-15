@@ -96,6 +96,10 @@ class ATest extends testCaseBase
      */
     public function executeInitTest()
     {
+        if (!is_dir($this->origin_dir) || !is_dir($this->upstream_dir) || !is_dir($this->deploy_dir) || is_dir($this->local_dir)) {
+            return;
+        }
+
         $cmd = join(' ', array($this->test_bin, 'init', $this->origin_dir, $this->upstream_dir, $this->deploy_dir, $this->local_dir));
         `$cmd 2>&1`;
 
@@ -119,6 +123,9 @@ class ATest extends testCaseBase
      */
     public function executeFeatureStartTest()
     {
+        if (!is_dir($this->origin_dir) || !is_dir($this->upstream_dir) || !is_dir($this->deploy_dir)) {
+            return;
+        }
         @chdir($this->local_dir);
         $cmd = join(' ', array($this->test_bin, 'feature', 'start', 'test_feature'));
         `$cmd 2>&1`;
