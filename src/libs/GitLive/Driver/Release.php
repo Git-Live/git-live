@@ -53,7 +53,6 @@ class Release extends DeployBase
             $this->enableRelease();
             $this->releaseOpen();
         break;
-
         case 'close':
             $this->enableRelease();
             $this->releaseClose();
