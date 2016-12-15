@@ -38,7 +38,7 @@ all:
       # テストファイルのディレクトリ
 
       GitLiveTest: "<?php echo $test_dir.DIRECTORY_SEPARATOR.$app_name.DIRECTORY_SEPARATOR; ?>GitLiveTest<?php echo DIRECTORY_SEPARATOR;?>"
-      GitLivePharTest: "<?php echo $test_dir.DIRECTORY_SEPARATOR.$app_name.DIRECTORY_SEPARATOR; ?>GitLivePharTest<?php echo DIRECTORY_SEPARATOR;?>"
+      # GitLivePharTest: "<?php echo $test_dir.DIRECTORY_SEPARATOR.$app_name.DIRECTORY_SEPARATOR; ?>GitLivePharTest<?php echo DIRECTORY_SEPARATOR;?>"
 
 
   app:

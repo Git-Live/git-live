@@ -47,13 +47,13 @@ class Release extends DeployBase
 
         $this->Driver('Fetch')->all();
         $this->Driver('Fetch')->upstream();
+        $this->Driver('Fetch')->deploy();
 
         switch ($argv[2]) {
         case 'open':
             $this->enableRelease();
             $this->releaseOpen();
         break;
-
         case 'close':
             $this->enableRelease();
             $this->releaseClose();

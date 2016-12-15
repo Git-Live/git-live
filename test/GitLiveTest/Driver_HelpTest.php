@@ -315,20 +315,6 @@ class Driver_HelpTest extends testCaseBase
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
 
         $instance->shouldReceive('getArgv')
-        ->andReturn(array(__FILE__, 'feature'));
-
-        ob_start();
-        $instance->execute();
-        $contents = ob_get_contents();
-        ob_end_clean();
-        $mock_trace = EnviMockLight::getMockTraceList();
-
-        $this->assertSame('getArgv', $mock_trace[0]['method_name']);
-        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
-
-        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
-
-        $instance->shouldReceive('getArgv')
         ->andReturn(array(__FILE__, 'feature', 'start'));
 
         ob_start();

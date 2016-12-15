@@ -96,11 +96,15 @@ class ATest extends testCaseBase
      */
     public function executeInitTest()
     {
+        if (!is_dir($this->origin_dir) || !is_dir($this->upstream_dir) || !is_dir($this->deploy_dir) || is_dir($this->local_dir)) {
+            return;
+        }
+
         $cmd = join(' ', array($this->test_bin, 'init', $this->origin_dir, $this->upstream_dir, $this->deploy_dir, $this->local_dir));
-        `$cmd 2>&1`;
+        $std = `$cmd 2>&1`;
 
         $this->assertFileExists($this->local_dir.DIRECTORY_SEPARATOR.'test.txt');
-        chdir($this->local_dir);
+        @chdir($this->local_dir);
         $cmd_std_o = `git remote -v`;
 
         $this->assertTrue(mb_ereg($this->deploy_dir, $cmd_std_o) != false);
@@ -119,9 +123,12 @@ class ATest extends testCaseBase
      */
     public function executeFeatureStartTest()
     {
-        chdir($this->local_dir);
+        if (!is_dir($this->origin_dir) || !is_dir($this->upstream_dir) || !is_dir($this->deploy_dir)) {
+            return;
+        }
+        @chdir($this->local_dir);
         $cmd = join(' ', array($this->test_bin, 'feature', 'start', 'test_feature'));
-        `$cmd 2>&1`;
+        $std = `$cmd 2>&1`;
         $cmd_std_o = `git branch`;
         $this->assertRegExp('\* feature/test_feature', $cmd_std_o);
     }

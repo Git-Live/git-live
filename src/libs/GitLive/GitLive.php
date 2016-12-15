@@ -301,7 +301,9 @@ class GitLive extends GitBase
         $branch_list_tmp = explode("\n", $this->GitCmdExecuter->branch());
         $branch_list = [];
         foreach ($branch_list_tmp as $k => $branch_name_ck) {
-            $branch_list[$branch_name_ck] = trim(mb_ereg_replace('^[*]', '', $branch_name_ck));
+            $branch_name_ck = trim(mb_ereg_replace('^[*]', '', $branch_name_ck));
+            $branch_name_ck = trim(mb_ereg_replace('\s', '', $branch_name_ck));
+            $branch_list[$branch_name_ck] = $branch_name_ck;
         }
         return isset($branch_list[$branch_name]);
     }

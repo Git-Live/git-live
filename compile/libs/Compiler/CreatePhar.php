@@ -54,9 +54,20 @@ class CreatePhar
      */
     public function execute()
     {
+        $this->phar = new Phar(BASE_DIR.'/bin/git-live.phar', 0);
+        $this->phar->setSignatureAlgorithm(Phar::SHA256);
+        $this->phar->setStub(file_get_contents(BASE_DIR.'/compile/src/stub.php'));
         $this->addFileList(BASE_DIR.'/src');
         $this->phar->stopBuffering();
         $this->phar->compressFiles(Phar::BZ2);
+
+
+        $this->phar = new Phar(BASE_DIR.'/bin/git-live.none.phar', 0);
+        $this->phar->setSignatureAlgorithm(Phar::SHA256);
+        $this->phar->setStub(file_get_contents(BASE_DIR.'/compile/src/stub.php'));
+        $this->addFileList(BASE_DIR.'/src');
+        $this->phar->stopBuffering();
+        $this->phar->compressFiles(Phar::NONE);
         throw new \GitLive\Compile\Exception\Kill;
     }
     /* ----------------------------------------- */

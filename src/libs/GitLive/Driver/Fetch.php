@@ -36,7 +36,6 @@ class Fetch extends DriverBase
      *
      *
      * @access      public
-     * @param  var_text $repository
      * @return void
      */
     public function upstream()
@@ -47,12 +46,25 @@ class Fetch extends DriverBase
     /* ----------------------------------------- */
 
 
+    /**
+     * +-- deploy からfetchする
+     *
+     *
+     * @access      public
+     * @return void
+     */
+    public function deploy()
+    {
+        $this->GitCmdExecuter->fetch(array('deploy'));
+        $this->GitCmdExecuter->fetch(array('-p', 'deploy'));
+    }
+    /* ----------------------------------------- */
+
 
     /**
      * +-- --allでフェッチする
      *
      * @access      public
-     * @param  var_text $repository OPTIONAL:NULL
      * @return void
      */
     public function all()

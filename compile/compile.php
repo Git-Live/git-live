@@ -49,10 +49,19 @@ try {
         unlink($install_path);
     }
 
+    $windows_path = BASE_DIR.'/windows.zip';
+    if (is_file($windows_path)) {
+        unlink($windows_path);
+    }
+
     $cmd = 'php -d phar.readonly=0 '.__FILE__.' create_phar';
 
     echo `$cmd`;
     chmod($compile_path, 0777);
     copy($compile_path, $install_path);
+
+    $cmd = 'zip -r '.$windows_path.' '.BASE_DIR.'/bin';
+    echo `$cmd`;
+
 } catch (exception $e) {
 }
