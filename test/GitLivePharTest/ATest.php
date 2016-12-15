@@ -100,7 +100,7 @@ class ATest extends testCaseBase
         `$cmd 2>&1`;
 
         $this->assertFileExists($this->local_dir.DIRECTORY_SEPARATOR.'test.txt');
-        chdir($this->local_dir);
+        @chdir($this->local_dir);
         $cmd_std_o = `git remote -v`;
 
         $this->assertTrue(mb_ereg($this->deploy_dir, $cmd_std_o) != false);
@@ -119,7 +119,7 @@ class ATest extends testCaseBase
      */
     public function executeFeatureStartTest()
     {
-        chdir($this->local_dir);
+        @chdir($this->local_dir);
         $cmd = join(' ', array($this->test_bin, 'feature', 'start', 'test_feature'));
         `$cmd 2>&1`;
         $cmd_std_o = `git branch`;
