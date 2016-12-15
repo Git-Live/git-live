@@ -83,8 +83,11 @@ class Driver_HotfixTest extends testCaseBase
         $rep_name            = substr($command_list[count($command_list) - 1], -14);
         $needle_command_list = array(
             'git fetch --all',
-            'git fetch -p deploy',
+            'git fetch -p',
+            'git fetch upstream',
             'git fetch -p upstream',
+            'git fetch deploy',
+            'git fetch -p deploy',
             'git branch -a',
             'git checkout upstream/master',
             'git checkout -b hotfix/'.$rep_name,
@@ -92,6 +95,7 @@ class Driver_HotfixTest extends testCaseBase
             'git push deploy hotfix/'.$rep_name,
         );
 
+        // var_export($command_list);
         $this->assertSame($needle_command_list, $command_list);
 
         $this->assertTrue(true);
@@ -244,10 +248,14 @@ class Driver_HotfixTest extends testCaseBase
                 $command_list[] = $item['arguments'][0];
             }
         }
+
         $needle_command_list = array(
             'git fetch --all',
-            'git fetch -p deploy',
+            'git fetch -p',
+            'git fetch upstream',
             'git fetch -p upstream',
+            'git fetch deploy',
+            'git fetch -p deploy',
             'git checkout deploy/master',
             'git checkout -b master',
             'git merge deploy/hotfix/20160629050505',
@@ -263,7 +271,9 @@ class Driver_HotfixTest extends testCaseBase
             'git checkout upstream/master',
             'git tag r20160629050505',
             'git push upstream --tags',
+            'git checkout develop',
         );
+        // var_export($command_list);
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
@@ -338,8 +348,11 @@ class Driver_HotfixTest extends testCaseBase
 
         $needle_command_list = array(
             'git fetch --all',
-            'git fetch -p deploy',
+            'git fetch -p',
+            'git fetch upstream',
             'git fetch -p upstream',
+            'git fetch deploy',
+            'git fetch -p deploy',
             'git checkout deploy/master',
             'git checkout -b master',
             'git merge deploy/hotfix/20160629050505',
@@ -355,6 +368,7 @@ class Driver_HotfixTest extends testCaseBase
             'git checkout upstream/master',
             'git tag tag_name',
             'git push upstream --tags',
+            'git checkout develop',
         );
         $this->assertSame($needle_command_list, $command_list);
     }
@@ -448,7 +462,7 @@ class Driver_HotfixTest extends testCaseBase
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
 
         $instance->shouldReceive('patchApplyCheck')
-        ->twice()
+        ->once()
         ->andReturn(true);
 
         $instance->getGitCmdExecuter()->shouldReceive('diff')
@@ -539,8 +553,11 @@ class Driver_HotfixTest extends testCaseBase
 
         $needle_command_list = array(
             'git fetch --all',
-            'git fetch -p deploy',
+            'git fetch -p',
+            'git fetch upstream',
             'git fetch -p upstream',
+            'git fetch deploy',
+            'git fetch -p deploy',
             'git checkout deploy/master',
             'git checkout -b master',
             'git merge deploy/hotfix/20160629050505',
@@ -556,6 +573,7 @@ class Driver_HotfixTest extends testCaseBase
             'git checkout upstream/master',
             'git tag r20160629050505',
             'git push upstream --tags',
+            'git checkout develop',
         );
         $this->assertSame($needle_command_list, $command_list);
     }
@@ -728,16 +746,19 @@ nothing to commit, working directory clean');
         }
 
         $needle_command_list = array(
-          'git fetch --all',
-          'git fetch -p deploy',
-          'git fetch -p upstream',
-          'git checkout -b hotfix/20160629050505',
-          'git pull deploy hotfix/20160629050505',
-          'git pull upstream hotfix/20160629050505',
-          'git push upstream hotfix/20160629050505',
-          'git push deploy hotfix/20160629050505',
+            'git fetch --all',
+            'git fetch -p',
+            'git fetch upstream',
+            'git fetch -p upstream',
+            'git fetch deploy',
+            'git fetch -p deploy',
+            'git checkout remote/deploy/hotfix/20160629050505',
+            'git checkout -b hotfix/20160629050505',
+            'git pull deploy hotfix/20160629050505',
+            'git pull upstream hotfix/20160629050505',
+            'git push upstream hotfix/20160629050505',
+            'git push deploy hotfix/20160629050505',
         );
-
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
@@ -792,15 +813,20 @@ nothing to commit, working directory clean');
         }
 
         $needle_command_list = array(
-          'git fetch --all',
-          'git fetch -p deploy',
-          'git fetch -p upstream',
-          'git checkout -b hotfix/20160629050505',
-          'git pull deploy hotfix/20160629050505',
-          'git pull upstream hotfix/20160629050505',
+            'git fetch --all',
+            'git fetch -p',
+            'git fetch upstream',
+            'git fetch -p upstream',
+            'git fetch deploy',
+            'git fetch -p deploy',
+            'git checkout remote/deploy/hotfix/20160629050505',
+            'git checkout -b hotfix/20160629050505',
+            'git pull deploy hotfix/20160629050505',
+            'git pull upstream hotfix/20160629050505',
 
         );
 
+        // var_export($command_list);
         $this->assertSame($needle_command_list, $command_list);
 
         $this->assertSame('ステータスエラー', $e->getMessage());
@@ -905,9 +931,14 @@ nothing to commit, working directory clean');
         }
 
         $needle_command_list = array(
+
             'git fetch --all',
-            'git fetch -p deploy',
+            'git fetch -p',
+            'git fetch upstream',
             'git fetch -p upstream',
+            'git fetch deploy',
+            'git fetch -p deploy',
+
             'git log --pretty=fuller --name-status deploy/master..hotfix/20160629050505',
         );
 
@@ -1012,11 +1043,16 @@ nothing to commit, working directory clean');
 
         $needle_command_list = array(
             'git fetch --all',
-            'git fetch -p deploy',
+            'git fetch -p',
+            'git fetch upstream',
             'git fetch -p upstream',
+            'git fetch deploy',
+            'git fetch -p deploy',
             'git pull upstream hotfix/20160629050505',
-            'git checkout hotfix/20160629050505',
+            'git pull deploy hotfix/20160629050505',
         );
+
+        // var_export($command_list);
 
         $this->assertSame($needle_command_list, $command_list);
     }
@@ -1115,13 +1151,18 @@ nothing to commit, working directory clean');
 
         $needle_command_list = array(
             'git fetch --all',
-            'git fetch -p deploy',
+            'git fetch -p',
+            'git fetch upstream',
             'git fetch -p upstream',
+            'git fetch deploy',
+            'git fetch -p deploy',
+            'git checkout remote/deploy/hotfix/20160629050505',
+            'git checkout -b hotfix/20160629050505',
             'git pull upstream hotfix/20160629050505',
             'git pull deploy hotfix/20160629050505',
-            'git checkout hotfix/20160629050505',
         );
 
+        // var_export($command_list);
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
@@ -1194,6 +1235,11 @@ nothing to commit, working directory clean');
         ->once()
         ->andReturn(true);
 
+
+        $instance->shouldReceive('isBranchExits')
+        ->once()
+        ->andReturn(true);
+
         $instance->shouldReceive('isReleaseOpen')
         ->once()
         ->andReturn(false);
@@ -1226,13 +1272,18 @@ nothing to commit, working directory clean');
 
         $needle_command_list = array(
             'git fetch --all',
-            'git fetch -p deploy',
+            'git fetch -p',
+            'git fetch upstream',
             'git fetch -p upstream',
+            'git fetch deploy',
+            'git fetch -p deploy',
             'git checkout hotfix/20160629050505',
             'git pull upstream hotfix/20160629050505',
+            'git pull deploy hotfix/20160629050505',
             'git push upstream hotfix/20160629050505',
         );
 
+        // var_export($command_list);
         $this->assertSame($needle_command_list, $command_list);
     }
     /* ----------------------------------------- */
@@ -1311,6 +1362,11 @@ nothing to commit, working directory clean');
 
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
+
+
+        $instance->shouldReceive('isBranchExits')
+        ->once()
+        ->andReturn(true);
 
         $instance->getGitCmdExecuter()->shouldReceive('status')
         ->andReturn('おかしなステータス');

@@ -47,6 +47,7 @@ class Hotfix extends DeployBase
 
         $this->Driver('Fetch')->all();
         $this->Driver('Fetch')->upstream();
+        $this->Driver('Fetch')->deploy();
 
         switch ($argv[2]) {
         case 'open':

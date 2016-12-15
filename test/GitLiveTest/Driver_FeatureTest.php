@@ -65,11 +65,12 @@ class Driver_FeatureTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
-            'git fetch upstream',
-            'git fetch -p upstream',
-            'git fetch --all',
-            'git checkout upstream/develop',
-            'git checkout -b feature/unit_testing',
+              'git fetch --all',
+              'git fetch -p',
+              'git fetch upstream',
+              'git fetch -p upstream',
+              'git checkout upstream/develop',
+              'git checkout -b feature/unit_testing',
         );
         $this->assertSame($needle_command_list, $command_list);
 
@@ -89,9 +90,10 @@ class Driver_FeatureTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+            'git fetch --all',
+            'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
-            'git fetch --all',
             'git checkout upstream/develop',
             'git checkout -b feature/unit_testing2',
         );
@@ -123,9 +125,10 @@ class Driver_FeatureTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+            'git fetch --all',
+            'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
-            'git fetch --all',
             'git push upstream feature/unit_testing',
         );
         $this->assertSame($needle_command_list, $command_list);
@@ -150,9 +153,10 @@ class Driver_FeatureTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+            'git fetch --all',
+            'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
-            'git fetch --all',
             'git push upstream feature/unit_testing2',
         );
         $this->assertSame($needle_command_list, $command_list);
@@ -183,6 +187,8 @@ class Driver_FeatureTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+            'git fetch --all',
+            'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
             'git push origin feature/unit_testing',
@@ -209,6 +215,8 @@ class Driver_FeatureTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+            'git fetch --all',
+            'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
             'git push origin feature/unit_testing2',
@@ -241,6 +249,8 @@ class Driver_FeatureTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+            'git fetch --all',
+            'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
             'git pull upstream feature/unit_testing',
@@ -267,6 +277,8 @@ class Driver_FeatureTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+            'git fetch --all',
+            'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
             'git pull upstream feature/unit_testing2',
@@ -303,6 +315,8 @@ class Driver_FeatureTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+            'git fetch --all',
+            'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
             'git checkout upstream/feature/unit_testing',
@@ -331,6 +345,8 @@ class Driver_FeatureTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+            'git fetch --all',
+            'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
             'git pull upstream feature/unit_testing2',
@@ -362,14 +378,16 @@ class Driver_FeatureTest extends testCaseBase
             }
         }
         $needle_command_list = array(
+            'git fetch --all',
+            'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
-            'git fetch --all',
             'git push upstream :feature/unit_testing',
             'git push origin :feature/unit_testing',
             'git checkout develop',
             'git branch -D feature/unit_testing',
         );
+        // var_export($command_list);
         $this->assertSame($needle_command_list, $command_list);
 
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
@@ -378,7 +396,7 @@ class Driver_FeatureTest extends testCaseBase
         ->twice()
         ->andReturn(array(__FILE__, 'feature', 'close'));
 
-        $instance->shouldReceive('getSelfBranchRef')
+        $instance->shouldReceive('getSelfBranch')
         ->once()
         ->andReturn('feature/unit_testing2');
 
@@ -390,10 +408,12 @@ class Driver_FeatureTest extends testCaseBase
                 $command_list[] = $item['arguments'][0];
             }
         }
+        // var_export($command_list);
         $needle_command_list = array(
+            'git fetch --all',
+            'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
-            'git fetch --all',
             'git push upstream :feature/unit_testing2',
             'git push origin :feature/unit_testing2',
             'git checkout develop',

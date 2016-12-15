@@ -69,9 +69,12 @@ class Driver_PullRequestTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+
             'git fetch --all',
-            'git fetch -p deploy',
+            'git fetch -p',
+            'git fetch upstream',
             'git fetch -p upstream',
+
             'git fetch upstream \'+refs/pull/*:refs/remotes/pr/*\'',
             'git pull upstream pull/10/head',
 
@@ -131,9 +134,12 @@ class Driver_PullRequestTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+
             'git fetch --all',
-            'git fetch -p deploy',
+            'git fetch -p',
+            'git fetch upstream',
             'git fetch -p upstream',
+
             'git fetch upstream \'+refs/pull/*:refs/remotes/pr/*\'',
             'git pull upstream pull/111/head',
         );
@@ -160,9 +166,12 @@ class Driver_PullRequestTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+
             'git fetch --all',
-            'git fetch -p deploy',
+            'git fetch -p',
+            'git fetch upstream',
             'git fetch -p upstream',
+
             'git fetch upstream \'+refs/pull/*:refs/remotes/pr/*\'',
             'git pull upstream pull/101/head',
         );
@@ -198,9 +207,12 @@ class Driver_PullRequestTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+
             'git fetch --all',
-            'git fetch -p deploy',
+            'git fetch -p',
+            'git fetch upstream',
             'git fetch -p upstream',
+
             'git fetch upstream \'+refs/pull/*:refs/remotes/pr/*\'',
             'git checkout -b pullreq/111 remotes/pr/111/head',
         );
@@ -227,9 +239,12 @@ class Driver_PullRequestTest extends testCaseBase
         }
         // var_export($command_list);
         $needle_command_list = array(
+
             'git fetch --all',
-            'git fetch -p deploy',
+            'git fetch -p',
+            'git fetch upstream',
             'git fetch -p upstream',
+
             'git fetch upstream \'+refs/pull/*:refs/remotes/pr/*\'',
             'git checkout -b pullreq/101 remotes/pr/101/head',
         );

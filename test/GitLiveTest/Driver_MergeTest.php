@@ -67,6 +67,8 @@ class Driver_MergeTest extends testCaseBase
         $needle_command_list = array(
             'git fetch --all',
             'git fetch -p',
+            'git fetch upstream',
+            'git fetch -p upstream',
             'git merge upstream/develop',
         );
         $this->assertSame($needle_command_list, $command_list);
@@ -99,6 +101,9 @@ class Driver_MergeTest extends testCaseBase
         $needle_command_list = array(
             'git fetch --all',
             'git fetch -p',
+            'git fetch upstream',
+            'git fetch -p upstream',
+
             'git merge upstream/master',
         );
         $this->assertSame($needle_command_list, $command_list);
