@@ -13,6 +13,7 @@ before_script:
   - mkdir ./tmp
 
 script:
+  - git --version
   - ./Envi/envi unittest-go ./test.yml > ./tmp/test.log
   - php ./test/status.php ./tmp/test.log
 

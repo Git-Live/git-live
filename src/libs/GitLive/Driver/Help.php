@@ -109,11 +109,11 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}feature start <feature name>\n");
         $this->ncecho("{$indent}{$indent}{$indent}"._("新たな開発用ブランチを'upstream'(共通リモートサーバー)の'develop'ブランチをベースとして作成し、開発用ブランチにスイッチします。")."\n");
         $this->ncecho("{$indent}{$indent}feature checkout <feature name>\n");
-        $this->ncecho("{$indent}{$indent}{$indent}"._("作成済の別featureに移動します。")."\n");
+        $this->ncecho("{$indent}{$indent}{$indent}"._('作成済の別featureに移動します。')."\n");
         $this->ncecho("{$indent}{$indent}feature change <feature name>\n");
-        $this->ncecho("{$indent}{$indent}{$indent}"._("git live feature checkoutへのエイリアスです。")."\n");
+        $this->ncecho("{$indent}{$indent}{$indent}"._('git live feature checkoutへのエイリアスです。')."\n");
         $this->ncecho("{$indent}{$indent}feature list\n");
-        $this->ncecho("{$indent}{$indent}{$indent}"._("featureの一覧を取得します。")."\n");
+        $this->ncecho("{$indent}{$indent}{$indent}"._('featureの一覧を取得します。')."\n");
         $this->ncecho("{$indent}{$indent}feature publish\n");
         $this->ncecho("{$indent}{$indent}{$indent}"._("複数人と同じ開発ブランチで作業するとき、自分の変更分を'upstream'(共通リモートサーバー)にプッシュします。")."\n");
         $this->ncecho("{$indent}{$indent}feature track <feature name>\n");

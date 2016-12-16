@@ -271,7 +271,7 @@ class GitBase
                     list($item, ) = explode(':', $item, 2);
                 }
                 $fargv[$item] = $k;
-            } elseif (strpos($item, '-') === 0 && $item !== '--'  && $item !== '-') {
+            } elseif (strpos($item, '-') === 0 && $item !== '--' && $item !== '-') {
                 $arr = str_split($item, 1);
                 array_shift($arr);
                 foreach ($arr as $item) {

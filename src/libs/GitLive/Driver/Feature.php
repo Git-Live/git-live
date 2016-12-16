@@ -259,5 +259,4 @@ class Feature extends DriverBase
         $this->GitCmdExecuter->branch(array('-D', $repository));
     }
     /* ----------------------------------------- */
-
 }

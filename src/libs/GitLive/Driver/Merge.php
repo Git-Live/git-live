@@ -80,7 +80,7 @@ class Merge extends DriverBase
      * +-- developマージの事前確認
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function stateDevelop()
     {
@@ -99,7 +99,7 @@ class Merge extends DriverBase
      * +-- masterマージの事前確認
      *
      * @access      public
-     * @return      void
+     * @return void
      */
     public function stateMaster()
     {
