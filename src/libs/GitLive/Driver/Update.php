@@ -43,6 +43,7 @@ class Update extends DriverBase
             $url = 'https://github.com/Git-Live/git-live/raw/master/bin/git-live.phar';
         }
 
+
         $this->GitLive->file_put_contents(GIT_LIVE_INSTALL_DIR, $this->GitLive->file_get_contents($url));
     }
     /* ----------------------------------------- */
