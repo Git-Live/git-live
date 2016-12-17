@@ -32,7 +32,6 @@
  */
 class ATest extends testCaseBase
 {
-
     protected $base_dir,$test_dir, $origin_dir, $upstream_dir, $deploy_dir, $local_dir;
     protected $test_bin;
 
@@ -127,8 +126,8 @@ class ATest extends testCaseBase
             return;
         }
         @chdir($this->local_dir);
-        $cmd = join(' ', array($this->test_bin, 'feature', 'start', 'test_feature'));
-        $std = `$cmd 2>&1`;
+        $cmd       = join(' ', array($this->test_bin, 'feature', 'start', 'test_feature'));
+        $std       = `$cmd 2>&1`;
         $cmd_std_o = `git branch`;
         $this->assertRegExp('\* feature/test_feature', $cmd_std_o);
     }

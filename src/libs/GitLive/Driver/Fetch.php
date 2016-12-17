@@ -73,5 +73,4 @@ class Fetch extends DriverBase
         $this->GitCmdExecuter->fetch(array('-p'));
     }
     /* ----------------------------------------- */
-
 }

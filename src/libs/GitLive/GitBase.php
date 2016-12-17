@@ -30,7 +30,7 @@ namespace GitLive;
 class GitBase
 {
     protected $deploy_repository_name = 'deploy';
-    const VERSION                     = '0.1.13';
+    const VERSION                     = '0.1.14';
 
     /**
      * +-- 引数配列を返す
@@ -271,7 +271,7 @@ class GitBase
                     list($item, ) = explode(':', $item, 2);
                 }
                 $fargv[$item] = $k;
-            } elseif (strpos($item, '-') === 0 && $item !== '--'  && $item !== '-') {
+            } elseif (strpos($item, '-') === 0 && $item !== '--' && $item !== '-') {
                 $arr = str_split($item, 1);
                 array_shift($arr);
                 foreach ($arr as $item) {
@@ -372,7 +372,45 @@ class GitBase
      */
     public function file_get_contents($src)
     {
-        return file_get_contents($src);
+        $ctx = stream_context_create();
+        stream_context_set_params($ctx,
+            array('notification' =>
+                function ($notification_code, $severity, $message, $message_code, $bytes_transferred, $bytes_max) {
+                    switch ($notification_code) {
+                        case STREAM_NOTIFY_RESOLVE:
+                        case STREAM_NOTIFY_AUTH_REQUIRED:
+                        case STREAM_NOTIFY_COMPLETED:
+                        case STREAM_NOTIFY_FAILURE:
+                        case STREAM_NOTIFY_AUTH_RESULT:
+                            var_dump($notification_code, $severity, $message, $message_code, $bytes_transferred, $bytes_max);
+                            /* 無視 */
+                            break;
+
+                        case STREAM_NOTIFY_REDIRECTED:
+                            echo 'Being redirected to: ', $message;
+                            break;
+
+                        case STREAM_NOTIFY_CONNECT:
+                            echo 'Connected...';
+                            break;
+
+                        case STREAM_NOTIFY_FILE_SIZE_IS:
+                            echo 'Got the filesize: ', $bytes_max;
+                            break;
+
+                        case STREAM_NOTIFY_MIME_TYPE_IS:
+                            echo 'Found the mime-type: ', $message;
+                            break;
+
+                        case STREAM_NOTIFY_PROGRESS:
+                            echo 'Made some progress, downloaded ', $bytes_transferred, ' so far';
+                            break;
+                    }
+                    echo "\n";
+                },
+            )
+        );
+        return file_get_contents($src, false, $ctx);
     }
     /* ----------------------------------------- */
 }

@@ -1,7 +1,8 @@
 <?php
 
 if (!function_exists('\_')) {
-    function _($text) {
+    function _($text)
+    {
         return $text;
     }
 }

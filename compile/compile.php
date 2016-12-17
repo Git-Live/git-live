@@ -62,6 +62,5 @@ try {
 
     $cmd = 'zip -r '.$windows_path.' '.BASE_DIR.'/bin';
     echo `$cmd`;
-
 } catch (exception $e) {
 }

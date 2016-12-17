@@ -107,9 +107,9 @@ class PullRequest extends DriverBase
      * +-- pr feature start
      *
      * @access      public
-     * @param       var_text $pull_request_number
-     * @param       var_text $repository
-     * @return      void
+     * @param  var_text $pull_request_number
+     * @param  var_text $repository
+     * @return void
      */
     public function featureStart($pull_request_number, $repository)
     {
@@ -138,9 +138,9 @@ class PullRequest extends DriverBase
      * +-- pr feature start-soft
      *
      * @access      public
-     * @param       var_text $pull_request_number
-     * @param       var_text $repository
-     * @return      void
+     * @param  var_text $pull_request_number
+     * @param  var_text $repository
+     * @return void
      */
     public function featureStartSoft($pull_request_number, $repository)
     {
