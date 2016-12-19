@@ -32,6 +32,16 @@ class GitLive extends GitBase
     protected $GitCmdExecuter;
     protected $Driver;
 
+    const VERSION_API                 = 'https://api.github.com/repos/Git-Live/git-live/releases/latest';
+
+    /**
+     * 更新チェックの間隔
+     *
+     * @access      protected
+     * @var         int
+     */
+    protected $update_ck_span = 1200;
+
     /**
      * +-- コンストラクタ
      *
@@ -44,6 +54,88 @@ class GitLive extends GitBase
         $this->GitCmdExecuter = new GitCmdExecuter();
     }
 
+    /* ----------------------------------------- */
+
+    /**
+     * +-- デストラクタ
+     *
+     * @access      public
+     * @return void
+     * @codeCoverageIgnore
+     */
+    public function __destruct()
+    {
+        if (!$this->isQuiet() && $this->ckNewVersion()) {
+            $this->ncecho("\n"._('Alert: An update to the Git Live is available. Run "git live update" to get the latest version.')."\n");
+            // $this->ncecho(GitLive::VERSION.'->'.$this->getLatestVersion()."\n");
+        }
+    }
+
+    /* ----------------------------------------- */
+
+
+    /**
+     * +-- 最終Versionを取得
+     *
+     * @access      public
+     * @return string
+     */
+    public function getLatestVersion()
+    {
+        static $latest_version;
+
+        if ($latest_version) {
+            return $latest_version;
+        }
+
+        $latest_version_fetch_time = $this->Driver('Config')->getParameter('latestversion.fetchtime');
+
+
+        if (!empty($latest_version_fetch_time) && (time() - $latest_version_fetch_time) < $this->update_ck_span) {
+            return $latest_version = $this->Driver('Config')->getParameter('latestversion.val');
+        }
+
+        $opts = array(
+            'http' => array(
+                'method' => 'GET',
+                'header' => array(
+                    'User-Agent: PHP',
+                ),
+            ),
+        );
+
+        $context  = stream_context_create($opts);
+        $contents = file_get_contents(GitLive::VERSION_API, false, $context);
+        if (!$contents) {
+            $latest_version = GitLive::VERSION;
+            return $latest_version;
+        }
+
+        $arr = json_decode($contents, true);
+        if (substr($arr['tag_name'], 0, 1) === 'v') {
+            $latest_version = substr($arr['tag_name'], 1);
+        } else {
+            $latest_version = $arr['tag_name'];
+        }
+
+        $this->Driver('Config')->setLocalParameter('latestversion.fetchtime', time());
+        $this->Driver('Config')->setLocalParameter('latestversion.val', $latest_version);
+
+        return $latest_version;
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +-- 新しいVersionが出ていないか確認する
+     *
+     * @access      public
+     * @return bool
+     */
+    public function ckNewVersion()
+    {
+        $latest_version = $this->getLatestVersion();
+        return (bool)version_compare(GitLive::VERSION, $latest_version, '<');
+    }
     /* ----------------------------------------- */
 
     /**
