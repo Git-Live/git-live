@@ -42,12 +42,20 @@ class GitCmdExecuter extends GitBase
     }
     /* ----------------------------------------- */
 
+    public function config(array $options = null)
+    {
+        $cmd = $this->createCmd('config', $options);
+
+        return $this->exec($cmd, true);
+    }
+
     public function tag(array $options = null)
     {
         $cmd = $this->createCmd('tag', $options);
 
         return $this->exec($cmd);
     }
+
     public function copy(array $options = null)
     {
         $cmd = $this->createCmd('clone', $options);

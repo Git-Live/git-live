@@ -30,7 +30,7 @@ namespace GitLive;
 class GitBase
 {
     protected $deploy_repository_name = 'deploy';
-    const VERSION                     = '0.1.14';
+    const VERSION                     = '0.1.15';
 
     /**
      * +-- 引数配列を返す
@@ -120,15 +120,20 @@ class GitBase
      * +-- Commandの実行
      *
      * @access      public
-     * @param  string $cmd
+     * @param  string   $cmd
+     * @param  var_text $quiet OPTIONAL:false
      * @return string
      * @codeCoverageIgnore
      */
-    public function exec($cmd)
+    public function exec($cmd, $quiet = false)
     {
-        $this->cecho($cmd, 6);
+        if (!$quiet) {
+            $this->cecho($cmd, 6);
+        }
         $res = `$cmd`;
-        $this->ncecho($res);
+        if (!$quiet) {
+            $this->ncecho($res);
+        }
         return $res;
     }
     /* ----------------------------------------- */
