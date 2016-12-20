@@ -126,7 +126,7 @@ class PullRequest extends DriverBase
         $self_repository = $this->getSelfBranchRef();
 
         if (!'refs/heads/'.$repository === $self_repository) {
-            throw new \GitLive\exception(_('feature の作成に失敗'));
+            throw new \GitLive\exception(__('feature branch create fail.'));
         }
 
         $upstream_repository = 'pull/'.$pull_request_number.'/head';

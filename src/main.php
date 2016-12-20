@@ -28,8 +28,9 @@ namespace {
     if (!class_exists('\GitLive\Autoloader', false)) {
         include 'libs/GitLive/Autoloader.php';
     }
-}
-namespace GitLive\Main{
+
+
+
     if (!ini_get('date.timezone')) {
         $TZ = @date_default_timezone_get();
         date_default_timezone_set($TZ ? $TZ : 'Europe/London');
@@ -39,6 +40,7 @@ namespace GitLive\Main{
     $is_get_text = false;
     if (!function_exists('\_')) {
         include __DIR__.DIRECTORY_SEPARATOR.'get_text.php';
+        define('GIT_LIVE_IS_GET_TEXT', false);
     } else {
         // domain
         $domain = 'messages';
@@ -56,17 +58,35 @@ namespace GitLive\Main{
         bind_textdomain_codeset($domain, 'UTF-8');
 
         if (GIT_LIVE_VERSION === 'phar') {
-            $is_bindtextdomain = bindtextdomain($domain, ('phar://git-live.phar/lang/'));
-
+            define('GIT_LIVE_BINDTEXTDOMAIN', ('phar://git-live.phar/lang/'));
         } else {
-            $is_bindtextdomain = bindtextdomain($domain, (__DIR__.DIRECTORY_SEPARATOR.'lang').DIRECTORY_SEPARATOR);
+            define('GIT_LIVE_BINDTEXTDOMAIN',  (__DIR__.DIRECTORY_SEPARATOR.'lang').DIRECTORY_SEPARATOR);
         }
 
-        if (!$is_bindtextdomain) {
-            throw new \GitLive\exception('Langの指定に失敗しました。');
+        $is_bindtextdomain = bindtextdomain($domain, GIT_LIVE_BINDTEXTDOMAIN);
+
+        $gettext_data = [];
+        if ($is_bindtextdomain) {
+            define('GIT_LIVE_IS_GET_TEXT', true);
+        } else {
+            define('GIT_LIVE_IS_GET_TEXT', false);
+            if (is_file(GIT_LIVE_BINDTEXTDOMAIN.$lang.DIRECTORY_SEPARATOR.'LC_MESSAGES'.DIRECTORY_SEPARATOR."{$domain}.po.php")) {
+                $gettext_data = include GIT_LIVE_BINDTEXTDOMAIN.$lang.DIRECTORY_SEPARATOR.'LC_MESSAGES'.DIRECTORY_SEPARATOR."{$domain}.po.php";
+            }
         }
-        $is_get_text = true;
+
     }
+
+    function __($message) {
+        global $gettext_data;
+        if (GIT_LIVE_IS_GET_TEXT) {
+            return _($message);
+        } else {
+            return isset($gettext_data[$message]) ? $gettext_data[$message] : $message;
+        }
+    }
+}
+namespace GitLive\Main{
 
     $Autoloader = new \GitLive\Autoloader;
     $Autoloader->register();

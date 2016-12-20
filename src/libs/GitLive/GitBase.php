@@ -30,7 +30,7 @@ namespace GitLive;
 class GitBase
 {
     protected $deploy_repository_name = 'deploy';
-    const VERSION                     = '0.1.15';
+    const VERSION                     = '0.1.16';
 
     /**
      * +-- 引数配列を返す

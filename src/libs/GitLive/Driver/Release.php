@@ -105,9 +105,9 @@ class Release extends DeployBase
     public function releaseOpen()
     {
         if ($this->isReleaseOpen()) {
-            throw new exception(_('既にrelease open されています。'));
+            throw new exception(sprintf(__('Already %1$s opened.', 'release')));
         } elseif ($this->isHotfixOpen()) {
-            throw new exception(_('既にhotfix open されています。'));
+            throw new exception(sprintf(__('Already %1$s opened.', 'hotfix')));
         }
 
         $repository = $this->GitCmdExecuter->branch(array('-a'));
@@ -115,7 +115,7 @@ class Release extends DeployBase
 
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/'.$this->deploy_repository_name.'/release/') !== false) {
-                throw new exception(_('既にrelease open されています。'.$value));
+               throw new exception(sprintf(__('Already %1$s opened.', 'release'))."\n".$value);
             }
         }
 
@@ -138,7 +138,7 @@ class Release extends DeployBase
     public function releaseTrack()
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception(_('release openされていません。'));
+            throw new exception(sprintf(__('%1$s is not open.', 'release')));
         }
 
         $repo = $this->getReleaseRepository();
@@ -158,7 +158,7 @@ class Release extends DeployBase
     public function releasePull()
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception(_('release openされていません。'));
+            throw new exception(sprintf(__('%1$s is not open.', 'release')));
         }
 
         $repo = $this->getReleaseRepository();
@@ -178,12 +178,12 @@ class Release extends DeployBase
         if ($this->isReleaseOpen()) {
             $repo = $this->getReleaseRepository();
             $this->ncecho($this->GitCmdExecuter->log('deploy/master', $repo));
-            $this->ncecho("release is open.\n");
+            $this->ncecho(sprintf(__('%1$s is open.', 'release'))."\n");
 
             return;
         }
 
-        $this->ncecho("release is close.\n");
+        $this->ncecho(sprintf(__('%1$s is close.', 'release'))."\n");
     }
     /* ----------------------------------------- */
 
@@ -196,7 +196,7 @@ class Release extends DeployBase
     public function releaseSync()
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception(_('release openされていません。'));
+            throw new exception(sprintf(__('%1$s is not open.', 'release')));
         }
 
         $repo = $this->getReleaseRepository();
@@ -213,7 +213,7 @@ class Release extends DeployBase
     public function releasePush()
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception(_('release openされていません。'));
+            throw new exception(sprintf(__('%1$s is not open.', 'release')));
         }
 
         $repo = $this->getReleaseRepository();
@@ -233,7 +233,7 @@ class Release extends DeployBase
     {
         $argv = $this->getArgv();
         if (!$this->isReleaseOpen()) {
-            throw new exception(_('release openされていません。'));
+            throw new exception(sprintf(__('%1$s is not open.', 'release')));
         }
 
         $repo = $this->getReleaseRepository();

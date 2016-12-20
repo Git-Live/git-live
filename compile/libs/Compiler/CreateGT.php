@@ -77,13 +77,14 @@ class CreateGT
                 $msgid = '';
             }
             if (strpos($data, 'msgstr ') === 0) {
-                $is_msgid = true;
-                $is_msgstr = false;
+                $is_msgid = false;
+                $is_msgstr = true;
                 if (!empty($msgid)) {
                     $res[$msgid] = '';
                 }
             }
-            if (mb_ereg('"([^"]+)"', $data, $match)) {
+            if (mb_ereg('"(.+)"$', $data, $match)) {
+                $match[1] = str_replace('\\"', '"', $match[1]);
                 if ($is_msgid) {
                     $msgid .= $match[1];
                 } elseif (!empty($msgid) && $is_msgstr) {
