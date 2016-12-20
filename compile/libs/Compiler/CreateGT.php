@@ -27,7 +27,7 @@ namespace GitLive\Compile\Compiler;
  * @see https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-class CreateMO
+class CreateGT
 {
     /**
      * +-- コンストラクタ
@@ -48,11 +48,55 @@ class CreateMO
      */
     public function execute()
     {
-        foreach ($this->getCommandList(BASE_DIR.'/src') as $cmd) {
-            `$cmd`;
+        foreach ($this->getFileList(BASE_DIR.'/src') as $po_file) {
+            $res = $this->parsePO($po_file);
+            file_put_contents($po_file.'.php', "<?php\n\nreturn ".var_export($res, true).';');
         }
     }
     /* ----------------------------------------- */
+
+    protected function parsePO($po_file) {
+        $is_msgid = false;
+        $is_msgstr = false;
+        $msgid = '';
+        $res = array();
+        foreach (file($po_file) as $data) {
+            $data = trim($data);
+            $data = mb_ereg_replace('#.*', '', $data);
+            if (empty($data)) {
+                continue;
+            }
+            if (strpos($data, 'msgid ') === 0) {
+                $is_msgid = true;
+                $is_msgstr = false;
+
+                if (!empty($msgid) && empty($res[$msgid] )) {
+                    $res[$msgid] = $msgid;
+                }
+
+                $msgid = '';
+            }
+            if (strpos($data, 'msgstr ') === 0) {
+                $is_msgid = true;
+                $is_msgstr = false;
+                if (!empty($msgid)) {
+                    $res[$msgid] = '';
+                }
+            }
+            if (mb_ereg('"([^"]+)"', $data, $match)) {
+                if ($is_msgid) {
+                    $msgid .= $match[1];
+                } elseif (!empty($msgid) && $is_msgstr) {
+                    $res[$msgid] .= $match[1];
+                }
+            }
+        }
+
+        if (!empty($msgid) && empty($res[$msgid] )) {
+            $res[$msgid] = $msgid;
+        }
+        return $res;
+    }
 
     /**
      * +--
@@ -61,17 +105,14 @@ class CreateMO
      * @param  var_text $dir
      * @return array
      */
-    protected function getCommandList($dir)
+    protected function getFileList($dir)
     {
         $iterator = new \RecursiveDirectoryIterator($dir);
         $iterator = new \GitLive\Compile\Iterator\GetTextFilterIterator($iterator);
         $iterator = new \RecursiveIteratorIterator($iterator);
         foreach ($iterator as $fileinfo) {
             if ($fileinfo->isFile() && mb_ereg('.po$', $fileinfo->getPathname())) {
-                $lang = substr($fileinfo->getPathname(), 0, -3);
-                unlink("{$lang}.mo");
-                $cmd = "msgfmt  -o  {$lang}.mo {$lang}.po";
-                yield $cmd;
+                yield $fileinfo->getPathname();
             }
         }
     }

@@ -40,6 +40,9 @@ namespace GitLive\Main{
     if (!function_exists('\_')) {
         include __DIR__.DIRECTORY_SEPARATOR.'get_text.php';
     } else {
+        // domain
+        $domain = 'messages';
+
         // LANG
         $locale = trim(`echo \$LANG`);
         if (empty($locale)) {
@@ -49,9 +52,19 @@ namespace GitLive\Main{
         setlocale(LC_ALL, $locale);
 
         list($lang, $code_set) = explode('.', $locale);
-        $domain                = substr($lang, 0, 2);
         textdomain($domain);
         bind_textdomain_codeset($domain, 'UTF-8');
+
+        if (GIT_LIVE_VERSION === 'phar') {
+            $is_bindtextdomain = bindtextdomain($domain, ('phar://git-live.phar/lang/'));
+
+        } else {
+            $is_bindtextdomain = bindtextdomain($domain, (__DIR__.DIRECTORY_SEPARATOR.'lang').DIRECTORY_SEPARATOR);
+        }
+
+        if (!$is_bindtextdomain) {
+            throw new \GitLive\exception('Langの指定に失敗しました。');
+        }
         $is_get_text = true;
     }
 
@@ -61,15 +74,9 @@ namespace GitLive\Main{
     if (GIT_LIVE_VERSION === 'phar') {
         $Autoloader->addNamespace('GitLive\Driver', 'phar://git-live.phar/libs/GitLive/Driver');
         $Autoloader->addNamespace('GitLive', 'phar://git-live.phar/libs/GitLive');
-        if ($is_get_text) {
-            bindtextdomain($domain, 'phar://git-live.phar/lang/');
-        }
     } else {
         $Autoloader->addNamespace('GitLive\Driver', __DIR__.'/libs/GitLive/Driver');
         $Autoloader->addNamespace('GitLive', __DIR__.'/libs/GitLive');
-        if ($is_get_text) {
-            bindtextdomain($domain, 'phar://git-live.phar/lang/');
-        }
     }
 
     try {
