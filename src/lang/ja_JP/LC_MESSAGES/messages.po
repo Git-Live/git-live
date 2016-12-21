@@ -36,7 +36,7 @@ msgstr "Gitリモートリポジトリではありません。"
 #: src/libs/GitLive/GitLive.php:531
 #, php-format
 msgid "%1$s close is failed."
-msgstr "%1$s close に失敗しました。"
+msgstr "%1$s closeに失敗しました。"
 
 #: src/libs/GitLive/GitLive.php:491 src/libs/GitLive/GitLive.php:497
 #: src/libs/GitLive/GitLive.php:520 src/libs/GitLive/GitLive.php:532
@@ -52,7 +52,7 @@ msgstr "%1$sブランチに%2$sより新しいコミットが存在します。"
 #: src/libs/GitLive/Driver/Hotfix.php:108
 #, php-format
 msgid "Already %1$s opened."
-msgstr "%1$s openされています。"
+msgstr "既に%1$s openされています。"
 
 #: src/libs/GitLive/Driver/Release.php:141
 #: src/libs/GitLive/Driver/Release.php:161
@@ -72,21 +72,21 @@ msgstr "%1$s openされていません。"
 #: src/libs/GitLive/Driver/Hotfix.php:171
 #, php-format
 msgid "%1$s is open."
-msgstr "%1$s が開いています。"
+msgstr ""
 
 #: src/libs/GitLive/Driver/Release.php:186
 #: src/libs/GitLive/Driver/Hotfix.php:176
 #, php-format
 msgid "%1$s is close."
-msgstr "%1$s が閉じています。"
+msgstr ""
 
 #: src/libs/GitLive/Driver/Init.php:48
 msgid "Please enter only your remote-repository."
-msgstr "フォークしたあなた専用のリポジトリを入力してください。"
+msgstr "フォークしたあなた専用のリモートリポジトリを入力してください。"
 
 #: src/libs/GitLive/Driver/Init.php:49
 msgid "Please enter common remote-repository."
-msgstr "フォーク元のリポジトリを入力してください。"
+msgstr "フォーク元の共有リモートリポジトリを入力してください。"
 
 #: src/libs/GitLive/Driver/Init.php:51
 msgid "Please enter deploying dedicated remote-repository."

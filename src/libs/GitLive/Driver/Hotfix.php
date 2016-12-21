@@ -96,16 +96,16 @@ class Hotfix extends DeployBase
     public function hotfixOpen()
     {
         if ($this->isReleaseOpen()) {
-            throw new exception(sprintf(__('Already %1$s opened.', 'release')));
+            throw new exception(sprintf(__('Already %1$s opened.'), 'release'));
         } elseif ($this->isHotfixOpen()) {
-            throw new exception(sprintf(__('Already %1$s opened.', 'hotfix')));
+            throw new exception(sprintf(__('Already %1$s opened.'), 'hotfix'));
         }
 
         $repository = $this->GitCmdExecuter->branch(array('-a'));
         $repository = explode("\n", trim($repository));
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/'.$this->deploy_repository_name.'/hotfix/') !== false) {
-               throw new exception(sprintf(__('Already %1$s opened.', 'hotfix'))."\n".$value);
+               throw new exception(sprintf(__('Already %1$s opened.'), 'hotfix')."\n".$value);
             }
         }
 
@@ -128,7 +128,7 @@ class Hotfix extends DeployBase
     public function hotfixTrack()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.', 'hotfix')));
+            throw new exception(sprintf(__('%1$s is not open.'), 'hotfix'));
         }
 
         $repo = $this->getHotfixRepository();
@@ -148,7 +148,7 @@ class Hotfix extends DeployBase
     public function hotfixPull()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.', 'hotfix')));
+            throw new exception(sprintf(__('%1$s is not open.'), 'hotfix'));
         }
 
         $repo = $this->getHotfixRepository();
@@ -168,12 +168,12 @@ class Hotfix extends DeployBase
         if ($this->isHotfixOpen()) {
             $repo = $this->getHotfixRepository();
             $this->ncecho($this->GitCmdExecuter->log('deploy/master', $repo));
-            $this->ncecho(sprintf(__('%1$s is open.', 'hotfix'))."\n");
+            $this->ncecho(sprintf(__('%1$s is open.'), 'hotfix')."\n");
 
             return;
         }
 
-        $this->ncecho(sprintf(__('%1$s is close.', 'hotfix'))."\n");
+        $this->ncecho(sprintf(__('%1$s is close.'), 'hotfix')."\n");
     }
     /* ----------------------------------------- */
 
@@ -186,7 +186,7 @@ class Hotfix extends DeployBase
     public function hotfixSync()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.', 'hotfix')));
+            throw new exception(sprintf(__('%1$s is not open.'), 'hotfix'));
         }
 
         $repo = $this->getHotfixRepository();
@@ -204,7 +204,7 @@ class Hotfix extends DeployBase
     public function hotfixPush()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.', 'hotfix')));
+            throw new exception(sprintf(__('%1$s is not open.'), 'hotfix'));
         }
 
         $repo = $this->getHotfixRepository();
@@ -222,7 +222,7 @@ class Hotfix extends DeployBase
     public function hotfixClose()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.', 'hotfix')));
+            throw new exception(sprintf(__('%1$s is not open.'), 'hotfix'));
         }
 
         $repo = $this->getHotfixRepository();
