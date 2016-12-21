@@ -38,7 +38,7 @@ namespace {
 
     // get-textが有効かどうかで処理を分ける
     $is_get_text = false;
-    if (!function_exists('\_')) {
+    if (!function_exists('\textdomain')) {
         include __DIR__.DIRECTORY_SEPARATOR.'get_text.php';
         define('GIT_LIVE_IS_GET_TEXT', false);
     } else {
