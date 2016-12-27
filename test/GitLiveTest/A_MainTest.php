@@ -46,6 +46,17 @@ class A_MainTest extends testCaseBase
 
     public function executeTest()
     {
+        ob_start();
+        include __DIR__.'/../../src/main.php';
+        $contents = ob_get_contents();
+        ob_end_clean();
+
+        $this->assertTrue(mb_ereg('git live feature start <feature name>', $contents) == true);
+    }
+
+
+    public function executeTest_()
+    {
         include __DIR__.'/../Mock/GitLive/MainFunction.php';
 
         GitLiveMain()

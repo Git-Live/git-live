@@ -28,8 +28,9 @@ namespace {
     if (!class_exists('\GitLive\Autoloader', false)) {
         include 'libs/GitLive/Autoloader.php';
     }
-}
-namespace GitLive\Main{
+
+
+
     if (!ini_get('date.timezone')) {
         $TZ = @date_default_timezone_get();
         date_default_timezone_set($TZ ? $TZ : 'Europe/London');
@@ -37,9 +38,13 @@ namespace GitLive\Main{
 
     // get-textが有効かどうかで処理を分ける
     $is_get_text = false;
-    if (!function_exists('\_')) {
+    if (!function_exists('\textdomain')) {
         include __DIR__.DIRECTORY_SEPARATOR.'get_text.php';
+        define('GIT_LIVE_IS_GET_TEXT', false);
     } else {
+        // domain
+        $domain = 'messages';
+
         // LANG
         $locale = trim(`echo \$LANG`);
         if (empty($locale)) {
@@ -49,11 +54,39 @@ namespace GitLive\Main{
         setlocale(LC_ALL, $locale);
 
         list($lang, $code_set) = explode('.', $locale);
-        $domain                = substr($lang, 0, 2);
         textdomain($domain);
         bind_textdomain_codeset($domain, 'UTF-8');
-        $is_get_text = true;
+
+        if (GIT_LIVE_VERSION === 'phar') {
+            define('GIT_LIVE_BINDTEXTDOMAIN', ('phar://git-live.phar/lang/'));
+        } else {
+            define('GIT_LIVE_BINDTEXTDOMAIN',  (__DIR__.DIRECTORY_SEPARATOR.'lang').DIRECTORY_SEPARATOR);
+        }
+
+        $is_bindtextdomain = bindtextdomain($domain, GIT_LIVE_BINDTEXTDOMAIN);
+
+        $gettext_data = [];
+        if ($is_bindtextdomain) {
+            define('GIT_LIVE_IS_GET_TEXT', true);
+        } else {
+            define('GIT_LIVE_IS_GET_TEXT', false);
+            if (is_file(GIT_LIVE_BINDTEXTDOMAIN.$lang.DIRECTORY_SEPARATOR.'LC_MESSAGES'.DIRECTORY_SEPARATOR."{$domain}.po.php")) {
+                $gettext_data = include GIT_LIVE_BINDTEXTDOMAIN.$lang.DIRECTORY_SEPARATOR.'LC_MESSAGES'.DIRECTORY_SEPARATOR."{$domain}.po.php";
+            }
+        }
+
     }
+
+    function __($message) {
+        global $gettext_data;
+        if (GIT_LIVE_IS_GET_TEXT) {
+            return _($message);
+        } else {
+            return isset($gettext_data[$message]) ? $gettext_data[$message] : $message;
+        }
+    }
+}
+namespace GitLive\Main{
 
     $Autoloader = new \GitLive\Autoloader;
     $Autoloader->register();
@@ -61,15 +94,9 @@ namespace GitLive\Main{
     if (GIT_LIVE_VERSION === 'phar') {
         $Autoloader->addNamespace('GitLive\Driver', 'phar://git-live.phar/libs/GitLive/Driver');
         $Autoloader->addNamespace('GitLive', 'phar://git-live.phar/libs/GitLive');
-        if ($is_get_text) {
-            bindtextdomain($domain, 'phar://git-live.phar/lang/');
-        }
     } else {
         $Autoloader->addNamespace('GitLive\Driver', __DIR__.'/libs/GitLive/Driver');
         $Autoloader->addNamespace('GitLive', __DIR__.'/libs/GitLive');
-        if ($is_get_text) {
-            bindtextdomain($domain, 'phar://git-live.phar/lang/');
-        }
     }
 
     try {

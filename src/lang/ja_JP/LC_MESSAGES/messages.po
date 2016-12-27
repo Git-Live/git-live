@@ -20,29 +20,29 @@ msgstr ""
 msgid ""
 "Alert: An update to the Git Live is available. Run \"git live update\" to "
 "get the latest version."
-msgstr ""
+msgstr "Alert: \"git live update\" を実行して、最新版にアップデートしてください。"
 
 #: src/libs/GitLive/GitLive.php:291
 #, php-format
 msgid "Add a remote repository %s."
-msgstr ""
+msgstr "リモートリポジトリ%sを追加してください。"
 
 #: src/libs/GitLive/GitLive.php:363 src/libs/GitLive/GitLive.php:382
 msgid "Not a git repository."
-msgstr ""
+msgstr "Gitリモートリポジトリではありません。"
 
 #: src/libs/GitLive/GitLive.php:490 src/libs/GitLive/GitLive.php:496
 #: src/libs/GitLive/GitLive.php:505 src/libs/GitLive/GitLive.php:519
 #: src/libs/GitLive/GitLive.php:531
 #, php-format
 msgid "%1$s close is failed."
-msgstr ""
+msgstr "%1$s closeに失敗しました。"
 
 #: src/libs/GitLive/GitLive.php:491 src/libs/GitLive/GitLive.php:497
 #: src/libs/GitLive/GitLive.php:520 src/libs/GitLive/GitLive.php:532
 #, php-format
 msgid "%1$s branch has a commit that is not on the %2$s branch"
-msgstr ""
+msgstr "%1$sブランチに%2$sより新しいコミットが存在します。"
 
 #: src/libs/GitLive/Driver/Release.php:108
 #: src/libs/GitLive/Driver/Release.php:110
@@ -52,7 +52,7 @@ msgstr ""
 #: src/libs/GitLive/Driver/Hotfix.php:108
 #, php-format
 msgid "Already %1$s opened."
-msgstr ""
+msgstr "既に%1$s openされています。"
 
 #: src/libs/GitLive/Driver/Release.php:141
 #: src/libs/GitLive/Driver/Release.php:161
@@ -66,7 +66,7 @@ msgstr ""
 #: src/libs/GitLive/Driver/Hotfix.php:225
 #, php-format
 msgid "%1$s is not open."
-msgstr ""
+msgstr "%1$s openされていません。"
 
 #: src/libs/GitLive/Driver/Release.php:181
 #: src/libs/GitLive/Driver/Hotfix.php:171
@@ -82,221 +82,240 @@ msgstr ""
 
 #: src/libs/GitLive/Driver/Init.php:48
 msgid "Please enter only your remote-repository."
-msgstr ""
+msgstr "フォークしたあなた専用のリモートリポジトリを入力してください。"
 
 #: src/libs/GitLive/Driver/Init.php:49
 msgid "Please enter common remote-repository."
-msgstr ""
+msgstr "フォーク元の共有リモートリポジトリを入力してください。"
 
 #: src/libs/GitLive/Driver/Init.php:51
 msgid "Please enter deploying dedicated remote-repository."
-msgstr ""
+msgstr "デプロイ用のリモートリポジトリを入力してください。"
 
 #: src/libs/GitLive/Driver/Init.php:52 src/libs/GitLive/Driver/Init.php:63
 msgid "If you return in the blank, it becomes the default setting."
-msgstr ""
+msgstr "空白のままにすると、デフォルトの設定が使用されます。"
 
 #: src/libs/GitLive/Driver/Init.php:62
 msgid "Please enter work directory path."
-msgstr ""
+msgstr "cloneするワークディレクトリを入力してください。"
 
 #: src/libs/GitLive/Driver/Init.php:99
 msgid "Could not automatically get the local directory."
-msgstr ""
+msgstr "ローカルディレクトリの自動取得に失敗しました。"
 
 #: src/libs/GitLive/Driver/PullRequest.php:129
 msgid "feature branch create fail."
-msgstr ""
+msgstr "featureブランチの作成に失敗しました。"
 
 #: src/libs/GitLive/Driver/Help.php:58
 msgid "Supports safe and efficient repository operation."
-msgstr ""
+msgstr "安全で効率的な、リポジトリ運用をサポートします。"
 
 #: src/libs/GitLive/Driver/Help.php:110
 msgid "Create a new feature branch.(From upstream/develop)"
 msgstr ""
+"新たな開発用ブランチを'upstream'(共通リモートサーバー)の'develop'ブランチを"
+"ベースとして作成し、開発用ブランチにスイッチします。"
 
 #: src/libs/GitLive/Driver/Help.php:112
 msgid "Checkout other feature branch."
-msgstr ""
+msgstr "作成済の別featureに移動します。"
 
 #: src/libs/GitLive/Driver/Help.php:114
 msgid "Alias of \"git live feature checkout\"."
-msgstr ""
+msgstr "git live feature checkoutへのエイリアスです。"
 
 #: src/libs/GitLive/Driver/Help.php:116
 msgid "Show feature list."
-msgstr ""
+msgstr "featureの一覧を取得します。"
 
 #: src/libs/GitLive/Driver/Help.php:118
 msgid "Safe push to upstream repository."
 msgstr ""
+"複数人と同じ開発ブランチで作業するとき、自分の変更分を'upstream'(共通リモート"
+"サーバー)にプッシュします。"
 
 #: src/libs/GitLive/Driver/Help.php:120
 msgid "Safe checkout feature branch from upstream repository."
 msgstr ""
+"'upstream'(共通リモートサーバー)から、誰かが作成した開発用ブランチを取得しま"
+"す。"
 
 #: src/libs/GitLive/Driver/Help.php:122
 msgid "Safe push to origin repository."
 msgstr ""
+"'origin'(個人用リモートサーバー)に開発ブランチをpushします。(git live pushと"
+"動作は似ています)"
 
 #: src/libs/GitLive/Driver/Help.php:124
 msgid "Safe pull to origin repository."
 msgstr ""
+"'origin'(個人用リモートサーバー)から開発ブランチをpullします。(git live pull"
+"と動作は似ています)"
 
 #: src/libs/GitLive/Driver/Help.php:126
 msgid "Remove feature branch, from all repository."
 msgstr ""
+"すべての場所から、開発ブランチを削除します。プルリクエストがマージされたあと"
+"に実行してください。"
 
 #: src/libs/GitLive/Driver/Help.php:129
 msgid "'Checkout pull request locally."
 msgstr ""
+"'upstream'(共通リモートサーバー)からプルリクエストされているコードを取得しま"
+"す。"
 
 #: src/libs/GitLive/Driver/Help.php:131
 msgid "Pull pull request locally."
-msgstr ""
+msgstr "pr trackしたプルリクエストの内容を最新化"
 
 #: src/libs/GitLive/Driver/Help.php:133
 msgid "Merge pull request locally."
-msgstr ""
+msgstr "プルリクエストの内容をマージする。"
 
 #: src/libs/GitLive/Driver/Help.php:135
 msgid "Feature start from pull request."
-msgstr ""
+msgstr "プルリクエストから新たなfeatureを作成します。"
 
 #: src/libs/GitLive/Driver/Help.php:137
 msgid "Feature start and merge pull request.。"
-msgstr ""
+msgstr "プルリクエストをマージした新しいfeatureを作成する。"
 
 #: src/libs/GitLive/Driver/Help.php:141
 msgid ""
 "Hotfixes arise from the necessity to act immediately upon an undesired state "
 "of a live production version."
-msgstr ""
+msgstr "緊急対応のためのフローを開始します。"
 
 #: src/libs/GitLive/Driver/Help.php:142
 msgid ""
 "May be branched off from the corresponding tag on the master branch that "
 "marks the production version."
-msgstr ""
+msgstr "マスターから緊急対応用のブランチを作成します。"
 
 #: src/libs/GitLive/Driver/Help.php:144
 msgid ""
 "Finishing a hotfix it gets merged back into develop and master. Additionally "
 "the master merge is tagged with the hotfix version."
-msgstr ""
+msgstr "masterとdevelopにマージしてタグを作成し、緊急対応を修正します。"
 
 #: src/libs/GitLive/Driver/Help.php:146
 msgid "Run git live hotfix pull and git live hotfix push in succession."
-msgstr ""
+msgstr "git live hotfix pullとgit live hotfix pushを連続で実行します。"
 
 #: src/libs/GitLive/Driver/Help.php:148
 msgid "Check the status of hotfix."
-msgstr ""
+msgstr "hotfixの状態を確認します。"
 
 #: src/libs/GitLive/Driver/Help.php:150
 msgid "Checkout remote hotfix branch."
-msgstr ""
+msgstr "誰かが開けたhotfixを取得します。"
 
 #: src/libs/GitLive/Driver/Help.php:152
 msgid "Pull upstream/hotfix and deploy/hotfix."
 msgstr ""
+"'deploy'(デプロイ用リモートサーバー)と'upstream'(共通リモートサーバー)から"
+"pullします。"
 
 #: src/libs/GitLive/Driver/Help.php:154
 msgid "Push upstream/hotfix and deploy/hotfix."
 msgstr ""
+"'deploy'(デプロイ用リモートサーバー)と'upstream'(共通リモートサーバー)から"
+"pullします。"
+
 
 #: src/libs/GitLive/Driver/Help.php:157
 msgid "Support preparation of a new production release/."
-msgstr ""
+msgstr "通常リリースのためのフローを開始します。"
 
 #: src/libs/GitLive/Driver/Help.php:157
 msgid "Allow for minor bug fixes and preparing meta-data for a release"
-msgstr ""
+msgstr "簡単なバグフィクスも、release open後に行うことができます。"
 
 #: src/libs/GitLive/Driver/Help.php:159
 msgid ""
 "Finish up a release.Merges the release branch back into 'master'.Tags the "
 "release with its name.Back-merges the release into 'develop'.Removes the "
 "release branch."
-msgstr ""
+msgstr "'master'と'develop'にコードをマージ、タグを作成し、releaseを終了します。"
 
 #: src/libs/GitLive/Driver/Help.php:161
 msgid "Finish up a release.Ignore errors."
-msgstr ""
+msgstr "developとの差分を確認せずマージします。"
 
 #: src/libs/GitLive/Driver/Help.php:164
 msgid "Run git live release pull and git live release push in succession."
-msgstr ""
+msgstr "git live release pullとgit live release pushを連続で実行します。"
 
 #: src/libs/GitLive/Driver/Help.php:166
 msgid "Check the status of release."
-msgstr ""
+msgstr "releaseの状態を確認します。"
 
 #: src/libs/GitLive/Driver/Help.php:168
 msgid "Pull upstream/release and deploy/release."
-msgstr ""
+msgstr "リリース用のリモートリポジトリ(upstream/release と deploy/release)からpullします。"
 
 #: src/libs/GitLive/Driver/Help.php:170
 msgid "Push upstream/release and deploy/release."
-msgstr ""
+msgstr "リリース用のリモートリポジトリ(upstream/release と deploy/release)にpushします。"
 
 #: src/libs/GitLive/Driver/Help.php:173
 msgid "Pull from the appropriate remote repository."
-msgstr ""
+msgstr "適当なリモートリポジトリからpullします。"
 
 #: src/libs/GitLive/Driver/Help.php:175
 msgid "Push from the appropriate remote repository."
-msgstr ""
+msgstr "適当なリモートリポジトリにpushします。"
 
 #: src/libs/GitLive/Driver/Help.php:177
 msgid "Update git-live."
-msgstr ""
+msgstr "git-liveコマンドを更新します。"
 
 #: src/libs/GitLive/Driver/Help.php:179
 msgid "Merge upstream/develop and develop."
-msgstr ""
+msgstr "developをマージします。"
 
 #: src/libs/GitLive/Driver/Help.php:181
 msgid "Merge upstream/master and master."
-msgstr ""
+msgstr "masterをマージします。"
 
 #: src/libs/GitLive/Driver/Help.php:184
 msgid "show diff upstream/develop."
-msgstr ""
+msgstr "developとのdiffを表示します。"
 
 #: src/libs/GitLive/Driver/Help.php:186
 msgid "show diff upstream/master."
-msgstr ""
+msgstr "masterとのdiffを表示します。"
 
 #: src/libs/GitLive/Driver/Help.php:189
 msgid "Start Git Live Flow."
-msgstr ""
+msgstr "初期化します。"
 
 #: src/libs/GitLive/Driver/Help.php:191
 msgid "Restart Git Live Flow."
-msgstr ""
+msgstr "リポジトリを再構築します。"
 
 #: src/libs/GitLive/Driver/Help.php:194
 msgid "Initialize Git Live Flow."
-msgstr ""
+msgstr "git live で管理するリポジトリを対話形式、あるいはオプションを指定して作成します。"
 
 #: src/libs/GitLive/Driver/Help.php:197
 msgid "Initialize git live."
-msgstr ""
+msgstr "git live で管理するリポジトリを作成します。"
 
 #: src/libs/GitLive/Driver/Help.php:199
 msgid "Forked remote repository."
-msgstr ""
+msgstr "個人開発用のリモートリポジトリ(origin)。"
 
 #: src/libs/GitLive/Driver/Help.php:201
 msgid "Original remote repository."
-msgstr ""
+msgstr "originのfork元、共有のリモートリポジトリ(upstream)。"
 
 #: src/libs/GitLive/Driver/Help.php:203
 msgid "Remote repository for deployment."
-msgstr ""
+msgstr "デプロイ用リポジトリ。"
 
 #: src/libs/GitLive/Driver/Help.php:205
 msgid "Path to clone."
-msgstr ""
+msgstr "cloneするローカルのディレクトリ。"
