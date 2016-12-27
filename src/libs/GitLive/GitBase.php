@@ -121,7 +121,7 @@ class GitBase
      *
      * @access      public
      * @param  string   $cmd
-     * @param  var_text $quiet OPTIONAL:false
+     * @param  bool $quiet OPTIONAL:false
      * @return string
      * @codeCoverageIgnore
      */

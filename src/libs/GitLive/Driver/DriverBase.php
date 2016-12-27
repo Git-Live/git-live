@@ -244,13 +244,14 @@ class DriverBase extends \GitLive\GitBase
      * 単体テストを楽にするために、処理を上書きして委譲する
      *
      * @access      public
-     * @param  string $cmd
+     * @param  string   $cmd
+     * @param  bool $quiet OPTIONAL:false
      * @return string
      * @codeCoverageIgnore
      */
-    public function exec($cmd)
+    public function exec($cmd, $quiet = false)
     {
-        return $this->GitLive->exec($cmd);
+        return $this->GitLive->exec($cmd, $quiet);
     }
     /* ----------------------------------------- */
 
