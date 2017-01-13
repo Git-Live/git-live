@@ -183,7 +183,7 @@ class Driver_ReleaseTest extends testCaseBase
             $instance->execute();
         } catch (exception $e) {
         }
-        $this->assertSame('既にrelease openされています。'.'remotes/deploy/release/20160629050505', $e->getMessage());
+        $this->assertSame('既にrelease openされています。'."\n".'remotes/deploy/release/20160629050505', $e->getMessage());
         $this->assertInstanceOf('exception', $e);
     }
     /* ----------------------------------------- */
@@ -604,7 +604,7 @@ class Driver_ReleaseTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame("release closeに失敗しました。\nMasterブランチにReleaseより新しいコミットが存在します。。", $e->getMessage());
+        $this->assertSame("release closeに失敗しました。\nMasterブランチにReleaseより新しいコミットが存在します。", $e->getMessage());
     }
     /* ----------------------------------------- */
 
