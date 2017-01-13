@@ -88,7 +88,7 @@ class GitLive extends GitBase
             return $latest_version;
         }
 
-        $latest_version_fetch_time = $this->Driver('Config')->getParameter('latestversion.fetchtime');
+        $latest_version_fetch_time = (int)$this->Driver('Config')->getParameter('latestversion.fetchtime');
 
 
         if (!empty($latest_version_fetch_time) && (time() - $latest_version_fetch_time) < $this->update_ck_span) {
