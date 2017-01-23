@@ -31,16 +31,25 @@ class Config extends DriverBase
 {
     public function getParameter($key)
     {
+        if (!$this->isGitRepository()) {
+            return null;
+        }
         return $this->GitCmdExecuter->config(array('--get', 'gitlive.'.$key));
     }
 
     public function setGlobalParameter($key, $value)
     {
+        if (!$this->isGitRepository()) {
+            return null;
+        }
         return $this->GitCmdExecuter->config(array('--global', 'gitlive.'.$key, '"'.$value.'"'));
     }
 
     public function setLocalParameter($key, $value)
     {
+        if (!$this->isGitRepository()) {
+            return null;
+        }
         return $this->GitCmdExecuter->config(array('--local', 'gitlive.'.$key, '"'.$value.'"'));
     }
 }
