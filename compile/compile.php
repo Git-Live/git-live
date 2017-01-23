@@ -35,6 +35,9 @@ try {
         $CreateMO = new \GitLive\Compile\Compiler\CreateMO;
         $CreateMO->execute();
 
+        $CreateGT = new \GitLive\Compile\Compiler\CreateGT;
+        $CreateGT->execute();
+
         $CreatePhar = new \GitLive\Compile\Compiler\CreatePhar;
         $CreatePhar->execute();
     }

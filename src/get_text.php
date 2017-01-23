@@ -6,3 +6,4 @@ if (!function_exists('\_')) {
         return $text;
     }
 }
+

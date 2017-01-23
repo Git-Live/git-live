@@ -66,7 +66,7 @@ class GitLive extends GitBase
     public function __destruct()
     {
         if (!$this->isQuiet() && $this->ckNewVersion()) {
-            $this->ncecho("\n"._('Alert: An update to the Git Live is available. Run "git live update" to get the latest version.')."\n");
+            $this->ncecho("\n".__('Alert: An update to the Git Live is available. Run "git live update" to get the latest version.')."\n");
             // $this->ncecho(GitLive::VERSION.'->'.$this->getLatestVersion()."\n");
         }
     }
@@ -88,7 +88,7 @@ class GitLive extends GitBase
             return $latest_version;
         }
 
-        $latest_version_fetch_time = $this->Driver('Config')->getParameter('latestversion.fetchtime');
+        $latest_version_fetch_time = (int)$this->Driver('Config')->getParameter('latestversion.fetchtime');
 
 
         if (!empty($latest_version_fetch_time) && (time() - $latest_version_fetch_time) < $this->update_ck_span) {
@@ -288,7 +288,7 @@ class GitLive extends GitBase
         $res    = array_search($this->deploy_repository_name, $remote) !== false;
         if ($res === false) {
             throw new exception(
-            sprintf(_('git live release を使用するには、%s リポジトリを設定して下さい。'), $this->deploy_repository_name)
+            sprintf(__('Add a remote repository %s.'), $this->deploy_repository_name)
             );
         }
     }
@@ -314,7 +314,7 @@ class GitLive extends GitBase
         }
 
         if (!$repo) {
-            throw new exception('release openされていません。');
+            throw new exception('Release is not open.');
         }
 
         return trim($repo);
@@ -342,7 +342,7 @@ class GitLive extends GitBase
         }
 
         if (!$repo) {
-            throw new exception('hotfix openされていません。');
+            throw new exception('Hotfix is not open.');
         }
 
         return $repo;
@@ -360,7 +360,7 @@ class GitLive extends GitBase
     {
         $self_blanch = $this->exec('git symbolic-ref HEAD 2>/dev/null');
         if (!$self_blanch) {
-            throw new exception(_('git repositoryではありません。'));
+            throw new exception(__('Not a git repository.'));
         }
 
         return trim($self_blanch);
@@ -379,7 +379,7 @@ class GitLive extends GitBase
     {
         $self_blanch = $this->exec('git rev-parse --abbrev-ref HEAD 2>/dev/null');
         if (!$self_blanch) {
-            throw new exception(_('git repositoryではありません。'));
+            throw new exception(__('Not a git repository.'));
         }
 
         return trim($self_blanch);
@@ -487,18 +487,23 @@ class GitLive extends GitBase
 
         if ($this->getSelfBranchRef() !== 'refs/heads/master') {
             $this->GitCmdExecuter->checkout($repo);
-            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('masterが'.ucwords($mode).'ブランチより進んでいます。'));
+            $error_msg = sprintf(__('%1$s close is failed.'), $mode)."\n".
+                sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Master', ucwords($mode));
+            throw new exception($error_msg);
         }
 
         if (!$this->patchApplyCheck('deploy/'.$repo)) {
-            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('masterが'.ucwords($mode).'ブランチより進んでいます。'));
+            $error_msg = sprintf(__('%1$s close is failed.'), $mode)."\n".
+                sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Master', ucwords($mode));
+            throw new exception($error_msg);
         }
 
         $this->GitCmdExecuter->merge('deploy/'.$repo);
         $diff = $this->GitCmdExecuter->diff(array('deploy/'.$repo, 'master'));
 
         if (strlen($diff) !== 0) {
-            throw new exception($diff."\n".$mode.' '._('closeに失敗しました。'));
+            $error_msg = $diff."\n".sprintf(__('%1$s close is failed.'), $mode);
+            throw new exception($error_msg);
         }
 
         $this->GitCmdExecuter->push('upstream', 'master');
@@ -511,7 +516,9 @@ class GitLive extends GitBase
 
         if ($this->getSelfBranchRef() !== 'refs/heads/develop') {
             $this->GitCmdExecuter->checkout($repo);
-            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('developが'.ucwords($mode).'ブランチより進んでいます。'));
+            $error_msg = sprintf(__('%1$s close is failed.'), $mode)."\n".
+                sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Develop', ucwords($mode));
+            throw new exception($error_msg);
         }
 
         $this->GitCmdExecuter->merge('deploy/'.$repo);
@@ -521,7 +528,9 @@ class GitLive extends GitBase
         }
 
         if (strlen($diff) !== 0) {
-            throw new exception($mode.' '._('closeに失敗しました。')."\n"._('developが'.ucwords($mode).'ブランチより進んでいます。'));
+            $error_msg = sprintf(__('%1$s close is failed.'), $mode)."\n".
+                sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Develop', ucwords($mode));
+            throw new exception($error_msg);
         }
 
         $this->GitCmdExecuter->push('upstream', 'develop');

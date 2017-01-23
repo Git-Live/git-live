@@ -45,11 +45,11 @@ class Init extends DriverBase
         $argv = $this->getArgv();
 
         if (!isset($argv[3])) {
-            $clone_repository    = $this->interactiveShell(_('Please enter only your remote-repository.'));
-            $upstream_repository = $this->interactiveShell(_('Please enter common remote-repository.'));
+            $clone_repository    = $this->interactiveShell(__('Please enter only your remote-repository.'));
+            $upstream_repository = $this->interactiveShell(__('Please enter common remote-repository.'));
             $deploy_repository   = $this->interactiveShell(array(
-                _('Please enter deploying dedicated remote-repository.'),
-                _('If you return in the blank, it becomes the default setting.'),
+                __('Please enter deploying dedicated remote-repository.'),
+                __('If you return in the blank, it becomes the default setting.'),
                 "default:{$upstream_repository}",
                 ), $upstream_repository);
             $is_auto_clone_dir = mb_ereg('/([^/]+?)(\.git)?$', $clone_repository, $match);
@@ -59,8 +59,8 @@ class Init extends DriverBase
             }
 
             $clone_dir = $this->interactiveShell(array(
-                _('Please enter work directory path.'),
-                _('If you return in the blank, it becomes the default setting.'),
+                __('Please enter work directory path.'),
+                __('If you return in the blank, it becomes the default setting.'),
                 "default:{$auto_clone_dir}",
                 ), $auto_clone_dir);
         } else {
@@ -96,7 +96,7 @@ class Init extends DriverBase
 
         if (empty($clone_dir)) {
             if (!$is_auto_clone_dir) {
-                throw new exception(_('Could not automatically get the local directory.'));
+                throw new exception(__('Could not automatically get the local directory.'));
             }
             $clone_dir = $auto_clone_dir;
         }
