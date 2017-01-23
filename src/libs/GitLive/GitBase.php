@@ -30,7 +30,7 @@ namespace GitLive;
 class GitBase
 {
     protected $deploy_repository_name = 'deploy';
-    const VERSION                     = '0.1.19';
+    const VERSION                     = '0.1.20';
 
     /**
      * +-- 引数配列を返す
@@ -135,6 +135,19 @@ class GitBase
             $this->ncecho($res);
         }
         return $res;
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +-- gitRepository上かどうか
+     *
+     * @access      public
+     * @return      bool
+     */
+    public function isGitRepository()
+    {
+        $res = trim($this->exec('git rev-parse --git-dir 2> /dev/null', true));
+        return !empty($res);
     }
     /* ----------------------------------------- */
 
