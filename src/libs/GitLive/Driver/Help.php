@@ -82,7 +82,7 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}git live hotfix pull\n");
         $this->ncecho("{$indent}{$indent}git live hotfix push\n");
 
-        $this->ncecho("{$indent}{$indent}git live release open <release name>\n");
+        $this->ncecho("{$indent}{$indent}git live release open <release tag name>\n");
         $this->ncecho("{$indent}{$indent}git live release close\n");
         $this->ncecho("{$indent}{$indent}git live release close-force\n");
         $this->ncecho("{$indent}{$indent}git live release sync\n");
