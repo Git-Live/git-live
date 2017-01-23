@@ -52,7 +52,12 @@ class Release extends DeployBase
         switch ($argv[2]) {
         case 'open':
             $this->enableRelease();
-            $this->releaseOpen();
+            if (!isset($argv[3])) {
+                $this->releaseOpen();
+            } else {
+                $this->releaseOpenWithReleaseTag($argv[3]);
+            }
+
         break;
         case 'close':
             $this->enableRelease();
@@ -128,6 +133,42 @@ class Release extends DeployBase
         $this->GitCmdExecuter->push($this->deploy_repository_name, $release_rep);
     }
     /* ----------------------------------------- */
+
+
+    /**
+     * +-- リリースタグを指定してリリース開く
+     *
+     * @access      public
+     * @param       string $tag_name
+     * @return      void
+     */
+    public function releaseOpenWithReleaseTag($tag_name)
+    {
+        if ($this->isReleaseOpen()) {
+            throw new exception(sprintf(__('Already %1$s opened.'), 'release'));
+        } elseif ($this->isHotfixOpen()) {
+            throw new exception(sprintf(__('Already %1$s opened.'), 'hotfix'));
+        }
+
+        $repository = $this->GitCmdExecuter->branch(array('-a'));
+        $repository = explode("\n", trim($repository));
+
+        foreach ($repository as $value) {
+            if (strpos($value, 'remotes/'.$this->deploy_repository_name.'/release/') !== false) {
+               throw new exception(sprintf(__('Already %1$s opened.'), 'release')."\n".$value);
+            }
+        }
+
+        $release_rep = 'release/'.date('Ymdhis');
+
+        $this->GitCmdExecuter->checkout('upstream/develop');
+        $this->GitCmdExecuter->checkout('', array('-b', $release_rep, 'refs/tags/'.$tag_name));
+
+        $this->GitCmdExecuter->push('upstream', $release_rep);
+        $this->GitCmdExecuter->push($this->deploy_repository_name, $release_rep);
+    }
+    /* ----------------------------------------- */
+
 
     /**
      * +-- 誰かが開けたリリースをトラックする
