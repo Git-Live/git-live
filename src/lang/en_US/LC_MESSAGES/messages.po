@@ -141,7 +141,7 @@ msgid "Safe push to origin repository."
 msgstr ""
 
 #: src/libs/GitLive/Driver/Help.php:124
-msgid "Safe pull to origin repository."
+msgid "Safe pull to upstream repository."
 msgstr ""
 
 #: src/libs/GitLive/Driver/Help.php:126

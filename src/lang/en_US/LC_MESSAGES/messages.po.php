@@ -25,7 +25,7 @@ return array (
   'Safe push to upstream repository.' => 'Safe push to upstream repository.',
   'Safe checkout feature branch from upstream repository.' => 'Safe checkout feature branch from upstream repository.',
   'Safe push to origin repository.' => 'Safe push to origin repository.',
-  'Safe pull to origin repository.' => 'Safe pull to origin repository.',
+  'Safe pull to upstream repository.' => 'Safe pull to upstream repository.',
   'Remove feature branch, from all repository.' => 'Remove feature branch, from all repository.',
   '\'Checkout pull request locally.' => '\'Checkout pull request locally.',
   'Pull pull request locally.' => 'Pull pull request locally.',
