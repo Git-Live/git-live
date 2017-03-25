@@ -145,14 +145,14 @@ msgstr ""
 #: src/libs/GitLive/Driver/Help.php:122
 msgid "Safe push to origin repository."
 msgstr ""
-"'origin'(個人用リモートサーバー)に開発ブランチをpushします。(git live pushと"
+"'origin'(個人用リモートサーバー)にFeatureブランチをpushします。(git live pushと"
 "動作は似ています)"
 
 #: src/libs/GitLive/Driver/Help.php:124
-msgid "Safe pull to origin repository."
+msgid "Safe pull to upstream repository."
 msgstr ""
-"'origin'(個人用リモートサーバー)から開発ブランチをpullします。(git live pull"
-"と動作は似ています)"
+"'upstream'(共有リモートサーバー)からFeatureブランチをpullします。(git live feature track"
+"と動作は似ていますが、trackは新規にブランチを作成するところが異なります)"
 
 #: src/libs/GitLive/Driver/Help.php:126
 msgid "Remove feature branch, from all repository."

@@ -121,7 +121,7 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}feature push\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__("Safe push to origin repository.")."\n");
         $this->ncecho("{$indent}{$indent}feature pull\n");
-        $this->ncecho("{$indent}{$indent}{$indent}".__("Safe pull to origin repository.")."\n");
+        $this->ncecho("{$indent}{$indent}{$indent}".__("Safe pull to upstream repository.")."\n");
         $this->ncecho("{$indent}{$indent}feature close\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__("Remove feature branch, from all repository.")."\n");
 
