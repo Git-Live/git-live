@@ -117,7 +117,7 @@ class DeployBase extends DriverBase
      * @access      public
      * @param  var_text $repo
      * @param  var_text $mode
-     * @param  var_text $force OPTIONAL:false
+     * @param  bool $force OPTIONAL:false
      * @return void
      * @codeCoverageIgnore
      */
@@ -126,6 +126,24 @@ class DeployBase extends DriverBase
         return $this->GitLive->deployEnd($repo, $mode, $force);
     }
     /* ----------------------------------------- */
+
+    /**
+     * +-- hotfixCloseとreleaseClose共通処理
+     *
+     * @access      public
+     * @param  var_text $repo
+     * @param  var_text $mode
+     * @param  bool $remove_local OPTIONAL:false
+     * @return void
+     * @codeCoverageIgnore
+     */
+    public function deployDestroy($repo, $mode, $remove_local = false)
+    {
+        return $this->GitLive->deployDestroy($repo, $mode, $force);
+    }
+    /* ----------------------------------------- */
+
+
 
     /**
      * +-- DeployブランチにSyncする
