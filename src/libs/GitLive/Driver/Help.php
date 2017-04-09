@@ -101,6 +101,7 @@ class Help extends DriverBase
 
         $this->ncecho("{$indent}{$indent}git live pull\n");
         $this->ncecho("{$indent}{$indent}git live push\n");
+        $this->ncecho("{$indent}{$indent}git live clean\n");
         $this->ncecho("{$indent}{$indent}git live update\n");
 
         $this->ncecho("{$indent}{$indent}git live merge develop\n");
@@ -204,6 +205,8 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}{$indent}".__('Pull from the appropriate remote repository.')."\n");
         $this->ncecho("{$indent}{$indent}push\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__('Push from the appropriate remote repository.')."\n");
+        $this->ncecho("{$indent}{$indent}clean\n");
+        $this->ncecho("{$indent}{$indent}{$indent}".__('Will reset the branch before the last commit.')."\n");
         $this->ncecho("{$indent}{$indent}update\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__('Update git-live.')."\n");
         $this->ncecho("{$indent}{$indent}merge develop\n");

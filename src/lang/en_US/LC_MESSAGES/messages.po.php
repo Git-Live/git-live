@@ -58,6 +58,7 @@ return array (
   'Discard release. Also discard work in the local repository.' => 'Discard release. Also discard work in the local repository.',
   'Pull from the appropriate remote repository.' => 'Pull from the appropriate remote repository.',
   'Push from the appropriate remote repository.' => 'Push from the appropriate remote repository.',
+  'Will reset the branch before the last commit.' => 'Will reset the branch before the last commit.',
   'Update git-live.' => 'Update git-live.',
   'Merge upstream/develop and develop.' => 'Merge upstream/develop and develop.',
   'Merge upstream/master and master.' => 'Merge upstream/master and master.',

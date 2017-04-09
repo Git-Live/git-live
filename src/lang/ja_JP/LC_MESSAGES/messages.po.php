@@ -58,6 +58,7 @@ return array (
   'Discard release. Also discard work in the local repository.' => 'リリースの破棄。すべてを破棄し、ローカルでの作業も破棄する。',
   'Pull from the appropriate remote repository.' => '適当なリモートリポジトリからpullします。',
   'Push from the appropriate remote repository.' => '適当なリモートリポジトリにpushします。',
+  'Will reset the branch before the last commit.' => 'ブランチを最後のコミットの状態にします。',
   'Update git-live.' => 'git-liveコマンドを更新します。',
   'Merge upstream/develop and develop.' => 'developをマージします。',
   'Merge upstream/master and master.' => 'masterをマージします。',
