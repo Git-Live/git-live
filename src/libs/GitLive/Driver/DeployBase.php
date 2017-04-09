@@ -139,7 +139,7 @@ class DeployBase extends DriverBase
      */
     public function deployDestroy($repo, $mode, $remove_local = false)
     {
-        return $this->GitLive->deployDestroy($repo, $mode, $force);
+        return $this->GitLive->deployDestroy($repo, $mode, $remove_local);
     }
     /* ----------------------------------------- */
 

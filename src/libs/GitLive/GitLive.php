@@ -32,7 +32,7 @@ class GitLive extends GitBase
     protected $GitCmdExecuter;
     protected $Driver;
 
-    const VERSION_API                 = 'https://api.github.com/repos/Git-Live/git-live/releases/latest';
+    const VERSION_API   = 'https://api.github.com/repos/Git-Live/git-live/releases/latest';
 
     /**
      * 更新チェックの間隔
