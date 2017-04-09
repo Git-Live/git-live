@@ -78,18 +78,26 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}git live hotfix close\n");
         $this->ncecho("{$indent}{$indent}git live hotfix sync\n");
         $this->ncecho("{$indent}{$indent}git live hotfix state\n");
+        $this->ncecho("{$indent}{$indent}git live hotfix state-all\n");
+        $this->ncecho("{$indent}{$indent}git live hotfix is\n");
         $this->ncecho("{$indent}{$indent}git live hotfix track\n");
         $this->ncecho("{$indent}{$indent}git live hotfix pull\n");
         $this->ncecho("{$indent}{$indent}git live hotfix push\n");
+        $this->ncecho("{$indent}{$indent}git live hotfix destroy\n");
+        $this->ncecho("{$indent}{$indent}git live hotfix destroy-clean\n");
 
         $this->ncecho("{$indent}{$indent}git live release open <release tag name>\n");
         $this->ncecho("{$indent}{$indent}git live release close\n");
         $this->ncecho("{$indent}{$indent}git live release close-force\n");
         $this->ncecho("{$indent}{$indent}git live release sync\n");
         $this->ncecho("{$indent}{$indent}git live release state\n");
+        $this->ncecho("{$indent}{$indent}git live release state-all\n");
+        $this->ncecho("{$indent}{$indent}git live release is\n");
         $this->ncecho("{$indent}{$indent}git live release track\n");
         $this->ncecho("{$indent}{$indent}git live release pull\n");
         $this->ncecho("{$indent}{$indent}git live release push\n");
+        $this->ncecho("{$indent}{$indent}git live release destroy\n");
+        $this->ncecho("{$indent}{$indent}git live release destroy-clean\n");
 
         $this->ncecho("{$indent}{$indent}git live pull\n");
         $this->ncecho("{$indent}{$indent}git live push\n");
@@ -146,12 +154,23 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}{$indent}".__('Run git live hotfix pull and git live hotfix push in succession.')."\n");
         $this->ncecho("{$indent}{$indent}hotfix state\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__('Check the status of hotfix.')."\n");
+        $this->ncecho("{$indent}{$indent}hotfix state-all\n");
+        $this->ncecho("{$indent}{$indent}{$indent}".__('Check the status of hotfix.Also display merge commit.')."\n");
+
+        $this->ncecho("{$indent}{$indent}hotfix is\n");
+        $this->ncecho("{$indent}{$indent}{$indent}".__('Whether the hotfix is open, or to see what is closed.')."\n");
+
         $this->ncecho("{$indent}{$indent}hotfix track\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__('Checkout remote hotfix branch.')."\n");
         $this->ncecho("{$indent}{$indent}hotfix pull\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__("Pull upstream/hotfix and deploy/hotfix.")."\n");
         $this->ncecho("{$indent}{$indent}hotfix push\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__("Push upstream/hotfix and deploy/hotfix.")."\n");
+
+        $this->ncecho("{$indent}{$indent}hotfix destroy\n");
+        $this->ncecho("{$indent}{$indent}{$indent}".__("Discard hotfix. However, keep working in the local repository.")."\n");
+        $this->ncecho("{$indent}{$indent}hotfix destroy-clean\n");
+        $this->ncecho("{$indent}{$indent}{$indent}".__("Discard hotfix. Also discard work in the local repository.")."\n");
 
         $this->ncecho("{$indent}{$indent}release open <release name>\n");
         $this->ncecho("{$indent}{$indent}{$indent}{$indent}".__('Support preparation of a new production release/.').__("Allow for minor bug fixes and preparing meta-data for a release")."\n");
@@ -164,10 +183,22 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}{$indent}".__('Run git live release pull and git live release push in succession.')."\n");
         $this->ncecho("{$indent}{$indent}release state\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__('Check the status of release.')."\n");
+        $this->ncecho("{$indent}{$indent}release state-all\n");
+        $this->ncecho("{$indent}{$indent}{$indent}".__('Check the status of hotfix.Also display merge commit.')."\n");
+
+        $this->ncecho("{$indent}{$indent}release is\n");
+        $this->ncecho("{$indent}{$indent}{$indent}".__('Whether the release is open, or to see what is closed.')."\n");
+
         $this->ncecho("{$indent}{$indent}release pull\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__("Pull upstream/release and deploy/release.")."\n");
         $this->ncecho("{$indent}{$indent}release push\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__("Push upstream/release and deploy/release.")."\n");
+
+        $this->ncecho("{$indent}{$indent}release destroy\n");
+        $this->ncecho("{$indent}{$indent}{$indent}".__("Discard release. However, keep working in the local repository.")."\n");
+        $this->ncecho("{$indent}{$indent}release destroy-clean\n");
+        $this->ncecho("{$indent}{$indent}{$indent}".__("Discard release. Also discard work in the local repository.")."\n");
+
 
         $this->ncecho("{$indent}{$indent}pull\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__('Pull from the appropriate remote repository.')."\n");
