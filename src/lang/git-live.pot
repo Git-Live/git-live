@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-20 17:57+0900\n"
+"POT-Creation-Date: 2017-04-09 10:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,51 +31,56 @@ msgstr ""
 msgid "Not a git repository."
 msgstr ""
 
-#: src/libs/GitLive/GitLive.php:490 src/libs/GitLive/GitLive.php:496
-#: src/libs/GitLive/GitLive.php:505 src/libs/GitLive/GitLive.php:519
-#: src/libs/GitLive/GitLive.php:531
+#: src/libs/GitLive/GitLive.php:519 src/libs/GitLive/GitLive.php:525
+#: src/libs/GitLive/GitLive.php:534 src/libs/GitLive/GitLive.php:548
+#: src/libs/GitLive/GitLive.php:560
 #, php-format
 msgid "%1$s close is failed."
 msgstr ""
 
-#: src/libs/GitLive/GitLive.php:491 src/libs/GitLive/GitLive.php:497
-#: src/libs/GitLive/GitLive.php:520 src/libs/GitLive/GitLive.php:532
+#: src/libs/GitLive/GitLive.php:520 src/libs/GitLive/GitLive.php:526
+#: src/libs/GitLive/GitLive.php:549 src/libs/GitLive/GitLive.php:561
 #, php-format
 msgid "%1$s branch has a commit that is not on the %2$s branch"
 msgstr ""
 
-#: src/libs/GitLive/Driver/Release.php:108
-#: src/libs/GitLive/Driver/Release.php:110
-#: src/libs/GitLive/Driver/Release.php:118
-#: src/libs/GitLive/Driver/Hotfix.php:99
-#: src/libs/GitLive/Driver/Hotfix.php:101
-#: src/libs/GitLive/Driver/Hotfix.php:108
+#: src/libs/GitLive/Driver/Release.php:133
+#: src/libs/GitLive/Driver/Release.php:135
+#: src/libs/GitLive/Driver/Release.php:143
+#: src/libs/GitLive/Driver/Release.php:168
+#: src/libs/GitLive/Driver/Release.php:170
+#: src/libs/GitLive/Driver/Release.php:178
+#: src/libs/GitLive/Driver/Hotfix.php:120
+#: src/libs/GitLive/Driver/Hotfix.php:122
+#: src/libs/GitLive/Driver/Hotfix.php:129
 #, php-format
 msgid "Already %1$s opened."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Release.php:141
-#: src/libs/GitLive/Driver/Release.php:161
-#: src/libs/GitLive/Driver/Release.php:199
-#: src/libs/GitLive/Driver/Release.php:216
-#: src/libs/GitLive/Driver/Release.php:236
-#: src/libs/GitLive/Driver/Hotfix.php:131
-#: src/libs/GitLive/Driver/Hotfix.php:151
-#: src/libs/GitLive/Driver/Hotfix.php:189
-#: src/libs/GitLive/Driver/Hotfix.php:207
-#: src/libs/GitLive/Driver/Hotfix.php:225
+#: src/libs/GitLive/Driver/Release.php:202
+#: src/libs/GitLive/Driver/Release.php:222
+#: src/libs/GitLive/Driver/Release.php:267
+#: src/libs/GitLive/Driver/Release.php:284
+#: src/libs/GitLive/Driver/Release.php:304
+#: src/libs/GitLive/Driver/Release.php:323
+#: src/libs/GitLive/Driver/Hotfix.php:152
+#: src/libs/GitLive/Driver/Hotfix.php:172
+#: src/libs/GitLive/Driver/Hotfix.php:215
+#: src/libs/GitLive/Driver/Hotfix.php:233
+#: src/libs/GitLive/Driver/Hotfix.php:254
+#: src/libs/GitLive/Driver/Hotfix.php:272
 #, php-format
 msgid "%1$s is not open."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Release.php:181
-#: src/libs/GitLive/Driver/Hotfix.php:171
+#: src/libs/GitLive/Driver/Release.php:249
+#: src/libs/GitLive/Driver/Hotfix.php:198
 #, php-format
 msgid "%1$s is open."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Release.php:186
-#: src/libs/GitLive/Driver/Hotfix.php:176
+#: src/libs/GitLive/Driver/Release.php:254
+#: src/libs/GitLive/Driver/Hotfix.php:203
 #, php-format
 msgid "%1$s is close."
 msgstr ""
@@ -112,191 +117,223 @@ msgstr ""
 msgid "Supports safe and efficient repository operation."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:110
+#: src/libs/GitLive/Driver/Help.php:118
 msgid "Create a new feature branch.(From upstream/develop)"
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:112
+#: src/libs/GitLive/Driver/Help.php:120
 msgid "Checkout other feature branch."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:114
+#: src/libs/GitLive/Driver/Help.php:122
 msgid "Alias of \"git live feature checkout\"."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:116
+#: src/libs/GitLive/Driver/Help.php:124
 msgid "Show feature list."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:118
+#: src/libs/GitLive/Driver/Help.php:126
 msgid "Safe push to upstream repository."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:120
+#: src/libs/GitLive/Driver/Help.php:128
 msgid "Safe checkout feature branch from upstream repository."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:122
+#: src/libs/GitLive/Driver/Help.php:130
 msgid "Safe push to origin repository."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:124
-msgid "Safe pull to origin repository."
+#: src/libs/GitLive/Driver/Help.php:132
+msgid "Safe pull to upstream repository."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:126
+#: src/libs/GitLive/Driver/Help.php:134
 msgid "Remove feature branch, from all repository."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:129
+#: src/libs/GitLive/Driver/Help.php:137
 msgid "'Checkout pull request locally."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:131
+#: src/libs/GitLive/Driver/Help.php:139
 msgid "Pull pull request locally."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:133
+#: src/libs/GitLive/Driver/Help.php:141
 msgid "Merge pull request locally."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:135
+#: src/libs/GitLive/Driver/Help.php:143
 msgid "Feature start from pull request."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:137
+#: src/libs/GitLive/Driver/Help.php:145
 msgid "Feature start and merge pull request.。"
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:141
+#: src/libs/GitLive/Driver/Help.php:149
 msgid ""
 "Hotfixes arise from the necessity to act immediately upon an undesired state "
 "of a live production version."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:142
+#: src/libs/GitLive/Driver/Help.php:150
 msgid ""
 "May be branched off from the corresponding tag on the master branch that "
 "marks the production version."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:144
+#: src/libs/GitLive/Driver/Help.php:152
 msgid ""
 "Finishing a hotfix it gets merged back into develop and master. Additionally "
 "the master merge is tagged with the hotfix version."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:146
+#: src/libs/GitLive/Driver/Help.php:154
 msgid "Run git live hotfix pull and git live hotfix push in succession."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:148
+#: src/libs/GitLive/Driver/Help.php:156
 msgid "Check the status of hotfix."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:150
+#: src/libs/GitLive/Driver/Help.php:158
+msgid "Check the status of hotfix.Also display merge commit."
+msgstr ""
+
+#: src/libs/GitLive/Driver/Help.php:161
+msgid "Whether the hotfix is open, or to see what is closed."
+msgstr ""
+
+#: src/libs/GitLive/Driver/Help.php:164
 msgid "Checkout remote hotfix branch."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:152
+#: src/libs/GitLive/Driver/Help.php:166
 msgid "Pull upstream/hotfix and deploy/hotfix."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:154
+#: src/libs/GitLive/Driver/Help.php:168
 msgid "Push upstream/hotfix and deploy/hotfix."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:157
+#: src/libs/GitLive/Driver/Help.php:171
+msgid "Discard hotfix. However, keep working in the local repository."
+msgstr ""
+
+#: src/libs/GitLive/Driver/Help.php:173
+msgid "Discard hotfix. Also discard work in the local repository."
+msgstr ""
+
+#: src/libs/GitLive/Driver/Help.php:176
 msgid "Support preparation of a new production release/."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:157
+#: src/libs/GitLive/Driver/Help.php:176
 msgid "Allow for minor bug fixes and preparing meta-data for a release"
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:159
+#: src/libs/GitLive/Driver/Help.php:178
 msgid ""
 "Finish up a release.Merges the release branch back into 'master'.Tags the "
 "release with its name.Back-merges the release into 'develop'.Removes the "
 "release branch."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:161
+#: src/libs/GitLive/Driver/Help.php:180
 msgid "Finish up a release.Ignore errors."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:164
+#: src/libs/GitLive/Driver/Help.php:183
 msgid "Run git live release pull and git live release push in succession."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:166
+#: src/libs/GitLive/Driver/Help.php:185
 msgid "Check the status of release."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:168
+#: src/libs/GitLive/Driver/Help.php:187
+msgid "Check the status of release.Also display merge commit."
+msgstr ""
+
+#: src/libs/GitLive/Driver/Help.php:190
+msgid "Whether the release is open, or to see what is closed."
+msgstr ""
+
+#: src/libs/GitLive/Driver/Help.php:193
 msgid "Pull upstream/release and deploy/release."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:170
+#: src/libs/GitLive/Driver/Help.php:195
 msgid "Push upstream/release and deploy/release."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:173
+#: src/libs/GitLive/Driver/Help.php:198
+msgid "Discard release. However, keep working in the local repository."
+msgstr ""
+
+#: src/libs/GitLive/Driver/Help.php:200
+msgid "Discard release. Also discard work in the local repository."
+msgstr ""
+
+#: src/libs/GitLive/Driver/Help.php:204
 msgid "Pull from the appropriate remote repository."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:175
+#: src/libs/GitLive/Driver/Help.php:206
 msgid "Push from the appropriate remote repository."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:177
+#: src/libs/GitLive/Driver/Help.php:208
 msgid "Update git-live."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:179
+#: src/libs/GitLive/Driver/Help.php:210
 msgid "Merge upstream/develop and develop."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:181
+#: src/libs/GitLive/Driver/Help.php:212
 msgid "Merge upstream/master and master."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:184
+#: src/libs/GitLive/Driver/Help.php:215
 msgid "show diff upstream/develop."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:186
+#: src/libs/GitLive/Driver/Help.php:217
 msgid "show diff upstream/master."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:189
+#: src/libs/GitLive/Driver/Help.php:220
 msgid "Start Git Live Flow."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:191
+#: src/libs/GitLive/Driver/Help.php:222
 msgid "Restart Git Live Flow."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:194
+#: src/libs/GitLive/Driver/Help.php:225
 msgid "Initialize Git Live Flow."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:197
+#: src/libs/GitLive/Driver/Help.php:228
 msgid "Initialize git live."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:199
+#: src/libs/GitLive/Driver/Help.php:230
 msgid "Forked remote repository."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:201
+#: src/libs/GitLive/Driver/Help.php:232
 msgid "Original remote repository."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:203
+#: src/libs/GitLive/Driver/Help.php:234
 msgid "Remote repository for deployment."
 msgstr ""
 
-#: src/libs/GitLive/Driver/Help.php:205
+#: src/libs/GitLive/Driver/Help.php:236
 msgid "Path to clone."
 msgstr ""

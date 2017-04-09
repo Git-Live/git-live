@@ -184,7 +184,7 @@ class Help extends DriverBase
         $this->ncecho("{$indent}{$indent}release state\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__('Check the status of release.')."\n");
         $this->ncecho("{$indent}{$indent}release state-all\n");
-        $this->ncecho("{$indent}{$indent}{$indent}".__('Check the status of hotfix.Also display merge commit.')."\n");
+        $this->ncecho("{$indent}{$indent}{$indent}".__('Check the status of release.Also display merge commit.')."\n");
 
         $this->ncecho("{$indent}{$indent}release is\n");
         $this->ncecho("{$indent}{$indent}{$indent}".__('Whether the release is open, or to see what is closed.')."\n");

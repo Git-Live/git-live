@@ -487,6 +487,9 @@ class GitLive extends GitBase
 
         // ローカルブランチの削除
         if ($remove_local) {
+            $this->GitCmdExecuter->checkout('');
+            $this->GitCmdExecuter->reset('');
+            $this->GitCmdExecuter->clean('');
             $this->GitCmdExecuter->branch(array('-d', $repo));
             $this->GitCmdExecuter->checkout('develop');
         }
