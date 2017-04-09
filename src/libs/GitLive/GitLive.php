@@ -467,6 +467,35 @@ class GitLive extends GitBase
 
     /* ----------------------------------------- */
 
+
+    /**
+     * +-- hotfixDestroyとreleaseDestroy共通処理
+     *
+     * @access      public
+     * @param  var_text $repo
+     * @param  var_text $mode
+     * @param  var_text $remove_local OPTIONAL:false
+     * @return void
+     */
+    public function deployDestroy($repo, $mode, $remove_local = false)
+    {
+        $argv = $this->getArgv();
+
+        // Repositoryの掃除
+        $this->GitCmdExecuter->push('deploy', ':'.$repo);
+        $this->GitCmdExecuter->push('upstream', ':'.$repo);
+
+        // ローカルブランチの削除
+        if ($remove_local) {
+            $this->GitCmdExecuter->branch(array('-d', $repo));
+            $this->GitCmdExecuter->checkout('develop');
+        }
+    }
+
+    /* ----------------------------------------- */
+
+
+
     /**
      * +-- hotfixCloseとreleaseClose共通処理
      *

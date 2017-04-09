@@ -79,6 +79,16 @@ class Release extends DeployBase
             $this->releaseState();
         break;
 
+        case 'state-all':
+            $this->enableRelease();
+            $this->releaseState(false, true);
+        break;
+
+        case 'is':
+            $this->enableRelease();
+            $this->releaseState(true);
+        break;
+
         case 'pull':
             $this->enableRelease();
             $this->releasePull();
@@ -92,6 +102,16 @@ class Release extends DeployBase
         case 'track':
             $this->enableRelease();
             $this->releaseTrack();
+        break;
+
+        case 'destroy':
+            $this->enableRelease();
+            $this->releaseDestroy();
+        break;
+
+        case 'destroy-clean':
+            $this->enableRelease();
+            $this->releaseDestroy(true);
         break;
 
         default:
@@ -208,17 +228,24 @@ class Release extends DeployBase
     }
     /* ----------------------------------------- */
 
+
     /**
      * +-- リリースの状態を確かめる
      *
      * @access      public
-     * @return void
+     * @param       bool $ck_only OPTIONAL:false
+     * @param       bool $with_merge_commit OPTIONAL:false
+     * @return      void
      */
-    public function releaseState()
+    public function releaseState($ck_only = false, $with_merge_commit = false)
     {
         if ($this->isReleaseOpen()) {
-            $repo = $this->getReleaseRepository();
-            $this->ncecho($this->GitCmdExecuter->log('deploy/master', $repo));
+            if (!$ck_only) {
+                $repo = $this->getReleaseRepository();
+                $option = $with_merge_commit ? array() : array('--no-merges');
+                $this->ncecho($this->GitCmdExecuter->log('deploy/master', $repo, $option));
+            }
+
             $this->ncecho(sprintf(__('%1$s is open.'), 'release')."\n");
 
             return;
@@ -262,6 +289,26 @@ class Release extends DeployBase
     }
     /* ----------------------------------------- */
 
+
+    /**
+     * +-- リリースを取り下げる
+     *
+     * @access      public
+     * @return void
+     *
+     * @param bool $remove_local OPTIONAL:false
+     */
+    public function releaseDestroy($remove_local = false)
+    {
+        if (!$this->isReleaseOpen()) {
+            throw new exception(sprintf(__('%1$s is not open.'), 'release'));
+        }
+
+        $repo = $this->getReleaseRepository();
+        $this->deployDestroy($repo, 'release', $remove_local);
+    }
+    /* ----------------------------------------- */
+
     /**
      * +-- リリースを閉じる
      *
@@ -272,7 +319,6 @@ class Release extends DeployBase
      */
     public function releaseClose($force = false)
     {
-        $argv = $this->getArgv();
         if (!$this->isReleaseOpen()) {
             throw new exception(sprintf(__('%1$s is not open.'), 'release'));
         }

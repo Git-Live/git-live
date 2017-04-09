@@ -64,8 +64,19 @@ class Hotfix extends DeployBase
         break;
         case 'state':
             $this->enableRelease();
-            $this->hotfixState();
+            $this->releaseState();
         break;
+
+        case 'state-all':
+            $this->enableRelease();
+            $this->releaseState(false, true);
+        break;
+
+        case 'is':
+            $this->enableRelease();
+            $this->releaseState(true);
+        break;
+
         case 'pull':
             $this->enableRelease();
             $this->hotfixPull();
@@ -78,6 +89,16 @@ class Hotfix extends DeployBase
         case 'track':
             $this->enableRelease();
             $this->hotfixTrack();
+        break;
+
+        case 'destroy':
+            $this->enableRelease();
+            $this->hotfixDestroy();
+        break;
+
+        case 'destroy-clean':
+            $this->enableRelease();
+            $this->hotfixDestroy(true);
         break;
 
         default:
@@ -161,13 +182,19 @@ class Hotfix extends DeployBase
      * +-- hotfixの状態を確かめる
      *
      * @access      public
-     * @return void
+     * @param       bool $ck_only OPTIONAL:false
+     * @param       bool $with_merge_commit OPTIONAL:false
+     * @return      void
      */
-    public function hotfixState()
+    public function hotfixState($ck_only = false, $with_merge_commit = false)
     {
         if ($this->isHotfixOpen()) {
-            $repo = $this->getHotfixRepository();
-            $this->ncecho($this->GitCmdExecuter->log('deploy/master', $repo));
+            if (!$ck_only) {
+                $repo = $this->getReleaseRepository();
+                $option = $with_merge_commit ? array() : array('--no-merges');
+                $this->ncecho($this->GitCmdExecuter->log('deploy/master', $repo, $option));
+            }
+
             $this->ncecho(sprintf(__('%1$s is open.'), 'hotfix')."\n");
 
             return;
@@ -175,7 +202,6 @@ class Hotfix extends DeployBase
 
         $this->ncecho(sprintf(__('%1$s is close.'), 'hotfix')."\n");
     }
-    /* ----------------------------------------- */
 
     /**
      * +-- コードを各環境に反映する
@@ -212,6 +238,27 @@ class Hotfix extends DeployBase
         $this->deployPush($repo);
     }
     /* ----------------------------------------- */
+
+
+    /**
+     * +-- hotfixを取り下げる
+     *
+     * @access      public
+     * @return void
+     *
+     * @param bool $remove_local OPTIONAL:false
+     */
+    public function hotfixDestroy($remove_local = false)
+    {
+        if (!$this->isHotfixOpen()) {
+            throw new exception(sprintf(__('%1$s is not open.'), 'hotfix'));
+        }
+
+        $repo = $this->getHotfixRepository();
+        $this->deployDestroy($repo, 'hotfix', $remove_local);
+    }
+    /* ----------------------------------------- */
+
 
     /**
      * +-- hotfixを閉じる
