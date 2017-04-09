@@ -227,6 +227,9 @@ class GitLive extends GitBase
         case 'hotfix':
             $this->Driver('Hotfix')->hotfix();
         break;
+        case 'clean':
+            $this->clean();
+        break;
         default:
             $this->Driver('Help')->help();
         break;
@@ -467,6 +470,18 @@ class GitLive extends GitBase
 
     /* ----------------------------------------- */
 
+    /**
+     * +-- ブランチの初期化
+     *
+     * @access      public
+     * @return      void
+     */
+    public function clean()
+    {
+        $this->GitCmdExecuter->reset();
+        $this->GitCmdExecuter->clean();
+    }
+    /* ----------------------------------------- */
 
     /**
      * +-- hotfixDestroyとreleaseDestroy共通処理
@@ -487,9 +502,7 @@ class GitLive extends GitBase
 
         // ローカルブランチの削除
         if ($remove_local) {
-            $this->GitCmdExecuter->checkout('');
-            $this->GitCmdExecuter->reset('');
-            $this->GitCmdExecuter->clean('');
+            $this->clean();
             $this->GitCmdExecuter->branch(array('-d', $repo));
             $this->GitCmdExecuter->checkout('develop');
         }

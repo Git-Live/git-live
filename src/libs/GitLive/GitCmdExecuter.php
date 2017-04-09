@@ -94,6 +94,24 @@ class GitCmdExecuter extends GitBase
         return $this->exec($cmd);
     }
 
+    public function clean(array $options = null)
+    {
+        $cmd = 'git clean -df';
+        if ($options) {
+            $cmd = $this->createCmd('clean', $options);
+        }
+        return $this->exec($cmd);
+    }
+
+    public function reset(array $options = null)
+    {
+        $cmd = 'git reset --hard HEAD';
+        if ($options) {
+            $cmd = $this->createCmd('reset', $options);
+        }
+        return $this->exec($cmd);
+    }
+
     public function checkout($branch, array $options = null)
     {
         $cmd = $this->createCmd('checkout', $options);
