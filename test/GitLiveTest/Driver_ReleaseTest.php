@@ -904,16 +904,16 @@ nothing to commit, working directory clean');
             }
         }
 
-        $needle_command_list = array(
+        $needle_command_list = array (
             'git fetch --all',
             'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
             'git fetch deploy',
             'git fetch -p deploy',
-
-            'git log --pretty=fuller --name-status deploy/master..release/20160629050505',
+            'git log --pretty=fuller --name-status --no-merges deploy/master..release/20160629050505',
         );
+
 
         $this->assertSame($needle_command_list, $command_list);
         $this->assertSame($mock_trace[count($mock_trace) - 1]['arguments'][0], "release is open.\n");

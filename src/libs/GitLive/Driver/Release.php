@@ -29,6 +29,7 @@ namespace GitLive\Driver;
  */
 class Release extends DeployBase
 {
+    const DEPLOY_TYPE = 'release';
 
     /**
      * +-- releaseを実行する
@@ -130,9 +131,9 @@ class Release extends DeployBase
     public function releaseOpen()
     {
         if ($this->isReleaseOpen()) {
-            throw new exception(sprintf(__('Already %1$s opened.'), 'release'));
+            throw new exception(sprintf(__('Already %1$s opened.'), Release::DEPLOY_TYPE));
         } elseif ($this->isHotfixOpen()) {
-            throw new exception(sprintf(__('Already %1$s opened.'), 'hotfix'));
+            throw new exception(sprintf(__('Already %1$s opened.'), Hotfix::DEPLOY_TYPE));
         }
 
         $repository = $this->GitCmdExecuter->branch(array('-a'));
@@ -140,7 +141,7 @@ class Release extends DeployBase
 
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/'.$this->deploy_repository_name.'/release/') !== false) {
-               throw new exception(sprintf(__('Already %1$s opened.'), 'release')."\n".$value);
+               throw new exception(sprintf(__('Already %1$s opened.'), self::DEPLOY_TYPE)."\n".$value);
             }
         }
 
@@ -165,7 +166,7 @@ class Release extends DeployBase
     public function releaseOpenWithReleaseTag($tag_name)
     {
         if ($this->isReleaseOpen()) {
-            throw new exception(sprintf(__('Already %1$s opened.'), 'release'));
+            throw new exception(sprintf(__('Already %1$s opened.'), self::DEPLOY_TYPE));
         } elseif ($this->isHotfixOpen()) {
             throw new exception(sprintf(__('Already %1$s opened.'), 'hotfix'));
         }
@@ -175,7 +176,7 @@ class Release extends DeployBase
 
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/'.$this->deploy_repository_name.'/release/') !== false) {
-               throw new exception(sprintf(__('Already %1$s opened.'), 'release')."\n".$value);
+               throw new exception(sprintf(__('Already %1$s opened.'), self::DEPLOY_TYPE)."\n".$value);
             }
         }
 
@@ -199,7 +200,7 @@ class Release extends DeployBase
     public function releaseTrack()
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.'), 'release'));
+            throw new exception(sprintf(__('%1$s is not open.'), self::DEPLOY_TYPE));
         }
 
         $repo = $this->getReleaseRepository();
@@ -219,7 +220,7 @@ class Release extends DeployBase
     public function releasePull()
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.'), 'release'));
+            throw new exception(sprintf(__('%1$s is not open.'), self::DEPLOY_TYPE));
         }
 
         $repo = $this->getReleaseRepository();
@@ -246,12 +247,12 @@ class Release extends DeployBase
                 $this->ncecho($this->GitCmdExecuter->log('deploy/master', $repo, $option));
             }
 
-            $this->ncecho(sprintf(__('%1$s is open.'), 'release')."\n");
+            $this->ncecho(sprintf(__('%1$s is open.'), self::DEPLOY_TYPE)."\n");
 
             return;
         }
 
-        $this->ncecho(sprintf(__('%1$s is close.'), 'release')."\n");
+        $this->ncecho(sprintf(__('%1$s is close.'), self::DEPLOY_TYPE)."\n");
     }
     /* ----------------------------------------- */
 
@@ -264,7 +265,7 @@ class Release extends DeployBase
     public function releaseSync()
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.'), 'release'));
+            throw new exception(sprintf(__('%1$s is not open.'), self::DEPLOY_TYPE));
         }
 
         $repo = $this->getReleaseRepository();
@@ -281,7 +282,7 @@ class Release extends DeployBase
     public function releasePush()
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.'), 'release'));
+            throw new exception(sprintf(__('%1$s is not open.'), self::DEPLOY_TYPE));
         }
 
         $repo = $this->getReleaseRepository();
@@ -301,11 +302,11 @@ class Release extends DeployBase
     public function releaseDestroy($remove_local = false)
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.'), 'release'));
+            throw new exception(sprintf(__('%1$s is not open.'), self::DEPLOY_TYPE));
         }
 
         $repo = $this->getReleaseRepository();
-        $this->deployDestroy($repo, 'release', $remove_local);
+        $this->deployDestroy($repo, self::DEPLOY_TYPE, $remove_local);
     }
     /* ----------------------------------------- */
 
@@ -320,11 +321,11 @@ class Release extends DeployBase
     public function releaseClose($force = false)
     {
         if (!$this->isReleaseOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.'), 'release'));
+            throw new exception(sprintf(__('%1$s is not open.'), self::DEPLOY_TYPE));
         }
 
         $repo = $this->getReleaseRepository();
-        $this->deployEnd($repo, 'release', $force);
+        $this->deployEnd($repo, self::DEPLOY_TYPE, $force);
     }
     /* ----------------------------------------- */
 }

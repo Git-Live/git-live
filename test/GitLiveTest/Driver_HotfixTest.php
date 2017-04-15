@@ -95,7 +95,6 @@ class Driver_HotfixTest extends testCaseBase
             'git push deploy hotfix/'.$rep_name,
         );
 
-        // var_export($command_list);
         $this->assertSame($needle_command_list, $command_list);
 
         $this->assertTrue(true);
@@ -923,6 +922,8 @@ nothing to commit, working directory clean');
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertNull($e);
+
+
         $command_list = array();
         foreach ($mock_trace as $item) {
             if ($item['method_name'] === 'exec') {
@@ -931,15 +932,13 @@ nothing to commit, working directory clean');
         }
 
         $needle_command_list = array(
-
             'git fetch --all',
             'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
             'git fetch deploy',
             'git fetch -p deploy',
-
-            'git log --pretty=fuller --name-status deploy/master..hotfix/20160629050505',
+            'git log --pretty=fuller --name-status --no-merges deploy/master..hotfix/20160629050505',
         );
 
         $this->assertSame($needle_command_list, $command_list);
