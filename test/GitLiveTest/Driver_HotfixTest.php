@@ -123,7 +123,7 @@ class Driver_HotfixTest extends testCaseBase
             $instance->execute();
         } catch (exception $e) {
         }
-        $this->assertSame('既にhotfix openされています。', $e->getMessage());
+        $this->assertSame('Already hotfix opened.', $e->getMessage());
         $this->assertInstanceOf('exception', $e);
 
         // isReleaseOpen のエラー処理
@@ -151,7 +151,7 @@ class Driver_HotfixTest extends testCaseBase
             $instance->execute();
         } catch (exception $e) {
         }
-        $this->assertSame('既にrelease openされています。', $e->getMessage());
+        $this->assertSame('Already release opened.', $e->getMessage());
         $this->assertInstanceOf('exception', $e);
 
         // ローカルのリポジトリ確認
@@ -183,7 +183,7 @@ class Driver_HotfixTest extends testCaseBase
             $instance->execute();
         } catch (exception $e) {
         }
-        $this->assertSame('既にhotfix openされています。'."\n".'remotes/deploy/hotfix/20160629050505', $e->getMessage());
+        $this->assertSame('Already hotfix opened.'."\n".'remotes/deploy/hotfix/20160629050505', $e->getMessage());
         $this->assertInstanceOf('exception', $e);
     }
     /* ----------------------------------------- */
@@ -425,7 +425,7 @@ class Driver_HotfixTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame('hotfix openされていません。', $e->getMessage());
+        $this->assertSame('hotfix is not open.', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -482,7 +482,7 @@ class Driver_HotfixTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame("差分\nhotfix closeに失敗しました。", $e->getMessage());
+        $this->assertSame("差分\nhotfix close is failed.", $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -630,7 +630,7 @@ class Driver_HotfixTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame("hotfix closeに失敗しました。\nMasterブランチにHotfixより新しいコミットが存在します。", $e->getMessage());
+        $this->assertSame("hotfix close is failed.\nMaster branch has a commit that is not on the Hotfix branch", $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -686,7 +686,7 @@ class Driver_HotfixTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame("hotfix closeに失敗しました。\nDevelopブランチにHotfixより新しいコミットが存在します。", $e->getMessage());
+        $this->assertSame("hotfix close is failed.\nDevelop branch has a commit that is not on the Hotfix branch", $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -875,7 +875,7 @@ nothing to commit, working directory clean');
 
         $this->assertInstanceOf('exception', $e);
 
-        $this->assertSame('hotfix openされていません。', $e->getMessage());
+        $this->assertSame('hotfix is not open.', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -1097,7 +1097,7 @@ nothing to commit, working directory clean');
 
         $this->assertInstanceOf('exception', $e);
 
-        $this->assertSame('hotfix openされていません。', $e->getMessage());
+        $this->assertSame('hotfix is not open.', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -1206,7 +1206,7 @@ nothing to commit, working directory clean');
 
         $this->assertInstanceOf('exception', $e);
 
-        $this->assertSame('hotfix openされていません。', $e->getMessage());
+        $this->assertSame('hotfix is not open.', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -1327,7 +1327,7 @@ nothing to commit, working directory clean');
 
         $this->assertInstanceOf('exception', $e);
 
-        $this->assertSame('hotfix openされていません。', $e->getMessage());
+        $this->assertSame('hotfix is not open.', $e->getMessage());
     }
     /* ----------------------------------------- */
 

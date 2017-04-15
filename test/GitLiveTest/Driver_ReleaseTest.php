@@ -123,7 +123,7 @@ class Driver_ReleaseTest extends testCaseBase
             $instance->execute();
         } catch (exception $e) {
         }
-        $this->assertSame('既にrelease openされています。', $e->getMessage());
+        $this->assertSame('Already release opened.', $e->getMessage());
         $this->assertInstanceOf('exception', $e);
 
         // isHotfixOpen のエラー処理
@@ -151,7 +151,7 @@ class Driver_ReleaseTest extends testCaseBase
             $instance->execute();
         } catch (exception $e) {
         }
-        $this->assertSame('既にhotfix openされています。', $e->getMessage());
+        $this->assertSame('Already hotfix opened.', $e->getMessage());
         $this->assertInstanceOf('exception', $e);
 
         // ローカルのリポジトリ確認
@@ -183,7 +183,7 @@ class Driver_ReleaseTest extends testCaseBase
             $instance->execute();
         } catch (exception $e) {
         }
-        $this->assertSame('既にrelease openされています。'."\n".'remotes/deploy/release/20160629050505', $e->getMessage());
+        $this->assertSame('Already release opened.'."\n".'remotes/deploy/release/20160629050505', $e->getMessage());
         $this->assertInstanceOf('exception', $e);
     }
     /* ----------------------------------------- */
@@ -432,7 +432,7 @@ class Driver_ReleaseTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame('release openされていません。', $e->getMessage());
+        $this->assertSame('release is not open.', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -490,7 +490,7 @@ class Driver_ReleaseTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame("差分\nrelease closeに失敗しました。", $e->getMessage());
+        $this->assertSame("差分\nrelease close is failed.", $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -547,7 +547,7 @@ class Driver_ReleaseTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame("release closeに失敗しました。\nDevelopブランチにReleaseより新しいコミットが存在します。", $e->getMessage());
+        $this->assertSame("release close is failed.\nDevelop branch has a commit that is not on the Release branch", $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -604,7 +604,7 @@ class Driver_ReleaseTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame("release closeに失敗しました。\nMasterブランチにReleaseより新しいコミットが存在します。", $e->getMessage());
+        $this->assertSame("release close is failed.\nMaster branch has a commit that is not on the Release branch", $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -661,7 +661,7 @@ class Driver_ReleaseTest extends testCaseBase
         $mock_trace = EnviMockLight::getMockTraceList();
 
         $this->assertInstanceOf('exception', $e);
-        $this->assertSame("release closeに失敗しました。\nDevelopブランチにReleaseより新しいコミットが存在します。", $e->getMessage());
+        $this->assertSame("release close is failed.\nDevelop branch has a commit that is not on the Release branch", $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -850,7 +850,7 @@ nothing to commit, working directory clean');
 
         $this->assertInstanceOf('exception', $e);
 
-        $this->assertSame('release openされていません。', $e->getMessage());
+        $this->assertSame('release is not open.', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -1160,7 +1160,7 @@ nothing to commit, working directory clean');
 
         $this->assertInstanceOf('exception', $e);
 
-        $this->assertSame('release openされていません。', $e->getMessage());
+        $this->assertSame('release is not open.', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -1269,7 +1269,7 @@ nothing to commit, working directory clean');
 
         $this->assertInstanceOf('exception', $e);
 
-        $this->assertSame('release openされていません。', $e->getMessage());
+        $this->assertSame('release is not open.', $e->getMessage());
     }
     /* ----------------------------------------- */
 
@@ -1389,7 +1389,7 @@ nothing to commit, working directory clean');
 
         $this->assertInstanceOf('exception', $e);
 
-        $this->assertSame('release openされていません。', $e->getMessage());
+        $this->assertSame('release is not open.', $e->getMessage());
     }
     /* ----------------------------------------- */
 
