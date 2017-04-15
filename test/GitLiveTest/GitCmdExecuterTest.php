@@ -199,7 +199,7 @@ class GitCmdExecuterTest extends testCaseBase
 
     public function logTest()
     {
-        $option = 'hoge';
+        $option = array('hoge');
         $left   = 'asdfsadfsafa';
         $right  = 'juyioyuiyoyu';
 
