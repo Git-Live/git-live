@@ -11,12 +11,12 @@ php:
 before_script:
   - git clone --recursive https://github.com/EnviMVC/EnviMVC3PHP.git Envi
   - mkdir ./tmp
-
-script:
   - git --version
   - echo $LANG
   - export LANG=ja_JP.UTF-8
   - echo $LANG
+
+script:
   - ./Envi/envi unittest-go ./test.yml > ./tmp/test.log
   - php ./test/status.php ./tmp/test.log
 
