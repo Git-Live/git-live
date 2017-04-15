@@ -9,8 +9,8 @@ foreach (file($argv[1]) as $stdin) {
         continue;
     }
     switch (true) {
-        case strpos($stdin, '[NG]') !== false:
-        case strpos($stdin, '[ERROR]') !== false:
+        case mb_strpos($stdin, '[NG]') !== false:
+        case mb_strpos($stdin, '[ERROR]') !== false:
             fwrite(STDERR, $stdin);
             trigger_error($stdin, E_USER_ERROR);
         break;
