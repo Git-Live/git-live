@@ -14,6 +14,9 @@ before_script:
 
 script:
   - git --version
+  - echo LANG
+  - LANG=ja_JP.UTF-8
+  - echo LANG
   - ./Envi/envi unittest-go ./test.yml > ./tmp/test.log
   - php ./test/status.php ./tmp/test.log
 
