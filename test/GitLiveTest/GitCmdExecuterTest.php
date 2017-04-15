@@ -199,16 +199,16 @@ class GitCmdExecuterTest extends testCaseBase
 
     public function logTest()
     {
-        $option = 'hoge';
+        $option = array('hoge');
         $left   = 'asdfsadfsafa';
         $right  = 'juyioyuiyoyu';
 
         $cmd = 'git log --pretty=fuller --name-status '
-            .$option.' '.$left.'..'.$right;
+            .join(' ', $option).' '.$left.'..'.$right;
 
         $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
         $instance->shouldReceive('createCmd')
-        ->with('log', array('--pretty=fuller', '--name-status', $option, $left.'..'.$right))
+        ->with('log', array('--pretty=fuller', '--name-status', join(' ', $option), $left.'..'.$right))
         ->once()
         ->andNoBypass();
 

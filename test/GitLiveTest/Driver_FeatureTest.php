@@ -118,8 +118,9 @@ class Driver_FeatureTest extends testCaseBase
         $instance->execute();
         $mock_trace   = EnviMockLight::getMockTraceList();
         $command_list = array();
+
         foreach ($mock_trace as $item) {
-            if ($item['method_name'] === 'exec') {
+            if ($item['method_name'] === 'exec' && strpos($item['arguments'][0], 'git config') === false) {
                 $command_list[] = $item['arguments'][0];
             }
         }
@@ -131,6 +132,7 @@ class Driver_FeatureTest extends testCaseBase
             'git fetch -p upstream',
             'git push upstream feature/unit_testing',
         );
+
         $this->assertSame($needle_command_list, $command_list);
 
         $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);

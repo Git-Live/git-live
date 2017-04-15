@@ -29,6 +29,7 @@ namespace GitLive\Driver;
  */
 class Hotfix extends DeployBase
 {
+    const DEPLOY_TYPE = 'hotfix';
 
     /**
      * +-- hotfixを実行する
@@ -52,7 +53,11 @@ class Hotfix extends DeployBase
         switch ($argv[2]) {
         case 'open':
             $this->enableRelease();
-            $this->hotfixOpen();
+            if (!isset($argv[3])) {
+                $this->hotfixOpen();
+            } else {
+                $this->hotfixOpenWithReleaseTag($argv[3]);
+            }
         break;
         case 'close':
             $this->enableRelease();
@@ -64,23 +69,24 @@ class Hotfix extends DeployBase
         break;
         case 'state':
             $this->enableRelease();
-            $this->releaseState();
+            $this->hotfixState();
         break;
 
         case 'state-all':
             $this->enableRelease();
-            $this->releaseState(false, true);
+            $this->hotfixState(false, true);
         break;
 
         case 'is':
             $this->enableRelease();
-            $this->releaseState(true);
+            $this->hotfixState(true);
         break;
 
         case 'pull':
             $this->enableRelease();
             $this->hotfixPull();
         break;
+
         case 'push':
             $this->enableRelease();
             $this->hotfixPush();
@@ -117,16 +123,17 @@ class Hotfix extends DeployBase
     public function hotfixOpen()
     {
         if ($this->isReleaseOpen()) {
-            throw new exception(sprintf(__('Already %1$s opened.'), 'release'));
+            throw new exception(sprintf(__('Already %1$s opened.'), Release::DEPLOY_TYPE));
         } elseif ($this->isHotfixOpen()) {
-            throw new exception(sprintf(__('Already %1$s opened.'), 'hotfix'));
+            throw new exception(sprintf(__('Already %1$s opened.'), Hotfix::DEPLOY_TYPE));
         }
 
         $repository = $this->GitCmdExecuter->branch(array('-a'));
         $repository = explode("\n", trim($repository));
+
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/'.$this->deploy_repository_name.'/hotfix/') !== false) {
-               throw new exception(sprintf(__('Already %1$s opened.'), 'hotfix')."\n".$value);
+               throw new exception(sprintf(__('Already %1$s opened.'), self::DEPLOY_TYPE)."\n".$value);
             }
         }
 
@@ -136,9 +143,46 @@ class Hotfix extends DeployBase
         $this->GitCmdExecuter->checkout($hotfix_rep, array('-b'));
 
         $this->GitCmdExecuter->push('upstream', $hotfix_rep);
-        $this->GitCmdExecuter->push('deploy', $hotfix_rep);
+        $this->GitCmdExecuter->push($this->deploy_repository_name, $hotfix_rep);
     }
     /* ----------------------------------------- */
+
+
+    /**
+     * +-- リリースタグを指定してリリース開く
+     *
+     * @access      public
+     * @param       string $tag_name
+     * @return      void
+     */
+    public function hotfixOpenWithReleaseTag($tag_name)
+    {
+        if ($this->isReleaseOpen()) {
+            throw new exception(sprintf(__('Already %1$s opened.'), Release::DEPLOY_TYPE));
+        } elseif ($this->isHotfixOpen()) {
+            throw new exception(sprintf(__('Already %1$s opened.'), Hotfix::DEPLOY_TYPE));
+        }
+
+        $repository = $this->GitCmdExecuter->branch(array('-a'));
+        $repository = explode("\n", trim($repository));
+
+        foreach ($repository as $value) {
+            if (strpos($value, 'remotes/'.$this->deploy_repository_name.'/hotfix/') !== false) {
+               throw new exception(sprintf(__('Already %1$s opened.'), self::DEPLOY_TYPE)."\n".$value);
+            }
+        }
+
+        $hotfix_rep = 'hotfix/'.date('Ymdhis');
+
+        $this->GitCmdExecuter->checkout('upstream/develop');
+        $this->GitCmdExecuter->checkout('', array('-b', $hotfix_rep, 'refs/tags/'.$tag_name));
+
+        $this->GitCmdExecuter->push('upstream', $hotfix_rep);
+        $this->GitCmdExecuter->push($this->deploy_repository_name, $hotfix_rep);
+    }
+    /* ----------------------------------------- */
+
+
 
     /**
      * +-- 誰かが開けたhotfixをトラックする
@@ -149,14 +193,14 @@ class Hotfix extends DeployBase
     public function hotfixTrack()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.'), 'hotfix'));
+            throw new exception(sprintf(__('%1$s is not open.'), self::DEPLOY_TYPE));
         }
 
         $repo = $this->getHotfixRepository();
         $this->deployTrack($repo);
 
         $this->GitCmdExecuter->pull('upstream', $repo);
-        $this->GitCmdExecuter->pull('deploy', $repo);
+        $this->GitCmdExecuter->pull($this->deploy_repository_name, $repo);
     }
     /* ----------------------------------------- */
 
@@ -169,7 +213,7 @@ class Hotfix extends DeployBase
     public function hotfixPull()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.'), 'hotfix'));
+            throw new exception(sprintf(__('%1$s is not open.'), self::DEPLOY_TYPE));
         }
 
         $repo = $this->getHotfixRepository();
@@ -190,17 +234,17 @@ class Hotfix extends DeployBase
     {
         if ($this->isHotfixOpen()) {
             if (!$ck_only) {
-                $repo = $this->getReleaseRepository();
+                $repo = $this->getHotfixRepository();
                 $option = $with_merge_commit ? array() : array('--no-merges');
                 $this->ncecho($this->GitCmdExecuter->log('deploy/master', $repo, $option));
             }
 
-            $this->ncecho(sprintf(__('%1$s is open.'), 'hotfix')."\n");
+            $this->ncecho(sprintf(__('%1$s is open.'), self::DEPLOY_TYPE)."\n");
 
             return;
         }
 
-        $this->ncecho(sprintf(__('%1$s is close.'), 'hotfix')."\n");
+        $this->ncecho(sprintf(__('%1$s is close.'), self::DEPLOY_TYPE)."\n");
     }
 
     /**
@@ -212,7 +256,7 @@ class Hotfix extends DeployBase
     public function hotfixSync()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.'), 'hotfix'));
+            throw new exception(sprintf(__('%1$s is not open.'), self::DEPLOY_TYPE));
         }
 
         $repo = $this->getHotfixRepository();
@@ -230,7 +274,7 @@ class Hotfix extends DeployBase
     public function hotfixPush()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.'), 'hotfix'));
+            throw new exception(sprintf(__('%1$s is not open.'), self::DEPLOY_TYPE));
         }
 
         $repo = $this->getHotfixRepository();
@@ -251,11 +295,11 @@ class Hotfix extends DeployBase
     public function hotfixDestroy($remove_local = false)
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.'), 'hotfix'));
+            throw new exception(sprintf(__('%1$s is not open.'), self::DEPLOY_TYPE));
         }
 
         $repo = $this->getHotfixRepository();
-        $this->deployDestroy($repo, 'hotfix', $remove_local);
+        $this->deployDestroy($repo, self::DEPLOY_TYPE, $remove_local);
     }
     /* ----------------------------------------- */
 
@@ -269,11 +313,11 @@ class Hotfix extends DeployBase
     public function hotfixClose()
     {
         if (!$this->isHotfixOpen()) {
-            throw new exception(sprintf(__('%1$s is not open.'), 'hotfix'));
+            throw new exception(sprintf(__('%1$s is not open.'), self::DEPLOY_TYPE));
         }
 
         $repo = $this->getHotfixRepository();
-        $this->deployEnd($repo, 'hotfix');
+        $this->deployEnd($repo, self::DEPLOY_TYPE);
     }
     /* ----------------------------------------- */
 }

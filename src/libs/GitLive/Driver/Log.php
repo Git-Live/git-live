@@ -69,7 +69,7 @@ class Log extends DriverBase
     {
         $this->Driver('Fetch')->all();
         $repository = $this->getSelfBranchRef();
-        $this->ncecho($this->GitCmdExecuter->log('upstream/develop', $repository, '--left-right'));
+        $this->ncecho($this->GitCmdExecuter->log('upstream/develop', $repository, array('--left-right')));
     }
     /* ----------------------------------------- */
 
@@ -83,7 +83,7 @@ class Log extends DriverBase
     {
         $this->Driver('Fetch')->all();
         $repository = $this->getSelfBranchRef();
-        $this->ncecho($this->GitCmdExecuter->log('upstream/master', $repository, '--left-right'));
+        $this->ncecho($this->GitCmdExecuter->log('upstream/master', $repository, array('--left-right')));
     }
     /* ----------------------------------------- */
 }
