@@ -219,6 +219,10 @@ class Driver_HotfixTest extends testCaseBase
         $instance->getGitCmdExecuter()->shouldReceive('branch')
         ->andReturn(join("\n", array('develop', 'master', 'remotes/upstream/hotfix/20160629050505'))."\n");
 
+        $instance->shouldReceive('patchApplyCheck')
+        ->twice()
+        ->andReturn(true);
+
         $instance->getGitCmdExecuter()->shouldReceive('diff')
         ->andReturn('');
 

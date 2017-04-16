@@ -55,6 +55,30 @@ class GitCmdExecuterTest extends testCaseBase
         $this->assertSame('git pull upstream master', $res);
     }
 
+    public function cleanTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
+        $instance->shouldReceive('createCmd')
+        ->with('clean', array('--fooo', 'baaaa'))
+        ->once()
+        ->andNoBypass();
+
+        $res = $instance->clean(array('--fooo', 'baaaa'));
+        $this->assertSame('git clean --fooo baaaa', $res);
+    }
+
+    public function resetTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);
+        $instance->shouldReceive('createCmd')
+        ->with('reset', array('--fooo', 'baaaa'))
+        ->once()
+        ->andNoBypass();
+
+        $res = $instance->reset(array('--fooo', 'baaaa'));
+        $this->assertSame('git reset --fooo baaaa', $res);
+    }
+
     public function tagTest()
     {
         $instance = EnviMockLight::mock('\GitLive\Mock\GitCmdExecuter', array(), false);

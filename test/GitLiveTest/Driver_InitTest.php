@@ -70,14 +70,19 @@ class Driver_InitTest extends testCaseBase
                 $command_list[] = $item['arguments'][0];
             }
         }
+
         // var_export($command_list);
         $needle_command_list = array(
             'git fetch --all',
             'git fetch -p',
+            'git checkout master',
+            'git checkout -b develop',
             'git pull upstream develop',
             'git push origin develop',
+            'git push deploy develop',
             'git pull upstream master',
             'git push origin master',
+            'git push deploy master',
         );
         $this->assertSame($needle_command_list, $command_list);
     }
