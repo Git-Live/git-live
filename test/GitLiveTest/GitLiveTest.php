@@ -41,6 +41,72 @@ class GitLiveTest extends testCaseBase
     }
     /* ----------------------------------------- */
 
+
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
+     */
+    public function executeVersionTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
+        $instance->shouldReceive('getArgv')
+        ->once()
+        ->andReturn(array(__FILE__, '--version'));
+
+        ob_start();
+        $e        = null;
+        try {
+            $res = $instance->execute();
+        } catch (exception $e) {
+        }
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $contents = ob_get_contents();
+        ob_end_clean();
+
+        $this->assertRegExp('^Git Live version [0-9.]+\n', $contents);
+
+
+
+    }
+    /* ----------------------------------------- */
+
+    /**
+     * +--
+     *
+     * @access      public
+     * @return void
+     */
+    public function executeCleanTest()
+    {
+        $instance = EnviMockLight::mock('\GitLive\Mock\GitLive', array(), false);
+        $instance->shouldReceive('getArgv')
+        ->once()
+        ->andReturn(array(__FILE__, 'clean'));
+
+        $e        = null;
+        try {
+            $res = $instance->execute();
+        } catch (exception $e) {
+        }
+        $mock_trace   = EnviMockLight::getMockTraceList();
+        $command_list = array();
+        foreach ($mock_trace as $item) {
+            if ($item['method_name'] === 'exec') {
+                $command_list[] = $item['arguments'][0];
+            }
+        }
+        $this->assertNull($e);
+        // var_export($command_list);
+        $needle_command_list = array(
+            'git reset --hard HEAD',
+            'git clean -df',
+        );
+        $this->assertSame($needle_command_list, $command_list);
+    }
+    /* ----------------------------------------- */
+
     /**
      * +--
      *
