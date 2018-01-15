@@ -46,7 +46,6 @@ class GitLive extends GitBase
      * +-- コンストラクタ
      *
      * @access      public
-     * @return void
      * @codeCoverageIgnore
      */
     public function __construct()
@@ -283,6 +282,7 @@ class GitLive extends GitBase
      *
      * @access      public
      * @return void
+     * @throws \GitLive\exception
      */
     public function enableRelease()
     {
@@ -302,6 +302,7 @@ class GitLive extends GitBase
      *
      * @access      public
      * @return string
+     * @throws \GitLive\exception
      */
     public function getReleaseRepository()
     {
@@ -330,6 +331,7 @@ class GitLive extends GitBase
      *
      * @access      public
      * @return string
+     * @throws \GitLive\exception
      */
     public function getHotfixRepository()
     {
@@ -358,6 +360,7 @@ class GitLive extends GitBase
      *
      * @access      public
      * @return string
+     * @throws \GitLive\exception
      */
     public function getSelfBranchRef()
     {
@@ -377,6 +380,7 @@ class GitLive extends GitBase
      *
      * @access      public
      * @return string
+     * @throws \GitLive\exception
      */
     public function getSelfBranch()
     {
@@ -487,9 +491,9 @@ class GitLive extends GitBase
      * +-- hotfixDestroyとreleaseDestroy共通処理
      *
      * @access      public
-     * @param  var_text $repo
-     * @param  var_text $mode
-     * @param  var_text $remove_local OPTIONAL:false
+     * @param  string $repo
+     * @param  string $mode
+     * @param  bool $remove_local OPTIONAL:false
      * @return void
      */
     public function deployDestroy($repo, $mode, $remove_local = false)
@@ -511,15 +515,15 @@ class GitLive extends GitBase
     /* ----------------------------------------- */
 
 
-
     /**
      * +-- hotfixCloseとreleaseClose共通処理
      *
      * @access      public
-     * @param  var_text $repo
-     * @param  var_text $mode
-     * @param  var_text $force OPTIONAL:false
+     * @param  string $repo
+     * @param  string $mode
+     * @param  bool $force OPTIONAL:false
      * @return void
+     * @throws \GitLive\exception
      */
     public function deployEnd($repo, $mode, $force = false)
     {
@@ -626,8 +630,9 @@ class GitLive extends GitBase
      * +-- DeployブランチにSyncする
      *
      * @access      public
-     * @param  var_text $repo
+     * @param  string $repo
      * @return void
+     * @throws \GitLive\exception
      */
     public function deploySync($repo)
     {
@@ -651,8 +656,9 @@ class GitLive extends GitBase
      * +-- upstream に pushする
      *
      * @access      public
-     * @param  var_text $repo
+     * @param  string $repo
      * @return void
+     * @throws \GitLive\exception
      */
     public function deployPush($repo)
     {
