@@ -23,7 +23,7 @@ all:
     use_coverage_detail: true
     # カバレッジ100%のメソッドは表示しない
     use_all_covered_filter: true
-    save_path: './tmp/code_coverage.log'
+    save_path: '<?php echo $test_dir.DIRECTORY_SEPARATOR;?>.code_coverage.log'
     black_list:
       - "<?php echo $test_dir.DIRECTORY_SEPARATOR.$app_name.DIRECTORY_SEPARATOR; ?>"
       - "<?php echo ENVI_BASE_DIR;?>"
@@ -38,8 +38,6 @@ all:
       # テストファイルのディレクトリ
 
       GitLiveTest: "<?php echo $test_dir.DIRECTORY_SEPARATOR.$app_name.DIRECTORY_SEPARATOR; ?>GitLiveTest<?php echo DIRECTORY_SEPARATOR;?>"
-      # GitLivePharTest: "<?php echo $test_dir.DIRECTORY_SEPARATOR.$app_name.DIRECTORY_SEPARATOR; ?>GitLivePharTest<?php echo DIRECTORY_SEPARATOR;?>"
-
 
   app:
     # リクエストURL

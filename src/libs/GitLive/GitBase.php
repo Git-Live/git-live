@@ -30,7 +30,8 @@ namespace GitLive;
 class GitBase
 {
     protected $deploy_repository_name = 'deploy';
-    const VERSION                     = '0.2.1';
+
+    const VERSION                     = '0.2.3';
 
     /**
      * +-- 引数配列を返す
@@ -365,7 +366,7 @@ class GitBase
     /* ----------------------------------------- */
 
     /**
-     * +--
+     * +-- file_put_contentsのwrapper
      *
      * @access      public
      * @param  string $src
@@ -380,7 +381,7 @@ class GitBase
     /* ----------------------------------------- */
 
     /**
-     * +--
+     * +-- file_get_contentsのwrapper
      *
      * @access      public
      * @param  string $src

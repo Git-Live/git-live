@@ -121,10 +121,14 @@ class Init extends DriverBase
     public function start()
     {
         $this->Driver('Fetch')->all();
+        $this->GitCmdExecuter->checkout('master');
+        $this->GitCmdExecuter->checkout('develop', array('-b'));
         $this->GitCmdExecuter->pull('upstream', 'develop');
         $this->GitCmdExecuter->push('origin', 'develop');
+        $this->GitCmdExecuter->push('deploy', 'develop');
         $this->GitCmdExecuter->pull('upstream', 'master');
         $this->GitCmdExecuter->push('origin', 'master');
+        $this->GitCmdExecuter->push('deploy', 'master');
     }
     /* ----------------------------------------- */
 
