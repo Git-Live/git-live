@@ -337,7 +337,7 @@ class GitBase
             return;
         }
 
-        echo pack('c',0x1B) . "[1;{$color}m" . $text. pack('c',0x1B) . '[0m';
+        echo pack('c',0x1B) . "[3{$color}m" . $text. pack('c',0x1B) . "[0m\n";
     }
 
     /* ----------------------------------------- */
