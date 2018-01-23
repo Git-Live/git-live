@@ -30,7 +30,8 @@ namespace GitLive;
 class GitBase
 {
     protected $deploy_repository_name = 'deploy';
-    const VERSION                     = '0.2.2';
+
+    const VERSION                     = '0.2.3';
 
     /**
      * +-- 引数配列を返す
@@ -321,8 +322,8 @@ class GitBase
      * +-- 色つきecho
      *
      * @access      public
-     * @param  var_text $text
-     * @param  var_text $color
+     * @param  string $text
+     * @param  string $color
      * @return void
      * @codeCoverageIgnore
      */
@@ -337,8 +338,7 @@ class GitBase
             return;
         }
 
-        $cmd = 'echo -e "\e[3'.$color.'m'.escapeshellarg($text).'\e[m"';
-        echo `$cmd`;
+        echo pack('c',0x1B) . "[3{$color}m" . $text. pack('c',0x1B) . "[0m\n";
     }
 
     /* ----------------------------------------- */
