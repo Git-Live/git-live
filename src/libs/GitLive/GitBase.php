@@ -31,7 +31,7 @@ class GitBase
 {
     protected $deploy_repository_name = 'deploy';
 
-    const VERSION                     = '0.2.3';
+    const VERSION                     = '0.2.4';
 
     /**
      * +-- 引数配列を返す
