@@ -137,7 +137,7 @@ class Hotfix extends DeployBase
             }
         }
 
-        $hotfix_rep = 'hotfix/'.date('Ymdhis');
+        $hotfix_rep = 'hotfix/'.date('YmdHis');
 
         $this->GitCmdExecuter->checkout('upstream/master');
         $this->GitCmdExecuter->checkout($hotfix_rep, array('-b'));
@@ -172,7 +172,7 @@ class Hotfix extends DeployBase
             }
         }
 
-        $hotfix_rep = 'hotfix/'.date('Ymdhis');
+        $hotfix_rep = 'hotfix/'.date('YmdHis');
 
         $this->GitCmdExecuter->checkout('upstream/develop');
         $this->GitCmdExecuter->checkout('', array('-b', $hotfix_rep, 'refs/tags/'.$tag_name));

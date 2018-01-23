@@ -2,3 +2,4 @@
 .code_coverage.log
 test/data/*
 !test/data/.gitkeep
+.idea/
