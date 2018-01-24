@@ -145,7 +145,7 @@ class Release extends DeployBase
             }
         }
 
-        $release_rep = 'release/'.date('Ymdhis');
+        $release_rep = 'release/'.date('YmdHis');
 
         $this->GitCmdExecuter->checkout('upstream/develop');
         $this->GitCmdExecuter->checkout($release_rep, array('-b'));
@@ -180,7 +180,7 @@ class Release extends DeployBase
             }
         }
 
-        $release_rep = 'release/'.date('Ymdhis');
+        $release_rep = 'release/'.date('YmdHis');
 
         $this->GitCmdExecuter->checkout('upstream/develop');
         $this->GitCmdExecuter->checkout('', array('-b', $release_rep, 'refs/tags/'.$tag_name));
