@@ -60,14 +60,14 @@ class GitCmdExecuter
         return $this->command->exec($cmd, $quiet);
     }
 
-    public function config(array $options = null)
+    public function config(array $options = [])
     {
         $cmd = $this->createCmd('config', $options);
 
         return $this->exec($cmd, true);
     }
 
-    protected function createCmd($git_task, array $options = null)
+    protected function createCmd($git_task, array $options = [])
     {
         $cmd = 'git ' . $git_task;
         if (count($options)) {
@@ -77,42 +77,42 @@ class GitCmdExecuter
         return $cmd;
     }
 
-    public function tag(array $options = null)
+    public function tag(array $options = [])
     {
         $cmd = $this->createCmd('tag', $options);
 
         return $this->exec($cmd);
     }
 
-    public function copy(array $options = null)
+    public function copy(array $options = [])
     {
         $cmd = $this->createCmd('clone', $options);
 
         return $this->exec($cmd);
     }
 
-    public function remote(array $options = null)
+    public function remote(array $options = [])
     {
         $cmd = $this->createCmd('remote', $options);
 
         return $this->exec($cmd);
     }
 
-    public function status(array $options = null)
+    public function status(array $options = [])
     {
         $cmd = $this->createCmd('status', $options);
 
         return $this->exec($cmd);
     }
 
-    public function diff(array $options = null)
+    public function diff(array $options = [])
     {
         $cmd = $this->createCmd('diff', $options);
 
         return $this->exec($cmd);
     }
 
-    public function merge($branch, array $options = null)
+    public function merge($branch, array $options = [])
     {
         $cmd = $this->createCmd('merge', $options);
         $cmd .= ' ' . $branch;
@@ -120,14 +120,14 @@ class GitCmdExecuter
         return $this->exec($cmd);
     }
 
-    public function fetch(array $options = null)
+    public function fetch(array $options = [])
     {
         $cmd = $this->createCmd('fetch', $options);
 
         return $this->exec($cmd);
     }
 
-    public function clean(array $options = null)
+    public function clean(array $options = [])
     {
         $cmd = 'git clean -df';
         if ($options) {
@@ -137,7 +137,7 @@ class GitCmdExecuter
         return $this->exec($cmd);
     }
 
-    public function reset(array $options = null)
+    public function reset(array $options = [])
     {
         $cmd = 'git reset --hard HEAD';
         if ($options) {
@@ -147,7 +147,7 @@ class GitCmdExecuter
         return $this->exec($cmd);
     }
 
-    public function checkout($branch, array $options = null)
+    public function checkout($branch, array $options = [])
     {
         $cmd = $this->createCmd('checkout', $options);
         $cmd .= ' ' . $branch;
@@ -155,7 +155,7 @@ class GitCmdExecuter
         return $this->exec($cmd);
     }
 
-    public function branch(array $options = null, $quiet = false)
+    public function branch(array $options = [], $quiet = false)
     {
         $cmd = $this->createCmd('branch', $options);
 
@@ -194,7 +194,7 @@ class GitCmdExecuter
         return $this->exec($cmd, true);
     }
 
-    public function stash(array $options = null)
+    public function stash(array $options = [])
     {
         $cmd = $this->createCmd('stash', $options);
 

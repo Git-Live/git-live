@@ -53,7 +53,7 @@ class GitLive extends GitBase
     /**
      * @var string バージョン
      */
-    const VERSION = '1.0.0';
+    const VERSION = '2.0.0';
 
     /**
      * @var string バージョンコード
