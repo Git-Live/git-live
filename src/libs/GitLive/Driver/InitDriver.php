@@ -107,13 +107,14 @@ class InitDriver extends DriverBase
     }
 
     /**
-     * @param      $text
-     * @param bool $using_default
+     * @param string $text
+     * @param bool   $using_default
+     * @return string
      */
     protected function interactiveShell($text, $using_default = false)
     {
         try {
-            App::make(InteractiveShellInterface::class)
+            return App::make(InteractiveShellInterface::class)
                 ->interactiveShell($text, $using_default);
         } catch (\Exception $exception) {
 

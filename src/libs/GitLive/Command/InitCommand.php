@@ -53,10 +53,10 @@ class InitCommand extends CommandBase
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__('Initialize git live flow.'))
-            ->addArgument('clone_repository', InputArgument::REQUIRED, 'Only your remote repository.')
-            ->addArgument('upstream_repository', InputArgument::REQUIRED, 'Common remote repository.')
-            ->addArgument('deploy_repository', InputArgument::REQUIRED, 'Deploy remote repository.')
-            ->addArgument('clone_dir', InputArgument::REQUIRED, 'Clone path.');
+            ->addArgument('clone_repository', InputArgument::OPTIONAL, 'Only your remote repository.')
+            ->addArgument('upstream_repository', InputArgument::OPTIONAL, 'Common remote repository.')
+            ->addArgument('deploy_repository', InputArgument::OPTIONAL, 'Deploy remote repository.')
+            ->addArgument('clone_dir', InputArgument::OPTIONAL, 'Clone path.');
     }
 
     /**
