@@ -1,0 +1,43 @@
+{
+  "name": "git-live/git-live",
+  "description": "GitHub Flowを拡張した、開発フローGit Live Flowをサポートするためのコマンドラインツール。",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "autoload": {
+    "psr-4": {
+      "GitLive\\": "src/libs/GitLive/"
+    },
+
+    "files": [ "bootstrap/bootstrap.php", "src/polyfill-gettext.php", "src/helper.php"]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Example\\": "tests/Example/",
+      "Tests\\GitLive\\": "tests/",
+      "GitLive\\Mock\\": "tests/Mock/"
+    }
+
+  },
+  "authors": [
+    {
+      "name": "suzunone",
+      "email": "suzunone.eleven@gmail.com"
+    },
+    {
+      "name": "Akito",
+      "email": "akito-artisan@five-foxes.com"
+    }
+  ],
+  "require": {
+    "ext-mbstring": "*",
+    "ext-json": "*",
+    "symfony/console": "^4.1",
+    "symfony/var-dumper": "^4.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "7.4.4",
+    "mockery/mockery": "1.2.0"
+  },
+  "config": {
+  }
+}

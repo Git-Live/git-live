@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /Users/fumikazu/workspace/git-live/src/libs/GitLive</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../../.css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../../.css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="../../.css/style.css" rel="stylesheet" type="text/css">
+  <link href="../../.css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../../index.html">/Users/fumikazu/workspace/git-live/src</a></li>
+         <li class="breadcrumb-item"><a href="../index.html">libs</a></li>
+         <li class="breadcrumb-item"><a href="index.html">GitLive</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Application/Container.php.html#15">GitLive\Application\Container</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Application/Facade.php.html#12">GitLive\Application\Facade</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Config.php.html#30">GitLive\Driver\Config</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/DriverBase.php.html#33">GitLive\Driver\DriverBase</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#30">GitLive\Driver\Feature</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Fetch.php.html#30">GitLive\Driver\Fetch</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#30">GitLive\Driver\Hotfix</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Init.php.html#30">GitLive\Driver\Init</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Log.php.html#30">GitLive\Driver\Log</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Merge.php.html#30">GitLive\Driver\Merge</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/PullRequest.php.html#30">GitLive\Driver\PullRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Release.php.html#30">GitLive\Driver\Release</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Update.php.html#30">GitLive\Driver\Update</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitBase.php.html#30">GitLive\GitBase</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#30">GitLive\GitCmdExecuter</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#30">GitLive\GitLive</a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="GitLive.php.html#30">GitLive\GitLive</a></td><td class="text-right">4032</td></tr>
+       <tr><td><a href="GitBase.php.html#30">GitLive\GitBase</a></td><td class="text-right">3906</td></tr>
+       <tr><td><a href="Driver/Release.php.html#30">GitLive\Driver\Release</a></td><td class="text-right">1722</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#30">GitLive\Driver\Feature</a></td><td class="text-right">1482</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#30">GitLive\Driver\Hotfix</a></td><td class="text-right">1190</td></tr>
+       <tr><td><a href="Application/Container.php.html#15">GitLive\Application\Container</a></td><td class="text-right">506</td></tr>
+       <tr><td><a href="Driver/PullRequest.php.html#30">GitLive\Driver\PullRequest</a></td><td class="text-right">506</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#30">GitLive\GitCmdExecuter</a></td><td class="text-right">506</td></tr>
+       <tr><td><a href="Driver/Init.php.html#30">GitLive\Driver\Init</a></td><td class="text-right">240</td></tr>
+       <tr><td><a href="Driver/Merge.php.html#30">GitLive\Driver\Merge</a></td><td class="text-right">210</td></tr>
+       <tr><td><a href="Driver/Config.php.html#30">GitLive\Driver\Config</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Driver/Log.php.html#30">GitLive\Driver\Log</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Driver/Update.php.html#30">GitLive\Driver\Update</a></td><td class="text-right">12</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Application/Container.php.html#27"><abbr title="GitLive\Application\Container::getContainers">getContainers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitBase.php.html#200"><abbr title="GitLive\GitBase::getOption">getOption</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#77"><abbr title="GitLive\GitCmdExecuter::diff">diff</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#71"><abbr title="GitLive\GitCmdExecuter::status">status</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#65"><abbr title="GitLive\GitCmdExecuter::remote">remote</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#59"><abbr title="GitLive\GitCmdExecuter::copy">copy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#52"><abbr title="GitLive\GitCmdExecuter::tag">tag</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#45"><abbr title="GitLive\GitCmdExecuter::config">config</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#37"><abbr title="GitLive\GitCmdExecuter::fetchPullRequest">fetchPullRequest</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitBase.php.html#283"><abbr title="GitLive\GitBase::getFargv">getFargv</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitBase.php.html#265"><abbr title="GitLive\GitBase::isOption">isOption</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitBase.php.html#237"><abbr title="GitLive\GitBase::getOptions">getOptions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitBase.php.html#149"><abbr title="GitLive\GitBase::isGitRepository">isGitRepository</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#91"><abbr title="GitLive\GitCmdExecuter::fetch">fetch</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitBase.php.html#57"><abbr title="GitLive\GitBase::debug">debug</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Update.php.html#39"><abbr title="GitLive\Driver\Update::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Release.php.html#343"><abbr title="GitLive\Driver\Release::releaseClose">releaseClose</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Release.php.html#322"><abbr title="GitLive\Driver\Release::releaseDestroy">releaseDestroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Release.php.html#300"><abbr title="GitLive\Driver\Release::releasePush">releasePush</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Release.php.html#281"><abbr title="GitLive\Driver\Release::releaseSync">releaseSync</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Release.php.html#255"><abbr title="GitLive\Driver\Release::releaseState">releaseState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Release.php.html#233"><abbr title="GitLive\Driver\Release::releasePull">releasePull</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Release.php.html#211"><abbr title="GitLive\Driver\Release::releaseTrack">releaseTrack</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Release.php.html#175"><abbr title="GitLive\Driver\Release::releaseOpenWithReleaseTag">releaseOpenWithReleaseTag</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Release.php.html#136"><abbr title="GitLive\Driver\Release::releaseOpen">releaseOpen</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#84"><abbr title="GitLive\GitCmdExecuter::merge">merge</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#97"><abbr title="GitLive\GitCmdExecuter::clean">clean</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/PullRequest.php.html#219"><abbr title="GitLive\Driver\PullRequest::prMerge">prMerge</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#285"><abbr title="GitLive\GitLive::getHotfixRepository">getHotfixRepository</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#590"><abbr title="GitLive\GitLive::deploySync">deploySync</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#571"><abbr title="GitLive\GitLive::deployTrack">deployTrack</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#481"><abbr title="GitLive\GitLive::deployEnd">deployEnd</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#454"><abbr title="GitLive\GitLive::deployDestroy">deployDestroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#438"><abbr title="GitLive\GitLive::clean">clean</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#409"><abbr title="GitLive\GitLive::pull">pull</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#387"><abbr title="GitLive\GitLive::push">push</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#369"><abbr title="GitLive\GitLive::patchApplyCheck">patchApplyCheck</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#350"><abbr title="GitLive\GitLive::isBranchExits">isBranchExits</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#337"><abbr title="GitLive\GitLive::getSelfBranch">getSelfBranch</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#316"><abbr title="GitLive\GitLive::getSelfBranchRef">getSelfBranchRef</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#254"><abbr title="GitLive\GitLive::getReleaseRepository">getReleaseRepository</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#106"><abbr title="GitLive\GitCmdExecuter::reset">reset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#233"><abbr title="GitLive\GitLive::enableRelease">enableRelease</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#179"><abbr title="GitLive\GitLive::execute">execute</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#134"><abbr title="GitLive\GitLive::ckNewVersion">ckNewVersion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#83"><abbr title="GitLive\GitLive::getLatestVersion">getLatestVersion</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#155"><abbr title="GitLive\GitCmdExecuter::createCmd">createCmd</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#144"><abbr title="GitLive\GitCmdExecuter::log">log</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#138"><abbr title="GitLive\GitCmdExecuter::tagPush">tagPush</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#133"><abbr title="GitLive\GitCmdExecuter::push">push</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#127"><abbr title="GitLive\GitCmdExecuter::pull">pull</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#122"><abbr title="GitLive\GitCmdExecuter::branch">branch</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#115"><abbr title="GitLive\GitCmdExecuter::checkout">checkout</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Release.php.html#41"><abbr title="GitLive\Driver\Release::release">release</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/PullRequest.php.html#193"><abbr title="GitLive\Driver\PullRequest::prPull">prPull</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Application/Container.php.html#35"><abbr title="GitLive\Application\Container::getContextContainers">getContextContainers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Config.php.html#40"><abbr title="GitLive\Driver\Config::setGlobalParameter">setGlobalParameter</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#208"><abbr title="GitLive\Driver\Feature::featureTrack">featureTrack</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#185"><abbr title="GitLive\Driver\Feature::featurePush">featurePush</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#162"><abbr title="GitLive\Driver\Feature::featurePublish">featurePublish</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#142"><abbr title="GitLive\Driver\Feature::featureChange">featureChange</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#121"><abbr title="GitLive\Driver\Feature::featureStart">featureStart</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#106"><abbr title="GitLive\Driver\Feature::featureList">featureList</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#40"><abbr title="GitLive\Driver\Feature::feature">feature</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/DriverBase.php.html#228"><abbr title="GitLive\Driver\DriverBase::interactiveShell">interactiveShell</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/DriverBase.php.html#82"><abbr title="GitLive\Driver\DriverBase::getSelfBranch">getSelfBranch</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Config.php.html#48"><abbr title="GitLive\Driver\Config::setLocalParameter">setLocalParameter</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Config.php.html#32"><abbr title="GitLive\Driver\Config::getParameter">getParameter</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#256"><abbr title="GitLive\Driver\Feature::featureClose">featureClose</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Application/Facade.php.html#20"><abbr title="GitLive\Application\Facade::make">make</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Application/Container.php.html#190"><abbr title="GitLive\Application\Container::getContextualConcrete">getContextualConcrete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Application/Container.php.html#173"><abbr title="GitLive\Application\Container::resolvePrimitive">resolvePrimitive</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Application/Container.php.html#162"><abbr title="GitLive\Application\Container::getParameterOverride">getParameterOverride</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Application/Container.php.html#150"><abbr title="GitLive\Application\Container::hasParameterOverride">hasParameterOverride</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Application/Container.php.html#124"><abbr title="GitLive\Application\Container::resolveDependencies">resolveDependencies</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Application/Container.php.html#109"><abbr title="GitLive\Application\Container::notInstantiable">notInstantiable</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Application/Container.php.html#74"><abbr title="GitLive\Application\Container::build">build</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Application/Container.php.html#62"><abbr title="GitLive\Application\Container::bind">bind</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Application/Container.php.html#53"><abbr title="GitLive\Application\Container::bindContext">bindContext</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Application/Container.php.html#43"><abbr title="GitLive\Application\Container::setWith">setWith</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#234"><abbr title="GitLive\Driver\Feature::featurePull">featurePull</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Fetch.php.html#41"><abbr title="GitLive\Driver\Fetch::upstream">upstream</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/PullRequest.php.html#173"><abbr title="GitLive\Driver\PullRequest::prTrack">prTrack</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Init.php.html#140"><abbr title="GitLive\Driver\Init::restart">restart</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/PullRequest.php.html#149"><abbr title="GitLive\Driver\PullRequest::featureStartSoft">featureStartSoft</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/PullRequest.php.html#118"><abbr title="GitLive\Driver\PullRequest::featureStart">featureStart</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/PullRequest.php.html#41"><abbr title="GitLive\Driver\PullRequest::pr">pr</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Merge.php.html#137"><abbr title="GitLive\Driver\Merge::mergeMaster">mergeMaster</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Merge.php.html#123"><abbr title="GitLive\Driver\Merge::mergeDevelop">mergeDevelop</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Merge.php.html#104"><abbr title="GitLive\Driver\Merge::stateMaster">stateMaster</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Merge.php.html#85"><abbr title="GitLive\Driver\Merge::stateDevelop">stateDevelop</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Merge.php.html#39"><abbr title="GitLive\Driver\Merge::merge">merge</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Log.php.html#87"><abbr title="GitLive\Driver\Log::logMaster">logMaster</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Log.php.html#71"><abbr title="GitLive\Driver\Log::logDevelop">logDevelop</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Log.php.html#40"><abbr title="GitLive\Driver\Log::log">log</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Init.php.html#124"><abbr title="GitLive\Driver\Init::start">start</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Fetch.php.html#56"><abbr title="GitLive\Driver\Fetch::deploy">deploy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Init.php.html#40"><abbr title="GitLive\Driver\Init::init">init</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#288"><abbr title="GitLive\Driver\Hotfix::hotfixClose">hotfixClose</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#268"><abbr title="GitLive\Driver\Hotfix::hotfixDestroy">hotfixDestroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#245"><abbr title="GitLive\Driver\Hotfix::hotfixPush">hotfixPush</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#225"><abbr title="GitLive\Driver\Hotfix::hotfixSync">hotfixSync</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#200"><abbr title="GitLive\Driver\Hotfix::hotfixState">hotfixState</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#179"><abbr title="GitLive\Driver\Hotfix::hotfixPull">hotfixPull</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#157"><abbr title="GitLive\Driver\Hotfix::hotfixTrack">hotfixTrack</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#123"><abbr title="GitLive\Driver\Hotfix::hotfixOpen">hotfixOpen</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#41"><abbr title="GitLive\Driver\Hotfix::hotfix">hotfix</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Driver/Fetch.php.html#70"><abbr title="GitLive\Driver\Fetch::all">all</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="GitLive.php.html#618"><abbr title="GitLive\GitLive::deployPush">deployPush</abbr></a></td><td class="text-right">0%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Driver/Feature.php.html#40"><abbr title="GitLive\Driver\Feature::feature">feature</abbr></a></td><td class="text-right">342</td></tr>
+       <tr><td><a href="Driver/Release.php.html#41"><abbr title="GitLive\Driver\Release::release">release</abbr></a></td><td class="text-right">240</td></tr>
+       <tr><td><a href="Driver/Init.php.html#40"><abbr title="GitLive\Driver\Init::init">init</abbr></a></td><td class="text-right">182</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#41"><abbr title="GitLive\Driver\Hotfix::hotfix">hotfix</abbr></a></td><td class="text-right">182</td></tr>
+       <tr><td><a href="Driver/PullRequest.php.html#41"><abbr title="GitLive\Driver\PullRequest::pr">pr</abbr></a></td><td class="text-right">182</td></tr>
+       <tr><td><a href="GitBase.php.html#283"><abbr title="GitLive\GitBase::getFargv">getFargv</abbr></a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="GitLive.php.html#481"><abbr title="GitLive\GitLive::deployEnd">deployEnd</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Driver/Merge.php.html#39"><abbr title="GitLive\Driver\Merge::merge">merge</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="GitBase.php.html#200"><abbr title="GitLive\GitBase::getOption">getOption</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="GitBase.php.html#237"><abbr title="GitLive\GitBase::getOptions">getOptions</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="GitLive.php.html#83"><abbr title="GitLive\GitLive::getLatestVersion">getLatestVersion</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Driver/Release.php.html#175"><abbr title="GitLive\Driver\Release::releaseOpenWithReleaseTag">releaseOpenWithReleaseTag</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Driver/Release.php.html#136"><abbr title="GitLive\Driver\Release::releaseOpen">releaseOpen</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#123"><abbr title="GitLive\Driver\Hotfix::hotfixOpen">hotfixOpen</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="GitLive.php.html#409"><abbr title="GitLive\GitLive::pull">pull</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Driver/Release.php.html#255"><abbr title="GitLive\Driver\Release::releaseState">releaseState</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="GitLive.php.html#254"><abbr title="GitLive\GitLive::getReleaseRepository">getReleaseRepository</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="GitLive.php.html#285"><abbr title="GitLive\GitLive::getHotfixRepository">getHotfixRepository</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Driver/Log.php.html#40"><abbr title="GitLive\Driver\Log::log">log</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Application/Container.php.html#74"><abbr title="GitLive\Application\Container::build">build</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Application/Container.php.html#124"><abbr title="GitLive\Application\Container::resolveDependencies">resolveDependencies</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Application/Container.php.html#173"><abbr title="GitLive\Application\Container::resolvePrimitive">resolvePrimitive</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#200"><abbr title="GitLive\Driver\Hotfix::hotfixState">hotfixState</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="GitLive.php.html#618"><abbr title="GitLive\GitLive::deployPush">deployPush</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#234"><abbr title="GitLive\Driver\Feature::featurePull">featurePull</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="GitLive.php.html#387"><abbr title="GitLive\GitLive::push">push</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#162"><abbr title="GitLive\Driver\Feature::featurePublish">featurePublish</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="GitBase.php.html#57"><abbr title="GitLive\GitBase::debug">debug</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#185"><abbr title="GitLive\Driver\Feature::featurePush">featurePush</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#208"><abbr title="GitLive\Driver\Feature::featureTrack">featureTrack</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Driver/Update.php.html#39"><abbr title="GitLive\Driver\Update::update">update</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Driver/PullRequest.php.html#118"><abbr title="GitLive\Driver\PullRequest::featureStart">featureStart</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#256"><abbr title="GitLive\Driver\Feature::featureClose">featureClose</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Driver/PullRequest.php.html#149"><abbr title="GitLive\Driver\PullRequest::featureStartSoft">featureStartSoft</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="GitLive.php.html#337"><abbr title="GitLive\GitLive::getSelfBranch">getSelfBranch</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Config.php.html#48"><abbr title="GitLive\Driver\Config::setLocalParameter">setLocalParameter</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="GitLive.php.html#233"><abbr title="GitLive\GitLive::enableRelease">enableRelease</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Config.php.html#40"><abbr title="GitLive\Driver\Config::setGlobalParameter">setGlobalParameter</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Config.php.html#32"><abbr title="GitLive\Driver\Config::getParameter">getParameter</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="GitLive.php.html#316"><abbr title="GitLive\GitLive::getSelfBranchRef">getSelfBranchRef</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#179"><abbr title="GitLive\Driver\Hotfix::hotfixPull">hotfixPull</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="GitLive.php.html#350"><abbr title="GitLive\GitLive::isBranchExits">isBranchExits</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#144"><abbr title="GitLive\GitCmdExecuter::log">log</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#288"><abbr title="GitLive\Driver\Hotfix::hotfixClose">hotfixClose</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="GitLive.php.html#454"><abbr title="GitLive\GitLive::deployDestroy">deployDestroy</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#268"><abbr title="GitLive\Driver\Hotfix::hotfixDestroy">hotfixDestroy</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="GitLive.php.html#571"><abbr title="GitLive\GitLive::deployTrack">deployTrack</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="GitLive.php.html#590"><abbr title="GitLive\GitLive::deploySync">deploySync</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#155"><abbr title="GitLive\GitCmdExecuter::createCmd">createCmd</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#97"><abbr title="GitLive\GitCmdExecuter::clean">clean</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="GitCmdExecuter.php.html#106"><abbr title="GitLive\GitCmdExecuter::reset">reset</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Release.php.html#322"><abbr title="GitLive\Driver\Release::releaseDestroy">releaseDestroy</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Application/Container.php.html#109"><abbr title="GitLive\Application\Container::notInstantiable">notInstantiable</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Release.php.html#211"><abbr title="GitLive\Driver\Release::releaseTrack">releaseTrack</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Release.php.html#233"><abbr title="GitLive\Driver\Release::releasePull">releasePull</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Merge.php.html#104"><abbr title="GitLive\Driver\Merge::stateMaster">stateMaster</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Release.php.html#281"><abbr title="GitLive\Driver\Release::releaseSync">releaseSync</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Release.php.html#300"><abbr title="GitLive\Driver\Release::releasePush">releasePush</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Release.php.html#343"><abbr title="GitLive\Driver\Release::releaseClose">releaseClose</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/PullRequest.php.html#193"><abbr title="GitLive\Driver\PullRequest::prPull">prPull</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#245"><abbr title="GitLive\Driver\Hotfix::hotfixPush">hotfixPush</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Merge.php.html#85"><abbr title="GitLive\Driver\Merge::stateDevelop">stateDevelop</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#157"><abbr title="GitLive\Driver\Hotfix::hotfixTrack">hotfixTrack</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#142"><abbr title="GitLive\Driver\Feature::featureChange">featureChange</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="GitBase.php.html#265"><abbr title="GitLive\GitBase::isOption">isOption</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Feature.php.html#121"><abbr title="GitLive\Driver\Feature::featureStart">featureStart</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Driver/Hotfix.php.html#225"><abbr title="GitLive\Driver\Hotfix::hotfixSync">hotfixSync</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 6.1.4</a> using <a href="https://secure.php.net/" target="_top">PHP 7.1.24</a> with <a href="https://xdebug.org/">Xdebug 2.6.1</a> and <a href="https://phpunit.de/">PHPUnit 7.4.4</a> at Fri Nov 23 13:33:34 UTC 2018.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../../.js/jquery.min.js" type="text/javascript"></script>
+  <script src="../../.js/d3.min.js" type="text/javascript"></script>
+  <script src="../../.js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([16,0,0,0,0,0,0,0,0,0,0,5], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([109,0,0,0,0,0,0,0,0,0,0,43], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,22,"<a href=\"Application\/Container.php.html#15\">GitLive\\Application\\Container<\/a>"],[0,1,"<a href=\"Application\/Facade.php.html#12\">GitLive\\Application\\Facade<\/a>"],[0,6,"<a href=\"Driver\/Config.php.html#30\">GitLive\\Driver\\Config<\/a>"],[100,10,"<a href=\"Driver\/DeployBase.php.html#30\">GitLive\\Driver\\DeployBase<\/a>"],[0,16,"<a href=\"Driver\/DriverBase.php.html#33\">GitLive\\Driver\\DriverBase<\/a>"],[0,38,"<a href=\"Driver\/Feature.php.html#30\">GitLive\\Driver\\Feature<\/a>"],[0,3,"<a href=\"Driver\/Fetch.php.html#30\">GitLive\\Driver\\Fetch<\/a>"],[100,2,"<a href=\"Driver\/Help.php.html#30\">GitLive\\Driver\\Help<\/a>"],[0,34,"<a href=\"Driver\/Hotfix.php.html#30\">GitLive\\Driver\\Hotfix<\/a>"],[0,15,"<a href=\"Driver\/Init.php.html#30\">GitLive\\Driver\\Init<\/a>"],[0,6,"<a href=\"Driver\/Log.php.html#30\">GitLive\\Driver\\Log<\/a>"],[0,14,"<a href=\"Driver\/Merge.php.html#30\">GitLive\\Driver\\Merge<\/a>"],[0,22,"<a href=\"Driver\/PullRequest.php.html#30\">GitLive\\Driver\\PullRequest<\/a>"],[0,41,"<a href=\"Driver\/Release.php.html#30\">GitLive\\Driver\\Release<\/a>"],[0,3,"<a href=\"Driver\/Update.php.html#30\">GitLive\\Driver\\Update<\/a>"],[100,0,"<a href=\"Driver\/exception.php.html#30\">GitLive\\Driver\\Exception<\/a>"],[100,0,"<a href=\"Exception.php.html#30\">GitLive\\Exception<\/a>"],[0,62,"<a href=\"GitBase.php.html#30\">GitLive\\GitBase<\/a>"],[0,22,"<a href=\"GitCmdExecuter.php.html#30\">GitLive\\GitCmdExecuter<\/a>"],[0,63,"<a href=\"GitLive.php.html#30\">GitLive\\GitLive<\/a>"],[100,0,"<a href=\"Service\/CommandLineKernelService.php.html#15\">GitLive\\Service\\CommandLineKernelService<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Application\/Container.php.html#27\">GitLive\\Application\\Container::getContainers<\/a>"],[0,1,"<a href=\"Application\/Container.php.html#35\">GitLive\\Application\\Container::getContextContainers<\/a>"],[0,1,"<a href=\"Application\/Container.php.html#43\">GitLive\\Application\\Container::setWith<\/a>"],[0,1,"<a href=\"Application\/Container.php.html#53\">GitLive\\Application\\Container::bindContext<\/a>"],[0,1,"<a href=\"Application\/Container.php.html#62\">GitLive\\Application\\Container::bind<\/a>"],[0,4,"<a href=\"Application\/Container.php.html#74\">GitLive\\Application\\Container::build<\/a>"],[0,2,"<a href=\"Application\/Container.php.html#109\">GitLive\\Application\\Container::notInstantiable<\/a>"],[0,4,"<a href=\"Application\/Container.php.html#124\">GitLive\\Application\\Container::resolveDependencies<\/a>"],[0,1,"<a href=\"Application\/Container.php.html#150\">GitLive\\Application\\Container::hasParameterOverride<\/a>"],[0,1,"<a href=\"Application\/Container.php.html#162\">GitLive\\Application\\Container::getParameterOverride<\/a>"],[0,4,"<a href=\"Application\/Container.php.html#173\">GitLive\\Application\\Container::resolvePrimitive<\/a>"],[0,1,"<a href=\"Application\/Container.php.html#190\">GitLive\\Application\\Container::getContextualConcrete<\/a>"],[0,1,"<a href=\"Application\/Facade.php.html#20\">GitLive\\Application\\Facade::make<\/a>"],[0,2,"<a href=\"Driver\/Config.php.html#32\">GitLive\\Driver\\Config::getParameter<\/a>"],[0,2,"<a href=\"Driver\/Config.php.html#40\">GitLive\\Driver\\Config::setGlobalParameter<\/a>"],[0,2,"<a href=\"Driver\/Config.php.html#48\">GitLive\\Driver\\Config::setLocalParameter<\/a>"],[100,1,"<a href=\"Driver\/DeployBase.php.html#40\">GitLive\\Driver\\DeployBase::isReleaseOpen<\/a>"],[100,1,"<a href=\"Driver\/DeployBase.php.html#53\">GitLive\\Driver\\DeployBase::isHotfixOpen<\/a>"],[100,1,"<a href=\"Driver\/DeployBase.php.html#68\">GitLive\\Driver\\DeployBase::enableRelease<\/a>"],[100,1,"<a href=\"Driver\/DeployBase.php.html#83\">GitLive\\Driver\\DeployBase::getReleaseRepository<\/a>"],[100,1,"<a href=\"Driver\/DeployBase.php.html#98\">GitLive\\Driver\\DeployBase::getHotfixRepository<\/a>"],[100,1,"<a href=\"Driver\/DeployBase.php.html#113\">GitLive\\Driver\\DeployBase::deployTrack<\/a>"],[100,1,"<a href=\"Driver\/DeployBase.php.html#132\">GitLive\\Driver\\DeployBase::deployEnd<\/a>"],[100,1,"<a href=\"Driver\/DeployBase.php.html#148\">GitLive\\Driver\\DeployBase::deployDestroy<\/a>"],[100,1,"<a href=\"Driver\/DeployBase.php.html#165\">GitLive\\Driver\\DeployBase::deploySync<\/a>"],[100,1,"<a href=\"Driver\/DeployBase.php.html#181\">GitLive\\Driver\\DeployBase::deployPush<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#52\">GitLive\\Driver\\DriverBase::__construct<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#67\">GitLive\\Driver\\DriverBase::getSelfBranchRef<\/a>"],[0,1,"<a href=\"Driver\/DriverBase.php.html#82\">GitLive\\Driver\\DriverBase::getSelfBranch<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#99\">GitLive\\Driver\\DriverBase::Driver<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#114\">GitLive\\Driver\\DriverBase::getArgv<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#134\">GitLive\\Driver\\DriverBase::getOption<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#153\">GitLive\\Driver\\DriverBase::getOptions<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#167\">GitLive\\Driver\\DriverBase::isOption<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#184\">GitLive\\Driver\\DriverBase::cecho<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#200\">GitLive\\Driver\\DriverBase::ncecho<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#214\">GitLive\\Driver\\DriverBase::chdir<\/a>"],[0,1,"<a href=\"Driver\/DriverBase.php.html#228\">GitLive\\Driver\\DriverBase::interactiveShell<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#245\">GitLive\\Driver\\DriverBase::debug<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#262\">GitLive\\Driver\\DriverBase::exec<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#277\">GitLive\\Driver\\DriverBase::isDebug<\/a>"],[100,1,"<a href=\"Driver\/DriverBase.php.html#292\">GitLive\\Driver\\DriverBase::isWin<\/a>"],[0,18,"<a href=\"Driver\/Feature.php.html#40\">GitLive\\Driver\\Feature::feature<\/a>"],[0,1,"<a href=\"Driver\/Feature.php.html#106\">GitLive\\Driver\\Feature::featureList<\/a>"],[0,2,"<a href=\"Driver\/Feature.php.html#121\">GitLive\\Driver\\Feature::featureStart<\/a>"],[0,2,"<a href=\"Driver\/Feature.php.html#142\">GitLive\\Driver\\Feature::featureChange<\/a>"],[0,3,"<a href=\"Driver\/Feature.php.html#162\">GitLive\\Driver\\Feature::featurePublish<\/a>"],[0,3,"<a href=\"Driver\/Feature.php.html#185\">GitLive\\Driver\\Feature::featurePush<\/a>"],[0,3,"<a href=\"Driver\/Feature.php.html#208\">GitLive\\Driver\\Feature::featureTrack<\/a>"],[0,3,"<a href=\"Driver\/Feature.php.html#234\">GitLive\\Driver\\Feature::featurePull<\/a>"],[0,3,"<a href=\"Driver\/Feature.php.html#256\">GitLive\\Driver\\Feature::featureClose<\/a>"],[0,1,"<a href=\"Driver\/Fetch.php.html#41\">GitLive\\Driver\\Fetch::upstream<\/a>"],[0,1,"<a href=\"Driver\/Fetch.php.html#56\">GitLive\\Driver\\Fetch::deploy<\/a>"],[0,1,"<a href=\"Driver\/Fetch.php.html#70\">GitLive\\Driver\\Fetch::all<\/a>"],[100,1,"<a href=\"Driver\/Help.php.html#40\">GitLive\\Driver\\Help::version<\/a>"],[100,1,"<a href=\"Driver\/Help.php.html#53\">GitLive\\Driver\\Help::help<\/a>"],[0,13,"<a href=\"Driver\/Hotfix.php.html#41\">GitLive\\Driver\\Hotfix::hotfix<\/a>"],[0,5,"<a href=\"Driver\/Hotfix.php.html#123\">GitLive\\Driver\\Hotfix::hotfixOpen<\/a>"],[0,2,"<a href=\"Driver\/Hotfix.php.html#157\">GitLive\\Driver\\Hotfix::hotfixTrack<\/a>"],[0,2,"<a href=\"Driver\/Hotfix.php.html#179\">GitLive\\Driver\\Hotfix::hotfixPull<\/a>"],[0,4,"<a href=\"Driver\/Hotfix.php.html#200\">GitLive\\Driver\\Hotfix::hotfixState<\/a>"],[0,2,"<a href=\"Driver\/Hotfix.php.html#225\">GitLive\\Driver\\Hotfix::hotfixSync<\/a>"],[0,2,"<a href=\"Driver\/Hotfix.php.html#245\">GitLive\\Driver\\Hotfix::hotfixPush<\/a>"],[0,2,"<a href=\"Driver\/Hotfix.php.html#268\">GitLive\\Driver\\Hotfix::hotfixDestroy<\/a>"],[0,2,"<a href=\"Driver\/Hotfix.php.html#288\">GitLive\\Driver\\Hotfix::hotfixClose<\/a>"],[0,13,"<a href=\"Driver\/Init.php.html#40\">GitLive\\Driver\\Init::init<\/a>"],[0,1,"<a href=\"Driver\/Init.php.html#124\">GitLive\\Driver\\Init::start<\/a>"],[0,1,"<a href=\"Driver\/Init.php.html#140\">GitLive\\Driver\\Init::restart<\/a>"],[0,4,"<a href=\"Driver\/Log.php.html#40\">GitLive\\Driver\\Log::log<\/a>"],[0,1,"<a href=\"Driver\/Log.php.html#71\">GitLive\\Driver\\Log::logDevelop<\/a>"],[0,1,"<a href=\"Driver\/Log.php.html#87\">GitLive\\Driver\\Log::logMaster<\/a>"],[0,8,"<a href=\"Driver\/Merge.php.html#39\">GitLive\\Driver\\Merge::merge<\/a>"],[0,2,"<a href=\"Driver\/Merge.php.html#85\">GitLive\\Driver\\Merge::stateDevelop<\/a>"],[0,2,"<a href=\"Driver\/Merge.php.html#104\">GitLive\\Driver\\Merge::stateMaster<\/a>"],[0,1,"<a href=\"Driver\/Merge.php.html#123\">GitLive\\Driver\\Merge::mergeDevelop<\/a>"],[0,1,"<a href=\"Driver\/Merge.php.html#137\">GitLive\\Driver\\Merge::mergeMaster<\/a>"],[0,13,"<a href=\"Driver\/PullRequest.php.html#41\">GitLive\\Driver\\PullRequest::pr<\/a>"],[0,3,"<a href=\"Driver\/PullRequest.php.html#118\">GitLive\\Driver\\PullRequest::featureStart<\/a>"],[0,2,"<a href=\"Driver\/PullRequest.php.html#149\">GitLive\\Driver\\PullRequest::featureStartSoft<\/a>"],[0,1,"<a href=\"Driver\/PullRequest.php.html#173\">GitLive\\Driver\\PullRequest::prTrack<\/a>"],[0,2,"<a href=\"Driver\/PullRequest.php.html#193\">GitLive\\Driver\\PullRequest::prPull<\/a>"],[0,1,"<a href=\"Driver\/PullRequest.php.html#219\">GitLive\\Driver\\PullRequest::prMerge<\/a>"],[0,15,"<a href=\"Driver\/Release.php.html#41\">GitLive\\Driver\\Release::release<\/a>"],[0,5,"<a href=\"Driver\/Release.php.html#136\">GitLive\\Driver\\Release::releaseOpen<\/a>"],[0,5,"<a href=\"Driver\/Release.php.html#175\">GitLive\\Driver\\Release::releaseOpenWithReleaseTag<\/a>"],[0,2,"<a href=\"Driver\/Release.php.html#211\">GitLive\\Driver\\Release::releaseTrack<\/a>"],[0,2,"<a href=\"Driver\/Release.php.html#233\">GitLive\\Driver\\Release::releasePull<\/a>"],[0,4,"<a href=\"Driver\/Release.php.html#255\">GitLive\\Driver\\Release::releaseState<\/a>"],[0,2,"<a href=\"Driver\/Release.php.html#281\">GitLive\\Driver\\Release::releaseSync<\/a>"],[0,2,"<a href=\"Driver\/Release.php.html#300\">GitLive\\Driver\\Release::releasePush<\/a>"],[0,2,"<a href=\"Driver\/Release.php.html#322\">GitLive\\Driver\\Release::releaseDestroy<\/a>"],[0,2,"<a href=\"Driver\/Release.php.html#343\">GitLive\\Driver\\Release::releaseClose<\/a>"],[0,3,"<a href=\"Driver\/Update.php.html#39\">GitLive\\Driver\\Update::update<\/a>"],[100,1,"<a href=\"GitBase.php.html#42\">GitLive\\GitBase::getArgv<\/a>"],[0,3,"<a href=\"GitBase.php.html#57\">GitLive\\GitBase::debug<\/a>"],[100,1,"<a href=\"GitBase.php.html#81\">GitLive\\GitBase::chdir<\/a>"],[100,5,"<a href=\"GitBase.php.html#96\">GitLive\\GitBase::interactiveShell<\/a>"],[100,3,"<a href=\"GitBase.php.html#130\">GitLive\\GitBase::exec<\/a>"],[0,1,"<a href=\"GitBase.php.html#149\">GitLive\\GitBase::isGitRepository<\/a>"],[100,1,"<a href=\"GitBase.php.html#163\">GitLive\\GitBase::isDebug<\/a>"],[100,3,"<a href=\"GitBase.php.html#177\">GitLive\\GitBase::isQuiet<\/a>"],[0,7,"<a href=\"GitBase.php.html#200\">GitLive\\GitBase::getOption<\/a>"],[0,6,"<a href=\"GitBase.php.html#237\">GitLive\\GitBase::getOptions<\/a>"],[0,2,"<a href=\"GitBase.php.html#265\">GitLive\\GitBase::isOption<\/a>"],[0,10,"<a href=\"GitBase.php.html#283\">GitLive\\GitBase::getFargv<\/a>"],[100,1,"<a href=\"GitBase.php.html#317\">GitLive\\GitBase::isWin<\/a>"],[100,3,"<a href=\"GitBase.php.html#332\">GitLive\\GitBase::cecho<\/a>"],[100,3,"<a href=\"GitBase.php.html#357\">GitLive\\GitBase::ncecho<\/a>"],[100,1,"<a href=\"GitBase.php.html#380\">GitLive\\GitBase::file_put_contents<\/a>"],[100,11,"<a href=\"GitBase.php.html#394\">GitLive\\GitBase::file_get_contents<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#37\">GitLive\\GitCmdExecuter::fetchPullRequest<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#45\">GitLive\\GitCmdExecuter::config<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#52\">GitLive\\GitCmdExecuter::tag<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#59\">GitLive\\GitCmdExecuter::copy<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#65\">GitLive\\GitCmdExecuter::remote<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#71\">GitLive\\GitCmdExecuter::status<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#77\">GitLive\\GitCmdExecuter::diff<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#84\">GitLive\\GitCmdExecuter::merge<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#91\">GitLive\\GitCmdExecuter::fetch<\/a>"],[0,2,"<a href=\"GitCmdExecuter.php.html#97\">GitLive\\GitCmdExecuter::clean<\/a>"],[0,2,"<a href=\"GitCmdExecuter.php.html#106\">GitLive\\GitCmdExecuter::reset<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#115\">GitLive\\GitCmdExecuter::checkout<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#122\">GitLive\\GitCmdExecuter::branch<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#127\">GitLive\\GitCmdExecuter::pull<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#133\">GitLive\\GitCmdExecuter::push<\/a>"],[0,1,"<a href=\"GitCmdExecuter.php.html#138\">GitLive\\GitCmdExecuter::tagPush<\/a>"],[0,2,"<a href=\"GitCmdExecuter.php.html#144\">GitLive\\GitCmdExecuter::log<\/a>"],[0,2,"<a href=\"GitCmdExecuter.php.html#155\">GitLive\\GitCmdExecuter::createCmd<\/a>"],[100,1,"<a href=\"GitLive.php.html#52\">GitLive\\GitLive::__construct<\/a>"],[100,3,"<a href=\"GitLive.php.html#66\">GitLive\\GitLive::__destruct<\/a>"],[0,6,"<a href=\"GitLive.php.html#83\">GitLive\\GitLive::getLatestVersion<\/a>"],[0,1,"<a href=\"GitLive.php.html#134\">GitLive\\GitLive::ckNewVersion<\/a>"],[100,2,"<a href=\"GitLive.php.html#149\">GitLive\\GitLive::Driver<\/a>"],[100,1,"<a href=\"GitLive.php.html#167\">GitLive\\GitLive::getGitCmdExecuter<\/a>"],[0,1,"<a href=\"GitLive.php.html#179\">GitLive\\GitLive::execute<\/a>"],[100,2,"<a href=\"GitLive.php.html#192\">GitLive\\GitLive::isReleaseOpen<\/a>"],[100,2,"<a href=\"GitLive.php.html#212\">GitLive\\GitLive::isHotfixOpen<\/a>"],[0,2,"<a href=\"GitLive.php.html#233\">GitLive\\GitLive::enableRelease<\/a>"],[0,4,"<a href=\"GitLive.php.html#254\">GitLive\\GitLive::getReleaseRepository<\/a>"],[0,4,"<a href=\"GitLive.php.html#285\">GitLive\\GitLive::getHotfixRepository<\/a>"],[0,2,"<a href=\"GitLive.php.html#316\">GitLive\\GitLive::getSelfBranchRef<\/a>"],[0,2,"<a href=\"GitLive.php.html#337\">GitLive\\GitLive::getSelfBranch<\/a>"],[0,2,"<a href=\"GitLive.php.html#350\">GitLive\\GitLive::isBranchExits<\/a>"],[0,1,"<a href=\"GitLive.php.html#369\">GitLive\\GitLive::patchApplyCheck<\/a>"],[0,3,"<a href=\"GitLive.php.html#387\">GitLive\\GitLive::push<\/a>"],[0,5,"<a href=\"GitLive.php.html#409\">GitLive\\GitLive::pull<\/a>"],[0,1,"<a href=\"GitLive.php.html#438\">GitLive\\GitLive::clean<\/a>"],[0,2,"<a href=\"GitLive.php.html#454\">GitLive\\GitLive::deployDestroy<\/a>"],[0,9,"<a href=\"GitLive.php.html#481\">GitLive\\GitLive::deployEnd<\/a>"],[0,2,"<a href=\"GitLive.php.html#571\">GitLive\\GitLive::deployTrack<\/a>"],[0,2,"<a href=\"GitLive.php.html#590\">GitLive\\GitLive::deploySync<\/a>"],[0,3,"<a href=\"GitLive.php.html#618\">GitLive\\GitLive::deployPush<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

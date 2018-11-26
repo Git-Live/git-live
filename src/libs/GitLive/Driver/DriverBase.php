@@ -5,16 +5,20 @@
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
- * @copyright Project Git Live
- * @license MIT
+ * @copyright  Project Git Live
+ * @license    MIT
  * @version    GIT: $Id$
- * @link https://github.com/Git-Live/git-live
- * @see https://github.com/Git-Live/git-live
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
+
 namespace GitLive\Driver;
 
-use GitLive\GitBase;
+use App;
+use GitLive\GitCmdExecuter;
+use GitLive\GitLive;
+use GitLive\Support\SystemCommandInterface;
 
 /**
  * @category   GitCommand
@@ -22,266 +26,196 @@ use GitLive\GitBase;
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
- * @copyright Project Git Live
- * @license MIT
+ * @copyright  Project Git Live
+ * @license    MIT
  * @version    GIT: $Id$
- * @link https://github.com/Git-Live/git-live
- * @see https://github.com/Git-Live/git-live
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-class DriverBase extends \GitLive\GitBase
+abstract class DriverBase
 {
+    /**
+     * @var GitLive
+     */
     protected $GitLive;
+
+    /**
+     * @var \GitLive\GitCmdExecuter
+     */
     protected $GitCmdExecuter;
 
     /**
-     * +-- コンストラクタ
-     *
-     * @access      public
-     * @param  var_text $GitLive
-     * @return void
-     * @codeCoverageIgnore
+     * @var SystemCommandInterface
      */
-    public function __construct($GitLive)
-    {
-        $this->GitLive        = $GitLive;
-        $this->GitCmdExecuter = $GitLive->getGitCmdExecuter();
-    }
-    /* ----------------------------------------- */
+    protected $command;
 
     /**
-     * +-- 今のブランチを取得する
+     * コンストラクタ
+     *
+     * @access      public
+     * @param  GitLive               $GitLive
+     * @param GitCmdExecuter         $gitCmdExecuter
+     * @param SystemCommandInterface $command
+     * @codeCoverageIgnore
+     */
+    public function __construct($GitLive, GitCmdExecuter $gitCmdExecuter, SystemCommandInterface $command)
+    {
+        $this->GitLive = $GitLive;
+        $this->GitCmdExecuter = $gitCmdExecuter;
+        $this->command = $command;
+    }
+
+    /**
+     * 今のブランチを取得する
      *
      * @access      public
      * @return string
-     * @codeCoverageIgnore
+     * @throws Exception
+     * @throws Exception
      */
     public function getSelfBranchRef()
     {
-        return $this->GitLive->getSelfBranchRef();
-    }
-    /* ----------------------------------------- */
+        $self_blanch = $this->exec('git symbolic-ref HEAD 2>/dev/null');
+        if (!$self_blanch) {
+            throw new Exception(__('Not a git repository.'));
+        }
 
+        return trim($self_blanch);
+    }
 
     /**
-     * +-- 今のブランチを取得する
+     * Commandの実行
+     *
+     * 単体テストを楽にするために、処理を上書きして委譲する
+     *
+     * @access      public
+     * @param  string $cmd
+     * @return string
+     * @codeCoverageIgnore
+     */
+    public function exec($cmd)
+    {
+        return $this->command->exec($cmd, true);
+    }
+
+    /**
+     * 今のブランチを取得する
      *
      * @access      public
      * @return string
+     * @throws Exception
+     * @throws Exception
      */
     public function getSelfBranch()
     {
-        return $this->GitLive->getSelfBranch();
+        $self_blanch = $this->exec('git rev-parse --abbrev-ref HEAD 2>/dev/null');
+        if (!$self_blanch) {
+            throw new Exception(__('Not a git repository.'));
+        }
+
+        return trim($self_blanch);
     }
 
-    /* ----------------------------------------- */
-
-
-
     /**
-     * +--
+     *
      *
      * @access      public
-     * @param  string                     $driver_name
+     * @param  string $driver_name
      * @return \GitLive\Driver\DriverBase
+     * @throws Exception
      * @codeCoverageIgnore
      */
     public function Driver($driver_name)
     {
-        return $this->GitLive->Driver($driver_name);
+        try {
+            return App::make($driver_name);
+        } catch (\ReflectionException $exception) {
+            dd($exception);
+        }
+
+        throw new Exception('Undefined Driver.' . $driver_name);
     }
-    /* ----------------------------------------- */
 
     /**
-     * +-- 引数配列を返す
-     *
-     * 単体テストを楽にするために、処理を上書きして委譲する
-     *
-     * @access      public
-     * @return array
-     * @codeCoverageIgnore
-     */
-    public function getArgv()
-    {
-        return $this->GitLive->getArgv();
-    }
-    /* ----------------------------------------- */
-
-    /**
-     * +-- 引数の取得
-     *
-     * 指定した引数の次の値(-f "filename"のfilename)
-     * を取得します。<br />
-     * 存在しない場合は、
-     * $default_paramの値を返す。
-     *
-     * @access      public
-     * @param  string $name
-     * @param  mix    $default_param (optional:false)
-     * @return mix
-     * @codeCoverageIgnore
-     */
-    public function getOption($name, $default_param = false)
-    {
-        return $this->GitLive->getOption($name, $default_param);
-    }
-    /* ----------------------------------------- */
-
-    /**
-     * +-- 引数の取得
-     *
-     * 指定した引数の次の値(-f "filename"のfilename)
-     * を取得します。<br />
-     * 存在しない場合は、
-     * $default_paramの値を返す。
-     *
-     * @access      public
-     * @param  string $name
-     * @return array
-     * @codeCoverageIgnore
-     */
-    public function getOptions($name)
-    {
-        return $this->GitLive->getOptions($name);
-    }
-    /* ----------------------------------------- */
-
-    /**
-     * +--$nameで指定された引数が存在するかどうかを確認する
-     *
-     * @access      public
-     * @param  string $name
+     * @param $branch_name
      * @return bool
-     * @codeCoverageIgnore
      */
-    public function isOption($name)
+    public function isBranchExits($branch_name)
     {
-        return $this->GitLive->isOption($name);
+        $branch_list_tmp = explode("\n", $this->GitCmdExecuter->branch());
+        $branch_list = [];
+        foreach ($branch_list_tmp as $k => $branch_name_ck) {
+            $branch_name_ck = trim(mb_ereg_replace('^[*]', '', $branch_name_ck));
+            $branch_name_ck = trim(mb_ereg_replace('\s', '', $branch_name_ck));
+            $branch_list[$branch_name_ck] = $branch_name_ck;
+        }
+
+        return isset($branch_list[$branch_name]);
     }
-    /* ----------------------------------------- */
 
     /**
-     * +-- 色つきecho
-     *
-     * 単体テストを楽にするために、処理を上書きして委譲する
+     * コンフリクト確認
      *
      * @access      public
-     * @param  var_text $text
-     * @param  var_text $color
-     * @return void
-     * @codeCoverageIgnore
+     * @param  string $from
+     * @return bool
      */
-    public function cecho($text, $color)
+    public function patchApplyCheck($from)
     {
-        return $this->GitLive->cecho($text, $color);
+        $cmd = 'git format-patch `git rev-parse --abbrev-ref HEAD`..' . $from . ' --stdout| git apply --check';
+        $res = $this->exec($cmd);
+        $res = trim($res);
+
+        return empty($res);
     }
-    /* ----------------------------------------- */
+
 
     /**
-     * +-- 色なしecho
+     * コンフリクト確認結果の取得
      *
-     * 単体テストを楽にするために、処理を上書きして委譲する
-     *
-     * @access      public
-     * @param  var_text $text
-     * @return void
-     * @codeCoverageIgnore
+     * @param string $from
+     * @return string
      */
-    public function ncecho($text)
+    public function patchApplyDiff($from)
     {
-        return $this->GitLive->ncecho($text);
+        $cmd = 'git format-patch `git rev-parse --abbrev-ref HEAD`..' . $from . ' --stdout| git apply --check';
+        $res = $this->exec($cmd);
+        $res = trim($res);
+
+        return $res;
     }
-    /* ----------------------------------------- */
 
     /**
-     * +-- chdirへのAlias
-     *
-     * @access      public
-     * @param  var_text $dir
-     * @return void
-     * @codeCoverageIgnore
+     * @param string $dir
      */
     public function chdir($dir)
     {
-        return $this->GitLive->chdir($dir);
+        $this->GitCmdExecuter->chdir($dir);
     }
-    /* ----------------------------------------- */
+
 
     /**
-     * +-- 対話シェル
+     * gitRepository上かどうか
      *
      * @access      public
-     * @param  var_text    $shell_message
-     * @param  bool|string $using_default OPTIONAL:false
-     * @return string
+     * @return      bool
      */
-    public function interactiveShell($shell_message, $using_default = false)
+    public function isGitRepository()
     {
-        return $this->GitLive->interactiveShell($shell_message, $using_default);
+        $res = trim($this->exec('git rev-parse --git-dir 2> /dev/null'));
+
+        return !empty($res);
     }
-    /* ----------------------------------------- */
 
     /**
-     * +-- デバッグメッセージ
      *
-     * 単体テストを楽にするために、処理を上書きして委譲する
-     *
-     * @access      public
-     * @param  var_text $text
-     * @param  var_text $color OPTIONAL:null
-     * @return void
-     * @codeCoverageIgnore
      */
-    public function debug($text, $color = null)
+    public function clean()
     {
-        return $this->GitLive->debug($text, $color);
+        $this->GitCmdExecuter->reset();
+        $this->GitCmdExecuter->clean();
     }
-    /* ----------------------------------------- */
 
-    /**
-     * +-- Commandの実行
-     *
-     * 単体テストを楽にするために、処理を上書きして委譲する
-     *
-     * @access      public
-     * @param  string   $cmd
-     * @param  bool $quiet OPTIONAL:false
-     * @return string
-     * @codeCoverageIgnore
-     */
-    public function exec($cmd, $quiet = false)
-    {
-        return $this->GitLive->exec($cmd, $quiet);
-    }
-    /* ----------------------------------------- */
 
-    /**
-     * +-- デバッグモードかどうか
-     *
-     * 単体テストを楽にするために、処理を上書きして委譲する
-     *
-     * @access      public
-     * @return bool
-     * @codeCoverageIgnore
-     */
-    public function isDebug()
-    {
-        return $this->GitLive->isDebug();
-    }
-    /* ----------------------------------------- */
-
-    /**
-     * +-- Windowsかどうか
-     *
-     * 単体テストを楽にするために、処理を上書きして委譲する
-     *
-     * @access      public
-     * @return bool
-     * @codeCoverageIgnore
-     */
-    public function isWin()
-    {
-        return $this->GitLive->isWin();
-    }
-    /* ----------------------------------------- */
 }

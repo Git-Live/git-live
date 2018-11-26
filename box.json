@@ -1,0 +1,17 @@
+{
+
+  "main": "src/main.php",
+  "output": "bin/git-live.phar",
+  "files-bin": [
+    "LICENSE"
+  ],
+  "directories-bin": ["resources"],
+
+  "compression": "GZ",
+  "compactors": [
+    "KevinGH\\Box\\Compactor\\Php",
+    "KevinGH\\Box\\Compactor\\Json"
+  ],
+  "datetime": "release-date",
+  "git-version": "git-version"
+}
