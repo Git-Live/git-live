@@ -64,6 +64,6 @@ class PushCommand extends CommandBase
         }
 
 
-        App::make(GitCmdExecuter::class)->pull($remote, $branch);
+        App::make(GitCmdExecuter::class)->push($remote, $branch);
     }
 }
