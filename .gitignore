@@ -7,3 +7,5 @@ composer.phar
 box.phar
 *.mo
 vendor/
+.php_cs.cache
+php-cs-fixer.phar
