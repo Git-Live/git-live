@@ -3,8 +3,10 @@ set -euf -o pipefail
 
 ./download-box.sh
 
+php composer.phar install
+
 function restorePlatform {
-    composer config --unset platform
+    php composer.phar config --unset platform
     mv -f composer.lock.back composer.lock || true
 }
 
@@ -23,11 +25,12 @@ fi
 msgfmt  -o  ./resources/lang/en_US/LC_MESSAGES/messages.mo ./resources/lang/en_US/LC_MESSAGES/messages.po
 msgfmt  -o  ./resources/lang/ja_JP/LC_MESSAGES/messages.mo ./resources/lang/ja_JP/LC_MESSAGES/messages.po
 
-composer config platform.php 7.1.0
+php composer.phar config platform.php 7.1.0
+
 cp composer.lock composer.lock.back || true
 mv -f vendor vendor.back || true
 
-composer install --no-dev
+php composer.phar install --no-dev
 
 php box.phar compile -vv
 

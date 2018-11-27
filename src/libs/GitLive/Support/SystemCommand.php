@@ -67,9 +67,9 @@ class SystemCommand implements SystemCommandInterface
      */
     public function exec($cmd, $verbosity = 0)
     {
-        if ($verbosity === false) {
+        if ($verbosity === true) {
             $this->output->writeln('<fg=green;options=bold>' . $cmd . '</>', OutputInterface::VERBOSITY_VERBOSE);
-        } elseif ($verbosity === true) {
+        } elseif ($verbosity === false) {
             $this->output->writeln('<fg=green;options=bold>' . $cmd . '</>');
         } else {
             $this->output->writeln('<fg=green;options=bold>' . $cmd . '</>', $verbosity);
