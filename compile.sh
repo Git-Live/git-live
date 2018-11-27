@@ -31,10 +31,14 @@ cp composer.lock composer.lock.back || true
 mv -f vendor vendor.back || true
 
 php composer.phar install --no-dev
+php composer.phar dump-autoload -a
 
 php box.phar compile -vv
 
 rm -rf vendor
 mv -f vendor.back vendor || true
 
+zip -r windows.zip ./bin
 restorePlatform
+
+php bin/git-live.phar
