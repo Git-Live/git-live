@@ -21,7 +21,7 @@
 include dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 if (!defined('GIT_LIVE_INSTALL_PATH')) {
-    define('GIT_LIVE_INSTALL_PATH', __FILE__);
+    define('GIT_LIVE_INSTALL_PATH', dirname(__DIR__));
 }
 
 try {
