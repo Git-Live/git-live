@@ -39,7 +39,7 @@ class Help extends DriverBase
      */
     public function version()
     {
-        $this->ncecho('Git Live version '.self::VERSION."\n");
+        $this->ncecho('Git Live version '.self::VERSION .' - '.self::VERSION_CODENAME."\n");
     }
     /* ----------------------------------------- */
 
