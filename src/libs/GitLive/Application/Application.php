@@ -1,6 +1,10 @@
 <?php
+
 /**
- * Application.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -9,10 +13,9 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018/11/24
  */
 
 namespace GitLive\Application;
@@ -40,7 +43,6 @@ use Symfony\Component\Console\CommandLoader\FactoryCommandLoader;
  */
 class Application extends ConsoleApplication
 {
-
     /**
      * Application constructor.
      * @throws \ReflectionException
@@ -49,11 +51,9 @@ class Application extends ConsoleApplication
     {
         $Kernel = App::make(CommandLineKernelService::class);
 
-
         $commandLoader = new FactoryCommandLoader(
             $Kernel->register()
         );
-
 
         parent::__construct('GIT Live', GitLive::VERSION);
         $this->setCommandLoader($commandLoader);
@@ -64,7 +64,7 @@ class Application extends ConsoleApplication
      */
     public function getLongVersion()
     {
-        $version = file_get_contents(RESOURCES_DIR.DIRECTORY_SEPARATOR.'aa.txt');
+        $version = file_get_contents(RESOURCES_DIR . DIRECTORY_SEPARATOR . 'aa.txt');
         $version .= parent::getLongVersion();
         if (GitLive::VERSION_CODENAME) {
             $version .= ' - <info>' . GitLive::VERSION_CODENAME . '</info> (@git-version@) ';

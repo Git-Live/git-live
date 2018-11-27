@@ -1,5 +1,11 @@
 <?php
+
 /**
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ *
  * @category   GitCommand
  * @package    Git-Live
  * @subpackage Core
@@ -7,10 +13,9 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
  */
 
 namespace GitLive\Driver;
@@ -32,7 +37,6 @@ use App;
  */
 abstract class DeployBase extends DriverBase
 {
-
     /**
      * @var string
      */
@@ -59,15 +63,16 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param null $release_rep
-     * @return void
      * @throws Exception
      * @throws \ReflectionException
+     * @return void
      */
     public function buildOpen($release_rep = null)
     {
         if ($this->isReleaseOpen()) {
             throw new Exception(sprintf(__('Already %1$s opened.'), 'release'));
-        } elseif ($this->isHotfixOpen()) {
+        }
+        if ($this->isHotfixOpen()) {
             throw new Exception(sprintf(__('Already %1$s opened.'), 'hotfix'));
         }
 
@@ -92,8 +97,8 @@ abstract class DeployBase extends DriverBase
      *  リリースが空いているかどうか
      *
      * @access      public
-     * @return bool
      * @throws \ReflectionException
+     * @return bool
      * @codeCoverageIgnore
      */
     public function isReleaseOpen()
@@ -111,15 +116,14 @@ abstract class DeployBase extends DriverBase
      *  使用しているリリースRepositoryの取得
      *
      * @access      public
-     * @return string
      * @throws Exception
      * @throws \ReflectionException
+     * @return string
      */
     public function getReleaseRepository()
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $release_prefix = App::make(ConfigDriver::class)->releasePrefix();
-
 
         $branches = $this->GitCmdExecuter->branch(['-a']);
         $branches = explode("\n", trim($branches));
@@ -129,6 +133,7 @@ abstract class DeployBase extends DriverBase
             $match = null;
             if (mb_ereg('remotes/' . $deploy_repository_name . '/(' . $release_prefix . '[^/]*$)', $branch, $match)) {
                 $release_branch = $match[1];
+
                 break;
             }
         }
@@ -144,8 +149,8 @@ abstract class DeployBase extends DriverBase
      *  ホットフィクスが空いているかどうか
      *
      * @access      public
-     * @return bool
      * @throws \ReflectionException
+     * @return bool
      * @codeCoverageIgnore
      */
     public function isHotfixOpen()
@@ -163,15 +168,14 @@ abstract class DeployBase extends DriverBase
      *  使用しているhot fix Repositoryの取得
      *
      * @access      public
-     * @return string
      * @throws Exception
      * @throws \ReflectionException
+     * @return string
      */
     public function getHotfixRepository()
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $release_prefix = App::make(ConfigDriver::class)->hotfixPrefix();
-
 
         $branches = $this->GitCmdExecuter->branch(['-a']);
         $branches = explode("\n", trim($branches));
@@ -181,6 +185,7 @@ abstract class DeployBase extends DriverBase
             $match = null;
             if (mb_ereg('remotes/' . $deploy_repository_name . '/(' . $release_prefix . '[^/]*$)', $branch, $match)) {
                 $release_branch = $match[1];
+
                 break;
             }
         }
@@ -197,15 +202,16 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param       string $tag_name
-     * @return      void
      * @throws Exception
      * @throws \ReflectionException
+     * @return      void
      */
     public function buildOpenWithReleaseTag($tag_name)
     {
         if ($this->isReleaseOpen()) {
             throw new Exception(sprintf(__('Already %1$s opened.'), 'release'));
-        } elseif ($this->isHotfixOpen()) {
+        }
+        if ($this->isHotfixOpen()) {
             throw new Exception(sprintf(__('Already %1$s opened.'), 'hotfix'));
         }
 
@@ -231,9 +237,9 @@ abstract class DeployBase extends DriverBase
      *  誰かが開けたリリースをトラックする
      *
      * @access      public
-     * @return void
      * @throws Exception
      * @throws \ReflectionException
+     * @return void
      */
     public function buildTrack()
     {
@@ -251,20 +257,20 @@ abstract class DeployBase extends DriverBase
     /**
      * @return bool
      */
-    public abstract function isBuildOpen();
+    abstract public function isBuildOpen();
 
     /**
      * @return string
      */
-    public abstract function getBuildRepository();
+    abstract public function getBuildRepository();
 
     /**
      *  DeployブランチをTrackする
      *
      * @access      public
      * @param  string $repo
-     * @return void
      * @throws \ReflectionException
+     * @return void
      */
     public function deployTrack($repo)
     {
@@ -282,8 +288,8 @@ abstract class DeployBase extends DriverBase
      *  誰かが開けたRELEASEをpullする
      *
      * @access      public
-     * @return void
      * @throws Exception
+     * @return void
      */
     public function buildPull()
     {
@@ -327,9 +333,9 @@ abstract class DeployBase extends DriverBase
      *  コードを各環境に反映する
      *
      * @access      public
-     * @return void
      * @throws Exception
      * @throws \ReflectionException
+     * @return void
      */
     public function buildSync()
     {
@@ -347,9 +353,9 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param  string $repo
-     * @return void
      * @throws Exception
      * @throws \ReflectionException
+     * @return void
      */
     public function deploySync($repo)
     {
@@ -373,9 +379,9 @@ abstract class DeployBase extends DriverBase
      *  コードをupstreamに反映する
      *
      * @access      public
-     * @return void
      * @throws Exception
      * @throws \ReflectionException
+     * @return void
      */
     public function buildPush()
     {
@@ -393,9 +399,9 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param  string $repo
-     * @return void
      * @throws Exception
      * @throws \ReflectionException
+     * @return void
      */
     public function deployPush($repo)
     {
@@ -423,9 +429,9 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param bool $remove_local OPTIONAL:false
+     * @throws Exception
      * @return void
      *
-     * @throws Exception
      */
     public function buildDestroy($remove_local = false)
     {
@@ -444,8 +450,8 @@ abstract class DeployBase extends DriverBase
      * @param  string $repo
      * @param  string $mode
      * @param bool    $remove_local OPTIONAL:false
-     * @return void
      * @throws Exception
+     * @return void
      */
     public function deployDestroy($repo, $mode, $remove_local = false)
     {
@@ -455,9 +461,11 @@ abstract class DeployBase extends DriverBase
 
         if ($mode === 'hotfix' && strpos($repo, $this->Driver(ConfigDriver::class)->hotfixPrefix()) === false) {
             throw new Exception($repo . __(' is not hotfix branch.'));
-        } elseif ($mode === 'release' && strpos($repo, $this->Driver(ConfigDriver::class)->releasePrefix()) === false) {
+        }
+        if ($mode === 'release' && strpos($repo, $this->Driver(ConfigDriver::class)->releasePrefix()) === false) {
             throw new Exception($repo . __(' is not release branch.'));
-        } elseif ($mode !== 'hotfix' && $mode !== 'release') {
+        }
+        if ($mode !== 'hotfix' && $mode !== 'release') {
             throw new Exception($mode . __(' is not deploy mode.'));
         }
 
@@ -475,10 +483,10 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param bool $force OPTIONAL:false
      * @param null $tag_name
-     * @return void
-     *
      * @throws Exception
      * @throws \ReflectionException
+     * @return void
+     *
      */
     public function buildClose($force = false, $tag_name = null)
     {
@@ -498,16 +506,15 @@ abstract class DeployBase extends DriverBase
      * @param  string $mode
      * @param bool    $force OPTIONAL:false
      * @param null    $tag_name
-     * @return void
      * @throws Exception
      * @throws \ReflectionException
+     * @return void
      */
     public function deployEnd($repo, $mode, $force = false, $tag_name = null)
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $master_branch = App::make(ConfigDriver::class)->master();
         $develop = App::make(ConfigDriver::class)->develop();
-
 
         // マスターのマージ
         $this->GitCmdExecuter->checkout($deploy_repository_name . '/' . $master_branch);
@@ -518,12 +525,14 @@ abstract class DeployBase extends DriverBase
             $this->GitCmdExecuter->checkout($repo);
             $error_msg = sprintf(__('%1$s close is failed.'), $mode) . "\n" .
                 sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Master', ucwords($mode));
+
             throw new Exception($error_msg);
         }
 
         if (!$this->patchApplyCheck('deploy/' . $repo)) {
             $error_msg = sprintf(__('%1$s close is failed.'), $mode) . "\n" .
                 sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Master', ucwords($mode));
+
             throw new Exception($error_msg);
         }
 
@@ -532,6 +541,7 @@ abstract class DeployBase extends DriverBase
 
         if (strlen($diff) !== 0) {
             $error_msg = $diff . "\n" . sprintf(__('%1$s close is failed.'), $mode);
+
             throw new Exception($error_msg);
         }
 
@@ -547,6 +557,7 @@ abstract class DeployBase extends DriverBase
             $this->GitCmdExecuter->checkout($repo);
             $error_msg = sprintf(__('%1$s close is failed.'), $mode) . "\n" .
                 sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Develop', ucwords($mode));
+
             throw new Exception($error_msg);
         }
 
@@ -559,6 +570,7 @@ abstract class DeployBase extends DriverBase
         if (strlen($diff) !== 0) {
             $error_msg = sprintf(__('%1$s close is failed.'), $mode) . "\n" .
                 sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Develop', ucwords($mode));
+
             throw new Exception($error_msg);
         }
 
@@ -588,22 +600,20 @@ abstract class DeployBase extends DriverBase
      *  releaseコマンド、hotfixコマンドが使用できるかどうか
      *
      * @access      public
-     * @return void
      * @throws Exception
      * @throws \ReflectionException
+     * @return void
      */
     public function enableRelease()
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $remote = $this->GitCmdExecuter->remote();
         $remote = explode("\n", trim($remote));
-        $res = array_search($deploy_repository_name, $remote) !== false;
+        $res = array_search($deploy_repository_name, $remote, true) !== false;
         if ($res === false) {
             throw new Exception(
                 sprintf(__('Add a remote repository %s.'), $deploy_repository_name)
             );
         }
     }
-
-
 }

@@ -1,6 +1,10 @@
 <?php
+
 /**
+ * This file is part of Git-Live
  *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -12,11 +16,9 @@
  * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018/11/24
  */
 
 namespace GitLive\Command\Hotfix;
-
 
 use App;
 use GitLive\Application\Container;
@@ -43,7 +45,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class HotfixOpen extends CommandBase
 {
-
     protected function configure()
     {
         $this
@@ -60,17 +61,15 @@ class HotfixOpen extends CommandBase
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return int|null|void
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
+     * @return null|int|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-
         App::make(HotfixDriver::class)->buildOpen($input->getArgument('name'));
-
     }
 }

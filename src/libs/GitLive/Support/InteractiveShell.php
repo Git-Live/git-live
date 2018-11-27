@@ -1,6 +1,10 @@
 <?php
+
 /**
- * InteractiveShell.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -9,14 +13,12 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018/11/24
  */
 
 namespace GitLive\Support;
-
 
 class InteractiveShell implements InteractiveShellInterface
 {
@@ -38,7 +40,7 @@ class InteractiveShell implements InteractiveShellInterface
      *  対話シェル
      *
      * @access      public
-     * @param  string|array $shell_message
+     * @param  array|string $shell_message
      * @param  bool|string  $using_default OPTIONAL:false
      * @return string
      * @codeCoverageIgnore
@@ -79,6 +81,4 @@ class InteractiveShell implements InteractiveShellInterface
 
         echo $text;
     }
-
-
 }

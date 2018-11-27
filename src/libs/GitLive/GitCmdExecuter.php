@@ -1,5 +1,11 @@
 <?php
+
 /**
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ *
  * @category   GitCommand
  * @package    Git-Live
  * @subpackage Core
@@ -7,10 +13,9 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
  */
 
 namespace GitLive;
@@ -55,26 +60,11 @@ class GitCmdExecuter
         return $this->exec($cmd);
     }
 
-    protected function exec($cmd, $quiet = false)
-    {
-        return $this->command->exec($cmd, $quiet);
-    }
-
     public function config(array $options = [])
     {
         $cmd = $this->createCmd('config', $options);
 
         return $this->exec($cmd, true);
-    }
-
-    protected function createCmd($git_task, array $options = [])
-    {
-        $cmd = 'git ' . $git_task;
-        if (count($options)) {
-            $cmd .= ' ' . join(' ', $options);
-        }
-
-        return $cmd;
     }
 
     public function tag(array $options = [])
@@ -212,5 +202,20 @@ class GitCmdExecuter
     public function chdir($dir)
     {
         return chdir($dir);
+    }
+
+    protected function exec($cmd, $quiet = false)
+    {
+        return $this->command->exec($cmd, $quiet);
+    }
+
+    protected function createCmd($git_task, array $options = [])
+    {
+        $cmd = 'git ' . $git_task;
+        if (count($options)) {
+            $cmd .= ' ' . join(' ', $options);
+        }
+
+        return $cmd;
     }
 }

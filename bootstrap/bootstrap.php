@@ -1,20 +1,22 @@
 <?php
+
 /**
- * bootstrap.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
- * @copyright Project Git Live
- * @license MIT
- * @version    GIT: $Id$
- * @link https://github.com/Git-Live/git-live
- * @see https://github.com/Git-Live/git-live
- * @since      2018/11/23
+ * @copyright  Project Git Live
+ * @license    MIT
+ * @version    GIT: $Id\$
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
  */
-
 
 ini_set('max_execution_time', 0);
 ini_set('memory_limit', -1);
@@ -24,12 +26,11 @@ if (!ini_get('date.timezone')) {
     date_default_timezone_set($TZ ? $TZ : 'Europe/London');
 }
 
-
 if (!defined('GIT_LIVE_VERSION')) {
     define('GIT_LIVE_VERSION', 'cli');
 }
 
-define('RESOURCES_DIR', dirname(__DIR__).DIRECTORY_SEPARATOR.'resources');
+define('RESOURCES_DIR', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'resources');
 
 class_alias(\GitLive\Application\Facade::class, 'App');
 
@@ -52,8 +53,7 @@ if (!function_exists('\textdomain')) {
     textdomain($domain);
     bind_textdomain_codeset($domain, 'UTF-8');
 
-
-    define('GIT_LIVE_BINDTEXTDOMAIN',  RESOURCES_DIR.DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR);
+    define('GIT_LIVE_BINDTEXTDOMAIN', RESOURCES_DIR . DIRECTORY_SEPARATOR . 'lang' . DIRECTORY_SEPARATOR);
 
     $is_bindtextdomain = bindtextdomain($domain, GIT_LIVE_BINDTEXTDOMAIN);
 

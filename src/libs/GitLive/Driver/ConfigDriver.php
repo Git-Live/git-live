@@ -1,5 +1,11 @@
 <?php
+
 /**
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ *
  * @category   GitCommand
  * @package    Git-Live
  * @subpackage Core
@@ -7,10 +13,9 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
  */
 
 namespace GitLive\Driver;
@@ -87,7 +92,6 @@ class ConfigDriver extends DriverBase
             return self::$cache[__METHOD__];
         }
 
-
         if (strtolower($this->getParameter(self::FEATURE_PREFIX_IGNORE_KEY)) === 'true') {
             return self::$cache[__METHOD__] = '';
         }
@@ -137,7 +141,6 @@ class ConfigDriver extends DriverBase
         return self::$cache[__METHOD__] = $this->getParameter(self::DEPLOY_REMOTE_KEY) ?? GitLive::DEFAULT_DEPLOY_REMOTE_NAME;
     }
 
-
     public function develop()
     {
         if (isset(self::$cache[__METHOD__])) {
@@ -145,7 +148,6 @@ class ConfigDriver extends DriverBase
         }
 
         return self::$cache[__METHOD__] = $this->getParameter(self::DEVELOP_NAME_KEY) ?? GitLive::DEFAULT_DEVELOP_BRANCH_NAME;
-
     }
 
     public function master()

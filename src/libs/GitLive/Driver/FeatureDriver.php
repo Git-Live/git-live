@@ -1,5 +1,11 @@
 <?php
+
 /**
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ *
  * @category   GitCommand
  * @package    Git-Live
  * @subpackage Core
@@ -7,10 +13,9 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
  */
 
 namespace GitLive\Driver;
@@ -30,15 +35,13 @@ namespace GitLive\Driver;
  */
 class FeatureDriver extends DriverBase
 {
-
     /**
      * featureの一覧を取得する
      *
-     *
      * @access      public
+     * @throws Exception
+     * @throws Exception
      * @return string
-     * @throws Exception
-     * @throws Exception
      */
     public function featureList()
     {
@@ -49,17 +52,15 @@ class FeatureDriver extends DriverBase
         return $this->GitCmdExecuter->branch(['--list', '"' . $feature_prefix . '*"'], true);
     }
 
-
     /**
      * featureを開始する
      *
-     *
      * @access      public
      * @param  string $branch
+     * @throws Exception
+     * @throws Exception
+     * @throws Exception
      * @return void
-     * @throws Exception
-     * @throws Exception
-     * @throws Exception
      */
     public function featureStart($branch)
     {
@@ -78,16 +79,14 @@ class FeatureDriver extends DriverBase
         $this->GitCmdExecuter->checkout($branch, ['-b']);
     }
 
-
     /**
      * featureを変更する
      *
-     *
      * @access      public
      * @param  string $branch
+     * @throws Exception
+     * @throws Exception
      * @return void
-     * @throws Exception
-     * @throws Exception
      */
     public function featureChange($branch)
     {
@@ -101,14 +100,13 @@ class FeatureDriver extends DriverBase
         $this->GitCmdExecuter->checkout($branch);
     }
 
-
     /**
      * 共用Repositoryにfeatureを送信する
      *
      * @access      public
-     * @param  string|null $branch OPTIONAL:NULL
-     * @return void
+     * @param  null|string $branch OPTIONAL:NULL
      * @throws \Exception
+     * @return void
      */
     public function featurePublish($branch = null)
     {
@@ -133,9 +131,9 @@ class FeatureDriver extends DriverBase
      * 自分のリモートRepositoryにfeatureを送信する
      *
      * @access      public
-     * @param  string|null $branch OPTIONAL:NULL
-     * @return void
+     * @param  null|string $branch OPTIONAL:NULL
      * @throws \Exception
+     * @return void
      */
     public function featurePush($branch = null)
     {
@@ -161,8 +159,8 @@ class FeatureDriver extends DriverBase
      *
      * @access      public
      * @param  string $branch
-     * @return void
      * @throws \Exception
+     * @return void
      */
     public function featureTrack($branch)
     {
@@ -190,9 +188,9 @@ class FeatureDriver extends DriverBase
      * 共用Repositoryからpullする
      *
      * @access      public
-     * @param  string|null $repository OPTIONAL:NULL
-     * @return void
+     * @param  null|string $repository OPTIONAL:NULL
      * @throws \Exception
+     * @return void
      */
     public function featurePull($repository = null)
     {
@@ -217,9 +215,9 @@ class FeatureDriver extends DriverBase
      * featureを閉じる
      *
      * @access      public
-     * @param  string|null $repository OPTIONAL:NULL
-     * @return void
+     * @param  null|string $repository OPTIONAL:NULL
      * @throws \Exception
+     * @return void
      */
     public function featureClose($repository = null)
     {

@@ -1,6 +1,10 @@
 <?php
+
 /**
- * CommandBase.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -9,21 +13,18 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018/11/23
  */
 
 namespace GitLive\Command;
-
 
 use App;
 use GitLive\Driver\ConfigDriver;
 use GitLive\GitLive;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
-
 
 /**
  * Class CommandBase
@@ -42,11 +43,16 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 abstract class CommandBase extends Command
 {
-
+    /**
+     * @param OutputInterface $output
+     */
     public function updateChecker(OutputInterface $output)
     {
-        if ($this->ckNewVersion()) {
-            $output->writeln(__('Alert: An update to the Git Live is available. Run "git live self-update" to get the latest version.'));
+        try {
+            if ($this->ckNewVersion()) {
+                $output->writeln(__('Alert: An update to the Git Live is available. Run "git live self-update" to get the latest version.'));
+            }
+        } catch (\Exception $exception) {
         }
     }
 
@@ -54,8 +60,8 @@ abstract class CommandBase extends Command
      *  新しいVersionが出ていないか確認する
      *
      * @access      public
-     * @return bool
      * @throws \ReflectionException
+     * @return bool
      */
     public function ckNewVersion()
     {
@@ -68,8 +74,8 @@ abstract class CommandBase extends Command
      * 最終Versionを取得
      *
      * @access      public
-     * @return string
      * @throws \ReflectionException
+     * @return string
      */
     public function getLatestVersion()
     {
@@ -85,9 +91,7 @@ abstract class CommandBase extends Command
         $ConfigDriver = $this->Driver('Config');
         $latest_version_fetch_time = (int)$ConfigDriver->getParameter('latestversion.fetchtime');
 
-
         $update_ck_span = (int)$ConfigDriver->getParameter('latestversion.update_ck_span') ?: GitLive::DEFAULT_UPDATE_CK_SPAN;
-
 
         if (!empty($latest_version_fetch_time) && (time() - $latest_version_fetch_time) < $update_ck_span) {
             return $latest_version = $ConfigDriver->getParameter('latestversion.val');
@@ -128,13 +132,12 @@ abstract class CommandBase extends Command
      *
      * @access      public
      * @param  string $driver_name
-     * @return \GitLive\Driver\DriverBase
      * @throws \ReflectionException
+     * @return \GitLive\Driver\DriverBase
      * @codeCoverageIgnore
      */
     public function Driver($driver_name)
     {
         return App::make('\GitLive\Driver\\' . $driver_name . 'Driver');
     }
-
 }

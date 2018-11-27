@@ -1,6 +1,10 @@
 <?php
+
 /**
- * SystemCommand.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -9,18 +13,15 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018/11/23
  */
 
 namespace GitLive\Support;
 
-
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-
 
 /**
  * Class SystemCommand
@@ -75,7 +76,6 @@ class SystemCommand implements SystemCommandInterface
             $this->output->writeln('<fg=green;options=bold>' . $cmd . '</>', $verbosity);
         }
 
-
         $res = `$cmd`;
 
         if ($verbosity === false) {
@@ -87,6 +87,5 @@ class SystemCommand implements SystemCommandInterface
         $this->output->writeln($res, $verbosity);
 
         return $res;
-
     }
 }

@@ -1,6 +1,10 @@
 <?php
+
 /**
- * Feature.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -9,14 +13,12 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018/11/24
  */
 
 namespace GitLive\Command;
-
 
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
@@ -40,7 +42,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class HotfixCommand extends CommandBase
 {
-
     protected function configure()
     {
         $this
@@ -66,8 +67,8 @@ class HotfixCommand extends CommandBase
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return int|null
      * @throws \Exception
+     * @return null|int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -84,8 +85,8 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-                break;
 
+                break;
             case 'close':
                 $command = $this->getApplication()->find('hotfix:close');
 
@@ -98,6 +99,7 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
                 break;
             case 'close-force':
                 $command = $this->getApplication()->find('hotfix:close');
@@ -113,50 +115,48 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-                break;
 
+                break;
             case 'sync':
                 $command = $this->getApplication()->find('hotfix:sync');
 
                 $arguments = [];
 
-
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
                 break;
             case 'pull':
                 $command = $this->getApplication()->find('hotfix:pull');
 
                 $arguments = [];
 
-
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
                 break;
             case 'push':
                 $command = $this->getApplication()->find('hotfix:push');
 
                 $arguments = [];
 
-
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
                 break;
             case 'track':
                 $command = $this->getApplication()->find('hotfix:track');
 
                 $arguments = [];
 
-
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
                 break;
-
-
             case 'state':
                 $command = $this->getApplication()->find('hotfix:state');
 
@@ -166,8 +166,8 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-                break;
 
+                break;
             case 'state-all':
                 $command = $this->getApplication()->find('hotfix:state');
 
@@ -175,10 +175,10 @@ class HotfixCommand extends CommandBase
                     'with_merge_commit' => true,
                 ];
 
-
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
                 break;
             case 'is':
                 $command = $this->getApplication()->find('hotfix:state');
@@ -187,13 +187,11 @@ class HotfixCommand extends CommandBase
                     'ck_only' => true,
                 ];
 
-
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
                 break;
-
-
             case 'destroy':
                 $command = $this->getApplication()->find('hotfix:destroy');
 
@@ -202,6 +200,7 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
                 break;
             case 'destroy-clean':
                 $command = $this->getApplication()->find('hotfix:destroy');
@@ -213,11 +212,10 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
                 break;
         }
 
-
         return 0;
-
     }
 }

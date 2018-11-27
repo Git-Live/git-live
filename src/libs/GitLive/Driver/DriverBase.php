@@ -1,5 +1,11 @@
 <?php
+
 /**
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ *
  * @category   GitCommand
  * @package    Git-Live
  * @subpackage Core
@@ -7,10 +13,9 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
  */
 
 namespace GitLive\Driver;
@@ -70,9 +75,9 @@ abstract class DriverBase
      * 今のブランチを取得する
      *
      * @access      public
+     * @throws Exception
+     * @throws Exception
      * @return string
-     * @throws Exception
-     * @throws Exception
      */
     public function getSelfBranchRef()
     {
@@ -103,9 +108,9 @@ abstract class DriverBase
      * 今のブランチを取得する
      *
      * @access      public
+     * @throws Exception
+     * @throws Exception
      * @return string
-     * @throws Exception
-     * @throws Exception
      */
     public function getSelfBranch()
     {
@@ -122,8 +127,8 @@ abstract class DriverBase
      *
      * @access      public
      * @param  string $driver_name
-     * @return \GitLive\Driver\DriverBase
      * @throws Exception
+     * @return \GitLive\Driver\DriverBase
      * @codeCoverageIgnore
      */
     public function Driver($driver_name)
@@ -170,7 +175,6 @@ abstract class DriverBase
         return empty($res);
     }
 
-
     /**
      * コンフリクト確認結果の取得
      *
@@ -181,9 +185,8 @@ abstract class DriverBase
     {
         $cmd = 'git format-patch `git rev-parse --abbrev-ref HEAD`..' . $from . ' --stdout| git apply --check';
         $res = $this->exec($cmd);
-        $res = trim($res);
 
-        return $res;
+        return trim($res);
     }
 
     /**
@@ -193,7 +196,6 @@ abstract class DriverBase
     {
         $this->GitCmdExecuter->chdir($dir);
     }
-
 
     /**
      * gitRepository上かどうか
@@ -216,6 +218,4 @@ abstract class DriverBase
         $this->GitCmdExecuter->reset();
         $this->GitCmdExecuter->clean();
     }
-
-
 }

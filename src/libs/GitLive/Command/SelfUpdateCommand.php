@@ -1,6 +1,10 @@
 <?php
+
 /**
+ * This file is part of Git-Live
  *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -12,11 +16,9 @@
  * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018/11/24
  */
 
 namespace GitLive\Command;
-
 
 use App;
 use GitLive\Application\Container;
@@ -27,7 +29,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SelfUpdateCommand extends CommandBase
 {
-
     protected function configure()
     {
         $this
@@ -49,14 +50,13 @@ class SelfUpdateCommand extends CommandBase
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return int|null
      * @throws \ReflectionException
+     * @return null|int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
-
 
         if (GIT_LIVE_VERSION === 'cli') {
             return 1;
@@ -71,8 +71,6 @@ class SelfUpdateCommand extends CommandBase
 
         $FileSystem->putContents(GIT_LIVE_INSTALL_PATH, $FileSystem->getContentsWithProgress($url));
 
-
         return 0;
-
     }
 }

@@ -1,22 +1,26 @@
 <?php
+
 /**
- * FeatureDriverTest.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
- * @copyright Project Git Live
- * @license MIT
- * @version    GIT: $Id$
- * @link https://github.com/Git-Live/git-live
- * @see https://github.com/Git-Live/git-live
- * @since      2018/11/25
+ * @copyright  Project Git Live
+ * @license    MIT
+ * @version    GIT: $Id\$
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
  */
 
 namespace Tests\GitLive\Driver;
 
+use App;
 use GitLive\Application\Container;
 use GitLive\Driver\ConfigDriver;
 use GitLive\Driver\FeatureDriver;
@@ -24,8 +28,6 @@ use GitLive\GitLive;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
 use Tests\GitLive\TestCase;
-
-use App;
 
 /**
  * Class FeatureDriverTest
@@ -41,12 +43,12 @@ use App;
  * @link https://github.com/Git-Live/git-live
  * @see https://github.com/Git-Live/git-live
  * @since      2018/11/25
+ *
+ * @internal
+ * @coversNothing
  */
 class FeatureDriverTest extends TestCase
 {
-
-
-
     public function testFeatureTrack()
     {
         $mock = \Mockery::mock(SystemCommand::class);
@@ -65,7 +67,6 @@ class FeatureDriverTest extends TestCase
             ->once()
             ->with('git config --get gitlive.branch.feature.prefix.name', true)
             ->andReturn('');
-
 
         $mock->shouldReceive('exec')
             ->once()
@@ -102,11 +103,9 @@ class FeatureDriverTest extends TestCase
             ->with('git pull upstream feature/unit_testing', false)
             ->andReturn('');
 
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
-
                 return $mock;
             }
         );
@@ -117,7 +116,6 @@ class FeatureDriverTest extends TestCase
 
         $this->assertTrue(true);
     }
-
 
     public function testFeatureTrackOther()
     {
@@ -136,9 +134,6 @@ class FeatureDriverTest extends TestCase
             ->once()
             ->with('git config --get gitlive.branch.feature.prefix.name', true)
             ->andReturn('');
-
-
-
 
         $mock->shouldReceive('exec')
             ->once()
@@ -175,11 +170,9 @@ class FeatureDriverTest extends TestCase
             ->with('git pull upstream feature/unit_testing', false)
             ->andReturn('');
 
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
-
                 return $mock;
             }
         );
@@ -208,7 +201,6 @@ class FeatureDriverTest extends TestCase
             ->once()
             ->with('git config --get gitlive.branch.feature.prefix.name', true)
             ->andReturn('');
-
 
         $mock->shouldReceive('exec')
             ->once()
@@ -246,11 +238,9 @@ class FeatureDriverTest extends TestCase
             ->with('git checkout -b feature/unit_testing', false)
             ->andReturn('');
 
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
-
                 return $mock;
             }
         );
@@ -260,8 +250,6 @@ class FeatureDriverTest extends TestCase
         $FeatureDriver->featureStart('unit_testing');
 
         $this->assertTrue(true);
-
-
     }
 
     public function testFeaturePublish()
@@ -281,7 +269,6 @@ class FeatureDriverTest extends TestCase
             ->once()
             ->with('git config --get gitlive.branch.feature.prefix.name', true)
             ->andReturn('');
-
 
         $mock->shouldReceive('exec')
             ->once()
@@ -308,11 +295,9 @@ class FeatureDriverTest extends TestCase
             ->with('git push upstream refs/heads/feature/example_1', false)
             ->andReturn('');
 
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
-
                 return $mock;
             }
         );
@@ -322,11 +307,9 @@ class FeatureDriverTest extends TestCase
         $FeatureDriver->featurePublish();
 
         $this->assertTrue(true);
-
     }
 
-
-    public function testFeaturePublish_featureignore()
+    public function testFeaturePublishFeatureignore()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
@@ -343,7 +326,6 @@ class FeatureDriverTest extends TestCase
             ->never()
             ->with('git config --get gitlive.branch.feature.prefix.name', true)
             ->andReturn('');
-
 
         $mock->shouldReceive('exec')
             ->once()
@@ -370,11 +352,9 @@ class FeatureDriverTest extends TestCase
             ->with('git push upstream refs/heads/example_1', false)
             ->andReturn('');
 
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
-
                 return $mock;
             }
         );
@@ -384,10 +364,9 @@ class FeatureDriverTest extends TestCase
         $FeatureDriver->featurePublish();
 
         $this->assertTrue(true);
-
     }
 
-    public function testFeaturePush_nooption()
+    public function testFeaturePushNooption()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
@@ -404,9 +383,6 @@ class FeatureDriverTest extends TestCase
             ->once()
             ->with('git config --get gitlive.branch.feature.prefix.name', true)
             ->andReturn('');
-
-
-
 
         $mock->shouldReceive('exec')
             ->once()
@@ -433,11 +409,9 @@ class FeatureDriverTest extends TestCase
             ->with('git push origin refs/heads/feature/example_1', false)
             ->andReturn('');
 
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
-
                 return $mock;
             }
         );
@@ -447,11 +421,9 @@ class FeatureDriverTest extends TestCase
         $FeatureDriver->featurePush();
 
         $this->assertTrue(true);
-
     }
 
-
-    public function testFeaturePush_withoption1()
+    public function testFeaturePushWithoption1()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
@@ -468,9 +440,6 @@ class FeatureDriverTest extends TestCase
             ->once()
             ->with('git config --get gitlive.branch.feature.prefix.name', true)
             ->andReturn('');
-
-
-
 
         $mock->shouldReceive('exec')
             ->once()
@@ -494,11 +463,9 @@ class FeatureDriverTest extends TestCase
             ->with('git push origin feature/unit_test/example_2', false)
             ->andReturn('');
 
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
-
                 return $mock;
             }
         );
@@ -510,7 +477,7 @@ class FeatureDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testFeaturePush_withoption2()
+    public function testFeaturePushWithoption2()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
@@ -527,9 +494,6 @@ class FeatureDriverTest extends TestCase
             ->once()
             ->with('git config --get gitlive.branch.feature.prefix.name', true)
             ->andReturn('');
-
-
-
 
         $mock->shouldReceive('exec')
             ->once()
@@ -553,11 +517,9 @@ class FeatureDriverTest extends TestCase
             ->with('git push origin feature/example_3', false)
             ->andReturn('');
 
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
-
                 return $mock;
             }
         );
@@ -569,8 +531,7 @@ class FeatureDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
-
-    public function testFeaturePush_withoption3()
+    public function testFeaturePushWithoption3()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
@@ -587,7 +548,6 @@ class FeatureDriverTest extends TestCase
             ->never()
             ->with('git config --get gitlive.branch.feature.prefix.name', true)
             ->andReturn('');
-
 
         $mock->shouldReceive('exec')
             ->once()
@@ -611,11 +571,9 @@ class FeatureDriverTest extends TestCase
             ->with('git push origin example_3', false)
             ->andReturn('');
 
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
-
                 return $mock;
             }
         );
@@ -642,16 +600,13 @@ class FeatureDriverTest extends TestCase
             ->with('git config --get gitlive.branch.feature.prefix.name', true)
             ->andReturn('');
 
-
         $mock->shouldReceive('exec')
             ->with('git branch --list "feature/*"', true)
             ->andReturn('feature/hogehoge');
 
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
-
                 return $mock;
             }
         );
@@ -660,7 +615,7 @@ class FeatureDriverTest extends TestCase
 
         $res = $FeatureDriver->featureList();
 
-        $this->assertEquals('feature/hogehoge', $res);
+        $this->assertSame('feature/hogehoge', $res);
     }
 
     public function testFeatureChange()
@@ -678,16 +633,13 @@ class FeatureDriverTest extends TestCase
             ->with('git config --get gitlive.branch.feature.prefix.name', true)
             ->andReturn('');
 
-
         $mock->shouldReceive('exec')
             ->with('git checkout feature/unit_test_2', false)
             ->andReturn('feature/hogehoge');
 
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
-
                 return $mock;
             }
         );
@@ -697,7 +649,6 @@ class FeatureDriverTest extends TestCase
         $res = $FeatureDriver->featureChange('unit_test_2');
 
         $this->assertTrue(true);
-
     }
 
     public function testFeaturePull()
@@ -713,12 +664,10 @@ class FeatureDriverTest extends TestCase
             ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
             ->andReturn('');
 
-
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.feature.prefix.name', true)
             ->andReturn('');
-
 
         $mock->shouldReceive('exec')
             ->once()
@@ -745,11 +694,9 @@ class FeatureDriverTest extends TestCase
             ->with('git pull upstream refs/heads/feature/example_1', false)
             ->andReturn('');
 
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
-
                 return $mock;
             }
         );
@@ -759,6 +706,5 @@ class FeatureDriverTest extends TestCase
         $FeatureDriver->featurePull();
 
         $this->assertTrue(true);
-
     }
 }

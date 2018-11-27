@@ -1,5 +1,11 @@
 <?php
+
 /**
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ *
  * @category   GitCommand
  * @package    Git-Live
  * @subpackage Core
@@ -7,10 +13,9 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
  */
 
 namespace GitLive\Driver;
@@ -35,7 +40,6 @@ use GitLive\Support\SystemCommandInterface;
  */
 class HotfixDriver extends DeployBase
 {
-
     const MODE = 'hotfix';
     public $prefix;
     public $master_branch;
@@ -52,9 +56,7 @@ class HotfixDriver extends DeployBase
      */
     public function __construct($GitLive, GitCmdExecuter $gitCmdExecuter, SystemCommandInterface $command)
     {
-
         parent::__construct($GitLive, $gitCmdExecuter, $command);
-
 
         $this->prefix = $this->Driver(ConfigDriver::class)->hotfixPrefix();
 
@@ -69,29 +71,22 @@ class HotfixDriver extends DeployBase
         $this->enableRelease();
     }
 
-
     /**
-     * @return bool
      * @throws \ReflectionException
+     * @return bool
      */
     public function isBuildOpen()
     {
-
         return $this->isHotfixOpen();
-
     }
 
     /**
-     * @return string
      * @throws Exception
      * @throws \ReflectionException
+     * @return string
      */
     public function getBuildRepository()
     {
-
         return $this->getHotfixRepository();
-
     }
-
-
 }

@@ -1,6 +1,10 @@
 <?php
+
 /**
- * Feature.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -9,14 +13,12 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018/11/24
  */
 
 namespace GitLive\Command;
-
 
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
@@ -40,7 +42,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class MergeCommand extends CommandBase
 {
-
     protected function configure()
     {
         $this
@@ -66,12 +67,11 @@ class MergeCommand extends CommandBase
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return int|null
      * @throws \Exception
+     * @return null|int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         switch ($input->getArgument('task')) {
             case 'develop':
                 $command = $this->getApplication()->find('merge:develop');
@@ -82,6 +82,7 @@ class MergeCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
                 break;
             case 'master':
                 $command = $this->getApplication()->find('merge:master');
@@ -91,6 +92,7 @@ class MergeCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
                 break;
             case 'state':
                 if ($input->getArgument('state_hint') === 'master') {
@@ -104,12 +106,10 @@ class MergeCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-                break;
 
+                break;
         }
 
-
         return 0;
-
     }
 }

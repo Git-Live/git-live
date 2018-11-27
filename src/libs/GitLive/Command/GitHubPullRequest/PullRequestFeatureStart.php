@@ -1,6 +1,10 @@
 <?php
+
 /**
+ * This file is part of Git-Live
  *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -12,11 +16,9 @@
  * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018/11/24
  */
 
 namespace GitLive\Command\GitHubPullRequest;
-
 
 use App;
 use GitLive\Application\Container;
@@ -44,7 +46,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class PullRequestFeatureStart extends CommandBase
 {
-
     protected function configure()
     {
         $this
@@ -68,10 +69,10 @@ class PullRequestFeatureStart extends CommandBase
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return int|null
      * @throws \GitLive\Driver\Exception
      * @throws \GitLive\Exception
      * @throws \ReflectionException
+     * @return null|int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -85,7 +86,6 @@ class PullRequestFeatureStart extends CommandBase
             );
 
             return 0;
-
         }
         App::make(PullRequestDriver::class)->featureStart(
             $input->getArgument('pull_request_number'),

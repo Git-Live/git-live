@@ -19,15 +19,12 @@ with this source code in the file LICENSE.
 EOF;
 
 $finder = PhpCsFixer\Finder::create()
-
-    ->in(__DIR__.DIRECTORY_SEPARATOR.'src')
-    ->in(__DIR__.DIRECTORY_SEPARATOR.'bootstrap')
-    ->in(__DIR__.DIRECTORY_SEPARATOR.'tests')
+    ->in(__DIR__ . DIRECTORY_SEPARATOR . 'src')
+    ->in(__DIR__ . DIRECTORY_SEPARATOR . 'bootstrap')
+    ->in(__DIR__ . DIRECTORY_SEPARATOR . 'tests')
     ->name('*.php')
     ->ignoreDotFiles(true)
-    ->ignoreVCS(true)
-
-;
+    ->ignoreVCS(true);
 
 
 $config = PhpCsFixer\Config::create()
@@ -35,8 +32,13 @@ $config = PhpCsFixer\Config::create()
     ->setRules([
         '@PHP56Migration' => true,
         '@PHPUnit60Migration:risky' => false,
-        '@Symfony' => false,
+        '@PSR2' => true,
         '@Symfony:risky' => false,
+        'concat_space' => [
+            'spacing' => 'one',
+        ],
+
+
         'align_multiline_comment' => true,
         'array_indentation' => true,
         'array_syntax' => ['syntax' => 'short'],
@@ -48,10 +50,15 @@ $config = PhpCsFixer\Config::create()
         'escape_implicit_backslashes' => true,
         'explicit_indirect_variable' => true,
         'explicit_string_variable' => true,
-        'final_internal_class' => true,
+        'final_internal_class' => false,
         'fully_qualified_strict_types' => true,
         'function_to_constant' => ['functions' => ['get_class', 'get_called_class', 'php_sapi_name', 'phpversion', 'pi']],
-        'header_comment' => ['header' => $header],
+        'header_comment' => [
+            'header' => $header,
+            'commentType' => 'PHPDoc',
+            'location' => 'after_declare_strict',
+            'separate' => 'both',
+        ],
         'heredoc_to_nowdoc' => true,
         'list_syntax' => ['syntax' => 'long'],
         'logical_operators' => true,
@@ -66,7 +73,7 @@ $config = PhpCsFixer\Config::create()
         'no_superfluous_elseif' => true,
         'no_unneeded_curly_braces' => true,
         'no_unneeded_final_method' => true,
-        'no_unreachable_default_argument_value' => true,
+        'no_unreachable_default_argument_value' => false,
         'no_unset_on_property' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
@@ -90,10 +97,9 @@ $config = PhpCsFixer\Config::create()
         'strict_comparison' => true,
         'strict_param' => true,
         'string_line_ending' => true,
-        'yoda_style' => true,
+        'yoda_style' => false,
     ])
-    ->setFinder($finder)
-;
+    ->setFinder($finder);
 
 // special handling of fabbot.io service if it's using too old PHP CS Fixer version
 if (false !== getenv('FABBOT_IO')) {

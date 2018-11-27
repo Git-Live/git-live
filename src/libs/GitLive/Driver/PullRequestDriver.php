@@ -1,5 +1,11 @@
 <?php
+
 /**
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ *
  * @category   GitCommand
  * @package    Git-Live
  * @subpackage Core
@@ -7,10 +13,9 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
  */
 
 namespace GitLive\Driver;
@@ -30,16 +35,15 @@ namespace GitLive\Driver;
  */
 class PullRequestDriver extends DriverBase
 {
-
     /**
      *  pr feature start
      *
      * @access      public
      * @param  string $pull_request_number
      * @param  string $branch
-     * @return void
      * @throws Exception
      * @throws \GitLive\Exception
+     * @return void
      */
     public function featureStart($pull_request_number, $branch)
     {
@@ -69,12 +73,12 @@ class PullRequestDriver extends DriverBase
      * @access      public
      * @param  string $pull_request_number
      * @param  string $branch
+     * @throws Exception
+     * @throws Exception
+     * @throws Exception
+     * @throws Exception
+     * @throws Exception
      * @return void
-     * @throws Exception
-     * @throws Exception
-     * @throws Exception
-     * @throws Exception
-     * @throws Exception
      */
     public function featureStartSoft($pull_request_number, $branch)
     {
@@ -96,10 +100,10 @@ class PullRequestDriver extends DriverBase
      *
      * @param string $pull_request_number
      *
+     * @throws Exception
+     * @throws Exception
+     * @throws Exception
      * @return void
-     * @throws Exception
-     * @throws Exception
-     * @throws Exception
      * @access      public
      */
     public function prTrack($pull_request_number)
@@ -116,8 +120,8 @@ class PullRequestDriver extends DriverBase
     /**
      *  pr pull
      *
-     * @return void
      * @throws Exception
+     * @return void
      * @access      public
      */
     public function prPull()
@@ -143,10 +147,10 @@ class PullRequestDriver extends DriverBase
      *
      * @access      public
      * @param  string $pull_request_number
+     * @throws Exception
+     * @throws Exception
+     * @throws Exception
      * @return void
-     * @throws Exception
-     * @throws Exception
-     * @throws Exception
      */
     public function prMerge($pull_request_number)
     {

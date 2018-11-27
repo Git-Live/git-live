@@ -1,35 +1,42 @@
 <?php
+
 /**
- * ReleaseDriverTest.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
- * @copyright Project Git Live
- * @license MIT
- * @version    GIT: $Id$
- * @link https://github.com/Git-Live/git-live
- * @see https://github.com/Git-Live/git-live
- * @since      2018/11/25
+ * @copyright  Project Git Live
+ * @license    MIT
+ * @version    GIT: $Id\$
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
  */
 
 namespace Tests\GitLive\Driver;
 
+use App;
+use GitLive\Application\Container;
 use GitLive\Driver\HotfixDriver;
 use GitLive\Driver\ReleaseDriver;
-use Tests\GitLive\TestCase;
-use GitLive\Application\Container;
-use GitLive\Support\SystemCommandInterface;
 use GitLive\Mock\SystemCommand;
-use App;
+use GitLive\Support\SystemCommandInterface;
+use Tests\GitLive\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class HptfixDriverTest extends TestCase
 {
     /**
-     * @return array
      * @throws \ReflectionException
+     * @return array
      */
     public function testIsBuildOpen()
     {
@@ -58,7 +65,6 @@ class HptfixDriverTest extends TestCase
             ->with('git config --get gitlive.branch.master.name', true)
             ->andReturn('master');
 
-
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false)
@@ -104,12 +110,10 @@ class HptfixDriverTest extends TestCase
             ->with('git remote', false)
             ->andReturn('unit_deploy');
 
-
         $mock->shouldReceive('exec')
             ->once()
             ->with('git branch -a', false)
             ->andReturn();
-
 
         Container::bind(
             SystemCommandInterface::class,
@@ -122,8 +126,7 @@ class HptfixDriverTest extends TestCase
 
         $res = $ReleaseDriver->isBuildOpen();
 
-        $this->assertEquals(false, $res);
-
+        $this->assertSame(false, $res);
     }
 
     public function testGetBuildRepository()
@@ -151,7 +154,6 @@ class HptfixDriverTest extends TestCase
             ->with('git config --get gitlive.branch.master.name', true)
             ->andReturn('master');
 
-
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false)
@@ -197,12 +199,10 @@ class HptfixDriverTest extends TestCase
             ->with('git remote', false)
             ->andReturn('unit_deploy');
 
-
         $mock->shouldReceive('exec')
             ->once()
             ->with('git branch -a', false)
             ->andReturn('remotes/unit_deploy/unit_release/123456789');
-
 
         Container::bind(
             SystemCommandInterface::class,
@@ -215,7 +215,6 @@ class HptfixDriverTest extends TestCase
 
         $res = $ReleaseDriver->getBuildRepository();
 
-        $this->assertEquals('unit_release/123456789', $res);
-
+        $this->assertSame('unit_release/123456789', $res);
     }
 }

@@ -1,10 +1,24 @@
 <?php
+
 /**
+ * This file is part of Git-Live
  *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ *
+ * @category   GitCommand
+ * @package    Git-Live
+ * @subpackage Core
+ * @author     akito<akito-artisan@five-foxes.com>
+ * @author     suzunone<suzunone.eleven@gmail.com>
+ * @copyright  Project Git Live
+ * @license    MIT
+ * @version    GIT: $Id\$
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
  */
 
 namespace GitLive\Service;
-
 
 use GitLive\Command\CleanCommand;
 use GitLive\Command\Config\SetCommand;
@@ -74,8 +88,6 @@ use GitLive\Driver\Merge\StateMaster;
  */
 class CommandLineKernelService
 {
-
-
     public function register()
     {
         return [
@@ -103,7 +115,6 @@ class CommandLineKernelService
             'feature:track' => function () {
                 return new TrackCommand();
             },
-
 
             'release:state' => function () {
                 return new ReleaseState();
@@ -133,7 +144,6 @@ class CommandLineKernelService
                 return new ReleaseTrack();
             },
 
-
             'hotfix:state' => function () {
                 return new HotfixState();
             },
@@ -162,14 +172,12 @@ class CommandLineKernelService
                 return new HotfixTrack();
             },
 
-
             'log:develop' => function () {
                 return new LogDevelopCommand();
             },
             'log:master' => function () {
                 return new LogMasterCommand();
             },
-
 
             'merge:develop' => function () {
                 return new MergeDevelop();
@@ -184,7 +192,6 @@ class CommandLineKernelService
             'merge:state:master' => function () {
                 return new StateMaster();
             },
-
 
             'pr:feature:start' => function () {
                 return new PullRequestFeatureStart();
@@ -240,6 +247,4 @@ class CommandLineKernelService
             },
         ];
     }
-
-
 }

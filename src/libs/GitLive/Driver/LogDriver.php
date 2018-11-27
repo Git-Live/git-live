@@ -1,5 +1,11 @@
 <?php
+
 /**
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ *
  * @category   GitCommand
  * @package    Git-Live
  * @subpackage Core
@@ -7,10 +13,9 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
  */
 
 namespace GitLive\Driver;
@@ -30,13 +35,12 @@ namespace GitLive\Driver;
  */
 class LogDriver extends DriverBase
 {
-
     /**
      *  developとの差分をみる
      *
      * @access      public
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function logDevelop()
     {
@@ -45,8 +49,8 @@ class LogDriver extends DriverBase
 
     /**
      * @param string $from_branch
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function log($from_branch)
     {
@@ -54,19 +58,17 @@ class LogDriver extends DriverBase
         $to_branch = $this->getSelfBranchRef();
 
         return $this->GitCmdExecuter->log('upstream/' . $from_branch, $to_branch, '--left-right');
-
     }
 
     /**
      *  masterとの差分を見る
      *
      * @access      public
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function logMaster()
     {
         return $this->log($this->Driver(ConfigDriver::class)->master());
     }
-
 }

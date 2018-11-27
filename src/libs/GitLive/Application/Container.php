@@ -1,5 +1,23 @@
 <?php
 
+/**
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ *
+ * @category   GitCommand
+ * @package    Git-Live
+ * @subpackage Core
+ * @author     akito<akito-artisan@five-foxes.com>
+ * @author     suzunone<suzunone.eleven@gmail.com>
+ * @copyright  Project Git Live
+ * @license    MIT
+ * @version    GIT: $Id\$
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
+ */
+
 namespace GitLive\Application;
 
 use Closure;
@@ -29,7 +47,6 @@ class Container
     protected $buildStack;
 
     protected $with = [];
-
 
     public static function reset()
     {
@@ -82,9 +99,9 @@ class Container
     /**
      * Instantiate a concrete instance of the given type.
      *
-     * @param  string|Closure $concrete
-     * @return mixed
+     * @param  Closure|string $concrete
      * @throws \ReflectionException
+     * @return mixed
      */
     public function build($concrete)
     {
@@ -119,8 +136,8 @@ class Container
 
     /**
      * @param $concrete
-     * @return mixed
      * @throws \ReflectionException
+     * @return mixed
      */
     public function notInstantiable($concrete)
     {
@@ -134,8 +151,8 @@ class Container
 
     /**
      * @param array $dependencies
-     * @return array
      * @throws \ReflectionException
+     * @return array
      */
     protected function resolveDependencies(array $dependencies)
     {
@@ -146,6 +163,7 @@ class Container
         foreach ($dependencies as $dependency) {
             if ($this->hasParameterOverride($dependency)) {
                 $results[] = $this->getParameterOverride($dependency);
+
                 continue;
             }
 
@@ -157,7 +175,6 @@ class Container
                 continue;
             }
             */
-
 
             $results[] = is_null($dependency->getClass())
                 ? $this->resolvePrimitive($dependency)
@@ -176,7 +193,8 @@ class Container
     protected function hasParameterOverride($dependency)
     {
         return array_key_exists(
-            $dependency->name, $this->with
+            $dependency->name,
+            $this->with
         );
     }
 
@@ -199,7 +217,6 @@ class Container
      */
     protected function resolvePrimitive(ReflectionParameter $parameter)
     {
-
         if (!is_null($concrete = $this->getContextualConcrete('$' . $parameter->name))) {
             return $concrete instanceof Closure ? $concrete($this) : $concrete;
         }
@@ -213,7 +230,7 @@ class Container
 
     /**
      * @param string $concrete
-     * @return mixed|null
+     * @return null|mixed
      */
     protected function getContextualConcrete($concrete)
     {
