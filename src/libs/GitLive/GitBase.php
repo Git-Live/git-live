@@ -31,7 +31,12 @@ class GitBase
 {
     protected $deploy_repository_name = 'deploy';
 
-    const VERSION                     = '0.2.4';
+    const VERSION                     = '1.0.0';
+
+    /**
+     * @var string バージョンコード
+     */
+    const VERSION_CODENAME = 'Baguette';
 
     /**
      * +-- 引数配列を返す

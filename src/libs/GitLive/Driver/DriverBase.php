@@ -15,6 +15,7 @@
 namespace GitLive\Driver;
 
 use GitLive\GitBase;
+use GitLive\GitLive;
 
 /**
  * @category   GitCommand
@@ -38,7 +39,7 @@ class DriverBase extends \GitLive\GitBase
      * +-- コンストラクタ
      *
      * @access      public
-     * @param  var_text $GitLive
+     * @param  GitLive $GitLive
      * @return void
      * @codeCoverageIgnore
      */
@@ -183,7 +184,7 @@ class DriverBase extends \GitLive\GitBase
      * 単体テストを楽にするために、処理を上書きして委譲する
      *
      * @access      public
-     * @param  var_text $text
+     * @param  string $text
      * @return void
      * @codeCoverageIgnore
      */

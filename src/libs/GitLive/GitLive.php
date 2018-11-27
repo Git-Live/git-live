@@ -111,7 +111,7 @@ class GitLive extends GitBase
         }
 
         $arr = json_decode($contents, true);
-        if (substr($arr['tag_name'], 0, 1) === 'v') {
+        if (substr($arr['tag_name'], 0, 2) === 'v1') {
             $latest_version = substr($arr['tag_name'], 1);
         } else {
             $latest_version = $arr['tag_name'];
