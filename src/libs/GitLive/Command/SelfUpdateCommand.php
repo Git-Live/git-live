@@ -62,9 +62,9 @@ class SelfUpdateCommand extends CommandBase
             return 1;
         }
 
-        $url = 'https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar';
+        $url = 'https://raw.githubusercontent.com/Git-Live/git-live/v2.0/bin/git-live.phar';
         if ($input->getOption('no-cache')) {
-            $url = 'https://github.com/Git-Live/git-live/raw/master/bin/git-live.phar';
+            $url = 'https://github.com/Git-Live/git-live/raw/v2.0/bin/git-live.phar';
         }
 
         $FileSystem = App::make(FileSystem::class);
