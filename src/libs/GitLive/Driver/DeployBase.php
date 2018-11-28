@@ -502,7 +502,7 @@ abstract class DeployBase extends DriverBase
      *  hotfixCloseとreleaseClose共通処理
      *
      * @access      public
-     * @param  string $repo
+     * @param  string $release_name
      * @param  string $mode
      * @param bool    $force OPTIONAL:false
      * @param null    $tag_name
@@ -510,11 +510,11 @@ abstract class DeployBase extends DriverBase
      * @throws \ReflectionException
      * @return void
      */
-    public function deployEnd($repo, $mode, $force = false, $tag_name = null)
+    public function deployEnd($release_name, $mode, $force = false, $tag_name = null)
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $master_branch = App::make(ConfigDriver::class)->master();
-        $develop = App::make(ConfigDriver::class)->develop();
+        $develop_branch = App::make(ConfigDriver::class)->develop();
 
         // マスターのマージ
         $this->GitCmdExecuter->checkout($deploy_repository_name . '/' . $master_branch);
@@ -522,22 +522,22 @@ abstract class DeployBase extends DriverBase
         $this->GitCmdExecuter->checkout($master_branch, ['-b']);
 
         if ($this->getSelfBranchRef() !== 'refs/heads/' . $master_branch) {
-            $this->GitCmdExecuter->checkout($repo);
+            $this->GitCmdExecuter->checkout($release_name);
             $error_msg = sprintf(__('%1$s close is failed.'), $mode) . "\n" .
                 sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Master', ucwords($mode));
 
             throw new Exception($error_msg);
         }
 
-        if (!$this->patchApplyCheck('deploy/' . $repo)) {
+        if (!$this->patchApplyCheck('deploy/' . $release_name)) {
             $error_msg = sprintf(__('%1$s close is failed.'), $mode) . "\n" .
                 sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Master', ucwords($mode));
 
             throw new Exception($error_msg);
         }
 
-        $this->GitCmdExecuter->merge('deploy/' . $repo);
-        $diff = $this->GitCmdExecuter->diff([$deploy_repository_name . '/' . $repo, $master_branch]);
+        $this->GitCmdExecuter->merge('deploy/' . $release_name);
+        $diff = $this->GitCmdExecuter->diff([$deploy_repository_name . '/' . $release_name, $master_branch]);
 
         if (strlen($diff) !== 0) {
             $error_msg = $diff . "\n" . sprintf(__('%1$s close is failed.'), $mode);
@@ -549,22 +549,22 @@ abstract class DeployBase extends DriverBase
         $this->GitCmdExecuter->push($deploy_repository_name, $master_branch);
 
         // developのマージ
-        $this->GitCmdExecuter->checkout('upstream/' . $develop);
-        $this->GitCmdExecuter->branch(['-D', $develop]);
-        $this->GitCmdExecuter->checkout($develop, ['-b']);
+        $this->GitCmdExecuter->checkout('upstream/' . $develop_branch);
+        $this->GitCmdExecuter->branch(['-D', $develop_branch]);
+        $this->GitCmdExecuter->checkout($develop_branch, ['-b']);
 
-        if ($this->getSelfBranchRef() !== 'refs/heads/' . $develop) {
-            $this->GitCmdExecuter->checkout($repo);
+        if ($this->getSelfBranchRef() !== 'refs/heads/' . $develop_branch) {
+            $this->GitCmdExecuter->checkout($release_name);
             $error_msg = sprintf(__('%1$s close is failed.'), $mode) . "\n" .
                 sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Develop', ucwords($mode));
 
             throw new Exception($error_msg);
         }
 
-        $this->GitCmdExecuter->merge($deploy_repository_name . '/' . $repo);
+        $this->GitCmdExecuter->merge($deploy_repository_name . '/' . $release_name);
 
         if ($mode === 'release' && !$force) {
-            $diff = $this->GitCmdExecuter->diff([$deploy_repository_name . '/' . $repo, $develop]);
+            $diff = $this->GitCmdExecuter->diff([$deploy_repository_name . '/' . $release_name, $develop_branch]);
         }
 
         if (strlen($diff) !== 0) {
@@ -574,26 +574,26 @@ abstract class DeployBase extends DriverBase
             throw new Exception($error_msg);
         }
 
-        $this->GitCmdExecuter->push('upstream', $develop);
+        $this->GitCmdExecuter->push('upstream', $develop_branch);
 
         // Repositoryの掃除
-        $this->GitCmdExecuter->push($deploy_repository_name, ':' . $repo);
-        $this->GitCmdExecuter->push('upstream', ':' . $repo);
-        $this->GitCmdExecuter->branch(['-d', $repo]);
+        $this->GitCmdExecuter->push($deploy_repository_name, ':' . $release_name);
+        $this->GitCmdExecuter->push('upstream', ':' . $release_name);
+        $this->GitCmdExecuter->branch(['-d', $release_name]);
 
         // タグ付け
         $this->GitCmdExecuter->fetch(['upstream']);
         $this->GitCmdExecuter->checkout('upstream/master');
 
         if (empty($tag_name)) {
-            list(, $tag_name) = explode('/', $repo);
+            list(, $tag_name) = explode('/', $release_name);
             $tag_name = 'r' . $tag_name;
         }
 
         $this->GitCmdExecuter->tag([$tag_name]);
         $this->GitCmdExecuter->tagPush('upstream');
 
-        $this->GitCmdExecuter->checkout($develop);
+        $this->GitCmdExecuter->checkout($develop_branch);
     }
 
     /**

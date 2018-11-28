@@ -58,5 +58,5 @@ $ sudo mv ./git-live /usr/local/bin/git-live
 
 以下のファイルを、パスが通ったディレクトリにおいてください。
 
- * https://raw.githubusercontent.com/Git-Live/git-live/master/git-live.php
- * https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.bat
+ * https://raw.githubusercontent.com/Git-Live/git-live/v2.0/git-live.php
+ * https://raw.githubusercontent.com/Git-Live/git-live/v2.0/bin/git-live.bat

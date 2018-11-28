@@ -81,7 +81,8 @@ abstract class DriverBase
      */
     public function getSelfBranchRef()
     {
-        $self_blanch = $this->exec('git symbolic-ref HEAD 2>/dev/null');
+        $self_blanch = $this->exec('git symbolic-ref HEAD 2>/dev/null', true);
+
         if (!$self_blanch) {
             throw new Exception(__('Not a git repository.'));
         }
@@ -96,12 +97,12 @@ abstract class DriverBase
      *
      * @access      public
      * @param  string $cmd
+     * @param bool    $verbosity
      * @return string
-     * @codeCoverageIgnore
      */
-    public function exec($cmd)
+    public function exec($cmd, $verbosity = true)
     {
-        return $this->command->exec($cmd, true);
+        return $this->command->exec($cmd, $verbosity);
     }
 
     /**

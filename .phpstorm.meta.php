@@ -28,6 +28,7 @@ namespace PHPSTORM_META
     use GitLive\Driver\MergeDriver;
     use GitLive\Driver\PullRequestDriver;
     use GitLive\Driver\ReleaseDriver;
+    use GitLive\Driver\ResetDriver;
     use GitLive\Driver\UpdateDriver;
 
     override(\GitLive\Application\Facade::make(0), map([
@@ -46,6 +47,7 @@ namespace PHPSTORM_META
         PullRequestDriver::class => PullRequestDriver::class,
         ReleaseDriver::class => ReleaseDriver::class,
         UpdateDriver::class => UpdateDriver::class,
+        ResetDriver::class => ResetDriver::class,
     ]));
 
 
@@ -61,6 +63,7 @@ namespace PHPSTORM_META
         'Merge' => MergeDriver::class,
         'PullRequest' => PullRequestDriver::class,
         'Release' => ReleaseDriver::class,
+        'Reset' => ResetDriver::class,
         'Update' => UpdateDriver::class,
     ]));
 }

@@ -23,9 +23,13 @@ namespace GitLive\Command;
 use App;
 use GitLive\Application\Container;
 use GitLive\Driver\ConfigDriver;
+use GitLive\Driver\Exception;
 use GitLive\Driver\FetchDriver;
+use GitLive\Driver\ResetDriver;
 use GitLive\GitCmdExecuter;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class PullCommand extends CommandBase
@@ -39,7 +43,16 @@ class PullCommand extends CommandBase
             ->setDescription(__('Pull from the appropriate remote repository.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Pull from the appropriate remote repository.'));
+            ->setHelp(__('Pull from the appropriate remote repository.'))
+            ->addOption(
+                'force',
+                'f',
+                InputOption::VALUE_NONE
+            )
+            ->addArgument('remote', InputArgument::OPTIONAL, 'Remote name', null)
+        ;
+
+
     }
 
     /**
@@ -56,23 +69,46 @@ class PullCommand extends CommandBase
 
         $FetchDriver = App::make(FetchDriver::class);
         $ConfigDriver = App::make(ConfigDriver::class);
+
         $branch = $FetchDriver->getSelfBranchRef();
-        $remote = 'origin';
 
-        switch ((string)$branch) {
-            case 'refs/heads' . $ConfigDriver->develop():
-            case 'refs/heads' . $ConfigDriver->master():
-                $remote = 'upstream';
+        $remote = $input->getArgument('remote');
 
-                break;
-            default:
-                if (strpos($branch, 'refs/heads' . $ConfigDriver->releasePrefix()) !== false || strpos($branch, 'refs/heads' . $ConfigDriver->hotfixPrefix()) !== false) {
+        if (empty($remote)) {
+            $remote = 'origin';
+            switch ((string)$branch) {
+                case 'refs/heads/' . $ConfigDriver->develop():
+                case 'refs/heads/' . $ConfigDriver->master():
                     $remote = 'upstream';
-                }
 
-                break;
+                    break;
+                default:
+                    if (strpos($branch, 'refs/heads' . $ConfigDriver->releasePrefix()) !== false || strpos($branch, 'refs/heads' . $ConfigDriver->hotfixPrefix()) !== false) {
+                        $remote = 'upstream';
+                    }
+
+                    break;
+            }
         }
 
-        App::make(GitCmdExecuter::class)->pull($remote, $branch);
+        if ($input->getOption('force')) {
+            App::make(ResetDriver::class)->forcePull($remote);
+        } else {
+            switch ($remote) {
+                case 'upstream':
+                    App::make(GitCmdExecuter::class)->pull($remote, $branch);
+                    break;
+                case 'deploy':
+                    App::make(GitCmdExecuter::class)->pull($ConfigDriver->deployRemote(), $branch);
+                    break;
+                case 'origin':
+                    App::make(GitCmdExecuter::class)->pull($remote, $branch);
+                    break;
+                default:
+                    throw new Exception(__('Undefined remote option : ').$remote.' You can use origin upstream deploy');
+            }
+
+        }
+
     }
 }

@@ -48,16 +48,33 @@ class FetchDriver extends DriverBase
     }
 
     /**
+     *  origin からfetchする
+     *
+     * @access      public
+     * @return void
+     */
+    public function origin()
+    {
+        $this->GitCmdExecuter->fetch(['origin']);
+        $this->GitCmdExecuter->fetch(['-p', 'origin']);
+    }
+
+    /**
      *  deploy からfetchする
      *
      * @access      public
-     * @param string $remove
+     * @param string|null $remote
      * @return void
+     * @throws Exception
      */
-    public function deploy($remove = 'deploy')
+    public function deploy($remote = null)
     {
-        $this->GitCmdExecuter->fetch([$remove]);
-        $this->GitCmdExecuter->fetch(['-p', $remove]);
+        if ($remote === null) {
+            $remote = $this->Driver(ConfigDriver::class)->deployRemote();
+        }
+
+        $this->GitCmdExecuter->fetch([$remote]);
+        $this->GitCmdExecuter->fetch(['-p', $remote]);
     }
 
     /**
