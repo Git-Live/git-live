@@ -49,7 +49,7 @@ class PullCommand extends CommandBase
                 'f',
                 InputOption::VALUE_NONE
             )
-            ->addArgument('remote', InputArgument::OPTIONAL, 'Remote name', null)
+            ->addArgument('remote', InputArgument::OPTIONAL, 'Remote name[origin upstream deploy]', null)
         ;
 
 
@@ -105,7 +105,7 @@ class PullCommand extends CommandBase
                     App::make(GitCmdExecuter::class)->pull($remote, $branch);
                     break;
                 default:
-                    throw new Exception(__('Undefined remote option : ').$remote.' You can use origin upstream deploy');
+                    throw new Exception(__('Undefined remote option : ').$remote."\n".' You can use origin upstream deploy');
             }
 
         }
