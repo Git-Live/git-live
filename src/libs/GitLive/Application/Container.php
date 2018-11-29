@@ -213,6 +213,7 @@ class Container
      * Resolve a non-class hinted primitive dependency.
      *
      * @param  \ReflectionParameter $parameter
+     * @throws \ReflectionException
      * @return mixed
      */
     protected function resolvePrimitive(ReflectionParameter $parameter)

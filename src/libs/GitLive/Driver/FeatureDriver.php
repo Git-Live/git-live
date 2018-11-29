@@ -49,7 +49,7 @@ class FeatureDriver extends DriverBase
 
         $feature_prefix = $Config->featurePrefix();
 
-        return $this->GitCmdExecuter->branch(['--list', '"' . $feature_prefix . '*"'], true);
+        return $this->GitCmdExecutor->branch(['--list', '"' . $feature_prefix . '*"'], true);
     }
 
     /**
@@ -75,8 +75,8 @@ class FeatureDriver extends DriverBase
             $branch = $feature_prefix . $branch;
         }
 
-        $this->GitCmdExecuter->checkout('upstream/' . $Config->develop());
-        $this->GitCmdExecuter->checkout($branch, ['-b']);
+        $this->GitCmdExecutor->checkout('upstream/' . $Config->develop());
+        $this->GitCmdExecutor->checkout($branch, ['-b']);
     }
 
     /**
@@ -97,7 +97,7 @@ class FeatureDriver extends DriverBase
             $branch = $feature_prefix . $branch;
         }
 
-        $this->GitCmdExecuter->checkout($branch);
+        $this->GitCmdExecutor->checkout($branch);
     }
 
     /**
@@ -124,7 +124,7 @@ class FeatureDriver extends DriverBase
             $branch = $feature_prefix . $branch;
         }
 
-        $this->GitCmdExecuter->push('upstream', $branch);
+        $this->GitCmdExecutor->push('upstream', $branch);
     }
 
     /**
@@ -151,7 +151,7 @@ class FeatureDriver extends DriverBase
             $branch = $feature_prefix . $branch;
         }
 
-        $this->GitCmdExecuter->push('origin', $branch);
+        $this->GitCmdExecutor->push('origin', $branch);
     }
 
     /**
@@ -177,11 +177,11 @@ class FeatureDriver extends DriverBase
             $branch = $feature_prefix . $branch;
         }
         if ($self_repository !== $branch) {
-            $this->GitCmdExecuter->checkout('upstream/' . $branch);
-            $this->GitCmdExecuter->checkout($branch, ['-b']);
+            $this->GitCmdExecutor->checkout('upstream/' . $branch);
+            $this->GitCmdExecutor->checkout($branch, ['-b']);
         }
 
-        $this->GitCmdExecuter->pull('upstream', $branch);
+        $this->GitCmdExecutor->pull('upstream', $branch);
     }
 
     /**
@@ -208,7 +208,7 @@ class FeatureDriver extends DriverBase
             $repository = $feature_prefix . $repository;
         }
 
-        $this->GitCmdExecuter->pull('upstream', $repository);
+        $this->GitCmdExecutor->pull('upstream', $repository);
     }
 
     /**
@@ -235,9 +235,9 @@ class FeatureDriver extends DriverBase
             $repository = $feature_prefix . $repository;
         }
 
-        $this->GitCmdExecuter->push('upstream', ':' . $repository);
-        $this->GitCmdExecuter->push('origin', ':' . $repository);
-        $this->GitCmdExecuter->checkout($Config->develop());
-        $this->GitCmdExecuter->branch(['-D', $repository]);
+        $this->GitCmdExecutor->push('upstream', ':' . $repository);
+        $this->GitCmdExecutor->push('origin', ':' . $repository);
+        $this->GitCmdExecutor->checkout($Config->develop());
+        $this->GitCmdExecutor->branch(['-D', $repository]);
     }
 }

@@ -37,23 +37,26 @@ class ResetDriver extends DriverBase
 {
     /**
      * @param $remote
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function forcePull($remote)
     {
         switch ($remote) {
             case 'upstream':
                 return $this->upstream();
+
                 break;
             case 'deploy':
                 return $this->deploy();
+
                 break;
             case 'origin':
                 return $this->origin();
+
                 break;
             default:
-                throw new Exception(__('Undefined remote option : ').$remote.' You can use origin upstream deploy');
+                throw new Exception(__('Undefined remote option : ') . $remote . ' You can use origin upstream deploy');
         }
     }
 
@@ -61,68 +64,62 @@ class ResetDriver extends DriverBase
      *  upstream からfetchする
      *
      * @access      public
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function upstream()
     {
-        $status = $this->GitCmdExecuter->status();
+        $status = $this->GitCmdExecutor->status();
 
         if (!strpos($status, 'nothing to commit, working tree clean')) {
-
-            throw new Exception(__('Please clean or commit.')."\n".$status);
+            throw new Exception(__('Please clean or commit.') . "\n" . $status);
         }
 
         $this->Driver(FetchDriver::class)->upstream();
-        $this->GitCmdExecuter->reset(['--hard', 'upstream/'.$this->getSelfBranch()]);
+        $this->GitCmdExecutor->reset(['--hard', 'upstream/' . $this->getSelfBranch()]);
 
         return '';
     }
-
 
     /**
      *  deploy からfetchする
      *
      * @access      public
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function origin()
     {
-        $status = $this->GitCmdExecuter->status();
+        $status = $this->GitCmdExecutor->status();
 
         if (!strpos($status, 'nothing to commit, working tree clean')) {
-
-            throw new Exception(__('Please clean or commit.')."\n".$status);
+            throw new Exception(__('Please clean or commit.') . "\n" . $status);
         }
 
         $this->Driver(FetchDriver::class)->origin();
-        $this->GitCmdExecuter->reset(['--hard', 'origin/'.$this->getSelfBranch()]);
+        $this->GitCmdExecutor->reset(['--hard', 'origin/' . $this->getSelfBranch()]);
 
         return '';
     }
-
 
     /**
      *  deploy からfetchする
      *
      * @access      public
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function deploy()
     {
-        $status = $this->GitCmdExecuter->status();
+        $status = $this->GitCmdExecutor->status();
 
         if (!strpos($status, 'nothing to commit, working tree clean')) {
-
-            throw new Exception(__('Please clean or commit.')."\n".$status);
+            throw new Exception(__('Please clean or commit.') . "\n" . $status);
         }
 
         $this->Driver(FetchDriver::class)->deploy();
-        $this->GitCmdExecuter->reset(['--hard', $this->Driver(ConfigDriver::class)->deployRemote().'/'.$this->getSelfBranch()]);
+        $this->GitCmdExecutor->reset(['--hard', $this->Driver(ConfigDriver::class)->deployRemote() . '/' . $this->getSelfBranch()]);
 
         return '';
     }
-
 }

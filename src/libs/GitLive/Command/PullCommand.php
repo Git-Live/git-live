@@ -26,7 +26,7 @@ use GitLive\Driver\ConfigDriver;
 use GitLive\Driver\Exception;
 use GitLive\Driver\FetchDriver;
 use GitLive\Driver\ResetDriver;
-use GitLive\GitCmdExecuter;
+use GitLive\GitCmdExecutor;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -51,8 +51,6 @@ class PullCommand extends CommandBase
             )
             ->addArgument('remote', InputArgument::OPTIONAL, 'Remote name[origin upstream deploy]', null)
         ;
-
-
     }
 
     /**
@@ -96,19 +94,20 @@ class PullCommand extends CommandBase
         } else {
             switch ($remote) {
                 case 'upstream':
-                    App::make(GitCmdExecuter::class)->pull($remote, $branch);
+                    App::make(GitCmdExecutor::class)->pull($remote, $branch);
+
                     break;
                 case 'deploy':
-                    App::make(GitCmdExecuter::class)->pull($ConfigDriver->deployRemote(), $branch);
+                    App::make(GitCmdExecutor::class)->pull($ConfigDriver->deployRemote(), $branch);
+
                     break;
                 case 'origin':
-                    App::make(GitCmdExecuter::class)->pull($remote, $branch);
+                    App::make(GitCmdExecutor::class)->pull($remote, $branch);
+
                     break;
                 default:
-                    throw new Exception(__('Undefined remote option : ').$remote."\n".' You can use origin upstream deploy');
+                    throw new Exception(__('Undefined remote option : ') . $remote . "\n" . ' You can use origin upstream deploy');
             }
-
         }
-
     }
 }

@@ -19,6 +19,10 @@
  */
 
 if (!function_exists('\_')) {
+    /**
+     * @param string $text
+     * @return string
+     */
     function _($text)
     {
         return $text;

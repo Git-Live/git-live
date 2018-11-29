@@ -21,7 +21,7 @@
 namespace GitLive\Driver;
 
 use App;
-use GitLive\GitCmdExecuter;
+use GitLive\GitCmdExecutor;
 use GitLive\GitLive;
 use GitLive\Support\SystemCommandInterface;
 
@@ -46,9 +46,9 @@ abstract class DriverBase
     protected $GitLive;
 
     /**
-     * @var \GitLive\GitCmdExecuter
+     * @var \GitLive\GitCmdExecutor
      */
-    protected $GitCmdExecuter;
+    protected $GitCmdExecutor;
 
     /**
      * @var SystemCommandInterface
@@ -60,14 +60,14 @@ abstract class DriverBase
      *
      * @access      public
      * @param  GitLive               $GitLive
-     * @param GitCmdExecuter         $gitCmdExecuter
+     * @param GitCmdExecutor         $gitCmdExecutor
      * @param SystemCommandInterface $command
      * @codeCoverageIgnore
      */
-    public function __construct($GitLive, GitCmdExecuter $gitCmdExecuter, SystemCommandInterface $command)
+    public function __construct($GitLive, GitCmdExecutor $gitCmdExecutor, SystemCommandInterface $command)
     {
         $this->GitLive = $GitLive;
-        $this->GitCmdExecuter = $gitCmdExecuter;
+        $this->GitCmdExecutor = $gitCmdExecutor;
         $this->command = $command;
     }
 
@@ -149,7 +149,7 @@ abstract class DriverBase
      */
     public function isBranchExits($branch_name)
     {
-        $branch_list_tmp = explode("\n", $this->GitCmdExecuter->branch());
+        $branch_list_tmp = explode("\n", $this->GitCmdExecutor->branch());
         $branch_list = [];
         foreach ($branch_list_tmp as $k => $branch_name_ck) {
             $branch_name_ck = trim(mb_ereg_replace('^[*]', '', $branch_name_ck));
@@ -195,7 +195,7 @@ abstract class DriverBase
      */
     public function chdir($dir)
     {
-        $this->GitCmdExecuter->chdir($dir);
+        $this->GitCmdExecutor->chdir($dir);
     }
 
     /**
@@ -216,7 +216,7 @@ abstract class DriverBase
      */
     public function clean()
     {
-        $this->GitCmdExecuter->reset();
-        $this->GitCmdExecuter->clean();
+        $this->GitCmdExecutor->reset();
+        $this->GitCmdExecutor->clean();
     }
 }

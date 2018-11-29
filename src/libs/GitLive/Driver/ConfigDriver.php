@@ -65,7 +65,7 @@ class ConfigDriver extends DriverBase
             return null;
         }
 
-        return $this->GitCmdExecuter->config(['--global', 'gitlive.' . $key, '"' . $value . '"']);
+        return $this->GitCmdExecutor->config(['--global', 'gitlive.' . $key, '"' . $value . '"']);
     }
 
     public function setLocalParameter($key, $value)
@@ -74,7 +74,7 @@ class ConfigDriver extends DriverBase
             return null;
         }
 
-        return $this->GitCmdExecuter->config(['--local', 'gitlive.' . $key, '"' . $value . '"']);
+        return $this->GitCmdExecutor->config(['--local', 'gitlive.' . $key, '"' . $value . '"']);
     }
 
     public function setSystemParameter($key, $value)
@@ -83,7 +83,7 @@ class ConfigDriver extends DriverBase
             return null;
         }
 
-        return $this->GitCmdExecuter->config(['--system', 'gitlive.' . $key, '"' . $value . '"']);
+        return $this->GitCmdExecutor->config(['--system', 'gitlive.' . $key, '"' . $value . '"']);
     }
 
     public function featurePrefix()
@@ -105,7 +105,7 @@ class ConfigDriver extends DriverBase
             return null;
         }
 
-        $res = $this->GitCmdExecuter->config(['--get', 'gitlive.' . $key]);
+        $res = $this->GitCmdExecutor->config(['--get', 'gitlive.' . $key]);
 
         if ($res === '') {
             $res = null;

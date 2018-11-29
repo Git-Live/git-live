@@ -99,14 +99,14 @@ class InitDriver extends DriverBase
             $clone_dir = $auto_clone_dir;
         }
 
-        $this->GitCmdExecuter->copy(['--recursive', $clone_repository, $clone_dir]);
+        $this->GitCmdExecutor->copy(['--recursive', $clone_repository, $clone_dir]);
 
         $this->chdir($clone_dir);
 
-        $this->GitCmdExecuter->remote(['add', 'upstream', $upstream_repository]);
+        $this->GitCmdExecutor->remote(['add', 'upstream', $upstream_repository]);
 
         if ($deploy_repository !== null) {
-            $this->GitCmdExecuter->remote(['add', 'deploy', $deploy_repository]);
+            $this->GitCmdExecutor->remote(['add', 'deploy', $deploy_repository]);
         }
     }
 
@@ -119,19 +119,19 @@ class InitDriver extends DriverBase
      */
     public function start()
     {
-        $this->GitCmdExecuter->stash('-u');
+        $this->GitCmdExecutor->stash(['-u']);
         $this->Driver(FetchDriver::class)->clean();
         $this->Driver(FetchDriver::class)->all();
 
         $Config = $this->Driver(ConfigDriver::class);
 
-        $this->GitCmdExecuter->checkout($Config->develop());
-        $this->GitCmdExecuter->pull('upstream', $Config->develop());
-        $this->GitCmdExecuter->push('origin', $Config->develop());
+        $this->GitCmdExecutor->checkout($Config->develop());
+        $this->GitCmdExecutor->pull('upstream', $Config->develop());
+        $this->GitCmdExecutor->push('origin', $Config->develop());
 
-        $this->GitCmdExecuter->checkout($Config->master());
-        $this->GitCmdExecuter->pull('upstream', $Config->master());
-        $this->GitCmdExecuter->push('origin', $Config->master());
+        $this->GitCmdExecutor->checkout($Config->master());
+        $this->GitCmdExecutor->pull('upstream', $Config->master());
+        $this->GitCmdExecutor->push('origin', $Config->master());
     }
 
     /**
@@ -149,21 +149,21 @@ class InitDriver extends DriverBase
         }
 
         $this->Driver(FetchDriver::class)->all();
-        $this->GitCmdExecuter->checkout('temp', ['-b']);
-        $this->GitCmdExecuter->branch(['-d', 'develop']);
-        $this->GitCmdExecuter->branch(['-d', 'master']);
-        $this->GitCmdExecuter->push('origin', ':develop');
-        $this->GitCmdExecuter->push('origin', ':master');
+        $this->GitCmdExecutor->checkout('temp', ['-b']);
+        $this->GitCmdExecutor->branch(['-d', 'develop']);
+        $this->GitCmdExecutor->branch(['-d', 'master']);
+        $this->GitCmdExecutor->push('origin', ':develop');
+        $this->GitCmdExecutor->push('origin', ':master');
 
-        $this->GitCmdExecuter->checkout('upstream/develop');
-        $this->GitCmdExecuter->checkout('develop', ['-b']);
-        $this->GitCmdExecuter->push('origin', 'develop');
+        $this->GitCmdExecutor->checkout('upstream/develop');
+        $this->GitCmdExecutor->checkout('develop', ['-b']);
+        $this->GitCmdExecutor->push('origin', 'develop');
 
-        $this->GitCmdExecuter->checkout('upstream/master');
-        $this->GitCmdExecuter->checkout('master', ['-b']);
-        $this->GitCmdExecuter->push('origin', 'master');
-        $this->GitCmdExecuter->fetch(['--all']);
-        $this->GitCmdExecuter->fetch(['-p']);
+        $this->GitCmdExecutor->checkout('upstream/master');
+        $this->GitCmdExecutor->checkout('master', ['-b']);
+        $this->GitCmdExecutor->push('origin', 'master');
+        $this->GitCmdExecutor->fetch(['--all']);
+        $this->GitCmdExecutor->fetch(['-p']);
     }
 
     /**

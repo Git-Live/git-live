@@ -24,7 +24,7 @@ use App;
 use GitLive\Application\Container;
 use GitLive\Driver\ConfigDriver;
 use GitLive\Driver\FetchDriver;
-use GitLive\GitCmdExecuter;
+use GitLive\GitCmdExecutor;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -63,6 +63,6 @@ class PushCommand extends CommandBase
             $remote = 'upstream';
         }
 
-        App::make(GitCmdExecuter::class)->push($remote, $branch);
+        App::make(GitCmdExecutor::class)->push($remote, $branch);
     }
 }

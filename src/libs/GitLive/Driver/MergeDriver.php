@@ -104,7 +104,7 @@ class MergeDriver extends DriverBase
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
 
-        $this->GitCmdExecuter->merge($branch);
+        $this->GitCmdExecutor->merge($branch);
     }
 
     /**

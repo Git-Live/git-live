@@ -49,14 +49,14 @@ class PullRequestDriver extends DriverBase
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
-        $this->GitCmdExecuter->fetchPullRequest();
+        $this->GitCmdExecutor->fetchPullRequest();
 
         if (strpos($branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0) {
             $branch = $this->Driver(ConfigDriver::class)->featurePrefix() . $branch;
         }
 
-        $this->GitCmdExecuter->checkout('upstream/develop');
-        $this->GitCmdExecuter->checkout($branch, ['-b']);
+        $this->GitCmdExecutor->checkout('upstream/develop');
+        $this->GitCmdExecutor->checkout($branch, ['-b']);
         $self_repository = $this->getSelfBranchRef();
 
         if (!'refs/heads/' . $branch === $self_repository) {
@@ -64,7 +64,7 @@ class PullRequestDriver extends DriverBase
         }
 
         $upstream_repository = 'pull/' . $pull_request_number . '/head';
-        $this->GitCmdExecuter->pull('upstream', $upstream_repository);
+        $this->GitCmdExecutor->pull('upstream', $upstream_repository);
     }
 
     /**
@@ -84,15 +84,15 @@ class PullRequestDriver extends DriverBase
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
-        $this->GitCmdExecuter->fetchPullRequest();
+        $this->GitCmdExecutor->fetchPullRequest();
 
         if (strpos($branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0) {
             $branch = $this->Driver(ConfigDriver::class)->featurePrefix() . $branch;
         }
 
         $upstream_repository = 'remotes/pr/' . $pull_request_number . '/head';
-        $this->GitCmdExecuter->checkout($upstream_repository);
-        $this->GitCmdExecuter->checkout($upstream_repository, ['-b', $branch]);
+        $this->GitCmdExecutor->checkout($upstream_repository);
+        $this->GitCmdExecutor->checkout($upstream_repository, ['-b', $branch]);
     }
 
     /**
@@ -110,11 +110,11 @@ class PullRequestDriver extends DriverBase
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
-        $this->GitCmdExecuter->fetchPullRequest();
+        $this->GitCmdExecutor->fetchPullRequest();
 
         $repository = 'pullreq/' . $pull_request_number;
         $upstream_repository = 'remotes/pr/' . $pull_request_number . '/head';
-        $this->GitCmdExecuter->checkout($upstream_repository, ['-b', $repository]);
+        $this->GitCmdExecutor->checkout($upstream_repository, ['-b', $repository]);
     }
 
     /**
@@ -136,10 +136,10 @@ class PullRequestDriver extends DriverBase
 
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
-        $this->GitCmdExecuter->fetchPullRequest();
+        $this->GitCmdExecutor->fetchPullRequest();
 
         $upstream_repository = 'pull/' . $pull_request_number . '/head';
-        $this->GitCmdExecuter->pull('upstream', $upstream_repository);
+        $this->GitCmdExecutor->pull('upstream', $upstream_repository);
     }
 
     /**
@@ -156,9 +156,9 @@ class PullRequestDriver extends DriverBase
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
-        $this->GitCmdExecuter->fetchPullRequest();
+        $this->GitCmdExecutor->fetchPullRequest();
 
         $upstream_repository = 'pull/' . $pull_request_number . '/head';
-        $this->GitCmdExecuter->pull('upstream', $upstream_repository);
+        $this->GitCmdExecutor->pull('upstream', $upstream_repository);
     }
 }

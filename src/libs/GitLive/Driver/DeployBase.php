@@ -76,7 +76,7 @@ abstract class DeployBase extends DriverBase
             throw new Exception(sprintf(__('Already %1$s opened.'), 'hotfix'));
         }
 
-        $repository = $this->GitCmdExecuter->branch(['-a']);
+        $repository = $this->GitCmdExecutor->branch(['-a']);
         $repository = explode("\n", trim($repository));
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/' . $this->deploy_repository_name . '/' . $this->prefix) !== false) {
@@ -86,11 +86,11 @@ abstract class DeployBase extends DriverBase
 
         $release_rep = $this->prefix . ($release_rep ?: date('Ymdhis'));
 
-        $this->GitCmdExecuter->checkout('upstream/' . $this->develop_branch);
-        $this->GitCmdExecuter->checkout($release_rep, ['-b']);
+        $this->GitCmdExecutor->checkout('upstream/' . $this->develop_branch);
+        $this->GitCmdExecutor->checkout($release_rep, ['-b']);
 
-        $this->GitCmdExecuter->push('upstream', $release_rep);
-        $this->GitCmdExecuter->push($this->deploy_repository_name, $release_rep);
+        $this->GitCmdExecutor->push('upstream', $release_rep);
+        $this->GitCmdExecutor->push($this->deploy_repository_name, $release_rep);
     }
 
     /**
@@ -125,7 +125,7 @@ abstract class DeployBase extends DriverBase
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $release_prefix = App::make(ConfigDriver::class)->releasePrefix();
 
-        $branches = $this->GitCmdExecuter->branch(['-a']);
+        $branches = $this->GitCmdExecutor->branch(['-a']);
         $branches = explode("\n", trim($branches));
 
         $release_branch = false;
@@ -177,7 +177,7 @@ abstract class DeployBase extends DriverBase
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $release_prefix = App::make(ConfigDriver::class)->hotfixPrefix();
 
-        $branches = $this->GitCmdExecuter->branch(['-a']);
+        $branches = $this->GitCmdExecutor->branch(['-a']);
         $branches = explode("\n", trim($branches));
 
         $release_branch = false;
@@ -215,7 +215,7 @@ abstract class DeployBase extends DriverBase
             throw new Exception(sprintf(__('Already %1$s opened.'), 'hotfix'));
         }
 
-        $repository = $this->GitCmdExecuter->branch(['-a']);
+        $repository = $this->GitCmdExecutor->branch(['-a']);
         $repository = explode("\n", trim($repository));
 
         foreach ($repository as $value) {
@@ -226,11 +226,11 @@ abstract class DeployBase extends DriverBase
 
         $release_rep = 'release/' . date('Ymdhis');
 
-        $this->GitCmdExecuter->checkout('upstream/' . $this->develop_branch);
-        $this->GitCmdExecuter->checkout('', ['-b', $release_rep, 'refs/tags/' . $tag_name]);
+        $this->GitCmdExecutor->checkout('upstream/' . $this->develop_branch);
+        $this->GitCmdExecutor->checkout('', ['-b', $release_rep, 'refs/tags/' . $tag_name]);
 
-        $this->GitCmdExecuter->push('upstream', $release_rep);
-        $this->GitCmdExecuter->push($this->deploy_repository_name, $release_rep);
+        $this->GitCmdExecutor->push('upstream', $release_rep);
+        $this->GitCmdExecutor->push($this->deploy_repository_name, $release_rep);
     }
 
     /**
@@ -250,8 +250,8 @@ abstract class DeployBase extends DriverBase
         $repo = $this->getBuildRepository();
         $this->deployTrack($repo);
 
-        $this->GitCmdExecuter->pull('upstream', $repo);
-        $this->GitCmdExecuter->pull($this->deploy_repository_name, $repo);
+        $this->GitCmdExecutor->pull('upstream', $repo);
+        $this->GitCmdExecutor->pull($this->deploy_repository_name, $repo);
     }
 
     /**
@@ -277,10 +277,10 @@ abstract class DeployBase extends DriverBase
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
 
         if ($this->isBranchExits($repo)) {
-            $this->GitCmdExecuter->checkout($repo, []);
+            $this->GitCmdExecutor->checkout($repo, []);
         } else {
-            $this->GitCmdExecuter->checkout('remote/' . $deploy_repository_name . '/' . $repo);
-            $this->GitCmdExecuter->checkout($repo, ['-b']);
+            $this->GitCmdExecutor->checkout('remote/' . $deploy_repository_name . '/' . $repo);
+            $this->GitCmdExecutor->checkout($repo, ['-b']);
         }
     }
 
@@ -298,8 +298,8 @@ abstract class DeployBase extends DriverBase
         }
 
         $repo = $this->getBuildRepository();
-        $this->GitCmdExecuter->pull('upstream', $repo);
-        $this->GitCmdExecuter->pull($this->deploy_repository_name, $repo);
+        $this->GitCmdExecutor->pull('upstream', $repo);
+        $this->GitCmdExecutor->pull($this->deploy_repository_name, $repo);
     }
 
     /**
@@ -318,7 +318,7 @@ abstract class DeployBase extends DriverBase
             if (!$ck_only) {
                 $repo = $this->getBuildRepository();
                 $option = $with_merge_commit ? [] : ['--no-merges'];
-                $res .= ($this->GitCmdExecuter->log($this->deploy_repository_name . '/' . $this->master_branch, $repo, $option));
+                $res .= ($this->GitCmdExecutor->log($this->deploy_repository_name . '/' . $this->master_branch, $repo, $option));
             }
 
             $res .= (sprintf(__('%1$s is open.'), static::MODE) . "\n");
@@ -363,16 +363,16 @@ abstract class DeployBase extends DriverBase
 
         $this->deployTrack($repo);
 
-        $this->GitCmdExecuter->pull('deploy', $repo);
-        $this->GitCmdExecuter->pull('upstream', $repo);
+        $this->GitCmdExecutor->pull('deploy', $repo);
+        $this->GitCmdExecutor->pull('upstream', $repo);
 
-        $err = $this->GitCmdExecuter->status([$repo]);
+        $err = $this->GitCmdExecutor->status([$repo]);
         if (strpos(trim($err), 'nothing to commit') === false) {
             throw new Exception($err);
         }
 
-        $this->GitCmdExecuter->push('upstream', $repo);
-        $this->GitCmdExecuter->push($deploy_repository_name, $repo);
+        $this->GitCmdExecutor->push('upstream', $repo);
+        $this->GitCmdExecutor->push($deploy_repository_name, $repo);
     }
 
     /**
@@ -411,17 +411,17 @@ abstract class DeployBase extends DriverBase
             throw new Exception('undefined ' . $repo);
         }
 
-        $this->GitCmdExecuter->checkout($repo);
+        $this->GitCmdExecutor->checkout($repo);
 
-        $this->GitCmdExecuter->pull('upstream', $repo);
-        $this->GitCmdExecuter->pull($deploy_repository_name, $repo);
+        $this->GitCmdExecutor->pull('upstream', $repo);
+        $this->GitCmdExecutor->pull($deploy_repository_name, $repo);
 
-        $err = $this->GitCmdExecuter->status([$repo]);
+        $err = $this->GitCmdExecutor->status([$repo]);
         if (strpos($err, 'nothing to commit') === false) {
             throw new Exception($err);
         }
 
-        $this->GitCmdExecuter->push('upstream', $repo);
+        $this->GitCmdExecutor->push('upstream', $repo);
     }
 
     /**
@@ -456,8 +456,8 @@ abstract class DeployBase extends DriverBase
     public function deployDestroy($repo, $mode, $remove_local = false)
     {
         // Repositoryの掃除
-        $this->GitCmdExecuter->push('deploy', ':' . $repo);
-        $this->GitCmdExecuter->push('upstream', ':' . $repo);
+        $this->GitCmdExecutor->push('deploy', ':' . $repo);
+        $this->GitCmdExecutor->push('upstream', ':' . $repo);
 
         if ($mode === 'hotfix' && strpos($repo, $this->Driver(ConfigDriver::class)->hotfixPrefix()) === false) {
             throw new Exception($repo . __(' is not hotfix branch.'));
@@ -472,8 +472,8 @@ abstract class DeployBase extends DriverBase
         // ローカルブランチの削除
         if ($remove_local) {
             $this->clean();
-            $this->GitCmdExecuter->branch(['-d', $repo]);
-            $this->GitCmdExecuter->checkout($this->Driver(ConfigDriver::class)->develop());
+            $this->GitCmdExecutor->branch(['-d', $repo]);
+            $this->GitCmdExecutor->checkout($this->Driver(ConfigDriver::class)->develop());
         }
     }
 
@@ -517,12 +517,12 @@ abstract class DeployBase extends DriverBase
         $develop_branch = App::make(ConfigDriver::class)->develop();
 
         // マスターのマージ
-        $this->GitCmdExecuter->checkout($deploy_repository_name . '/' . $master_branch);
-        $this->GitCmdExecuter->branch(['-D', $master_branch]);
-        $this->GitCmdExecuter->checkout($master_branch, ['-b']);
+        $this->GitCmdExecutor->checkout($deploy_repository_name . '/' . $master_branch);
+        $this->GitCmdExecutor->branch(['-D', $master_branch]);
+        $this->GitCmdExecutor->checkout($master_branch, ['-b']);
 
         if ($this->getSelfBranchRef() !== 'refs/heads/' . $master_branch) {
-            $this->GitCmdExecuter->checkout($release_name);
+            $this->GitCmdExecutor->checkout($release_name);
             $error_msg = sprintf(__('%1$s close is failed.'), $mode) . "\n" .
                 sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Master', ucwords($mode));
 
@@ -536,8 +536,8 @@ abstract class DeployBase extends DriverBase
             throw new Exception($error_msg);
         }
 
-        $this->GitCmdExecuter->merge('deploy/' . $release_name);
-        $diff = $this->GitCmdExecuter->diff([$deploy_repository_name . '/' . $release_name, $master_branch]);
+        $this->GitCmdExecutor->merge('deploy/' . $release_name);
+        $diff = $this->GitCmdExecutor->diff([$deploy_repository_name . '/' . $release_name, $master_branch]);
 
         if (strlen($diff) !== 0) {
             $error_msg = $diff . "\n" . sprintf(__('%1$s close is failed.'), $mode);
@@ -545,26 +545,26 @@ abstract class DeployBase extends DriverBase
             throw new Exception($error_msg);
         }
 
-        $this->GitCmdExecuter->push('upstream', $master_branch);
-        $this->GitCmdExecuter->push($deploy_repository_name, $master_branch);
+        $this->GitCmdExecutor->push('upstream', $master_branch);
+        $this->GitCmdExecutor->push($deploy_repository_name, $master_branch);
 
         // developのマージ
-        $this->GitCmdExecuter->checkout('upstream/' . $develop_branch);
-        $this->GitCmdExecuter->branch(['-D', $develop_branch]);
-        $this->GitCmdExecuter->checkout($develop_branch, ['-b']);
+        $this->GitCmdExecutor->checkout('upstream/' . $develop_branch);
+        $this->GitCmdExecutor->branch(['-D', $develop_branch]);
+        $this->GitCmdExecutor->checkout($develop_branch, ['-b']);
 
         if ($this->getSelfBranchRef() !== 'refs/heads/' . $develop_branch) {
-            $this->GitCmdExecuter->checkout($release_name);
+            $this->GitCmdExecutor->checkout($release_name);
             $error_msg = sprintf(__('%1$s close is failed.'), $mode) . "\n" .
                 sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Develop', ucwords($mode));
 
             throw new Exception($error_msg);
         }
 
-        $this->GitCmdExecuter->merge($deploy_repository_name . '/' . $release_name);
+        $this->GitCmdExecutor->merge($deploy_repository_name . '/' . $release_name);
 
         if ($mode === 'release' && !$force) {
-            $diff = $this->GitCmdExecuter->diff([$deploy_repository_name . '/' . $release_name, $develop_branch]);
+            $diff = $this->GitCmdExecutor->diff([$deploy_repository_name . '/' . $release_name, $develop_branch]);
         }
 
         if (strlen($diff) !== 0) {
@@ -574,26 +574,26 @@ abstract class DeployBase extends DriverBase
             throw new Exception($error_msg);
         }
 
-        $this->GitCmdExecuter->push('upstream', $develop_branch);
+        $this->GitCmdExecutor->push('upstream', $develop_branch);
 
         // Repositoryの掃除
-        $this->GitCmdExecuter->push($deploy_repository_name, ':' . $release_name);
-        $this->GitCmdExecuter->push('upstream', ':' . $release_name);
-        $this->GitCmdExecuter->branch(['-d', $release_name]);
+        $this->GitCmdExecutor->push($deploy_repository_name, ':' . $release_name);
+        $this->GitCmdExecutor->push('upstream', ':' . $release_name);
+        $this->GitCmdExecutor->branch(['-d', $release_name]);
 
         // タグ付け
-        $this->GitCmdExecuter->fetch(['upstream']);
-        $this->GitCmdExecuter->checkout('upstream/master');
+        $this->GitCmdExecutor->fetch(['upstream']);
+        $this->GitCmdExecutor->checkout('upstream/master');
 
         if (empty($tag_name)) {
             list(, $tag_name) = explode('/', $release_name);
             $tag_name = 'r' . $tag_name;
         }
 
-        $this->GitCmdExecuter->tag([$tag_name]);
-        $this->GitCmdExecuter->tagPush('upstream');
+        $this->GitCmdExecutor->tag([$tag_name]);
+        $this->GitCmdExecutor->tagPush('upstream');
 
-        $this->GitCmdExecuter->checkout($develop_branch);
+        $this->GitCmdExecutor->checkout($develop_branch);
     }
 
     /**
@@ -607,7 +607,7 @@ abstract class DeployBase extends DriverBase
     public function enableRelease()
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
-        $remote = $this->GitCmdExecuter->remote();
+        $remote = $this->GitCmdExecutor->remote();
         $remote = explode("\n", trim($remote));
         $res = array_search($deploy_repository_name, $remote, true) !== false;
         if ($res === false) {

@@ -35,12 +35,12 @@ use GitLive\Support\SystemCommandInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-class GitCmdExecuter
+class GitCmdExecutor
 {
     protected $command;
 
     /**
-     * GitCmdExecuter constructor.
+     * GitCmdExecutor constructor.
      * @param SystemCommandInterface $command
      */
     public function __construct(SystemCommandInterface $command)
@@ -190,8 +190,6 @@ class GitCmdExecuter
 
         return $this->exec($cmd);
     }
-
-
 
     /**
      * chdirへのAlias
