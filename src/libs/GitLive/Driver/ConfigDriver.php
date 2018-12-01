@@ -105,7 +105,7 @@ class ConfigDriver extends DriverBase
             return null;
         }
 
-        $res = $this->GitCmdExecutor->config(['--get', 'gitlive.' . $key]);
+        $res = trim($this->GitCmdExecutor->config(['--get', 'gitlive.' . $key]));
 
         if ($res === '') {
             $res = null;
