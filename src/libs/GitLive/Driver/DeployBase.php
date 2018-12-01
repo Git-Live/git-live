@@ -125,7 +125,7 @@ abstract class DeployBase extends DriverBase
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $release_prefix = App::make(ConfigDriver::class)->releasePrefix();
 
-        $branches = $this->GitCmdExecutor->branch(['-a']);
+        $branches = $this->GitCmdExecutor->branch(['-a'], true);
         $branches = explode("\n", trim($branches));
 
         $release_branch = false;
@@ -177,7 +177,7 @@ abstract class DeployBase extends DriverBase
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $release_prefix = App::make(ConfigDriver::class)->hotfixPrefix();
 
-        $branches = $this->GitCmdExecutor->branch(['-a']);
+        $branches = $this->GitCmdExecutor->branch(['-a'], true);
         $branches = explode("\n", trim($branches));
 
         $release_branch = false;
@@ -607,7 +607,7 @@ abstract class DeployBase extends DriverBase
     public function enableRelease()
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
-        $remote = $this->GitCmdExecutor->remote();
+        $remote = $this->GitCmdExecutor->remote([], true);
         $remote = explode("\n", trim($remote));
         $res = array_search($deploy_repository_name, $remote, true) !== false;
         if ($res === false) {

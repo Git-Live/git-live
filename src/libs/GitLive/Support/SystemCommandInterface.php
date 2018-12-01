@@ -25,7 +25,8 @@ interface SystemCommandInterface
     /**
      * @param string   $cmd
      * @param bool|int $verbosity
+     * @param null     $output_verbosity
      * @return string
      */
-    public function exec($cmd, $verbosity = 0);
+    public function exec($cmd, $verbosity = 0,  $output_verbosity = null);
 }

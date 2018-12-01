@@ -57,138 +57,139 @@ class GitCmdExecutor
     {
         $cmd = "git fetch upstream '+refs/pull/*:refs/remotes/pr/*'";
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function config(array $options = [])
+    public function config(array $options = [], $verbosity = true,  $output_verbosity = null)
     {
         $cmd = $this->createCmd('config', $options);
 
-        return $this->exec($cmd, true);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function tag(array $options = [])
+    public function tag(array $options = [], $verbosity = false,  $output_verbosity = null)
     {
         $cmd = $this->createCmd('tag', $options);
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function copy(array $options = [])
+    public function copy(array $options = [], $verbosity = false,  $output_verbosity = null)
     {
         $cmd = $this->createCmd('clone', $options);
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function remote(array $options = [])
+    public function remote(array $options = [], $verbosity = false,  $output_verbosity = null)
     {
         $cmd = $this->createCmd('remote', $options);
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function status(array $options = [])
+    public function status(array $options = [], $verbosity = false,  $output_verbosity = null)
     {
         $cmd = $this->createCmd('status', $options);
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function diff(array $options = [])
+    public function diff(array $options = [], $verbosity = false,  $output_verbosity = null)
     {
         $cmd = $this->createCmd('diff', $options);
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function merge($branch, array $options = [])
+    public function merge($branch, array $options = [], $verbosity = false,  $output_verbosity = null)
     {
         $cmd = $this->createCmd('merge', $options);
         $cmd .= ' ' . $branch;
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function fetch(array $options = [])
+    public function fetch(array $options = [], $verbosity = false,  $output_verbosity = null)
     {
         $cmd = $this->createCmd('fetch', $options);
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function clean(array $options = [])
+    public function clean(array $options = [], $verbosity = false,  $output_verbosity = null)
     {
         $cmd = 'git clean -df';
         if ($options) {
             $cmd = $this->createCmd('clean', $options);
         }
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function reset(array $options = [])
+    public function reset(array $options = [], $verbosity = false,  $output_verbosity = null)
     {
         $cmd = 'git reset --hard HEAD';
         if ($options) {
             $cmd = $this->createCmd('reset', $options);
         }
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function checkout($branch, array $options = [])
+    public function checkout($branch, array $options = [], $verbosity = false,  $output_verbosity = null)
     {
         $cmd = $this->createCmd('checkout', $options);
         $cmd .= ' ' . $branch;
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function branch(array $options = [], $quiet = false)
+    public function branch(array $options = [], $verbosity = false,  $output_verbosity = null)
     {
         $cmd = $this->createCmd('branch', $options);
 
-        return $this->exec($cmd, $quiet);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function pull($remote, $branch = '')
+    public function pull($remote, $branch = '', $verbosity = false,  $output_verbosity = null)
     {
         $cmd = $this->createCmd('pull', [$remote, $branch]);
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function push($remote, $branch = '')
+    public function push($remote, $branch = '', $verbosity = false,  $output_verbosity = null)
     {
         $cmd = $this->createCmd('push', [$remote, $branch]);
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function tagPush($remote)
+    public function tagPush($remote, $verbosity = false,  $output_verbosity = null)
     {
         $cmd = $this->createCmd('push', [$remote, '--tags']);
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-    public function log($left, $right, $option = '')
+    public function log($left, $right, $option = [], $verbosity = true,  $output_verbosity = null)
     {
         if (empty($option)) {
             $cmd = $this->createCmd('log', ['--pretty=fuller', '--name-status', $left . '..' . $right]);
         } else {
-            $cmd = $this->createCmd('log', ['--pretty=fuller', '--name-status', $option, $left . '..' . $right]);
+            $option[] = $left . '..' . $right;
+            $cmd = $this->createCmd('log', ['--pretty=fuller', '--name-status'] + $option);
         }
 
-        return $this->exec($cmd, true);
+        return $this->exec($cmd, true, $verbosity, $output_verbosity);
     }
 
     public function stash(array $options = [])
     {
         $cmd = $this->createCmd('stash', $options);
 
-        return $this->exec($cmd);
+        return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
     /**
@@ -204,9 +205,9 @@ class GitCmdExecutor
         return chdir($dir);
     }
 
-    protected function exec($cmd, $quiet = false)
+    protected function exec($cmd, $verbosity = false,  $output_verbosity = null)
     {
-        return $this->command->exec($cmd, $quiet);
+        return $this->command->exec($cmd, $verbosity, $output_verbosity);
     }
 
     protected function createCmd($git_task, array $options = [])

@@ -181,10 +181,9 @@ class ReleaseCommand extends CommandBase
 
                 break;
             case 'is':
-                $command = $this->getApplication()->find('release:state');
+                $command = $this->getApplication()->find('release:is');
 
                 $arguments = [
-                    'ck_only' => true,
                 ];
 
                 $greetInput = new ArrayInput($arguments);

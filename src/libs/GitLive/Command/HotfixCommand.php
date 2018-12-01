@@ -184,7 +184,6 @@ class HotfixCommand extends CommandBase
                 $command = $this->getApplication()->find('hotfix:state');
 
                 $arguments = [
-                    'ck_only' => true,
                 ];
 
                 $greetInput = new ArrayInput($arguments);

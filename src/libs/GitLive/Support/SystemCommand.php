@@ -64,27 +64,30 @@ class SystemCommand implements SystemCommandInterface
     /**
      * @param string   $cmd
      * @param bool|int $verbosity
+     * @param null     $output_verbosity
      * @return string
      */
-    public function exec($cmd, $verbosity = 0)
+    public function exec($cmd, $verbosity = 0, $output_verbosity = null)
     {
         if ($verbosity === true) {
-            $this->output->writeln('<fg=green;options=bold>' . $cmd . '</>', OutputInterface::VERBOSITY_VERBOSE);
+            $this->output->writeln('<fg=cyan;options=bold>' . $cmd . '</>', OutputInterface::VERBOSITY_VERY_VERBOSE);
         } elseif ($verbosity === false) {
-            $this->output->writeln('<fg=green;options=bold>' . $cmd . '</>');
+            $this->output->writeln('<fg=cyan;options=bold>' . $cmd . '</>');
         } else {
-            $this->output->writeln('<fg=green;options=bold>' . $cmd . '</>', $verbosity);
+            $this->output->writeln('<fg=cyan;options=bold>' . $cmd . '</>', $verbosity);
         }
 
         $res = `$cmd`;
 
-        if ($verbosity === false) {
-            $verbosity = OutputInterface::VERBOSITY_NORMAL;
-        } elseif ($verbosity === true) {
-            $verbosity = OutputInterface::VERBOSITY_DEBUG;
+        $output_verbosity = $output_verbosity??$verbosity;
+
+        if ($output_verbosity === false) {
+            $output_verbosity = OutputInterface::VERBOSITY_NORMAL;
+        } elseif ($output_verbosity === true) {
+            $output_verbosity = OutputInterface::VERBOSITY_DEBUG;
         }
 
-        $this->output->writeln($res, $verbosity);
+        $this->output->writeln($res, $output_verbosity);
 
         return $res;
     }

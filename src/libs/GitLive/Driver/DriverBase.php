@@ -98,11 +98,12 @@ abstract class DriverBase
      * @access      public
      * @param  string $cmd
      * @param bool    $verbosity
+     * @param null    $output_verbosity
      * @return string
      */
-    public function exec($cmd, $verbosity = true)
+    public function exec($cmd, $verbosity = true, $output_verbosity = null)
     {
-        return $this->command->exec($cmd, $verbosity);
+        return $this->command->exec($cmd, $verbosity, $output_verbosity);
     }
 
     /**
