@@ -515,6 +515,7 @@ abstract class DeployBase extends DriverBase
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $master_branch = App::make(ConfigDriver::class)->master();
         $develop_branch = App::make(ConfigDriver::class)->develop();
+        $release_prefix = App::make(ConfigDriver::class)->releasePrefix();
 
         // マスターのマージ
         $this->GitCmdExecutor->checkout($deploy_repository_name . '/' . $master_branch);
@@ -586,8 +587,11 @@ abstract class DeployBase extends DriverBase
         $this->GitCmdExecutor->checkout('upstream/master');
 
         if (empty($tag_name)) {
-            list(, $tag_name) = explode('/', $release_name);
-            $tag_name = 'r' . $tag_name;
+            $tag_name = 'r' . $release_name;
+            if (strpos($release_name, $release_prefix) === 0) {
+                $tag_name = mb_substr($release_name, strlen($release_prefix));
+                $tag_name = 'r' . $tag_name;
+            }
         }
 
         $this->GitCmdExecutor->tag([$tag_name]);
