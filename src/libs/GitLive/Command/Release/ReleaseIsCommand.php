@@ -18,20 +18,21 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace GitLive\Command\Hotfix;
+namespace GitLive\Command\Release;
 
 use App;
 use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
-use GitLive\Driver\HotfixDriver;
+use GitLive\Driver\ReleaseDriver;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class HotfixPull
+ * Class ReleaseIsCommand
  *
  * @category   GitCommand
- * @package    GitLive\Command\Hotfix
+ * @package    GitLive\Command\Release
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
@@ -42,24 +43,24 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
-class HotfixPull extends CommandBase
+class ReleaseIsCommand extends CommandBase
 {
     protected function configure()
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('hotfix:pull')
+            ->setName('release:is')
             // the short description shown while running "php bin/console list"
-            ->setDescription(__("Pull upstream/hotfix and deploy/hotfix."))
+            ->setDescription(__('Whether the release is open, or to see what is closed.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__("Pull upstream/hotfix and deploy/hotfix."));
+            ->setHelp(__('Whether the release is open, or to see what is closed.'))
+            ->addOption('with_merge_commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
     }
 
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
      * @return null|int|void
      */
@@ -68,6 +69,11 @@ class HotfixPull extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        App::make(HotfixDriver::class)->buildPull();
+        $res = App::make(ReleaseDriver::class)->buildState(
+            true,
+            $input->getOption('with_merge_commit')
+        );
+
+        $output->writeln($res);
     }
 }

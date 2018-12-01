@@ -18,27 +18,47 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace GitLive\Command\Hotfix;
+namespace GitLive\Command\Release;
 
 use App;
 use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
-use GitLive\Driver\HotfixDriver;
+use GitLive\Driver\ReleaseDriver;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class HotfixPush extends CommandBase
+/**
+ * Class ReleaseOpenCommand
+ *
+ * @category   GitCommand
+ * @package    GitLive\Command\Release
+ * @subpackage Core
+ * @author     akito<akito-artisan@five-foxes.com>
+ * @author     suzunone<suzunone.eleven@gmail.com>
+ * @copyright  Project Git Live
+ * @license    MIT
+ * @version    GIT: $Id$
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
+ * @since      2018/11/24
+ */
+class ReleaseOpenCommand extends CommandBase
 {
+    /**
+     *
+     */
     protected function configure()
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('hotfix:push')
+            ->setName('release:open')
             // the short description shown while running "php bin/console list"
-            ->setDescription(__("Push upstream/hotfix and deploy/hotfix."))
+            ->setDescription(__('Support preparation of a new production release/.') . __("Allow for minor bug fixes and preparing meta-data for a release"))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__("Push upstream/hotfix and deploy/hotfix."));
+            ->setHelp(__('Support preparation of a new production release/.') . __("Allow for minor bug fixes and preparing meta-data for a release"))
+            ->addArgument('name', InputArgument::OPTIONAL, 'release_name');
     }
 
     /**
@@ -53,6 +73,6 @@ class HotfixPush extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        App::make(HotfixDriver::class)->buildPush();
+        App::make(ReleaseDriver::class)->buildOpen($input->getArgument('name'));
     }
 }

@@ -24,13 +24,11 @@ use App;
 use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\HotfixDriver;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class HotfixClose
+ * Class HotfixSyncCommand
  *
  * @category   GitCommand
  * @package    GitLive\Command\Hotfix
@@ -44,23 +42,18 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
-class HotfixClose extends CommandBase
+class HotfixSyncCommand extends CommandBase
 {
-    /**
-     *
-     */
     protected function configure()
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('hotfix:close')
+            ->setName('hotfix:sync')
             // the short description shown while running "php bin/console list"
-            ->setDescription(__("Finish up a hotfix.Merges the hotfix branch back into 'master'.Tags the hotfix with its name.Back-merges the hotfix into 'develop'.Removes the hotfix branch."))
+            ->setDescription(__('Run git live hotfix pull and git live hotfix push in succession.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__("Finish up a hotfix.Merges the hotfix branch back into 'master'.Tags the hotfix with its name.Back-merges the hotfix into 'develop'.Removes the hotfix branch."))
-            ->addArgument('name', InputArgument::OPTIONAL, 'hotfix_name')
-            ->addOption('force', 'f', InputOption::VALUE_NONE, __('Do not check develop repository.'));
+            ->setHelp(__('Run git live hotfix pull and git live hotfix push in succession.'));
     }
 
     /**
@@ -75,9 +68,6 @@ class HotfixClose extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        App::make(HotfixDriver::class)->buildClose(
-            $input->getOption('force'),
-            $input->getArgument('name')
-        );
+        App::make(HotfixDriver::class)->buildSync();
     }
 }

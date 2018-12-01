@@ -35,40 +35,40 @@ use GitLive\Command\GitHubPullRequest\PullRequestFeatureStart;
 use GitLive\Command\GitHubPullRequest\PullRequestMerge;
 use GitLive\Command\GitHubPullRequest\PullRequestPull;
 use GitLive\Command\GitHubPullRequest\PullRequestTrack;
-use GitLive\Command\Hotfix\HotfixClose;
-use GitLive\Command\Hotfix\HotfixDestroy;
-use GitLive\Command\Hotfix\HotfixIs;
-use GitLive\Command\Hotfix\HotfixOpen;
-use GitLive\Command\Hotfix\HotfixPull;
-use GitLive\Command\Hotfix\HotfixPush;
-use GitLive\Command\Hotfix\HotfixState;
-use GitLive\Command\Hotfix\HotfixSync;
-use GitLive\Command\Hotfix\HotfixTrack;
+use GitLive\Command\Hotfix\HotfixCloseCommand;
+use GitLive\Command\Hotfix\HotfixDestroyCommand;
+use GitLive\Command\Hotfix\HotfixIsCommand;
+use GitLive\Command\Hotfix\HotfixOpenCommand;
+use GitLive\Command\Hotfix\HotfixPullCommand;
+use GitLive\Command\Hotfix\HotfixPushCommand;
+use GitLive\Command\Hotfix\HotfixStateCommand;
+use GitLive\Command\Hotfix\HotfixSyncCommand;
+use GitLive\Command\Hotfix\HotfixTrackCommand;
 use GitLive\Command\HotfixCommand;
 use GitLive\Command\InitCommand;
 use GitLive\Command\LogCommand;
 use GitLive\Command\MergeCommand;
 use GitLive\Command\PullCommand;
 use GitLive\Command\PushCommand;
-use GitLive\Command\Release\ReleaseClose;
-use GitLive\Command\Release\ReleaseDestroy;
-use GitLive\Command\Release\ReleaseIs;
-use GitLive\Command\Release\ReleaseOpen;
-use GitLive\Command\Release\ReleasePull;
-use GitLive\Command\Release\ReleasePush;
-use GitLive\Command\Release\ReleaseState;
-use GitLive\Command\Release\ReleaseSync;
-use GitLive\Command\Release\ReleaseTrack;
+use GitLive\Command\Release\ReleaseCloseCommand;
+use GitLive\Command\Release\ReleaseDestroyCommand;
+use GitLive\Command\Release\ReleaseIsCommand;
+use GitLive\Command\Release\ReleaseOpenCommand;
+use GitLive\Command\Release\ReleasePullCommand;
+use GitLive\Command\Release\ReleasePushCommand;
+use GitLive\Command\Release\ReleaseStateCommand;
+use GitLive\Command\Release\ReleaseSyncCommand;
+use GitLive\Command\Release\ReleaseTrackCommand;
 use GitLive\Command\ReleaseCommand;
 use GitLive\Command\ReStartCommand;
 use GitLive\Command\SelfUpdateCommand;
 use GitLive\Command\StartCommand;
 use GitLive\Driver\Log\LogDevelopCommand;
 use GitLive\Driver\Log\LogMasterCommand;
-use GitLive\Driver\Merge\MergeDevelop;
-use GitLive\Driver\Merge\MergeMaster;
-use GitLive\Driver\Merge\StateDevelop;
-use GitLive\Driver\Merge\StateMaster;
+use GitLive\Driver\Merge\MergeDevelopCommand;
+use GitLive\Driver\Merge\MergeMasterCommand;
+use GitLive\Driver\Merge\StateDevelopCommand;
+use GitLive\Driver\Merge\StateMasterCommand;
 
 /**
  * Class CommandLineKernelService
@@ -117,59 +117,59 @@ class CommandLineKernelService
             },
 
             'release:state' => function () {
-                return new ReleaseState();
+                return new ReleaseStateCommand();
             },
             'release:close' => function () {
-                return new ReleaseClose();
+                return new ReleaseCloseCommand();
             },
             'release:destroy' => function () {
-                return new ReleaseDestroy();
+                return new ReleaseDestroyCommand();
             },
             'release:is' => function () {
-                return new ReleaseIs();
+                return new ReleaseIsCommand();
             },
             'release:open' => function () {
-                return new ReleaseOpen();
+                return new ReleaseOpenCommand();
             },
             'release:pull' => function () {
-                return new ReleasePull();
+                return new ReleasePullCommand();
             },
             'release:push' => function () {
-                return new ReleasePush();
+                return new ReleasePushCommand();
             },
             'release:sync' => function () {
-                return new ReleaseSync();
+                return new ReleaseSyncCommand();
             },
             'release:track' => function () {
-                return new ReleaseTrack();
+                return new ReleaseTrackCommand();
             },
 
             'hotfix:state' => function () {
-                return new HotfixState();
+                return new HotfixStateCommand();
             },
             'hotfix:close' => function () {
-                return new HotfixClose();
+                return new HotfixCloseCommand();
             },
             'hotfix:destroy' => function () {
-                return new HotfixDestroy();
+                return new HotfixDestroyCommand();
             },
             'hotfix:is' => function () {
-                return new HotfixIs();
+                return new HotfixIsCommand();
             },
             'hotfix:open' => function () {
-                return new HotfixOpen();
+                return new HotfixOpenCommand();
             },
             'hotfix:pull' => function () {
-                return new HotfixPull();
+                return new HotfixPullCommand();
             },
             'hotfix:push' => function () {
-                return new HotfixPush();
+                return new HotfixPushCommand();
             },
             'hotfix:sync' => function () {
-                return new HotfixSync();
+                return new HotfixSyncCommand();
             },
             'hotfix:track' => function () {
-                return new HotfixTrack();
+                return new HotfixTrackCommand();
             },
 
             'log:develop' => function () {
@@ -180,17 +180,17 @@ class CommandLineKernelService
             },
 
             'merge:develop' => function () {
-                return new MergeDevelop();
+                return new MergeDevelopCommand();
             },
             'merge:master' => function () {
-                return new MergeMaster();
+                return new MergeMasterCommand();
             },
 
             'merge:state:develop' => function () {
-                return new StateDevelop();
+                return new StateDevelopCommand();
             },
             'merge:state:master' => function () {
-                return new StateMaster();
+                return new StateMasterCommand();
             },
 
             'pr:feature:start' => function () {

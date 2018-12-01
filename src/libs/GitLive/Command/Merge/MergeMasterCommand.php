@@ -18,21 +18,20 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace GitLive\Command\Hotfix;
+namespace GitLive\Driver\Merge;
 
 use App;
 use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
-use GitLive\Driver\HotfixDriver;
-use Symfony\Component\Console\Input\InputArgument;
+use GitLive\Driver\MergeDriver;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class HotfixOpen
+ * Class StateDevelopCommand
  *
  * @category   GitCommand
- * @package    GitLive\Command\Hotfix
+ * @package    GitLive\Driver\Merge
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
@@ -43,19 +42,18 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
-class HotfixOpen extends CommandBase
+class MergeMasterCommand extends CommandBase
 {
     protected function configure()
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('hotfix:open')
+            ->setName('merge:master')
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Support preparation of a new production hotfix/.') . __("Allow for minor bug fixes and preparing meta-data for a hotfix"))
+            ->setDescription(__('Merge upstream master.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Support preparation of a new production hotfix/.') . __("Allow for minor bug fixes and preparing meta-data for a hotfix"))
-            ->addArgument('name', InputArgument::OPTIONAL, 'hotfix_name');
+            ->setHelp(__('Merge upstream master.'));
     }
 
     /**
@@ -63,13 +61,15 @@ class HotfixOpen extends CommandBase
      * @param OutputInterface $output
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
-     * @return null|int|void
+     * @return null|int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        App::make(HotfixDriver::class)->buildOpen($input->getArgument('name'));
+        App::make(MergeDriver::class)->mergeMaster();
+
+        return 0;
     }
 }

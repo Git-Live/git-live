@@ -29,7 +29,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class HotfixIs
+ * Class HotfixIsCommand
  *
  * @category   GitCommand
  * @package    GitLive\Command\Hotfix
@@ -43,7 +43,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
-class HotfixIs extends CommandBase
+class HotfixIsCommand extends CommandBase
 {
     protected function configure()
     {

@@ -18,44 +18,27 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace GitLive\Command\Release;
+namespace GitLive\Command\Hotfix;
 
 use App;
 use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
-use GitLive\Driver\ReleaseDriver;
+use GitLive\Driver\HotfixDriver;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Class ReleaseDestroy
- *
- * @category   GitCommand
- * @package    GitLive\Command\Release
- * @subpackage Core
- * @author     akito<akito-artisan@five-foxes.com>
- * @author     suzunone<suzunone.eleven@gmail.com>
- * @copyright  Project Git Live
- * @license    MIT
- * @version    GIT: $Id$
- * @link       https://github.com/Git-Live/git-live
- * @see        https://github.com/Git-Live/git-live
- * @since      2018/11/24
- */
-class ReleaseDestroy extends CommandBase
+class HotfixPushCommand extends CommandBase
 {
     protected function configure()
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('release:destroy')
+            ->setName('hotfix:push')
             // the short description shown while running "php bin/console list"
-            ->setDescription(__("Discard release. However, keep working in the local repository."))
+            ->setDescription(__("Push upstream/hotfix and deploy/hotfix."))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__("Discard release. However, keep working in the local repository."))
-            ->addOption('remove_local', 'R', InputOption::VALUE_NONE, __('Destroy with local repository.'));
+            ->setHelp(__("Push upstream/hotfix and deploy/hotfix."));
     }
 
     /**
@@ -70,8 +53,6 @@ class ReleaseDestroy extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        App::make(ReleaseDriver::class)->buildDestroy(
-            $input->getOption('remove_local')
-        );
+        App::make(HotfixDriver::class)->buildPush();
     }
 }

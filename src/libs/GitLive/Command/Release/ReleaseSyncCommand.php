@@ -18,42 +18,27 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace GitLive\Command\Hotfix;
+namespace GitLive\Command\Release;
 
 use App;
 use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
-use GitLive\Driver\HotfixDriver;
+use GitLive\Driver\ReleaseDriver;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Class HotfixTrack
- *
- * @category   GitCommand
- * @package    GitLive\Command\Hotfix
- * @subpackage Core
- * @author     akito<akito-artisan@five-foxes.com>
- * @author     suzunone<suzunone.eleven@gmail.com>
- * @copyright  Project Git Live
- * @license    MIT
- * @version    GIT: $Id$
- * @link       https://github.com/Git-Live/git-live
- * @see        https://github.com/Git-Live/git-live
- * @since      2018/11/24
- */
-class HotfixTrack extends CommandBase
+class ReleaseSyncCommand extends CommandBase
 {
     protected function configure()
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('hotfix:track')
+            ->setName('release:sync')
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Support preparation of a new production hotfix/.') . __("Allow for minor bug fixes and preparing meta-data for a hotfix"))
+            ->setDescription(__('Run git live release pull and git live release push in succession.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Support preparation of a new production hotfix/.') . __("Allow for minor bug fixes and preparing meta-data for a hotfix"));
+            ->setHelp(__('Run git live release pull and git live release push in succession.'));
     }
 
     /**
@@ -68,6 +53,6 @@ class HotfixTrack extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        App::make(HotfixDriver::class)->buildTrack();
+        App::make(ReleaseDriver::class)->buildSync();
     }
 }

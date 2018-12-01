@@ -28,7 +28,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class StateMaster
+ * Class StateDevelopCommand
  *
  * @category   GitCommand
  * @package    GitLive\Driver\Merge
@@ -42,18 +42,18 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
-class StateMaster extends CommandBase
+class MergeDevelopCommand extends CommandBase
 {
     protected function configure()
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('merge:state:master')
+            ->setName('merge:develop')
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Prior confirmation of merge master.'))
+            ->setDescription(__('Merge upstream develop.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Prior confirmation of merge master.'));
+            ->setHelp(__('Merge upstream develop.'));
     }
 
     /**
@@ -68,16 +68,7 @@ class StateMaster extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        $res = App::make(MergeDriver::class)->stateMaster();
-
-        if (empty($res)) {
-            $output->writeln('Is not conflict.');
-
-            return 0;
-        }
-
-        $output->writeln($res, OutputInterface::VERBOSITY_VERBOSE);
-        $output->writeln('Conflict!!');
+        App::make(MergeDriver::class)->mergeDevelop();
 
         return 0;
     }

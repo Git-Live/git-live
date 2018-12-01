@@ -18,21 +18,21 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace GitLive\Command\Hotfix;
+namespace GitLive\Command\Release;
 
 use App;
 use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
-use GitLive\Driver\HotfixDriver;
+use GitLive\Driver\ReleaseDriver;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class HotfixState
+ * Class ReleaseDestroyCommand
  *
  * @category   GitCommand
- * @package    GitLive\Command\Hotfix
+ * @package    GitLive\Command\Release
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
@@ -43,25 +43,25 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
-class HotfixState extends CommandBase
+class ReleaseDestroyCommand extends CommandBase
 {
     protected function configure()
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('hotfix:state')
+            ->setName('release:destroy')
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Check the status of hotfix.'))
+            ->setDescription(__("Discard release. However, keep working in the local repository."))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Check the status of hotfix.'))
-            ->addOption('ck_only', 'd', InputOption::VALUE_NONE, __('Check only.'))
-            ->addOption('with_merge_commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
+            ->setHelp(__("Discard release. However, keep working in the local repository."))
+            ->addOption('remove_local', 'R', InputOption::VALUE_NONE, __('Destroy with local repository.'));
     }
 
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
+     * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
      * @return null|int|void
      */
@@ -70,11 +70,8 @@ class HotfixState extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        $res = App::make(HotfixDriver::class)->buildState(
-            $input->getOption('ck_only'),
-            $input->getOption('with_merge_commit')
+        App::make(ReleaseDriver::class)->buildDestroy(
+            $input->getOption('remove_local')
         );
-
-        $output->writeln($res);
     }
 }

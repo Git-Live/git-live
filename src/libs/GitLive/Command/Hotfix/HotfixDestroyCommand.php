@@ -25,10 +25,11 @@ use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\HotfixDriver;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class HotfixSync
+ * Class HotfixDestroyCommand
  *
  * @category   GitCommand
  * @package    GitLive\Command\Hotfix
@@ -42,18 +43,19 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
-class HotfixSync extends CommandBase
+class HotfixDestroyCommand extends CommandBase
 {
     protected function configure()
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('hotfix:sync')
+            ->setName('hotfix:destroy')
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Run git live hotfix pull and git live hotfix push in succession.'))
+            ->setDescription(__("Discard hotfix. However, keep working in the local repository."))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Run git live hotfix pull and git live hotfix push in succession.'));
+            ->setHelp(__("Discard hotfix. However, keep working in the local repository."))
+            ->addOption('remove_local', 'R', InputOption::VALUE_NONE, __('Destroy with local repository.'));
     }
 
     /**
@@ -68,6 +70,8 @@ class HotfixSync extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        App::make(HotfixDriver::class)->buildSync();
+        App::make(HotfixDriver::class)->buildDestroy(
+            $input->getOption('remove_local')
+        );
     }
 }
