@@ -90,10 +90,10 @@ abstract class DeployBase extends DriverBase
     public function buildOpen($release_rep = null)
     {
         if ($this->isReleaseOpen()) {
-            throw new Exception(sprintf(__('Already %1$s opened.'), 'release'));
+            throw new Exception(sprintf(__('Already %1$s opened.'), ReleaseDriver::MODE));
         }
         if ($this->isHotfixOpen()) {
-            throw new Exception(sprintf(__('Already %1$s opened.'), 'hotfix'));
+            throw new Exception(sprintf(__('Already %1$s opened.'), HotfixDriver::MODE));
         }
 
         $repository = $this->GitCmdExecutor->branch(['-a']);
@@ -106,7 +106,12 @@ abstract class DeployBase extends DriverBase
 
         $release_rep = $this->prefix . ($release_rep ?: date('Ymdhis'));
 
-        $this->GitCmdExecutor->checkout('upstream/' . $this->develop_branch);
+        if (static::MODE === ReleaseDriver::MODE) {
+            $this->GitCmdExecutor->checkout('upstream/' . $this->develop_branch);
+        } elseif (static::MODE === HotfixDriver::MODE) {
+            $this->GitCmdExecutor->checkout('upstream/' . $this->master_branch);
+        }
+
         $this->GitCmdExecutor->checkout($release_rep, ['-b']);
 
         $this->GitCmdExecutor->push('upstream', $release_rep);
@@ -229,10 +234,10 @@ abstract class DeployBase extends DriverBase
     public function buildOpenWithReleaseTag($tag_name)
     {
         if ($this->isReleaseOpen()) {
-            throw new Exception(sprintf(__('Already %1$s opened.'), 'release'));
+            throw new Exception(sprintf(__('Already %1$s opened.'), ReleaseDriver::MODE));
         }
         if ($this->isHotfixOpen()) {
-            throw new Exception(sprintf(__('Already %1$s opened.'), 'hotfix'));
+            throw new Exception(sprintf(__('Already %1$s opened.'), HotfixDriver::MODE));
         }
 
         $repository = $this->GitCmdExecutor->branch(['-a'], OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG);
@@ -240,7 +245,7 @@ abstract class DeployBase extends DriverBase
 
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/' . $this->deploy_repository_name . '/release/') !== false) {
-                throw new Exception(sprintf(__('Already %1$s opened.'), 'release') . "\n" . $value);
+                throw new Exception(sprintf(__('Already %1$s opened.'), ReleaseDriver::MODE) . "\n" . $value);
             }
         }
 
@@ -473,13 +478,13 @@ abstract class DeployBase extends DriverBase
         $this->GitCmdExecutor->push('deploy', ':' . $repo);
         $this->GitCmdExecutor->push('upstream', ':' . $repo);
 
-        if ($mode === 'hotfix' && strpos($repo, $this->Driver(ConfigDriver::class)->hotfixPrefix()) === false) {
+        if ($mode === HotfixDriver::MODE && strpos($repo, $this->Driver(ConfigDriver::class)->hotfixPrefix()) === false) {
             throw new Exception($repo . __(' is not hotfix branch.'));
         }
-        if ($mode === 'release' && strpos($repo, $this->Driver(ConfigDriver::class)->releasePrefix()) === false) {
+        if ($mode === ReleaseDriver::MODE && strpos($repo, $this->Driver(ConfigDriver::class)->releasePrefix()) === false) {
             throw new Exception($repo . __(' is not release branch.'));
         }
-        if ($mode !== 'hotfix' && $mode !== 'release') {
+        if ($mode !== HotfixDriver::MODE && $mode !== ReleaseDriver::MODE) {
             throw new Exception($mode . __(' is not deploy mode.'));
         }
 
@@ -579,7 +584,7 @@ abstract class DeployBase extends DriverBase
 
         $this->GitCmdExecutor->merge($deploy_repository_name . '/' . $release_name);
 
-        if ($mode === 'release' && !$force) {
+        if ($mode === ReleaseDriver::MODE && !$force) {
             $diff = $this->GitCmdExecutor->diff([$deploy_repository_name . '/' . $release_name, $develop_branch]);
         }
 
