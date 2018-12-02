@@ -20,7 +20,6 @@
 
 namespace GitLive\Driver;
 
-use App;
 use GitLive\GitCmdExecutor;
 use GitLive\GitLive;
 use GitLive\Support\SystemCommandInterface;
@@ -41,10 +40,6 @@ use GitLive\Support\SystemCommandInterface;
 class ReleaseDriver extends DeployBase
 {
     const MODE = 'release';
-    public $prefix;
-    public $master_branch;
-    public $develop_branch;
-    public $deploy_repository_name;
 
     /**
      * ReleaseDriver constructor.
@@ -59,9 +54,6 @@ class ReleaseDriver extends DeployBase
         parent::__construct($GitLive, $gitCmdExecutor, $command);
 
         $this->prefix = $this->Driver(ConfigDriver::class)->releasePrefix();
-        $this->deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
-        $this->develop_branch = App::make(ConfigDriver::class)->develop();
-        $this->master_branch = App::make(ConfigDriver::class)->master();
 
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();

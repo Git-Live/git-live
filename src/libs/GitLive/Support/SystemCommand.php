@@ -77,7 +77,10 @@ class SystemCommand implements SystemCommandInterface
             $this->output->writeln('<fg=cyan;options=bold>' . $cmd . '</>', $verbosity);
         }
 
-        $res = `$cmd`;
+        $execute_cmd = $cmd . ' 2>&1';
+
+        $this->output->writeln('<fg=yellow>' . $execute_cmd . '</>', OutputInterface::VERBOSITY_DEBUG);
+        $res = `$execute_cmd`;
 
         $output_verbosity = $output_verbosity??$verbosity;
 

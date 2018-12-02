@@ -139,29 +139,36 @@ class InitDriver extends DriverBase
      *
      * @access      public
      * @throws Exception
+     * @throws \ReflectionException
      * @return void
      */
     public function restart()
     {
+        if ($this->isRisky()) {
+            throw new Exception(__('It is very risky project.' . "\n" . $this->GitCmdExecutor->remote(['-v'], true)));
+        }
         $is_yes = $this->interactiveShell(__('Rebuild? yes/no'));
         if ($is_yes !== 'yes') {
             return;
         }
 
+        $this->Driver(FetchDriver::class)->clean();
+        $Config = $this->Driver(ConfigDriver::class);
         $this->Driver(FetchDriver::class)->all();
+
         $this->GitCmdExecutor->checkout('temp', ['-b']);
-        $this->GitCmdExecutor->branch(['-d', 'develop']);
-        $this->GitCmdExecutor->branch(['-d', 'master']);
-        $this->GitCmdExecutor->push('origin', ':develop');
-        $this->GitCmdExecutor->push('origin', ':master');
+        $this->GitCmdExecutor->branch(['-d', $Config->develop()]);
+        $this->GitCmdExecutor->branch(['-d', $Config->master()]);
+        $this->GitCmdExecutor->push('origin', ':' . $Config->develop());
+        $this->GitCmdExecutor->push('origin', ':' . $Config->master());
 
-        $this->GitCmdExecutor->checkout('upstream/develop');
-        $this->GitCmdExecutor->checkout('develop', ['-b']);
-        $this->GitCmdExecutor->push('origin', 'develop');
+        $this->GitCmdExecutor->checkout('remotes/upstream/' . $Config->develop());
+        $this->GitCmdExecutor->checkout($Config->develop(), ['-b']);
+        $this->GitCmdExecutor->push('origin', $Config->develop());
 
-        $this->GitCmdExecutor->checkout('upstream/master');
-        $this->GitCmdExecutor->checkout('master', ['-b']);
-        $this->GitCmdExecutor->push('origin', 'master');
+        $this->GitCmdExecutor->checkout('remotes/upstream/' . $Config->master());
+        $this->GitCmdExecutor->checkout($Config->master(), ['-b']);
+        $this->GitCmdExecutor->push('origin', $Config->master());
         $this->GitCmdExecutor->fetch(['--all']);
         $this->GitCmdExecutor->fetch(['-p']);
     }

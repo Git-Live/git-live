@@ -69,11 +69,7 @@ class ResetDriver extends DriverBase
      */
     public function upstream()
     {
-        $status = $this->GitCmdExecutor->status();
-
-        if (!strpos($status, 'nothing to commit, working tree clean')) {
-            throw new Exception(__('Please clean or commit.') . "\n" . $status);
-        }
+        $this->isCleanOrFail();
 
         $this->Driver(FetchDriver::class)->upstream();
         $this->GitCmdExecutor->reset(['--hard', 'upstream/' . $this->getSelfBranch()]);
@@ -90,11 +86,7 @@ class ResetDriver extends DriverBase
      */
     public function origin()
     {
-        $status = $this->GitCmdExecutor->status();
-
-        if (!strpos($status, 'nothing to commit, working tree clean')) {
-            throw new Exception(__('Please clean or commit.') . "\n" . $status);
-        }
+        $this->isCleanOrFail();
 
         $this->Driver(FetchDriver::class)->origin();
         $this->GitCmdExecutor->reset(['--hard', 'origin/' . $this->getSelfBranch()]);
@@ -111,11 +103,7 @@ class ResetDriver extends DriverBase
      */
     public function deploy()
     {
-        $status = $this->GitCmdExecutor->status();
-
-        if (!strpos($status, 'nothing to commit, working tree clean')) {
-            throw new Exception(__('Please clean or commit.') . "\n" . $status);
-        }
+        $this->isCleanOrFail();
 
         $this->Driver(FetchDriver::class)->deploy();
         $this->GitCmdExecutor->reset(['--hard', $this->Driver(ConfigDriver::class)->deployRemote() . '/' . $this->getSelfBranch()]);

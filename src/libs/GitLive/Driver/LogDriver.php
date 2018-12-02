@@ -20,6 +20,8 @@
 
 namespace GitLive\Driver;
 
+use Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * @category   GitCommand
  * @package    Git-Live
@@ -48,19 +50,6 @@ class LogDriver extends DriverBase
     }
 
     /**
-     * @param string $from_branch
-     * @throws Exception
-     * @return string
-     */
-    public function log($from_branch)
-    {
-        $this->Driver(FetchDriver::class)->all();
-        $to_branch = $this->getSelfBranchRef();
-
-        return $this->GitCmdExecutor->log('upstream/' . $from_branch, $to_branch, '--left-right');
-    }
-
-    /**
      *  masterとの差分を見る
      *
      * @access      public
@@ -70,5 +59,18 @@ class LogDriver extends DriverBase
     public function logMaster()
     {
         return $this->log($this->Driver(ConfigDriver::class)->master());
+    }
+
+    /**
+     * @param string $from_branch
+     * @throws Exception
+     * @return string
+     */
+    public function log($from_branch)
+    {
+        $this->Driver(FetchDriver::class)->all();
+        $to_branch = $this->getSelfBranchRef();
+
+        return $this->GitCmdExecutor->log('upstream/' . $from_branch, $to_branch, ['--left-right'], false, OutputInterface::VERBOSITY_DEBUG);
     }
 }

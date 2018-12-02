@@ -26,14 +26,12 @@ if (!ini_get('date.timezone')) {
     date_default_timezone_set($TZ ? $TZ : 'Europe/London');
 }
 
-
 if (!defined('GIT_LIVE_VERSION')) {
     if ('phar://' === substr(__DIR__, 0, 7)) {
         define('GIT_LIVE_VERSION', 'phar');
     } else {
         define('GIT_LIVE_VERSION', 'cli');
     }
-
 }
 
 define('RESOURCES_DIR', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'resources');

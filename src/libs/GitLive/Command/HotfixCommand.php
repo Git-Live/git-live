@@ -181,7 +181,7 @@ class HotfixCommand extends CommandBase
 
                 break;
             case 'is':
-                $command = $this->getApplication()->find('hotfix:state');
+                $command = $this->getApplication()->find('hotfix:is');
 
                 $arguments = [
                 ];

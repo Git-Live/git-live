@@ -20,7 +20,6 @@
 
 namespace GitLive\Driver;
 
-use App;
 use GitLive\GitCmdExecutor;
 use GitLive\GitLive;
 use GitLive\Support\SystemCommandInterface;
@@ -41,9 +40,21 @@ use GitLive\Support\SystemCommandInterface;
 class HotfixDriver extends DeployBase
 {
     const MODE = 'hotfix';
+    /**
+     * @var string
+     */
     public $prefix;
+    /**
+     * @var string
+     */
     public $master_branch;
+    /**
+     * @var string
+     */
     public $develop_branch;
+    /**
+     * @var string
+     */
     public $deploy_repository_name;
 
     /**
@@ -59,10 +70,6 @@ class HotfixDriver extends DeployBase
         parent::__construct($GitLive, $gitCmdExecutor, $command);
 
         $this->prefix = $this->Driver(ConfigDriver::class)->hotfixPrefix();
-
-        $this->deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
-        $this->develop_branch = App::make(ConfigDriver::class)->develop();
-        $this->master_branch = App::make(ConfigDriver::class)->master();
 
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();

@@ -30,7 +30,7 @@ class SystemCommand implements SystemCommandInterface
      * @param null     $output_verbosity
      * @return string
      */
-    public function exec($cmd, $verbosity = 0,  $output_verbosity = null)
+    public function exec($cmd, $verbosity = 0, $output_verbosity = null)
     {
         dump($cmd);
 

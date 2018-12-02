@@ -45,7 +45,7 @@ class MergeDriverTest extends TestCase
                     ->once()
                     ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
                     ->andReturn('');
-        
+
                 $mock->shouldReceive('exec')
                     ->once()
                     ->with('git config --get gitlive.branch.feature.prefix.name', true)

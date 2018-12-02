@@ -24,6 +24,7 @@ use App;
 use GitLive\GitCmdExecutor;
 use GitLive\GitLive;
 use GitLive\Support\SystemCommandInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @category   GitCommand
@@ -162,6 +163,87 @@ abstract class DriverBase
     }
 
     /**
+     * @param null|string $repo
+     * @return bool
+     */
+    public function isClean($repo = null)
+    {
+        if ($repo === null) {
+            $err = $this->GitCmdExecutor->status();
+        } else {
+            $err = $this->GitCmdExecutor->status([$repo]);
+        }
+
+        if (strpos(trim($err), 'nothing to commit') === false) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param null|string $repo
+     * @param null|string $error_msg
+     * @throws Exception
+     * @return bool
+     */
+    public function isCleanOrFail($repo = null, $error_msg = null)
+    {
+        if ($repo === null) {
+            $err = $this->GitCmdExecutor->status();
+        } else {
+            $err = $this->GitCmdExecutor->status([$repo]);
+        }
+
+        if (strpos(trim($err), 'nothing to commit') === false) {
+            throw new Exception(($error_msg ?? __('Please clean or commit.')) . "\n" . $err);
+        }
+
+        return true;
+    }
+
+    /**
+     * Riskyな状態かどうか
+     *
+     * @throws \ReflectionException
+     * @return bool
+     */
+    public function isRisky()
+    {
+        $remotes = $this->GitCmdExecutor->remote(['-v'], OutputInterface::VERBOSITY_DEBUG);
+        $origin_push = null;
+        if (!mb_ereg('origin\\s+([^ ]+)\\s+\\(push\\)', $remotes, $origin_push)) {
+            return true;
+        }
+        $origin_push = $origin_push[1];
+
+        $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
+        $deploy_push = null;
+        if (!mb_ereg($deploy_repository_name . '\\s+([^ ]+)\\s+\\(push\\)', $remotes, $deploy_push)) {
+            return true;
+        }
+
+        $deploy_push = $deploy_push[1];
+
+        $upstream_push = null;
+        if (!mb_ereg('upstream\\s+([^ ]+)\\s+\\(push\\)', $remotes, $upstream_push)) {
+            return true;
+        }
+
+        $upstream_push = $upstream_push[1];
+        
+        if ($origin_push === $deploy_push) {
+            return true;
+        }
+
+        if ($origin_push === $upstream_push) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * コンフリクト確認
      *
      * @access      public
@@ -170,9 +252,7 @@ abstract class DriverBase
      */
     public function patchApplyCheck($from)
     {
-        $cmd = 'git format-patch `git rev-parse --abbrev-ref HEAD`..' . $from . ' --stdout| git apply --check';
-        $res = $this->exec($cmd);
-        $res = trim($res);
+        $res = $this->patchApplyDiff($from, OutputInterface::VERBOSITY_DEBUG);
 
         return empty($res);
     }
@@ -181,12 +261,21 @@ abstract class DriverBase
      * コンフリクト確認結果の取得
      *
      * @param string $from
+     * @param bool   $verbosity
      * @return string
      */
-    public function patchApplyDiff($from)
+    public function patchApplyDiff($from, $verbosity = false)
     {
+        // 一度diffを取る
+        $cmd = 'git format-patch `git rev-parse --abbrev-ref HEAD`..' . $from . ' --stdout';
+        $ck = trim($this->exec($cmd, OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
+
+        if (strlen($ck) === 0) {
+            return '';
+        }
+
         $cmd = 'git format-patch `git rev-parse --abbrev-ref HEAD`..' . $from . ' --stdout| git apply --check';
-        $res = $this->exec($cmd);
+        $res = $this->exec($cmd, $verbosity, OutputInterface::VERBOSITY_DEBUG);
 
         return trim($res);
     }
@@ -207,7 +296,7 @@ abstract class DriverBase
      */
     public function isGitRepository()
     {
-        $res = trim($this->exec('git rev-parse --git-dir 2> /dev/null'));
+        $res = trim($this->exec('git rev-parse --git-dir 2> /dev/null', OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
 
         return !empty($res);
     }
