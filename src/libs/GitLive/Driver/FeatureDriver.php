@@ -20,6 +20,8 @@
 
 namespace GitLive\Driver;
 
+use Symfony\Component\Console\Output\OutputInterface;
+
 /**
  * @category   GitCommand
  * @package    Git-Live
@@ -77,6 +79,32 @@ class FeatureDriver extends DriverBase
 
         $this->GitCmdExecutor->checkout('upstream/' . $Config->develop());
         $this->GitCmdExecutor->checkout($branch, ['-b']);
+    }
+
+    /**
+     * @param null|string $bransh
+     * @throws Exception
+     * @throws \ReflectionException
+     * @return string
+     */
+    public function featureStatus($bransh = null)
+    {
+        if ($bransh === null) {
+            $self_branch = $this->getSelfBranch();
+            if ($self_branch === $this->Driver(ConfigDriver::class)->master()) {
+                $bransh = $this->Driver(ConfigDriver::class)->develop();
+            } elseif ($self_branch === $this->Driver(ConfigDriver::class)->develop()) {
+                $bransh = $this->Driver(ConfigDriver::class)->master();
+            } elseif ($this->Driver(HotfixDriver::class)->isHotfixOpen()) {
+                $bransh = $this->Driver(ConfigDriver::class)->master();
+            } elseif ($this->Driver(ReleaseDriver::class)->isReleaseOpen()) {
+                $bransh = $this->Driver(ConfigDriver::class)->develop();
+            } else {
+                $bransh = $this->Driver(ConfigDriver::class)->develop();
+            }
+        }
+
+        return $this->GitCmdExecutor->diff([$bransh, '--name-status'], false, OutputInterface::VERBOSITY_DEBUG);
     }
 
     /**

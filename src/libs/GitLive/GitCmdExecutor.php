@@ -288,9 +288,11 @@ class GitCmdExecutor
 
     /**
      * @param array $options
+     * @param bool  $verbosity
+     * @param null|bool  $output_verbosity
      * @return string
      */
-    public function stash(array $options = [])
+    public function stash(array $options = [], $verbosity = false, $output_verbosity = null)
     {
         $cmd = $this->createCmd('stash', $options);
 

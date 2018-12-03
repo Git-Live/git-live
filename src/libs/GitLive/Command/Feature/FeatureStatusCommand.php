@@ -28,19 +28,35 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ChangeCommand extends CommandBase
+/**
+ * Class ListCommand
+ *
+ * @category   GitCommand
+ * @package    GitLive\Command\Feature
+ * @subpackage Core
+ * @author     akito<akito-artisan@five-foxes.com>
+ * @author     suzunone<suzunone.eleven@gmail.com>
+ * @copyright  Project Git Live
+ * @license    MIT
+ * @version    GIT: $Id$
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
+ * @since      2018/11/23
+ */
+class FeatureStatusCommand extends CommandBase
 {
     protected function configure()
     {
         $this
             // the name of the command (the part after "bin/console")
-            ->setName('feature:change')
+            ->setName('feature:status')
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Cheackout other feature branch.'))
+            ->setDescription(__('Show the feature status.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Cheackout other feature branch.'))
-            ->addArgument('branch_name', InputArgument::REQUIRED, 'feature name')
+            ->setHelp(__('Show the feature status.'))
+
+            ->addArgument('branch_name', InputArgument::OPTIONAL, 'branch_name name')
         ;
     }
 
@@ -57,6 +73,8 @@ class ChangeCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $FeatureDriver->featureChange($input->getArgument('branch_name'));
+        $res = $FeatureDriver->featureStatus($input->getArgument('branch_name'));
+
+        $output->writeln($res);
     }
 }

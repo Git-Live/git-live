@@ -27,6 +27,7 @@ use GitLive\Command\Feature\CloseCommand as FeatureCloseCommand;
 use GitLive\Command\Feature\FeaturePullCommand;
 use GitLive\Command\Feature\FeaturePushCommand;
 use GitLive\Command\Feature\FeatureStartCommand;
+use GitLive\Command\Feature\FeatureStatusCommand;
 use GitLive\Command\Feature\ListCommand;
 use GitLive\Command\Feature\PublishCommand;
 use GitLive\Command\Feature\TrackCommand;
@@ -114,6 +115,9 @@ class CommandLineKernelService
             },
             'feature:track' => function () {
                 return new TrackCommand();
+            },
+            'feature:status' => function () {
+                return new FeatureStatusCommand();
             },
 
             'release:state' => function () {

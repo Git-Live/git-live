@@ -83,6 +83,21 @@ class FeatureCommand extends CommandBase
                 return $command->run($greetInput, $output);
 
                 break;
+            case 'status':
+                $command = $this->getApplication()->find('feature:status');
+
+                $arguments = [];
+                if ($input->getArgument('branch_name')) {
+                    $arguments = [
+                        'branch_name' => $input->getArgument('branch_name'),
+                    ];
+                }
+
+                $greetInput = new ArrayInput($arguments);
+
+                return $command->run($greetInput, $output);
+
+                break;
             case 'change':
                 $command = $this->getApplication()->find('feature:change');
 
