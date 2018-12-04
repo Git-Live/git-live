@@ -49,58 +49,63 @@ use Tests\GitLive\TestCase;
  */
 class FeatureDriverTest extends TestCase
 {
+    /**
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\FeatureDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testFeatureTrack()
     {
         $mock = \Mockery::mock(SystemCommand::class);
 
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+            ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.name', true)
+            ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
+            ->with('git fetch -p', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true)
+            ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true, null)
             ->andReturn('feature/unit_testing');
 
         $mock->shouldReceive('exec')
             ->never()
-            ->with('git checkout upstream/feature/unit_testing', false)
+            ->with('git checkout upstream/feature/unit_testing', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->never()
-            ->with('git checkout -b feature/unit_testing', false)
+            ->with('git checkout -b feature/unit_testing', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git pull upstream feature/unit_testing', false)
+            ->with('git pull upstream feature/unit_testing', false, null)
             ->andReturn('');
 
         Container::bind(
@@ -117,57 +122,62 @@ class FeatureDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
+    /**
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\FeatureDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testFeatureTrackOther()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+            ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.name', true)
+            ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
+            ->with('git fetch -p', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true)
+            ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true, null)
             ->andReturn('feature/unit_testing_other');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git checkout upstream/feature/unit_testing', false)
+            ->with('git checkout upstream/feature/unit_testing', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git checkout -b feature/unit_testing', false)
+            ->with('git checkout -b feature/unit_testing', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git pull upstream feature/unit_testing', false)
+            ->with('git pull upstream feature/unit_testing', false, null)
             ->andReturn('');
 
         Container::bind(
@@ -184,58 +194,64 @@ class FeatureDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
+    /**
+     * @throws \GitLive\Driver\Exception
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\FeatureDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testFeatureStart()
     {
         $mock = \Mockery::mock(SystemCommand::class);
 
         $mock->shouldReceive('exec')
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+            ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.name', true)
+            ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.develop.name', true)
+            ->with('git config --get gitlive.branch.develop.name', true, null)
             ->andReturn('staging');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
+            ->with('git fetch -p', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
         /*
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git symbolic-ref HEAD 2>/dev/null', true)
+            ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
             ->andReturn('refs/heads/feature/example_1');
         */
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git checkout upstream/staging', false)
+            ->with('git checkout upstream/staging', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git checkout -b feature/unit_testing', false)
+            ->with('git checkout -b feature/unit_testing', false, null)
             ->andReturn('');
 
         Container::bind(
@@ -252,47 +268,52 @@ class FeatureDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
+    /**
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\FeatureDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testFeaturePublish()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+            ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.name', true)
+            ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
+            ->with('git fetch -p', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git symbolic-ref HEAD 2>/dev/null', true)
+            ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
             ->andReturn('refs/heads/feature/example_1');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git push upstream refs/heads/feature/example_1', false)
+            ->with('git push upstream refs/heads/feature/example_1', false, null)
             ->andReturn('');
 
         Container::bind(
@@ -309,47 +330,52 @@ class FeatureDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
+    /**
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\FeatureDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testFeaturePublishFeatureignore()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+            ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
             ->andReturn('true');
 
         $mock->shouldReceive('exec')
             ->never()
-            ->with('git config --get gitlive.branch.feature.prefix.name', true)
+            ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
+            ->with('git fetch -p', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git symbolic-ref HEAD 2>/dev/null', true)
+            ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
             ->andReturn('refs/heads/example_1');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git push upstream refs/heads/example_1', false)
+            ->with('git push upstream refs/heads/example_1', false, null)
             ->andReturn('');
 
         Container::bind(
@@ -366,47 +392,52 @@ class FeatureDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
+    /**
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\FeatureDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testFeaturePushNooption()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+            ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.name', true)
+            ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
+            ->with('git fetch -p', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git symbolic-ref HEAD 2>/dev/null', true)
+            ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
             ->andReturn('refs/heads/feature/example_1');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git push origin refs/heads/feature/example_1', false)
+            ->with('git push origin refs/heads/feature/example_1', false, null)
             ->andReturn('');
 
         Container::bind(
@@ -423,44 +454,49 @@ class FeatureDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
+    /**
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\FeatureDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testFeaturePushWithoption1()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+            ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.name', true)
+            ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
+            ->with('git fetch -p', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git push origin feature/unit_test/example_2', false)
+            ->with('git push origin feature/unit_test/example_2', false, null)
             ->andReturn('');
 
         Container::bind(
@@ -477,44 +513,49 @@ class FeatureDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
+    /**
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\FeatureDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testFeaturePushWithoption2()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+            ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.name', true)
+            ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
+            ->with('git fetch -p', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git push origin feature/example_3', false)
+            ->with('git push origin feature/example_3', false, null)
             ->andReturn('');
 
         Container::bind(
@@ -531,44 +572,49 @@ class FeatureDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
+    /**
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\FeatureDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testFeaturePushWithoption3()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+            ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
             ->andReturn('true');
 
         $mock->shouldReceive('exec')
             ->never()
-            ->with('git config --get gitlive.branch.feature.prefix.name', true)
+            ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
+            ->with('git fetch -p', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git push origin example_3', false)
+            ->with('git push origin example_3', false, null)
             ->andReturn('');
 
         Container::bind(
@@ -585,23 +631,29 @@ class FeatureDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
+    /**
+     * @throws \GitLive\Driver\Exception
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\FeatureDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testFeatureList()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
 
         $mock->shouldReceive('exec')
-            ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+            ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
-            ->with('git config --get gitlive.branch.feature.prefix.name', true)
+            ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
-            ->with('git branch --list "feature/*"', true)
+            ->with('git branch --list "feature/*"', true, null)
             ->andReturn('feature/hogehoge');
 
         Container::bind(
@@ -618,25 +670,40 @@ class FeatureDriverTest extends TestCase
         $this->assertSame('feature/hogehoge', $res);
     }
 
+    /**
+     * @throws \GitLive\Driver\Exception
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\FeatureDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testFeatureChange()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
 
         $mock->shouldReceive('exec')
-            ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+            ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
-            ->with('git config --get gitlive.branch.feature.prefix.name', true)
+            ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
-            ->with('git checkout feature/unit_test_2', false)
+            ->with('git checkout feature/unit_test_2', false, null)
             ->andReturn('feature/hogehoge');
 
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git fetch --all', false, null)
+            ->andReturn('');
+
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git fetch -p', false, null)
+            ->andReturn('');
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
@@ -651,47 +718,52 @@ class FeatureDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
+    /**
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\FeatureDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testFeaturePull()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+            ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.feature.prefix.name', true)
+            ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
+            ->with('git fetch -p', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git symbolic-ref HEAD 2>/dev/null', true)
+            ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
             ->andReturn('refs/heads/feature/example_1');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git pull upstream refs/heads/feature/example_1', false)
+            ->with('git pull upstream refs/heads/feature/example_1', false, null)
             ->andReturn('');
 
         Container::bind(

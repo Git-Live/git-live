@@ -38,45 +38,49 @@ class MergeDriverTest extends TestCase
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
         /*
                 $mock->shouldReceive('exec')
                     ->once()
-                    ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+                    ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
                     ->andReturn('');
 
                 $mock->shouldReceive('exec')
                     ->once()
-                    ->with('git config --get gitlive.branch.feature.prefix.name', true)
+                    ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
                     ->andReturn('');
         */
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.develop.name', true)
+            ->with('git config --get gitlive.branch.develop.name', true, null)
             ->andReturn('stage');
-
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/stage --stdout| git apply --check', true)
+            ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/stage --stdout', 256, 256)
             ->andReturn('');
-
+        /*
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/stage --stdout| git apply --check', 256, 256)
             ->andReturn('');
+*/
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
-            ->andReturn('');
-        $mock->shouldReceive('exec')
-            ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p', false, null)
+            ->andReturn('');
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git fetch upstream', false, null)
+            ->andReturn('');
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
 
         Container::bind(
@@ -98,45 +102,54 @@ class MergeDriverTest extends TestCase
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
         /*
                 $mock->shouldReceive('exec')
                     ->once()
-                    ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+                    ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
                     ->andReturn('');
 
                 $mock->shouldReceive('exec')
                     ->once()
-                    ->with('git config --get gitlive.branch.feature.prefix.name', true)
+                    ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
                     ->andReturn('');
         */
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.master.name', true)
+            ->with('git config --get gitlive.branch.master.name', true, null)
             ->andReturn('master');
-
         $mock->shouldReceive('exec')
             ->twice()
-            ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout| git apply --check', true)
+            ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout', 256, 256)
             ->andReturn('error: test.file: No such file or directory');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout| git apply --check', 256, 256)
+            ->andReturn('error: test.file: No such file or directory');
+
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout| git apply --check', false, 256)
+            ->andReturn('error: test.file: No such file or directory');
+
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
+            ->with('git fetch -p', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
 
         Container::bind(
@@ -158,45 +171,45 @@ class MergeDriverTest extends TestCase
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
         /*
                 $mock->shouldReceive('exec')
                     ->once()
-                    ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+                    ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
                     ->andReturn('');
 
                 $mock->shouldReceive('exec')
                     ->once()
-                    ->with('git config --get gitlive.branch.feature.prefix.name', true)
+                    ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
                     ->andReturn('');
         */
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.develop.name', true)
+            ->with('git config --get gitlive.branch.develop.name', true, null)
             ->andReturn('stage');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
+            ->with('git fetch -p', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git merge upstream/stage', false)
+            ->with('git merge upstream/stage', false, null)
             ->andReturn('');
 
         Container::bind(
@@ -218,45 +231,45 @@ class MergeDriverTest extends TestCase
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', true)
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('.git');
         /*
                 $mock->shouldReceive('exec')
                     ->once()
-                    ->with('git config --get gitlive.branch.feature.prefix.ignore', true)
+                    ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
                     ->andReturn('');
 
                 $mock->shouldReceive('exec')
                     ->once()
-                    ->with('git config --get gitlive.branch.feature.prefix.name', true)
+                    ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
                     ->andReturn('');
         */
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.master.name', true)
+            ->with('git config --get gitlive.branch.master.name', true, null)
             ->andReturn('master');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch --all', false)
+            ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p', false)
+            ->with('git fetch -p', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch upstream', false)
+            ->with('git fetch upstream', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git fetch -p upstream', false)
+            ->with('git fetch -p upstream', false, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git merge upstream/master', false)
+            ->with('git merge upstream/master', false, null)
             ->andReturn('');
 
         Container::bind(

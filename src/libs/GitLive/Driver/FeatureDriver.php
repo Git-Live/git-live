@@ -82,29 +82,29 @@ class FeatureDriver extends DriverBase
     }
 
     /**
-     * @param null|string $bransh
+     * @param null|string $branch
      * @throws Exception
      * @throws \ReflectionException
      * @return string
      */
-    public function featureStatus($bransh = null)
+    public function featureStatus($branch = null)
     {
-        if ($bransh === null) {
+        if ($branch === null) {
             $self_branch = $this->getSelfBranch();
             if ($self_branch === $this->Driver(ConfigDriver::class)->master()) {
-                $bransh = $this->Driver(ConfigDriver::class)->develop();
+                $branch = $this->Driver(ConfigDriver::class)->develop();
             } elseif ($self_branch === $this->Driver(ConfigDriver::class)->develop()) {
-                $bransh = $this->Driver(ConfigDriver::class)->master();
+                $branch = $this->Driver(ConfigDriver::class)->master();
             } elseif ($this->Driver(HotfixDriver::class)->isHotfixOpen()) {
-                $bransh = $this->Driver(ConfigDriver::class)->master();
+                $branch = $this->Driver(ConfigDriver::class)->master();
             } elseif ($this->Driver(ReleaseDriver::class)->isReleaseOpen()) {
-                $bransh = $this->Driver(ConfigDriver::class)->develop();
+                $branch = $this->Driver(ConfigDriver::class)->develop();
             } else {
-                $bransh = $this->Driver(ConfigDriver::class)->develop();
+                $branch = $this->Driver(ConfigDriver::class)->develop();
             }
         }
 
-        return $this->GitCmdExecutor->diff([$bransh, '--name-status'], false, OutputInterface::VERBOSITY_DEBUG);
+        return $this->GitCmdExecutor->diff([$branch, '--name-status'], false, OutputInterface::VERBOSITY_DEBUG);
     }
 
     /**
@@ -125,6 +125,9 @@ class FeatureDriver extends DriverBase
             $branch = $feature_prefix . $branch;
         }
 
+        $Fetch = $this->Driver(FetchDriver::class);
+
+        $Fetch->all();
         $this->GitCmdExecutor->checkout($branch);
     }
 
