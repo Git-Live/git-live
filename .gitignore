@@ -9,4 +9,6 @@ box.phar
 vendor/
 .php_cs.cache
 php-cs-fixer.phar
+covers/
+!covers/.gitkeep
 
