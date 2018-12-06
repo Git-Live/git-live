@@ -33,6 +33,12 @@ use Tests\GitLive\TestCase;
  */
 class LogDriverTest extends TestCase
 {
+    /**
+     * @throws \GitLive\Driver\Exception
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\LogDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testLogDevelop()
     {
         $mock = \Mockery::mock(SystemCommand::class);
@@ -78,6 +84,12 @@ class LogDriverTest extends TestCase
         $this->assertSame('diff text', $res);
     }
 
+    /**
+     * @throws \GitLive\Driver\Exception
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\LogDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testLogMaster()
     {
         $mock = \Mockery::mock(SystemCommand::class);

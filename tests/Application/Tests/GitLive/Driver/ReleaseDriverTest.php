@@ -35,7 +35,9 @@ class ReleaseDriverTest extends TestCase
 {
     /**
      * @throws \ReflectionException
-     * @return array
+     * @covers \GitLive\Driver\ReleaseDriver
+     * @covers \GitLive\Driver\DeployBase
+     * @covers \GitLive\Driver\DriverBase
      */
     public function testIsBuildOpen()
     {
@@ -126,6 +128,13 @@ class ReleaseDriverTest extends TestCase
         $this->assertSame(false, $res);
     }
 
+    /**
+     * @throws \GitLive\Driver\Exception
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\ReleaseDriver
+     * @covers \GitLive\Driver\DeployBase
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testGetBuildRepository()
     {
         $mock = \Mockery::mock(SystemCommand::class);

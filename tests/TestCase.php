@@ -49,6 +49,7 @@ class TestCase extends TestCaseBase
     protected function setUp()
     {
         parent::setUp();
+
         App::make(GitLive::class);
         ConfigDriver::reset();
     }

@@ -18,15 +18,12 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-include dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+include __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 if (!defined('GIT_LIVE_INSTALL_PATH')) {
     define('GIT_LIVE_INSTALL_PATH', mb_ereg_replace('^phar://', '', dirname(__DIR__)));
 }
 
-try {
-    $GitLive = \App::make(\GitLive\GitLive::class);
-    $GitLive->execute();
-} catch (\Exception $e) {
-    $GitLive->ncecho($e->getMessage() . "\n");
-}
+$GitLive = \App::make(\GitLive\GitLive::class);
+$GitLive->execute();
+

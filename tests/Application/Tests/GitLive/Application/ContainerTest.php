@@ -35,16 +35,25 @@ class ContainerTest extends TestCase
 {
     use InvokeTrait;
 
+    /**
+     * @covers \GitLive\Application\Container
+     */
     public function testBindContext()
     {
         $this->assertTrue(true);
     }
 
+    /**
+     * @covers \GitLive\Application\Container
+     */
     public function testSetWith()
     {
         $this->assertTrue(true);
     }
 
+    /**
+     * @covers \GitLive\Application\Container
+     */
     public function testBind()
     {
         Container::bind(BindTestInterface::class, BindTestExample::class);
@@ -54,6 +63,9 @@ class ContainerTest extends TestCase
         ], Container::getContainers());
     }
 
+    /**
+     * @covers \GitLive\Application\Container
+     */
     public function testBuild()
     {
         $Container = new Container();
@@ -63,6 +75,9 @@ class ContainerTest extends TestCase
         $this->assertInstanceOf(GitLive::class, $GitLive);
     }
 
+    /**
+     * @covers \GitLive\Application\Container
+     */
     public function testNotInstantiable()
     {
         $this->assertTrue(true);

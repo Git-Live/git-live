@@ -1,6 +1,6 @@
 {
 
-  "main": "src/main.php",
+  "main": "git-live.php",
   "output": "bin/git-live.phar",
   "files-bin": [
     "LICENSE"

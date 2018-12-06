@@ -33,6 +33,12 @@ use Tests\GitLive\TestCase;
  */
 class MergeDriverTest extends TestCase
 {
+    /**
+     * @throws \GitLive\Driver\Exception
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\MergeDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testStateDevelop()
     {
         $mock = \Mockery::mock(SystemCommand::class);
@@ -97,6 +103,12 @@ class MergeDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
+    /**
+     * @throws \GitLive\Driver\Exception
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\MergeDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testStateMaster()
     {
         $mock = \Mockery::mock(SystemCommand::class);
@@ -166,6 +178,12 @@ class MergeDriverTest extends TestCase
         $this->assertSame('error: test.file: No such file or directory', $res);
     }
 
+    /**
+     * @throws \GitLive\Driver\Exception
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\MergeDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testMergeDevelop()
     {
         $mock = \Mockery::mock(SystemCommand::class);
@@ -226,6 +244,12 @@ class MergeDriverTest extends TestCase
         $this->assertTrue(true);
     }
 
+    /**
+     * @throws \GitLive\Driver\Exception
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\MergeDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
     public function testMergeMaster()
     {
         $mock = \Mockery::mock(SystemCommand::class);
