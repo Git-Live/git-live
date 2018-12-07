@@ -57,6 +57,8 @@ class ChangeCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $FeatureDriver->featureChange($input->getArgument('branch_name'));
+        $res = $FeatureDriver->featureChange($input->getArgument('branch_name'));
+
+        $output->writeln($res);
     }
 }

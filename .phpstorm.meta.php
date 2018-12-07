@@ -19,6 +19,7 @@
 namespace PHPSTORM_META
 {
 
+    use GitLive\Driver\BranchDriver;
     use GitLive\Driver\ConfigDriver;
     use GitLive\Driver\DriverBase;
     use GitLive\Driver\FeatureDriver;
@@ -36,7 +37,7 @@ namespace PHPSTORM_META
         // custom mappings
         \GitLive\GitLive::class => \GitLive\GitLive::class,
         \GitLive\Service\CommandLineKernelService::class => \GitLive\Service\CommandLineKernelService::class,
-
+        BranchDriver::class => BranchDriver::class,
         ConfigDriver::class=> ConfigDriver::class,
         FeatureDriver::class=> FeatureDriver::class,
         FeatureDriver::class => FeatureDriver::class,
@@ -54,6 +55,7 @@ namespace PHPSTORM_META
     override(DriverBase::Driver(0), map([
         '' => '@',
         // custom mappings
+        'Branch' => BranchDriver::class,
         'Config' => ConfigDriver::class,
         'Feature' => FeatureDriver::class,
         'Fetch' => FeatureDriver::class,
