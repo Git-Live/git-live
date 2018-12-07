@@ -20,6 +20,7 @@
 
 namespace GitLive\Driver;
 
+use GitLive\Support\Collection;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -136,35 +137,17 @@ class FeatureDriver extends DriverBase
             return $this->GitCmdExecutor->checkout($feature_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
         }
 
-        $remote_branch = 'remotes/origin/' . $feature_branch;
-        if ($branch_list->search($remote_branch)) {
-            $this->GitCmdExecutor->checkout($remote_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
-
-            return $this->GitCmdExecutor->checkout($feature_branch, ['-b'], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
-        }
-
-        $remote_branch = 'remotes/upstream/' . $feature_branch;
-        if ($branch_list->search($remote_branch)) {
-            $this->GitCmdExecutor->checkout($remote_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
-
-            return $this->GitCmdExecutor->checkout($feature_branch, ['-b'], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
-        }
-
         if ($branch === $this->Driver(ConfigDriver::class)->master() ||
             $branch === $this->Driver(ConfigDriver::class)->develop()) {
-            $remote_branch = 'remotes/origin/' . $branch;
-            if ($branch_list->search($remote_branch)) {
-                $this->GitCmdExecutor->checkout($remote_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
-
-                return $this->GitCmdExecutor->checkout($branch, ['-b'], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
+            $res = $this->changeRemoteIf($branch_list, $branch);
+            if ($res !== false) {
+                return $res;
             }
+        }
 
-            $remote_branch = 'remotes/upstream/' . $branch;
-            if ($branch_list->search($remote_branch)) {
-                $this->GitCmdExecutor->checkout($remote_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
-
-                return $this->GitCmdExecutor->checkout($branch, ['-b'], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
-            }
+        $res = $this->changeRemoteIf($branch_list, $feature_branch);
+        if ($res !== false) {
+            return $res;
         }
 
         return sprintf(__('error: feature name %s not found'), $feature_branch);
@@ -309,5 +292,44 @@ class FeatureDriver extends DriverBase
         $this->GitCmdExecutor->push('origin', ':' . $repository);
         $this->GitCmdExecutor->checkout($Config->develop());
         $this->GitCmdExecutor->branch(['-D', $repository]);
+    }
+
+    /**
+     * @param Collection $branch_list
+     * @param string $feature_branch
+     * @return bool|string
+     */
+    protected function changeRemoteIf($branch_list, $feature_branch)
+    {
+        $remote_branch = 'remotes/origin/' . $feature_branch;
+        $res = $this->changeIf($branch_list, $remote_branch, $feature_branch);
+        if ($res !== false) {
+            return $res;
+        }
+
+        $remote_branch = 'remotes/upstream/' . $feature_branch;
+        $res = $this->changeIf($branch_list, $remote_branch, $feature_branch);
+        if ($res !== false) {
+            return $res;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param Collection $branch_list
+     * @param string $remote_branch
+     * @param string $feature_branch
+     * @return bool|string
+     */
+    protected function changeIf($branch_list, $remote_branch, $feature_branch)
+    {
+        if ($branch_list->search($remote_branch)) {
+            $this->GitCmdExecutor->checkout($remote_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
+
+            return $this->GitCmdExecutor->checkout($feature_branch, ['-b'], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
+        }
+
+        return false;
     }
 }
