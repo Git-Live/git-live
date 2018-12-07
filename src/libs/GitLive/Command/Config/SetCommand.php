@@ -72,24 +72,24 @@ class SetCommand extends CommandBase
                 null,
                 InputOption::VALUE_NONE,
                 __('For writing options: write to global ~/.gitconfig file rather than the repository .git/config, write to $XDG_CONFIG_HOME/git/config file if this file exists and the ~/.gitconfig file does not.')
-                            .__('For reading options: read only from global ~/.gitconfig and from $XDG_CONFIG_HOME/git/config rather than from all available files.')
-                            .__('See also the section called "FILES".')
+                            . __('For reading options: read only from global ~/.gitconfig and from $XDG_CONFIG_HOME/git/config rather than from all available files.')
+                            . __('See also the section called "FILES".')
             )
             ->addOption(
                 'system',
                 null,
                 InputOption::VALUE_NONE,
                 __('For writing options: write to system-wide $(prefix)/etc/gitconfig rather than the repository .git/config.')
-                            .__('For reading options: read only from system-wide $(prefix)/etc/gitconfig rather than from all available files.')
-                            .__('See also the section called "FILES".')
+                            . __('For reading options: read only from system-wide $(prefix)/etc/gitconfig rather than from all available files.')
+                            . __('See also the section called "FILES".')
             )
             ->addOption(
                 'local',
                 null,
                 InputOption::VALUE_NONE,
                 __('For writing options: write to the repository .git/config file. This is the default behavior.')
-                            .__('For reading options: read only from the repository .git/config rather than from all available files.')
-                            .__('See also the section called "FILES".')
+                            . __('For reading options: read only from the repository .git/config rather than from all available files.')
+                            . __('See also the section called "FILES".')
             );
     }
 

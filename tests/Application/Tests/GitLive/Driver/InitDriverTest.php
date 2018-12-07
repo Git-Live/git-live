@@ -1,6 +1,10 @@
 <?php
+
 /**
- * InitDriverTest.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -9,10 +13,9 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018-12-05
  */
 
 namespace Tests\GitLive\Driver;
@@ -28,17 +31,20 @@ use GitLive\Support\InteractiveShellInterface;
 use GitLive\Support\SystemCommandInterface;
 use Tests\GitLive\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class InitDriverTest extends TestCase
 {
-
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\InitDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\InitDriver
      * @expectedException Exception
      */
-    public function testRestart_error()
+    public function testRestartError()
     {
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
@@ -53,10 +59,8 @@ class InitDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git remote -v', 256, NULL)
+            ->with('git remote -v', 256, null)
             ->andReturn('');
-
-
 
         Container::bind(
             SystemCommandInterface::class,
@@ -70,7 +74,6 @@ class InitDriverTest extends TestCase
         $InitDriver->restart();
 
         $this->assertTrue(true);
-
     }
     public function testRestart()
     {
@@ -82,16 +85,16 @@ class InitDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git reset --hard HEAD', false, NULL)
+            ->with('git reset --hard HEAD', false, null)
             ->andReturn('build');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git clean -df', false, NULL)
+            ->with('git clean -df', false, null)
             ->andReturn('build');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git remote -v', 256, NULL)
+            ->with('git remote -v', 256, null)
             ->andReturn('build	https://github.com/Git-Live/TestRepository.git (fetch)
 build	https://github.com/Git-Live/TestRepository.git (push)
 origin	https://github.com/suzunone/TestRepository.git (fetch)
@@ -99,19 +102,17 @@ origin	https://github.com/suzunone/TestRepository.git (push)
 upstream	https://github.com/Git-Live/TestRepository.git (fetch)
 upstream	https://github.com/Git-Live/TestRepository.git (push)');
 
-
-
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
             ->andReturn('build');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.develop.name', true, NULL)
+            ->with('git config --get gitlive.branch.develop.name', true, null)
             ->andReturn('staging');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git config --get gitlive.branch.master.name', true, NULL)
+            ->with('git config --get gitlive.branch.master.name', true, null)
             ->andReturn('v2.0');
 
         $mock->shouldReceive('exec')
@@ -128,70 +129,62 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)');
             ->with('git fetch -p', false, null)
             ->andReturn('');
 
-
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git checkout -b temp', false, NULL)
-            ->andReturn('');
-
-
-        $mock->shouldReceive('exec')
-            ->once()
-            ->with('git branch -d staging', false, NULL)
+            ->with('git checkout -b temp', false, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git branch -d v2.0', false, NULL)
+            ->with('git branch -d staging', false, null)
             ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git push origin :staging', false, NULL)
+            ->with('git branch -d v2.0', false, null)
             ->andReturn('');
-        $mock->shouldReceive('exec')
-            ->once()
-            ->with('git push origin :v2.0', false, NULL)
-            ->andReturn('');
-
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git checkout remotes/upstream/staging', false, NULL)
-            ->andReturn('');
-
-
-        $mock->shouldReceive('exec')
-            ->once()
-            ->with('git checkout -b staging', false, NULL)
+            ->with('git push origin :staging', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git push origin staging', false, NULL)
+            ->with('git push origin :v2.0', false, null)
             ->andReturn('');
-
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git checkout remotes/upstream/v2.0', false, NULL)
+            ->with('git checkout remotes/upstream/staging', false, null)
             ->andReturn('');
-
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git checkout -b v2.0', false, NULL)
+            ->with('git checkout -b staging', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git push origin v2.0', false, NULL)
+            ->with('git push origin staging', false, null)
             ->andReturn('');
 
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git checkout remotes/upstream/v2.0', false, null)
+            ->andReturn('');
+
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git checkout -b v2.0', false, null)
+            ->andReturn('');
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git push origin v2.0', false, null)
+            ->andReturn('');
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturn('');
-
 
         $shell_mock = \Mockery::mock(InteractiveShell::class);
         $shell_mock->shouldReceive('interactiveShell')
@@ -206,7 +199,6 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)');
             }
         );
 
-
         Container::bind(
             InteractiveShellInterface::class,
             function () use ($shell_mock) {
@@ -219,11 +211,9 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)');
         $InitDriver->restart();
 
         $this->assertTrue(true);
-
     }
 
     public function testStart()
     {
-
     }
 }

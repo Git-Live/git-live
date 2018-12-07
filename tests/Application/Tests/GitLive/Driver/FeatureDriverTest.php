@@ -51,8 +51,8 @@ class FeatureDriverTest extends TestCase
 {
     /**
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\FeatureDriver
      */
     public function testFeatureTrack()
     {
@@ -124,8 +124,8 @@ class FeatureDriverTest extends TestCase
 
     /**
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\FeatureDriver
      */
     public function testFeatureTrackOther()
     {
@@ -197,8 +197,8 @@ class FeatureDriverTest extends TestCase
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\FeatureDriver
      */
     public function testFeatureStart()
     {
@@ -270,8 +270,8 @@ class FeatureDriverTest extends TestCase
 
     /**
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\FeatureDriver
      */
     public function testFeaturePublish()
     {
@@ -332,8 +332,8 @@ class FeatureDriverTest extends TestCase
 
     /**
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\FeatureDriver
      */
     public function testFeaturePublishFeatureignore()
     {
@@ -394,8 +394,8 @@ class FeatureDriverTest extends TestCase
 
     /**
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\FeatureDriver
      */
     public function testFeaturePushNooption()
     {
@@ -456,8 +456,8 @@ class FeatureDriverTest extends TestCase
 
     /**
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\FeatureDriver
      */
     public function testFeaturePushWithoption1()
     {
@@ -515,8 +515,8 @@ class FeatureDriverTest extends TestCase
 
     /**
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\FeatureDriver
      */
     public function testFeaturePushWithoption2()
     {
@@ -574,8 +574,8 @@ class FeatureDriverTest extends TestCase
 
     /**
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\FeatureDriver
      */
     public function testFeaturePushWithoption3()
     {
@@ -634,8 +634,8 @@ class FeatureDriverTest extends TestCase
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\FeatureDriver
      */
     public function testFeatureList()
     {
@@ -673,8 +673,8 @@ class FeatureDriverTest extends TestCase
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\FeatureDriver
      */
     public function testFeatureChange()
     {
@@ -720,8 +720,8 @@ class FeatureDriverTest extends TestCase
 
     /**
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\FeatureDriver
      */
     public function testFeaturePull()
     {

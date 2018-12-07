@@ -1,6 +1,10 @@
 <?php
+
 /**
- * Arr.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -9,22 +13,18 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018-12-07
  */
 
 namespace GitLive\Support;
-
 
 use ArrayAccess;
 use InvalidArgumentException;
 
 class Arr
 {
-
-
     /**
      * Determine whether the given value is array accessible.
      *
@@ -127,9 +127,9 @@ class Arr
 
         foreach ($array as $key => $value) {
             if (is_array($value) && ! empty($value)) {
-                $results = array_merge($results, static::dot($value, $prepend.$key.'.'));
+                $results = array_merge($results, static::dot($value, $prepend . $key . '.'));
             } else {
-                $results[$prepend.$key] = $value;
+                $results[$prepend . $key] = $value;
             }
         }
 
@@ -153,8 +153,8 @@ class Arr
     /**
      * Determine if the given key exists in the provided array.
      *
-     * @param  \ArrayAccess|array  $array
-     * @param  string|int  $key
+     * @param  array|\ArrayAccess  $array
+     * @param  int|string  $key
      * @return bool
      */
     public static function exists($array, $key)
@@ -170,7 +170,7 @@ class Arr
      * Return the first element in an array passing a given truth test.
      *
      * @param  array  $array
-     * @param  callable|null  $callback
+     * @param  null|callable  $callback
      * @param  mixed  $default
      * @return mixed
      */
@@ -199,7 +199,7 @@ class Arr
      * Return the last element in an array passing a given truth test.
      *
      * @param  array  $array
-     * @param  callable|null  $callback
+     * @param  null|callable  $callback
      * @param  mixed  $default
      * @return mixed
      */
@@ -285,7 +285,7 @@ class Arr
     /**
      * Get an item from an array using "dot" notation.
      *
-     * @param  \ArrayAccess|array  $array
+     * @param  array|\ArrayAccess  $array
      * @param  string  $key
      * @param  mixed   $default
      * @return mixed
@@ -322,8 +322,8 @@ class Arr
     /**
      * Check if an item or items exist in an array using "dot" notation.
      *
-     * @param  \ArrayAccess|array  $array
-     * @param  string|array  $keys
+     * @param  array|\ArrayAccess  $array
+     * @param  array|string  $keys
      * @return bool
      */
     public static function has($array, $keys)
@@ -392,8 +392,8 @@ class Arr
      * Pluck an array of values from an array.
      *
      * @param  array  $array
-     * @param  string|array  $value
-     * @param  string|array|null  $key
+     * @param  array|string  $value
+     * @param  null|array|string  $key
      * @return array
      */
     public static function pluck($array, $value, $key = null)
@@ -422,22 +422,6 @@ class Arr
         }
 
         return $results;
-    }
-
-    /**
-     * Explode the "value" and "key" arguments passed to "pluck".
-     *
-     * @param  string|array  $value
-     * @param  string|array|null  $key
-     * @return array
-     */
-    protected static function explodePluckParameters($value, $key)
-    {
-        $value = is_string($value) ? explode('.', $value) : $value;
-
-        $key = is_null($key) || is_array($key) ? $key : explode('.', $key);
-
-        return [$value, $key];
     }
 
     /**
@@ -480,10 +464,10 @@ class Arr
      * Get one or a specified number of random values from an array.
      *
      * @param  array  $array
-     * @param  int|null  $number
+     * @param  null|int  $number
+     * @throws \InvalidArgumentException
      * @return mixed
      *
-     * @throws \InvalidArgumentException
      */
     public static function random($array, $number = null)
     {
@@ -556,7 +540,7 @@ class Arr
      * Shuffle the given array and return the result.
      *
      * @param  array  $array
-     * @param  int|null  $seed
+     * @param  null|int  $seed
      * @return array
      */
     public static function shuffle($array, $seed = null)
@@ -578,7 +562,7 @@ class Arr
      * Sort the array using the given callback or "dot" notation.
      *
      * @param  array  $array
-     * @param  callable|string|null  $callback
+     * @param  null|callable|string  $callback
      * @return array
      */
     public static function sort($array, $callback = null)
@@ -647,4 +631,19 @@ class Arr
         return is_array($value) ? $value : [$value];
     }
 
+    /**
+     * Explode the "value" and "key" arguments passed to "pluck".
+     *
+     * @param  array|string  $value
+     * @param  null|array|string  $key
+     * @return array
+     */
+    protected static function explodePluckParameters($value, $key)
+    {
+        $value = is_string($value) ? explode('.', $value) : $value;
+
+        $key = is_null($key) || is_array($key) ? $key : explode('.', $key);
+
+        return [$value, $key];
+    }
 }

@@ -130,27 +130,24 @@ class FeatureDriver extends DriverBase
 
         $Fetch->all();
 
-
         $branch_list = $this->Driver(BranchDriver::class)->branchListAll();
-
 
         if ($branch_list->search($feature_branch)) {
             return $this->GitCmdExecutor->checkout($feature_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
-
         }
 
         $remote_branch = 'remotes/origin/' . $feature_branch;
         if ($branch_list->search($remote_branch)) {
             $this->GitCmdExecutor->checkout($remote_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
+
             return $this->GitCmdExecutor->checkout($feature_branch, ['-b'], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
         }
-
 
         $remote_branch = 'remotes/upstream/' . $feature_branch;
         if ($branch_list->search($remote_branch)) {
             $this->GitCmdExecutor->checkout($remote_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
-            return $this->GitCmdExecutor->checkout($feature_branch, ['-b'], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
 
+            return $this->GitCmdExecutor->checkout($feature_branch, ['-b'], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
         }
 
         if ($branch === $this->Driver(ConfigDriver::class)->master() ||
@@ -158,21 +155,20 @@ class FeatureDriver extends DriverBase
             $remote_branch = 'remotes/origin/' . $branch;
             if ($branch_list->search($remote_branch)) {
                 $this->GitCmdExecutor->checkout($remote_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
-                return $this->GitCmdExecutor->checkout($branch, ['-b'], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
 
+                return $this->GitCmdExecutor->checkout($branch, ['-b'], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
             }
 
             $remote_branch = 'remotes/upstream/' . $branch;
             if ($branch_list->search($remote_branch)) {
                 $this->GitCmdExecutor->checkout($remote_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
-                return $this->GitCmdExecutor->checkout($branch, ['-b'], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
 
+                return $this->GitCmdExecutor->checkout($branch, ['-b'], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
             }
         }
 
         return sprintf(__('error: feature name %s not found'), $feature_branch);
     }
-
 
     /**
      * 共用Repositoryにfeatureを送信する
@@ -182,8 +178,7 @@ class FeatureDriver extends DriverBase
      * @throws \Exception
      * @return void
      */
-    public
-    function featurePublish($branch = null)
+    public function featurePublish($branch = null)
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);

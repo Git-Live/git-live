@@ -18,9 +18,9 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-use Symfony\Component\VarDumper\VarDumper;
-use GitLive\Support\Collection;
 use GitLive\Support\Arr;
+use GitLive\Support\Collection;
+use Symfony\Component\VarDumper\VarDumper;
 
 if (!function_exists('__')) {
     function __($message)
@@ -45,7 +45,6 @@ if (!function_exists('dd')) {
     }
 }
 
-
 if (!function_exists('value')) {
     function value($value)
     {
@@ -60,10 +59,7 @@ if (!function_exists('collect')) {
     }
 }
 
-
-
 if (!function_exists('data_get')) {
-
     function data_get($target, $key, $default = null)
     {
         if (is_null($key)) {
@@ -82,7 +78,7 @@ if (!function_exists('data_get')) {
                     $result[] = data_get($item, $key);
                 }
 
-                return in_array('*', $key) ? Arr::collapse($result) : $result;
+                return in_array('*', $key, true) ? Arr::collapse($result) : $result;
             }
             if (Arr::accessible($target) && Arr::exists($target, $segment)) {
                 $target = $target[$segment];

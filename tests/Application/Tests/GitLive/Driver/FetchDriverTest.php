@@ -1,6 +1,10 @@
 <?php
+
 /**
- * FetchDriverTest.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -9,26 +13,28 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018-12-05
  */
 
 namespace Tests\GitLive\Driver;
 
-use GitLive\Driver\FetchDriver;
 use App;
 use GitLive\Application\Container;
+use GitLive\Driver\FetchDriver;
 use GitLive\Driver\HotfixDriver;
 use GitLive\Driver\ReleaseDriver;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
 use Tests\GitLive\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class FetchDriverTest extends TestCase
 {
-
     /**
      * @throws \ReflectionException
      * @covers \GitLive\Driver\FetchDriver
@@ -51,9 +57,6 @@ class FetchDriverTest extends TestCase
             ->with('git fetch -p', false, null)
             ->andReturn('');
 
-
-
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
@@ -66,7 +69,6 @@ class FetchDriverTest extends TestCase
         $FetchDriver->all();
 
         $this->assertTrue(true);
-
     }
 
     /**
@@ -97,9 +99,6 @@ class FetchDriverTest extends TestCase
             ->with('git fetch -p build', false, null)
             ->andReturn('');
 
-
-
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
@@ -112,7 +111,6 @@ class FetchDriverTest extends TestCase
         $FetchDriver->deploy();
 
         $this->assertTrue(true);
-
     }
 
     /**
@@ -137,9 +135,6 @@ class FetchDriverTest extends TestCase
             ->with('git fetch -p upstream', false, null)
             ->andReturn('');
 
-
-
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
@@ -152,7 +147,6 @@ class FetchDriverTest extends TestCase
         $FetchDriver->upstream();
 
         $this->assertTrue(true);
-
     }
 
     /**
@@ -177,9 +171,6 @@ class FetchDriverTest extends TestCase
             ->with('git fetch -p origin', false, null)
             ->andReturn('');
 
-
-
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
@@ -192,6 +183,5 @@ class FetchDriverTest extends TestCase
         $FetchDriver->origin();
 
         $this->assertTrue(true);
-
     }
 }

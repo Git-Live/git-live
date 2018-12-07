@@ -36,8 +36,8 @@ class MergeDriverTest extends TestCase
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\MergeDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\MergeDriver
      */
     public function testStateDevelop()
     {
@@ -106,8 +106,8 @@ class MergeDriverTest extends TestCase
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\MergeDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\MergeDriver
      */
     public function testStateMaster()
     {
@@ -181,8 +181,8 @@ class MergeDriverTest extends TestCase
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\MergeDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\MergeDriver
      */
     public function testMergeDevelop()
     {
@@ -247,8 +247,8 @@ class MergeDriverTest extends TestCase
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\MergeDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\MergeDriver
      */
     public function testMergeMaster()
     {

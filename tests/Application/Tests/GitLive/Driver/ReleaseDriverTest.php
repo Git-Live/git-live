@@ -35,9 +35,9 @@ class ReleaseDriverTest extends TestCase
 {
     /**
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\ReleaseDriver
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\ReleaseDriver
      */
     public function testIsBuildOpen()
     {
@@ -131,9 +131,9 @@ class ReleaseDriverTest extends TestCase
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\ReleaseDriver
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\ReleaseDriver
      */
     public function testGetBuildRepository()
     {

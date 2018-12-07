@@ -36,8 +36,8 @@ class LogDriverTest extends TestCase
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\LogDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\LogDriver
      */
     public function testLogDevelop()
     {
@@ -87,8 +87,8 @@ class LogDriverTest extends TestCase
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\LogDriver
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\LogDriver
      */
     public function testLogMaster()
     {

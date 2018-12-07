@@ -36,9 +36,9 @@ class HptfixDriverTest extends TestCase
 {
     /**
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\HotfixDriver
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\HotfixDriver
      */
     public function testIsBuildOpen()
     {
@@ -134,9 +134,9 @@ class HptfixDriverTest extends TestCase
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
-     * @covers \GitLive\Driver\HotfixDriver
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\HotfixDriver
      */
     public function testGetBuildRepository()
     {
