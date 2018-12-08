@@ -23,12 +23,15 @@ namespace GitLive\Driver;
 use App;
 use GitLive\GitCmdExecutor;
 use GitLive\GitLive;
+use GitLive\Support\FileSystem;
 use GitLive\Support\SystemCommandInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
+ * Class DriverBase
+ *
  * @category   GitCommand
- * @package    Git-Live
+ * @package    GitLive\Driver
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
@@ -37,7 +40,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @version    GIT: $Id$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
+ * @since      2018-12-08
  */
 abstract class DriverBase
 {
@@ -308,5 +311,24 @@ abstract class DriverBase
     {
         $this->GitCmdExecutor->reset();
         $this->GitCmdExecutor->clean();
+    }
+
+    /**
+     * @throws \ReflectionException
+     * @return \GitLive\Support\Collection
+     */
+    public function getGitLiveSettiong()
+    {
+        $setting = collect([]);
+
+        $dir = $this->GitCmdExecutor->topLevelDir() . DIRECTORY_SEPARATOR;
+        if (is_file($dir . '.gitlive.dist.json')) {
+            $setting = $setting->merge(collect(json_decode(App::make(FileSystem::class)->getContents($dir . '.gitlive.dist.json'))));
+        }
+        if (is_file($dir . '.gitlive.json')) {
+            $setting = $setting->merge(collect(json_decode(App::make(FileSystem::class)->getContents($dir . '.gitlive.json'))));
+        }
+
+        return $setting;
     }
 }

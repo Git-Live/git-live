@@ -21,8 +21,12 @@
 namespace GitLive\Driver;
 
 /**
+ * Class MergeDriver
+ *
+ * Operations like git merge command
+ *
  * @category   GitCommand
- * @package    Git-Live
+ * @package    GitLive\Driver
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
@@ -31,12 +35,12 @@ namespace GitLive\Driver;
  * @version    GIT: $Id$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
+ * @since      2018-12-08
  */
 class MergeDriver extends DriverBase
 {
     /**
-     *  developマージの事前確認
+     *  Prior confirmation for develop merging
      *
      * @access      public
      * @throws Exception
@@ -50,6 +54,8 @@ class MergeDriver extends DriverBase
     }
 
     /**
+     *  Prior confirmation for $branch merging
+     *
      * @param $branch
      * @throws Exception
      * @return string
@@ -69,7 +75,7 @@ class MergeDriver extends DriverBase
     }
 
     /**
-     *  masterマージの事前確認
+     *  Prior confirmation for master merging
      *
      * @access      public
      * @throws Exception
@@ -83,7 +89,7 @@ class MergeDriver extends DriverBase
     }
 
     /**
-     *  developをマージする
+     *  Merge a develop branch.
      *
      * @access      public
      * @throws Exception
@@ -96,6 +102,8 @@ class MergeDriver extends DriverBase
     }
 
     /**
+     * fetch and merge.
+     *
      * @param $branch
      * @throws Exception
      */
@@ -108,7 +116,7 @@ class MergeDriver extends DriverBase
     }
 
     /**
-     *  masterをマージする
+     *  Merge a master branch.
      *
      * @access      public
      * @throws Exception

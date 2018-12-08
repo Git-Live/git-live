@@ -27,8 +27,10 @@ use GitLive\Support\SystemCommandInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
+ * Class DeployBase
+ *
  * @category   GitCommand
- * @package    Git-Live
+ * @package    GitLive\Driver
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
@@ -37,7 +39,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @version    GIT: $Id$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
+ * @since      2018-12-08
  */
 abstract class DeployBase extends DriverBase
 {
@@ -79,7 +81,7 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     *  リリースを開く
+     *  Open a build branch.
      *
      * @access      public
      * @param null $release_rep
@@ -119,7 +121,7 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     *  リリースが空いているかどうか
+     *  Whether the release is open or not
      *
      * @access      public
      * @throws \ReflectionException
@@ -138,7 +140,7 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     *  使用しているリリースRepositoryの取得
+     *  Get a current release branch
      *
      * @access      public
      * @throws Exception
@@ -171,7 +173,7 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     *  ホットフィクスが空いているかどうか
+     *  Whether the hotfix is open or not
      *
      * @access      public
      * @throws \ReflectionException
@@ -190,7 +192,7 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     *  使用しているhot fix Repositoryの取得
+     *  Get a current hot-fix branch
      *
      * @access      public
      * @throws Exception
@@ -223,7 +225,7 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     *  リリースタグを指定してリリース開く
+     *  Open a build branch specify the tag
      *
      * @access      public
      * @param       string $tag_name
@@ -259,7 +261,7 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     *  誰かが開けたリリースをトラックする
+     *  Track an all build branch.
      *
      * @access      public
      * @throws Exception
@@ -290,7 +292,7 @@ abstract class DeployBase extends DriverBase
     abstract public function getBuildRepository();
 
     /**
-     *  DeployブランチをTrackする
+     *  Track a deploy branch.
      *
      * @access      public
      * @param  string $repo
@@ -310,7 +312,7 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     *  誰かが開けたRELEASEをpullする
+     * Pull an upstream build branch.
      *
      * @access      public
      * @throws Exception
@@ -328,7 +330,7 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     *  リリースの状態を確かめる
+     * Check the state of build.
      *
      * @access      public
      * @param       bool $ck_only           OPTIONAL:false
@@ -355,7 +357,7 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     *  コードを各環境に反映する
+     *  Sync a build branch to upstream and deploy.
      *
      * @access      public
      * @throws Exception
@@ -374,31 +376,7 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     *  DeployブランチにSyncする
-     *
-     * @access      public
-     * @param  string $repo
-     * @throws Exception
-     * @throws \ReflectionException
-     * @return void
-     */
-    public function deploySync($repo)
-    {
-        $this->isCleanOrFail($repo);
-
-        $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
-
-        $this->deployTrack($repo);
-
-        $this->GitCmdExecutor->pull('deploy', $repo);
-        $this->GitCmdExecutor->pull('upstream', $repo);
-
-        $this->GitCmdExecutor->push('upstream', $repo);
-        $this->GitCmdExecutor->push($deploy_repository_name, $repo);
-    }
-
-    /**
-     *  コードをupstreamに反映する
+     *  push a deploy branch to upstream.
      *
      * @access      public
      * @throws Exception
@@ -413,38 +391,11 @@ abstract class DeployBase extends DriverBase
 
         $repo = $this->getBuildRepository();
 
-        $this->deployPush($repo);
+        $this->upstreamPush($repo);
     }
 
     /**
-     *  upstream に pushする
-     *
-     * @access      public
-     * @param  string $repo
-     * @throws Exception
-     * @throws \ReflectionException
-     * @return void
-     */
-    public function deployPush($repo)
-    {
-        $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
-
-        if (!$this->isBranchExits($repo)) {
-            throw new Exception('undefined ' . $repo);
-        }
-
-        $this->GitCmdExecutor->checkout($repo);
-
-        $this->GitCmdExecutor->pull('upstream', $repo);
-        $this->GitCmdExecutor->pull($deploy_repository_name, $repo);
-
-        $this->isCleanOrFail($repo);
-
-        $this->GitCmdExecutor->push('upstream', $repo);
-    }
-
-    /**
-     *  リリースを取り下げる
+     *  Withdraw release
      *
      * @access      public
      * @param bool $remove_local OPTIONAL:false
@@ -463,7 +414,100 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     *  削除
+     *  Close a build branch.
+     *
+     * @access      public
+     * @param bool $force OPTIONAL:false
+     * @param null $tag_name
+     * @throws Exception
+     * @throws \ReflectionException
+     * @return void
+     *
+     */
+    public function buildClose($force = false, $tag_name = null)
+    {
+        if (!$this->isBuildOpen()) {
+            throw new Exception(sprintf(__('%1$s is not open.'), static::MODE));
+        }
+
+        $repo = $this->getBuildRepository();
+        $this->deployEnd($repo, static::MODE, $force, $tag_name);
+    }
+
+    /**
+     *  Whether release command, hotfix command is available
+     *
+     * @access      public
+     * @throws Exception
+     * @throws \ReflectionException
+     * @return void
+     */
+    public function enableRelease()
+    {
+        $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
+        $remote = $this->GitCmdExecutor->remote([], true);
+        $remote = explode("\n", trim($remote));
+        $res = array_search($deploy_repository_name, $remote, true) !== false;
+        if ($res === false) {
+            throw new Exception(
+                sprintf(__('Add a remote repository %s.'), $deploy_repository_name)
+            );
+        }
+    }
+
+    /**
+     *  Sync a build branch to deploy.
+     *
+     * @access      public
+     * @param  string $repo
+     * @throws Exception
+     * @throws \ReflectionException
+     * @return void
+     */
+    protected function deploySync($repo)
+    {
+        $this->isCleanOrFail($repo);
+
+        $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
+
+        $this->deployTrack($repo);
+
+        $this->GitCmdExecutor->pull('deploy', $repo);
+        $this->GitCmdExecutor->pull('upstream', $repo);
+
+        $this->GitCmdExecutor->push('upstream', $repo);
+        $this->GitCmdExecutor->push($deploy_repository_name, $repo);
+    }
+
+    /**
+     *  push a deploy branch to upstream.
+     *
+     * @access      public
+     * @param  string $repo
+     * @throws Exception
+     * @throws \ReflectionException
+     * @return void
+     */
+    protected function upstreamPush($repo)
+    {
+        $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
+
+        if (!$this->isBranchExits($repo)) {
+            throw new Exception('undefined ' . $repo);
+        }
+
+        $this->GitCmdExecutor->checkout($repo);
+
+        $this->GitCmdExecutor->pull('upstream', $repo);
+        $this->GitCmdExecutor->pull($deploy_repository_name, $repo);
+
+        $this->isCleanOrFail($repo);
+
+        $this->GitCmdExecutor->push('upstream', $repo);
+    }
+
+    /**
+     *  Delete a build branch.
      *
      * @access      public
      * @param  string $repo
@@ -472,7 +516,7 @@ abstract class DeployBase extends DriverBase
      * @throws Exception
      * @return void
      */
-    public function deployDestroy($repo, $mode, $remove_local = false)
+    protected function deployDestroy($repo, $mode, $remove_local = false)
     {
         // Repositoryの掃除
         $this->GitCmdExecutor->push('deploy', ':' . $repo);
@@ -498,28 +542,7 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     *  リリースを閉じる
-     *
-     * @access      public
-     * @param bool $force OPTIONAL:false
-     * @param null $tag_name
-     * @throws Exception
-     * @throws \ReflectionException
-     * @return void
-     *
-     */
-    public function buildClose($force = false, $tag_name = null)
-    {
-        if (!$this->isBuildOpen()) {
-            throw new Exception(sprintf(__('%1$s is not open.'), static::MODE));
-        }
-
-        $repo = $this->getBuildRepository();
-        $this->deployEnd($repo, static::MODE, $force, $tag_name);
-    }
-
-    /**
-     *  hotfixCloseとreleaseClose共通処理
+     *  Finish a build task.
      *
      * @access      public
      * @param  string $release_name
@@ -530,7 +553,7 @@ abstract class DeployBase extends DriverBase
      * @throws \ReflectionException
      * @return void
      */
-    public function deployEnd($release_name, $mode, $force = false, $tag_name = null)
+    protected function deployEnd($release_name, $mode, $force = false, $tag_name = null)
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $master_branch = App::make(ConfigDriver::class)->master();
@@ -618,26 +641,5 @@ abstract class DeployBase extends DriverBase
         $this->GitCmdExecutor->tagPush('upstream');
 
         $this->GitCmdExecutor->checkout($develop_branch);
-    }
-
-    /**
-     *  releaseコマンド、hotfixコマンドが使用できるかどうか
-     *
-     * @access      public
-     * @throws Exception
-     * @throws \ReflectionException
-     * @return void
-     */
-    public function enableRelease()
-    {
-        $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
-        $remote = $this->GitCmdExecutor->remote([], true);
-        $remote = explode("\n", trim($remote));
-        $res = array_search($deploy_repository_name, $remote, true) !== false;
-        if ($res === false) {
-            throw new Exception(
-                sprintf(__('Add a remote repository %s.'), $deploy_repository_name)
-            );
-        }
     }
 }

@@ -21,12 +21,15 @@
 namespace GitLive\Driver;
 
 use App;
+use GitLive\Support\FileSystem;
 use GitLive\Support\InteractiveShellInterface;
 use Symfony\Component\Console\Input\InputInterface;
 
 /**
+ * Class InitDriver
+ *
  * @category   GitCommand
- * @package    Git-Live
+ * @package    GitLive\Driver
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
@@ -35,7 +38,7 @@ use Symfony\Component\Console\Input\InputInterface;
  * @version    GIT: $Id$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
+ * @since      2018-12-08
  */
 class InitDriver extends DriverBase
 {

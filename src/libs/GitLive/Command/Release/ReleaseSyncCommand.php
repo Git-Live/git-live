@@ -29,11 +29,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ReleaseSyncCommand extends CommandBase
 {
+    protected static $signature_name = 'release:sync';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('release:sync')
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Run git live release pull and git live release push in succession.'))
             // the full command description shown when running the command with

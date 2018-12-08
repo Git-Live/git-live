@@ -45,11 +45,13 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class TrackCommand extends CommandBase
 {
+    protected static $signature_name = 'feature:track';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('feature:track')
+
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Safe checkout feature branch from upstream repository.'))
             // the full command description shown when running the command with

@@ -45,11 +45,12 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class HotfixStateCommand extends CommandBase
 {
+    protected static $signature_name = 'hotfix:state';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('hotfix:state')
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Check the status of hotfix.'))
             // the full command description shown when running the command with

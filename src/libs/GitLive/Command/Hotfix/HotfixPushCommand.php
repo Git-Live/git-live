@@ -29,11 +29,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class HotfixPushCommand extends CommandBase
 {
+    protected static $signature_name = 'hotfix:push';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('hotfix:push')
             // the short description shown while running "php bin/console list"
             ->setDescription(__("Push upstream/hotfix and deploy/hotfix."))
             // the full command description shown when running the command with

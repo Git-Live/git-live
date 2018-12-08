@@ -46,11 +46,12 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ReleaseCloseCommand extends CommandBase
 {
+    protected static $signature_name = 'release:close';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('release:close')
             // the short description shown while running "php bin/console list"
             ->setDescription(__("Finish up a release.Merges the release branch back into 'master'.Tags the release with its name.Back-merges the release into 'develop'.Removes the release branch."))
             // the full command description shown when running the command with

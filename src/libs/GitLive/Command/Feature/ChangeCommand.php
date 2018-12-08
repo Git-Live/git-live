@@ -30,11 +30,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ChangeCommand extends CommandBase
 {
+    protected static $signature_name = 'feature:change';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('feature:change')
+
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Cheackout other feature branch.'))
             // the full command description shown when running the command with

@@ -45,11 +45,12 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class PullRequestMerge extends CommandBase
 {
+    protected static $signature_name = 'pr:merge';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('pr:merge')
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Merge pull request locally.'))
             // the full command description shown when running the command with

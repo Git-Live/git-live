@@ -30,11 +30,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PushCommand extends CommandBase
 {
+    protected static $signature_name = 'push';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('push')
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Push from the appropriate remote repository.'))
             // the full command description shown when running the command with

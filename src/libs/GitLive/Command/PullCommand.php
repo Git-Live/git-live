@@ -34,11 +34,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PullCommand extends CommandBase
 {
+    protected static $signature_name = 'pull';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('pull')
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Pull from the appropriate remote repository.'))
             // the full command description shown when running the command with

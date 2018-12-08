@@ -48,6 +48,9 @@ class Container
 
     protected $with = [];
 
+    /**
+     * @return void
+     */
     public static function reset()
     {
         static::$container = [];

@@ -155,7 +155,9 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     }
 
     /**
-     * avgメソッドは、指定したキーの平均値を返します。
+     * Get the average value of a given key.
+     *
+     * 指定したキーの平均値を返します。
      *
      * @param  null|callable|string  $callback
      * @return int
@@ -189,7 +191,9 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     }
 
     /**
-     * medianメソッドは、指定したキーの中央値を返します。
+     * Get the median of a given key.
+     *
+     * 指定したキーの中央値を返します。
      *
      * @param  null|array|string $key
      * @return int
@@ -771,7 +775,9 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     }
 
     /**
-     * groupByメソッドは指定したキーによりコレクションのアイテムをグループにまとめます。
+     * Group an associative array by a field or using a callback.
+     *
+     * 指定したキーによりコレクションのアイテムをグループにまとめます。
      *
      * @param  callable|string  $groupBy
      * @param  bool  $preserveKeys
@@ -1383,7 +1389,9 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     }
 
     /**
-     * searchメソッドは指定した値でコレクションをサーチし、見つけたキーを返します。アイテムが見つからない場合はfalseを返します。
+     * Search the collection for a given value and return the corresponding key if successful.
+     *
+     * 指定した値でコレクションをサーチし、見つけたキーを返します。アイテムが見つからない場合はfalseを返します。
      *
      * @param  mixed  $value
      * @param  bool  $strict

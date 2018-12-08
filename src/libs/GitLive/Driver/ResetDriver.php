@@ -20,9 +20,15 @@
 
 namespace GitLive\Driver;
 
+use GitLive\Command\PullCommand;
+
 /**
+ * Class ResetDriver
+ *
+ * Operations like git reset command
+ *
  * @category   GitCommand
- * @package    Git-Live
+ * @package    GitLive\Driver
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
@@ -31,11 +37,14 @@ namespace GitLive\Driver;
  * @version    GIT: $Id$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
+ * @since      2018-12-08
  */
 class ResetDriver extends DriverBase
 {
     /**
+     * git live pull --force
+     *
+     * @see PullCommand
      * @param $remote
      * @throws Exception
      * @return string
@@ -61,7 +70,7 @@ class ResetDriver extends DriverBase
     }
 
     /**
-     *  upstream からfetchする
+     *  fetch from upstream
      *
      * @access      public
      * @throws Exception
@@ -78,7 +87,7 @@ class ResetDriver extends DriverBase
     }
 
     /**
-     *  deploy からfetchする
+     *  fetch from origin
      *
      * @access      public
      * @throws Exception
@@ -95,7 +104,7 @@ class ResetDriver extends DriverBase
     }
 
     /**
-     *  deploy からfetchする
+     *  fetch from deploy
      *
      * @access      public
      * @throws Exception

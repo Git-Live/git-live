@@ -46,11 +46,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class HotfixCloseCommand extends CommandBase
 {
+    protected static $signature_name = 'hotfix:close';
+
     /**
      *
      */
     protected function configure()
     {
+        parent::configure();
         $this
             // the name of the command (the part after "bin/console")
             ->setName('hotfix:close')

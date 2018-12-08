@@ -45,11 +45,12 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class HotfixOpenCommand extends CommandBase
 {
+    protected static $signature_name = 'hotfix:open';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('hotfix:open')
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Support preparation of a new production hotfix/.') . __("Allow for minor bug fixes and preparing meta-data for a hotfix"))
             // the full command description shown when running the command with

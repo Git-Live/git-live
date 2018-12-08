@@ -44,6 +44,16 @@ use Symfony\Component\Console\Output\OutputInterface;
 abstract class CommandBase extends Command
 {
     /**
+     * @var string
+     */
+    protected static $signature_name = '';
+
+    public static function getSignature()
+    {
+        return static::$signature_name;
+    }
+
+    /**
      * @param OutputInterface $output
      */
     public function updateChecker(OutputInterface $output)
@@ -89,12 +99,12 @@ abstract class CommandBase extends Command
          * @var ConfigDriver $ConfigDriver
          */
         $ConfigDriver = $this->Driver('Config');
-        $latest_version_fetch_time = (int)$ConfigDriver->getParameter('latestversion.fetchtime');
+        $latest_version_fetch_time = (int)$ConfigDriver->getGitLiveParameter('latestversion.fetchtime');
 
-        $update_ck_span = (int)$ConfigDriver->getParameter('latestversion.update_ck_span') ?: GitLive::DEFAULT_UPDATE_CK_SPAN;
+        $update_ck_span = (int)$ConfigDriver->getGitLiveParameter('latestversion.update_ck_span') ?: GitLive::DEFAULT_UPDATE_CK_SPAN;
 
         if (!empty($latest_version_fetch_time) && (time() - $latest_version_fetch_time) < $update_ck_span) {
-            return $latest_version = $ConfigDriver->getParameter('latestversion.val');
+            return $latest_version = $ConfigDriver->getGitLiveParameter('latestversion.val');
         }
 
         $opts = [
@@ -139,5 +149,13 @@ abstract class CommandBase extends Command
     public function Driver($driver_name)
     {
         return App::make('\GitLive\Driver\\' . $driver_name . 'Driver');
+    }
+
+    protected function configure()
+    {
+        parent::configure();
+        $this
+            // the name of the command (the part after "bin/console")
+            ->setName(static::$signature_name);
     }
 }

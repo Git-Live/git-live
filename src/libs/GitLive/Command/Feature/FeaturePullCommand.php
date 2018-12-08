@@ -45,11 +45,13 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class FeaturePullCommand extends CommandBase
 {
+    protected static $signature_name = 'feature:pull';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('feature:pull')
+
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Safe pull to origin repository.'))
             // the full command description shown when running the command with

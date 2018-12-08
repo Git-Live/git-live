@@ -18,7 +18,7 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace GitLive\Driver\Merge;
+namespace GitLive\Command\Merge;
 
 use App;
 use GitLive\Application\Container;
@@ -44,11 +44,12 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class MergeDevelopCommand extends CommandBase
 {
+    protected static $signature_name = 'merge:develop';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('merge:develop')
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Merge upstream develop.'))
             // the full command description shown when running the command with

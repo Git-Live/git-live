@@ -21,6 +21,7 @@
 namespace GitLive;
 
 use GitLive\Support\SystemCommandInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @category   GitCommand
@@ -310,6 +311,16 @@ class GitCmdExecutor
     public function chdir($dir)
     {
         return chdir($dir);
+    }
+
+    /**
+     * @return string
+     */
+    public function topLevelDir()
+    {
+        $cmd = 'git rev-parse --show-toplevel';
+
+        return trim($this->exec($cmd, OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
     }
 
     /**

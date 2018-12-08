@@ -29,6 +29,12 @@ use Symfony\Component\Console\CommandLoader\FactoryCommandLoader;
 /**
  * Class Application
  *
+ * An Application is the container for a collection of commands.
+ *
+ * It is the main entry point of a Console application.
+ *
+ * This class is optimized for a standard CLI environment.
+ *
  * @category   GitCommand
  * @package    GitLive\Application
  * @subpackage Core

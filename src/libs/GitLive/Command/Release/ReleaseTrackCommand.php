@@ -29,11 +29,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ReleaseTrackCommand extends CommandBase
 {
+    protected static $signature_name = 'release:track';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('release:track')
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Support preparation of a new production release/.') . __("Allow for minor bug fixes and preparing meta-data for a release"))
             // the full command description shown when running the command with

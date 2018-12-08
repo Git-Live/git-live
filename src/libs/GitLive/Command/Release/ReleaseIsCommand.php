@@ -45,11 +45,12 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ReleaseIsCommand extends CommandBase
 {
+    protected static $signature_name = 'release:is';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('release:is')
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Whether the release is open, or to see what is closed.'))
             // the full command description shown when running the command with

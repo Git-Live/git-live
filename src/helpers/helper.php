@@ -60,6 +60,12 @@ if (!function_exists('collect')) {
 }
 
 if (!function_exists('data_get')) {
+    /**
+     * @param      array|Collection $target
+     * @param      string $key
+     * @param null $default
+     * @return array|mixed
+     */
     function data_get($target, $key, $default = null)
     {
         if (is_null($key)) {

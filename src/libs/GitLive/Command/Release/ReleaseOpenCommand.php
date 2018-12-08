@@ -45,11 +45,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ReleaseOpenCommand extends CommandBase
 {
+    protected static $signature_name = 'release:open';
+
     /**
      *
      */
     protected function configure()
     {
+        parent::configure();
         $this
             // the name of the command (the part after "bin/console")
             ->setName('release:open')

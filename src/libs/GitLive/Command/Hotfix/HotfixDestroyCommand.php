@@ -45,11 +45,12 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class HotfixDestroyCommand extends CommandBase
 {
+    protected static $signature_name = 'hotfix:destroy';
+
     protected function configure()
     {
+        parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('hotfix:destroy')
             // the short description shown while running "php bin/console list"
             ->setDescription(__("Discard hotfix. However, keep working in the local repository."))
             // the full command description shown when running the command with
