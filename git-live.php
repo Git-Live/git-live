@@ -21,7 +21,11 @@
 include __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 if (!defined('GIT_LIVE_INSTALL_PATH')) {
-    define('GIT_LIVE_INSTALL_PATH', mb_ereg_replace('^phar://', '', __DIR__));
+    if (GIT_LIVE_VERSION === 'phar') {
+        define('GIT_LIVE_INSTALL_PATH', mb_ereg_replace('^phar://', '', __DIR__));
+    } else {
+        define('GIT_LIVE_INSTALL_PATH', __DIR__.'/bin/git-live.phar');
+    }
 }
 
 
