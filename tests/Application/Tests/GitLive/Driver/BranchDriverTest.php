@@ -1,6 +1,10 @@
 <?php
+
 /**
- * BranchDriverTest.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -9,10 +13,9 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018-12-09
  */
 
 namespace Tests\GitLive\Driver;
@@ -25,12 +28,16 @@ use GitLive\Support\Collection;
 use GitLive\Support\SystemCommandInterface;
 use Tests\GitLive\TestCase;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class BranchDriverTest extends TestCase
 {
-
     /**
      * @throws \ReflectionException
      * @covers \GitLive\Driver\BranchDriver
+     * @covers \GitLive\Driver\DriverBase
      */
     public function testBranchList()
     {
@@ -70,8 +77,7 @@ class BranchDriverTest extends TestCase
 
         $Collection->dump();
 
-
-        $this->assertEquals(
+        $this->assertSame(
             [
                 "develop",
                 "feature/v.1.0.0",
@@ -85,19 +91,18 @@ class BranchDriverTest extends TestCase
                 "v2.0.0",
             ],
             $Collection->toArray()
-
         );
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
             "git branch",
         ], data_get($spy, '*.0'));
-
     }
 
     /**
      * @throws \ReflectionException
      * @covers \GitLive\Driver\BranchDriver
+     * @covers \GitLive\Driver\DriverBase
      */
     public function testBranchListAll()
     {
@@ -156,46 +161,43 @@ class BranchDriverTest extends TestCase
 
         $Collection->dump();
 
-
-        $this->assertEquals(
+        $this->assertSame(
             [
                 0 => "develop",
-    1 => "feature/v.1.0.0",
-    2 => "feature/v1",
-    3 => "feature/v2.0.0",
-    4 => "hotfix/20181202175520-rc3",
-    5 => "hotfix/r20181204221944",
-    6 => "master",
-    7 => "v1.0",
-    8 => "v2.0",
-    9 => "v2.0.0",
-    10 => "remotes/deploy/0.X.X_newtest",
-    11 => "remotes/deploy/develop",
-    12 => "remotes/deploy/feature/20171204_console",
-    13 => "remotes/deploy/feature/20180115",
-    14 => "remotes/deploy/feature/20180116",
-    15 => "remotes/deploy/feature/v1.x",
-    16 => "remotes/deploy/master",
-    17 => "remotes/deploy/mod_test",
-    18 => "remotes/deploy/v1.0",
-    19 => "remotes/deploy/v2.0",
-    20 => "remotes/origin/0.X.X_newtest",
-    21 => "remotes/origin/HEAD",
-    22 => "remotes/origin/develop",
-    23 => "remotes/origin/feature/20171204_console",
-    24 => "remotes/origin/feature/20180115",
-    25 => "remotes/origin/feature/20180116",
-    26 => "remotes/origin/feature/v1.x",
-    27 => "remotes/origin/master",
-    28 => "remotes/origin/mod_test",
+                1 => "feature/v.1.0.0",
+                2 => "feature/v1",
+                3 => "feature/v2.0.0",
+                4 => "hotfix/20181202175520-rc3",
+                5 => "hotfix/r20181204221944",
+                6 => "master",
+                7 => "v1.0",
+                8 => "v2.0",
+                9 => "v2.0.0",
+                10 => "remotes/deploy/0.X.X_newtest",
+                11 => "remotes/deploy/develop",
+                12 => "remotes/deploy/feature/20171204_console",
+                13 => "remotes/deploy/feature/20180115",
+                14 => "remotes/deploy/feature/20180116",
+                15 => "remotes/deploy/feature/v1.x",
+                16 => "remotes/deploy/master",
+                17 => "remotes/deploy/mod_test",
+                18 => "remotes/deploy/v1.0",
+                19 => "remotes/deploy/v2.0",
+                20 => "remotes/origin/0.X.X_newtest",
+                21 => "remotes/origin/HEAD",
+                22 => "remotes/origin/develop",
+                23 => "remotes/origin/feature/20171204_console",
+                24 => "remotes/origin/feature/20180115",
+                25 => "remotes/origin/feature/20180116",
+                26 => "remotes/origin/feature/v1.x",
+                27 => "remotes/origin/master",
+                28 => "remotes/origin/mod_test",
             ],
             $Collection->toArray()
-
         );
         dump(data_get($spy, '*.0'));
         $this->assertSame([
             "git branch -a",
         ], data_get($spy, '*.0'));
-
     }
 }

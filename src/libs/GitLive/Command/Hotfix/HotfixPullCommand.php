@@ -51,10 +51,10 @@ class HotfixPullCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__("Pull upstream/hotfix and deploy/hotfix."))
+            ->setDescription(__("Pull upstream/hotfix and deploy'shotfix."))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__("Pull upstream/hotfix and deploy/hotfix."));
+            ->setHelp(__("Pull upstream/hotfix and deploy'shotfix."));
     }
 
     /**

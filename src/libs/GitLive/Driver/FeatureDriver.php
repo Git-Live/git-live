@@ -115,11 +115,11 @@ class FeatureDriver extends DriverBase
      *
      * @access      public
      * @param  string $branch
-     * @throws Exception
+     * @param array   $option
      * @throws Exception
      * @return string
      */
-    public function featureChange($branch)
+    public function featureChange($branch, $option = [])
     {
         $Config = $this->Driver(ConfigDriver::class);
         $feature_prefix = $Config->featurePrefix();
@@ -136,7 +136,7 @@ class FeatureDriver extends DriverBase
         $branch_list = $this->Driver(BranchDriver::class)->branchListAll();
 
         if ($branch_list->search($feature_branch)) {
-            return $this->GitCmdExecutor->checkout($feature_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
+            return $this->GitCmdExecutor->checkout($feature_branch, $option, false, OutputInterface::VERBOSITY_VERY_VERBOSE);
         }
 
         if ($branch === $this->Driver(ConfigDriver::class)->master() ||
@@ -147,7 +147,7 @@ class FeatureDriver extends DriverBase
             }
         }
 
-        $res = $this->changeRemoteIf($branch_list, $feature_branch);
+        $res = $this->changeRemoteIf($branch_list, $feature_branch, $option);
         if ($res !== false) {
             return $res;
         }
@@ -298,19 +298,20 @@ class FeatureDriver extends DriverBase
 
     /**
      * @param Collection $branch_list
-     * @param string $feature_branch
+     * @param string     $feature_branch
+     * @param array      $option
      * @return bool|string
      */
-    protected function changeRemoteIf($branch_list, $feature_branch)
+    protected function changeRemoteIf($branch_list, $feature_branch, $option = [])
     {
         $remote_branch = 'remotes/origin/' . $feature_branch;
-        $res = $this->changeIf($branch_list, $remote_branch, $feature_branch);
+        $res = $this->changeIf($branch_list, $remote_branch, $feature_branch, $option);
         if ($res !== false) {
             return $res;
         }
 
         $remote_branch = 'remotes/upstream/' . $feature_branch;
-        $res = $this->changeIf($branch_list, $remote_branch, $feature_branch);
+        $res = $this->changeIf($branch_list, $remote_branch, $feature_branch, $option);
         if ($res !== false) {
             return $res;
         }
@@ -320,16 +321,19 @@ class FeatureDriver extends DriverBase
 
     /**
      * @param Collection $branch_list
-     * @param string $remote_branch
-     * @param string $feature_branch
+     * @param string     $remote_branch
+     * @param string     $feature_branch
+     * @param array      $option
      * @return bool|string
      */
-    protected function changeIf($branch_list, $remote_branch, $feature_branch)
+    protected function changeIf($branch_list, $remote_branch, $feature_branch, $option = [])
     {
         if ($branch_list->search($remote_branch)) {
             $this->GitCmdExecutor->checkout($remote_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
 
-            return $this->GitCmdExecutor->checkout($feature_branch, ['-b'], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
+            $option = ['-b'];
+
+            return $this->GitCmdExecutor->checkout($feature_branch, $option, false, OutputInterface::VERBOSITY_VERY_VERBOSE);
         }
 
         return false;

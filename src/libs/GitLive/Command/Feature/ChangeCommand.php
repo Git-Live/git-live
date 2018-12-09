@@ -26,6 +26,7 @@ use GitLive\Command\CommandBase;
 use GitLive\Driver\FeatureDriver;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ChangeCommand extends CommandBase
@@ -36,13 +37,13 @@ class ChangeCommand extends CommandBase
     {
         parent::configure();
         $this
-
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Cheackout other feature branch.'))
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__('Cheackout other feature branch.'))
             ->addArgument('branch_name', InputArgument::REQUIRED, 'feature name')
+            ->addOption('detach', '', InputOption::VALUE_NONE, 'Prepare to work on top of <commit>, by detaching HEAD at it (see"DETACHED HEAD" section), and updating the index and the files in theworking tree.')
         ;
     }
 

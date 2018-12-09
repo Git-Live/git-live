@@ -50,11 +50,11 @@ class GitCmdExecutor
     }
 
     /**
-     *
-     *
+     * @param bool $verbosity
+     * @param null $output_verbosity
      * @return string
      */
-    public function fetchPullRequest()
+    public function fetchPullRequest($verbosity = true, $output_verbosity = null)
     {
         $cmd = "git fetch upstream '+refs/pull/*:refs/remotes/pr/*'";
 

@@ -51,7 +51,6 @@ class FeatureStartCommand extends CommandBase
     {
         parent::configure();
         $this
-
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Create a new feature branch.'))
             // the full command description shown when running the command with

@@ -34,6 +34,7 @@ namespace GitLive\Driver;
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-08
+ * @codeCoverageIgnore
  */
 class Exception extends \Exception
 {

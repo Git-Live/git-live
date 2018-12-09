@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-09 12:32+0900\n"
+"POT-Creation-Date: 2018-12-09 14:08+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: src//libs/GitLive/Driver/ResetDriver.php:68
 #: src//libs/GitLive/Command/PullCommand.php:110
-msgid "Undefined remote option : "
+msgid "Undefined remote option"
 msgstr ""
 
 #: src//libs/GitLive/Driver/FeatureDriver.php:155

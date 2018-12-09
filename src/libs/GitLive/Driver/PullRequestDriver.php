@@ -130,7 +130,7 @@ class PullRequestDriver extends DriverBase
     {
         $branch = $this->getSelfBranchRef();
         $match = null;
-        if (!mb_ereg('/pullreq/([0-9]+)', $branch, $match)) {
+        if (!mb_ereg('^refs/heads/pullreq/([0-9]+)', $branch, $match)) {
             return;
         }
 

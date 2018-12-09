@@ -51,7 +51,6 @@ class PublishCommand extends CommandBase
     {
         parent::configure();
         $this
-
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Safe push to upstream repository.'))
             // the full command description shown when running the command with

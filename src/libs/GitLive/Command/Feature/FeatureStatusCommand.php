@@ -51,7 +51,6 @@ class FeatureStatusCommand extends CommandBase
     {
         parent::configure();
         $this
-
             // the short description shown while running "php bin/console list"
             ->setDescription(__('Show the feature status.'))
             // the full command description shown when running the command with

@@ -77,6 +77,8 @@ class InitDriverTest extends TestCase
     /**
      * @throws Exception
      * @throws \ReflectionException
+     * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\InitDriver
      */
     public function testRestart()
     {
