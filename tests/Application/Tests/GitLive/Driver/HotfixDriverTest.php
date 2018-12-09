@@ -161,7 +161,7 @@ class HptfixDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git branch -a', 256, 256)
+            ->with('git branch -a', true, null)
             ->andReturnUsing(function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -326,11 +326,11 @@ class HptfixDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git branch -a', 256, 256)
+            ->with('git branch -a', true, null)
             ->andReturnUsing(function (...$val) use (&$spy) {
                 $spy[] = $val;
 
-                return 'remotes/unit_deploy/unit_release/123456789';
+                return '  remotes/unit_deploy/unit_release/123456789';
             });
 
         Container::bind(

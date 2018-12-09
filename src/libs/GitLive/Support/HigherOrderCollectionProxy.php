@@ -20,7 +20,9 @@
 
 namespace GitLive\Support;
 
-class HigherOrderCollectionProxy
+use GitLive\GitBase;
+
+class HigherOrderCollectionProxy extends GitBase
 {
     /**
      * The collection being operated on.

@@ -20,6 +20,8 @@
 
 namespace GitLive\Support;
 
+use GitLive\GitBase;
+
 /**
  * Class Envelopment
  *
@@ -35,7 +37,7 @@ namespace GitLive\Support;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
-class Envelopment
+class Envelopment extends GitBase
 {
     /**
      * Windowsかどうか

@@ -20,6 +20,7 @@
 
 namespace GitLive\Support;
 
+use GitLive\GitBase;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -38,7 +39,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
-class SystemCommand implements SystemCommandInterface
+class SystemCommand extends GitBase implements SystemCommandInterface
 {
     /**
      * @var InputInterface

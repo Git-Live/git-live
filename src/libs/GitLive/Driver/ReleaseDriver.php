@@ -56,12 +56,6 @@ class ReleaseDriver extends DeployBase
         parent::__construct($GitLive, $gitCmdExecutor, $command);
 
         $this->prefix = $this->Driver(ConfigDriver::class)->releasePrefix();
-
-        $this->Driver(FetchDriver::class)->all();
-        $this->Driver(FetchDriver::class)->upstream();
-        $this->Driver(FetchDriver::class)->deploy($this->deploy_repository_name);
-
-        $this->enableRelease();
     }
 
     /**

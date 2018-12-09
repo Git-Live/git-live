@@ -57,7 +57,7 @@ class PullRequestDriver extends DriverBase
             $branch = $this->Driver(ConfigDriver::class)->featurePrefix() . $branch;
         }
 
-        if ($this->Driver(BranchDriver::class)->hasBranch($branch)) {
+        if ($this->Driver(BranchDriver::class)->isBranchExistsAll($branch)) {
             throw new \GitLive\Exception(sprintf(__('%s branch is duplicate.'), $branch));
         }
 
@@ -92,7 +92,7 @@ class PullRequestDriver extends DriverBase
         if (strpos($branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0) {
             $branch = $this->Driver(ConfigDriver::class)->featurePrefix() . $branch;
         }
-        if ($this->Driver(BranchDriver::class)->hasBranch($branch)) {
+        if ($this->Driver(BranchDriver::class)->isBranchExistsAll($branch)) {
             throw new \GitLive\Exception(sprintf(__('%s branch is duplicate.'), $branch));
         }
 

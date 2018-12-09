@@ -20,6 +20,8 @@
 
 namespace GitLive\Support;
 
+use GitLive\GitBase;
+
 /**
  * Class FileSystem
  *
@@ -35,7 +37,7 @@ namespace GitLive\Support;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
-class FileSystem implements FileSystemInterface
+class FileSystem extends GitBase implements FileSystemInterface
 {
     /**
      * @param string $url

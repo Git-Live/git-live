@@ -81,7 +81,7 @@ class FeatureDriver extends DriverBase
             $branch = $feature_prefix . $branch;
         }
 
-        if ($this->Driver(BranchDriver::class)->hasBranch($branch)) {
+        if ($this->Driver(BranchDriver::class)->isBranchExistsAll($branch)) {
             throw new \GitLive\Exception(sprintf(__('%s branch is duplicate.'), $branch));
         }
 

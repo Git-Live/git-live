@@ -21,6 +21,7 @@
 namespace GitLive\Application;
 
 use Closure;
+use GitLive\GitBase;
 use ReflectionClass;
 use ReflectionParameter;
 
@@ -123,7 +124,13 @@ class Container
         if (is_null($constructor)) {
             array_pop($this->buildStack);
 
-            return new $concrete;
+            /**
+             * @var GitBase $res
+             */
+            $res = new $concrete;
+            $res->register();
+
+            return $res;
         }
 
         $dependencies = $constructor->getParameters();
@@ -133,8 +140,13 @@ class Container
         );
 
         array_pop($this->buildStack);
+        /**
+         * @var GitBase $res
+         */
+        $res = $reflector->newInstanceArgs($instances);
+        $res->register();
 
-        return $reflector->newInstanceArgs($instances);
+        return $res;
     }
 
     /**

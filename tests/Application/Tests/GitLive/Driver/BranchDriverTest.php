@@ -206,7 +206,7 @@ class BranchDriverTest extends TestCase
      * @covers \GitLive\Driver\BranchDriver
      * @covers \GitLive\Driver\DriverBase
      */
-    public function testHasBranch()
+    public function testIsBranchExistsAll()
     {
         $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
@@ -268,7 +268,7 @@ class BranchDriverTest extends TestCase
 
         $BranchDriver = App::make(BranchDriver::class);
 
-        $res = $BranchDriver->hasBranch('local_only');
+        $res = $BranchDriver->isBranchExistsAll('local_only');
 
         $this->assertTrue($res);
         dump(data_get($spy, '*.0'));
@@ -276,15 +276,15 @@ class BranchDriverTest extends TestCase
             "git branch -a",
         ], data_get($spy, '*.0'));
 
-        $res = $BranchDriver->hasBranch('upstream_only');
+        $res = $BranchDriver->isBranchExistsAll('upstream_only');
 
         $this->assertTrue($res);
 
-        $res = $BranchDriver->hasBranch('origin_only');
+        $res = $BranchDriver->isBranchExistsAll('origin_only');
 
         $this->assertTrue($res);
 
-        $res = $BranchDriver->hasBranch('feature/nothing');
+        $res = $BranchDriver->isBranchExistsAll('feature/nothing');
 
         $this->assertFalse($res);
     }

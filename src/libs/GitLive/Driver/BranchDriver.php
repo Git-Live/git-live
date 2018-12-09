@@ -71,7 +71,7 @@ class BranchDriver extends DriverBase
      * @param string $branch
      * @return bool
      */
-    public function hasBranch($branch)
+    public function isBranchExistsAll($branch)
     {
         $branches = $this->branchListAll();
         if ($branches->search('remotes/origin/' . $branch)) {
@@ -80,6 +80,21 @@ class BranchDriver extends DriverBase
         if ($branches->search('remotes/upstream/' . $branch)) {
             return true;
         }
+        if ($branches->search($branch)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $branch
+     * @return bool
+     */
+    public function isBranchExistsSimple($branch)
+    {
+        $branches = $this->branchList();
+
         if ($branches->search($branch)) {
             return true;
         }

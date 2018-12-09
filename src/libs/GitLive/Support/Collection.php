@@ -25,13 +25,14 @@ use ArrayIterator;
 use CachingIterator;
 use Countable;
 use Exception;
+use GitLive\GitBase;
 use IteratorAggregate;
 use JsonSerializable;
 use stdClass;
 use Symfony\Component\VarDumper\VarDumper;
 use Traversable;
 
-class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate, Jsonable, JsonSerializable
+class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, IteratorAggregate, Jsonable, JsonSerializable
 {
     /**
      * The items contained in the collection.

@@ -21,6 +21,7 @@
 namespace GitLive\Driver;
 
 use App;
+use GitLive\GitBase;
 use GitLive\GitCmdExecutor;
 use GitLive\GitLive;
 use GitLive\Support\FileSystem;
@@ -42,7 +43,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-08
  */
-abstract class DriverBase
+abstract class DriverBase extends GitBase
 {
     /**
      * @var GitLive
@@ -149,20 +150,13 @@ abstract class DriverBase
     }
 
     /**
-     * @param $branch_name
+     * @param string $branch_name
+     * @throws Exception
      * @return bool
      */
-    public function isBranchExits($branch_name)
+    public function isBranchExists($branch_name)
     {
-        $branch_list_tmp = explode("\n", $this->GitCmdExecutor->branch());
-        $branch_list = [];
-        foreach ($branch_list_tmp as $k => $branch_name_ck) {
-            $branch_name_ck = trim(mb_ereg_replace('^[*]', '', $branch_name_ck));
-            $branch_name_ck = trim(mb_ereg_replace('\s', '', $branch_name_ck));
-            $branch_list[$branch_name_ck] = $branch_name_ck;
-        }
-
-        return isset($branch_list[$branch_name]);
+        return $this->Driver(BranchDriver::class)->isBranchExistsSimple($branch_name);
     }
 
     /**

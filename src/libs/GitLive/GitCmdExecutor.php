@@ -36,7 +36,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
  */
-class GitCmdExecutor
+class GitCmdExecutor extends GitBase
 {
     protected $command;
 

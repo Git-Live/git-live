@@ -21,9 +21,10 @@
 namespace GitLive\Support;
 
 use ArrayAccess;
+use GitLive\GitBase;
 use InvalidArgumentException;
 
-class Arr
+class Arr extends GitBase
 {
     /**
      * Determine whether the given value is array accessible.

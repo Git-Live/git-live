@@ -20,7 +20,9 @@
 
 namespace GitLive\Support;
 
-class InteractiveShell implements InteractiveShellInterface
+use GitLive\GitBase;
+
+class InteractiveShell extends GitBase implements InteractiveShellInterface
 {
     /**
      * @var Envelopment
