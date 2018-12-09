@@ -114,18 +114,18 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)');
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
             ->andReturn('v2.0');
-
+/*
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p build', false, null)
             ->andReturn('');
-
+*/
         $mock->shouldReceive('exec')
-            ->once()
+            ->twice()
             ->with('git fetch --all', false, null)
             ->andReturn('');
         $mock->shouldReceive('exec')
-            ->once()
+            ->twice()
             ->with('git fetch -p', false, null)
             ->andReturn('');
 
@@ -162,6 +162,7 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)');
             ->once()
             ->with('git checkout -b staging', false, null)
             ->andReturn('');
+
         $mock->shouldReceive('exec')
             ->once()
             ->with('git push origin staging', false, null)
@@ -182,10 +183,22 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)');
             ->andReturn('');
 
         $mock->shouldReceive('exec')
-            ->once()
+            //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
+            ->andReturn('.git');
+
+        /*
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git branch -d develop', false, NULL)
             ->andReturn('');
 
+
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git push origin :develop', false, NULL)
+            ->andReturn('');
+*/
         $shell_mock = \Mockery::mock(InteractiveShell::class);
         $shell_mock->shouldReceive('interactiveShell')
             ->once()

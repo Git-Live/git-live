@@ -684,6 +684,15 @@ class FeatureDriverTest extends TestCase
             ->andReturn('.git');
 
         $mock->shouldReceive('exec')
+            ->once()
+            ->with('git config --get gitlive.branch.develop.name', true, null)
+            ->andReturn('staging');
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git config --get gitlive.branch.master.name', true, null)
+            ->andReturn('v2.0');
+
+        $mock->shouldReceive('exec')
             ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
             ->andReturn('');
 
@@ -704,6 +713,13 @@ class FeatureDriverTest extends TestCase
             ->once()
             ->with('git fetch -p', false, null)
             ->andReturn('');
+
+
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git branch -a', true, NULL)
+            ->andReturn('');
+
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {

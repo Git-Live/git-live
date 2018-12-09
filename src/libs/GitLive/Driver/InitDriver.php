@@ -172,8 +172,7 @@ class InitDriver extends DriverBase
         $this->GitCmdExecutor->checkout('remotes/upstream/' . $Config->master());
         $this->GitCmdExecutor->checkout($Config->master(), ['-b']);
         $this->GitCmdExecutor->push('origin', $Config->master());
-        $this->GitCmdExecutor->fetch(['--all']);
-        $this->GitCmdExecutor->fetch(['-p']);
+        $this->Driver(FetchDriver::class)->all();
     }
 
     /**
