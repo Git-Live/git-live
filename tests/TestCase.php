@@ -41,10 +41,10 @@ use PHPUnit\Framework\TestCase as TestCaseBase;
  * @see https://github.com/Git-Live/git-live
  * @since      2018/11/23
  *
- * @internal
  * @coversNothing
+ *
  */
-class TestCase extends TestCaseBase
+abstract class TestCase extends TestCaseBase
 {
     protected function setUp()
     {

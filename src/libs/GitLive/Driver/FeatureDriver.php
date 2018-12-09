@@ -65,6 +65,7 @@ class FeatureDriver extends DriverBase
      * @throws Exception
      * @throws Exception
      * @throws Exception
+     * @throws \GitLive\Exception
      * @return void
      */
     public function featureStart($branch)
@@ -78,6 +79,10 @@ class FeatureDriver extends DriverBase
         $Fetch->upstream();
         if (strlen($feature_prefix) > 0 && strpos($branch, $feature_prefix) !== 0) {
             $branch = $feature_prefix . $branch;
+        }
+
+        if ($this->Driver(BranchDriver::class)->hasBranch($branch)) {
+            throw new \GitLive\Exception(sprintf(__('%s branch is duplicate.'), $branch));
         }
 
         $this->GitCmdExecutor->checkout('upstream/' . $Config->develop());

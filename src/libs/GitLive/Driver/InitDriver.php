@@ -147,12 +147,14 @@ class InitDriver extends DriverBase
      */
     public function restart()
     {
-        if ($this->isRisky()) {
-            throw new Exception(__('It is very risky project.' . "\n" . $this->GitCmdExecutor->remote(['-v'], true)));
-        }
         $is_yes = $this->interactiveShell(__('Rebuild? yes/no'));
+
         if ($is_yes !== 'yes') {
             return;
+        }
+
+        if ($this->isRisky()) {
+            throw new Exception(__('It is very risky project.' . "\n" . $this->GitCmdExecutor->remote(['-v'], true)));
         }
 
         $this->Driver(FetchDriver::class)->clean();

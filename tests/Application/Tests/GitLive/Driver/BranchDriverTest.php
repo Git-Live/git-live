@@ -200,4 +200,92 @@ class BranchDriverTest extends TestCase
             "git branch -a",
         ], data_get($spy, '*.0'));
     }
+
+    /**
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\BranchDriver
+     * @covers \GitLive\Driver\DriverBase
+     */
+    public function testHasBranch()
+    {
+        $spy = [];
+        $mock = \Mockery::mock(SystemCommand::class);
+        $mock->shouldReceive('exec')
+            ->with('git branch -a', true, null)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '  develop
+  feature/v.1.0.0
+  feature/v1
+  feature/v2.0.0
+  hotfix/20181202175520-rc3
+  hotfix/r20181204221944
+  local_only
+  master
+  v1.0
+* v2.0
+  v2.0.0
+  remotes/deploy/0.X.X_newtest
+  remotes/deploy/develop
+  remotes/deploy/feature/20171204_console
+  remotes/deploy/feature/20180115
+  remotes/deploy/feature/20180116
+  remotes/deploy/feature/v1.x
+  remotes/deploy/master
+  remotes/deploy/mod_test
+  remotes/deploy/v1.0
+  remotes/deploy/v2.0
+  remotes/origin/0.X.X_newtest
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/develop
+  remotes/origin/feature/20171204_console
+  remotes/origin/feature/20180115
+  remotes/origin/feature/20180116
+  remotes/origin/feature/v1.x
+  remotes/origin/master
+  remotes/origin/mod_test
+  remotes/origin/origin_only
+  remotes/upstream/0.X.X_newtest
+  remotes/upstream/HEAD -> origin/master
+  remotes/upstream/develop
+  remotes/upstream/feature/20171204_console
+  remotes/upstream/feature/20180115
+  remotes/upstream/feature/20180116
+  remotes/upstream/feature/v1.x
+  remotes/upstream/master
+  remotes/upstream/mod_testupstream
+  remotes/upstream/upstream_only
+  ';
+            });
+
+        Container::bind(
+            SystemCommandInterface::class,
+            function () use ($mock) {
+                return $mock;
+            }
+        );
+
+        $BranchDriver = App::make(BranchDriver::class);
+
+        $res = $BranchDriver->hasBranch('local_only');
+
+        $this->assertTrue($res);
+        dump(data_get($spy, '*.0'));
+        $this->assertSame([
+            "git branch -a",
+        ], data_get($spy, '*.0'));
+
+        $res = $BranchDriver->hasBranch('upstream_only');
+
+        $this->assertTrue($res);
+
+        $res = $BranchDriver->hasBranch('origin_only');
+
+        $this->assertTrue($res);
+
+        $res = $BranchDriver->hasBranch('feature/nothing');
+
+        $this->assertFalse($res);
+    }
 }

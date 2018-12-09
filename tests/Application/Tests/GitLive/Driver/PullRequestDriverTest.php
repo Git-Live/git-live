@@ -186,6 +186,7 @@ class PullRequestDriverTest extends TestCase
             0 => "git symbolic-ref HEAD 2>/dev/null",
         ], data_get($spy, '*.0'));
     }
+
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \ReflectionException
@@ -253,8 +254,9 @@ class PullRequestDriverTest extends TestCase
             6 => "git config --get gitlive.branch.feature.prefix.ignore",
             7 => "git rev-parse --git-dir 2> /dev/null",
             8 => "git config --get gitlive.branch.feature.prefix.name",
-            9 => "git checkout remotes/pr/24/head",
-            10 => "git checkout -b featurePrefix/new_feature_name remotes/pr/24/head",
+            9 => "git branch -a",
+            10 => "git checkout remotes/pr/24/head",
+            11 => "git checkout -b featurePrefix/new_feature_name remotes/pr/24/head",
         ], data_get($spy, '*.0'));
     }
 
@@ -369,10 +371,11 @@ class PullRequestDriverTest extends TestCase
             6 => "git config --get gitlive.branch.feature.prefix.ignore",
             7 => "git rev-parse --git-dir 2> /dev/null",
             8 => "git config --get gitlive.branch.feature.prefix.name",
-            9 => "git checkout upstream/develop",
-            10 => "git checkout -b feature/new_feature_name",
-            11 => "git symbolic-ref HEAD 2>/dev/null",
-            12 => "git pull upstream pull/24/head",
+            9 => "git branch -a",
+            10 => "git checkout upstream/develop",
+            11 => "git checkout -b feature/new_feature_name",
+            12 => "git symbolic-ref HEAD 2>/dev/null",
+            13 => "git pull upstream pull/24/head",
         ], data_get($spy, '*.0'));
     }
 }

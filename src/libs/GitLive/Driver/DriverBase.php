@@ -172,9 +172,9 @@ abstract class DriverBase
     public function isClean($repo = null)
     {
         if ($repo === null) {
-            $err = $this->GitCmdExecutor->status();
+            $err = $this->GitCmdExecutor->status([], true);
         } else {
-            $err = $this->GitCmdExecutor->status([$repo]);
+            $err = $this->GitCmdExecutor->status([$repo], true);
         }
 
         if (strpos(trim($err), 'nothing to commit') === false) {
@@ -193,9 +193,9 @@ abstract class DriverBase
     public function isCleanOrFail($repo = null, $error_msg = null)
     {
         if ($repo === null) {
-            $err = $this->GitCmdExecutor->status();
+            $err = $this->GitCmdExecutor->status([], true);
         } else {
-            $err = $this->GitCmdExecutor->status([$repo]);
+            $err = $this->GitCmdExecutor->status([$repo], true);
         }
 
         if (strpos(trim($err), 'nothing to commit') === false) {

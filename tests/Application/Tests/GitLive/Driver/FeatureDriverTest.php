@@ -416,6 +416,17 @@ class FeatureDriverTest extends TestCase
                 return '';
             });
 
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git branch -a', true, null)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '  remotes/upstream/feature/20171204_console
+  remotes/upstream/feature/20180115
+  remotes/upstream/feature/20180116';
+            });
+
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
@@ -429,18 +440,19 @@ class FeatureDriverTest extends TestCase
 
         //dd(data_get($spy, '*.0'));
         $this->assertSame([
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.feature.prefix.ignore",
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.feature.prefix.name",
-            "git fetch --all",
-            "git fetch -p",
-            "git fetch upstream",
-            "git fetch -p upstream",
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.develop.name",
-            "git checkout upstream/staging",
-            "git checkout -b feature/unit_testing",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.feature.prefix.name',
+            4 => 'git fetch --all',
+            5 => 'git fetch -p',
+            6 => 'git fetch upstream',
+            7 => 'git fetch -p upstream',
+            8 => 'git branch -a',
+            9 => 'git rev-parse --git-dir 2> /dev/null',
+            10 => 'git config --get gitlive.branch.develop.name',
+            11 => 'git checkout upstream/staging',
+            12 => 'git checkout -b feature/unit_testing',
         ], data_get($spy, '*.0'));
     }
 

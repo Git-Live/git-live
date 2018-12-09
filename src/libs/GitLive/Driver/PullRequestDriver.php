@@ -57,11 +57,15 @@ class PullRequestDriver extends DriverBase
             $branch = $this->Driver(ConfigDriver::class)->featurePrefix() . $branch;
         }
 
+        if ($this->Driver(BranchDriver::class)->hasBranch($branch)) {
+            throw new \GitLive\Exception(sprintf(__('%s branch is duplicate.'), $branch));
+        }
+
         $this->GitCmdExecutor->checkout('upstream/develop');
         $this->GitCmdExecutor->checkout($branch, ['-b']);
-        $self_repository = $this->getSelfBranchRef();
+        $self_branch = $this->getSelfBranchRef();
 
-        if (!'refs/heads/' . $branch === $self_repository) {
+        if (!'refs/heads/' . $branch === $self_branch) {
             throw new \GitLive\Exception(__('Feature branch create fail.'));
         }
 
@@ -76,10 +80,7 @@ class PullRequestDriver extends DriverBase
      * @param  string $pull_request_number
      * @param  string $branch
      * @throws Exception
-     * @throws Exception
-     * @throws Exception
-     * @throws Exception
-     * @throws Exception
+     * @throws \GitLive\Exception
      * @return void
      */
     public function featureStartSoft($pull_request_number, $branch)
@@ -90,6 +91,9 @@ class PullRequestDriver extends DriverBase
 
         if (strpos($branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0) {
             $branch = $this->Driver(ConfigDriver::class)->featurePrefix() . $branch;
+        }
+        if ($this->Driver(BranchDriver::class)->hasBranch($branch)) {
+            throw new \GitLive\Exception(sprintf(__('%s branch is duplicate.'), $branch));
         }
 
         $upstream_repository = 'remotes/pr/' . $pull_request_number . '/head';
@@ -102,8 +106,6 @@ class PullRequestDriver extends DriverBase
      *
      * @param string $pull_request_number
      *
-     * @throws Exception
-     * @throws Exception
      * @throws Exception
      * @return void
      * @access      public
@@ -149,8 +151,6 @@ class PullRequestDriver extends DriverBase
      *
      * @access      public
      * @param  string $pull_request_number
-     * @throws Exception
-     * @throws Exception
      * @throws Exception
      * @return void
      */

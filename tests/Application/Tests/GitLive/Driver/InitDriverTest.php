@@ -57,11 +57,26 @@ class InitDriverTest extends TestCase
 
                 return '';
             });
+        $shell_mock = \Mockery::mock(InteractiveShell::class);
+
+        $shell_mock->shouldReceive('interactiveShell')
+            ->once()
+            ->with('Rebuild? yes/no', false)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                return 'yes';
+            });
 
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
                 return $mock;
+            }
+        );
+
+        Container::bind(
+            InteractiveShellInterface::class,
+            function () use ($shell_mock) {
+                return $shell_mock;
             }
         );
 
@@ -304,8 +319,6 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
             ->once()
             ->with('Rebuild? yes/no', false)
             ->andReturnUsing(function (...$val) use (&$spy) {
-                $spy[] = $val;
-
                 return 'yes';
             });
 
@@ -332,7 +345,6 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
             "git remote -v",
             "git rev-parse --git-dir 2> /dev/null",
             "git config --get gitlive.deploy.remote",
-            "Rebuild? yes/no",
             "git reset --hard HEAD",
             "git clean -df",
             "git fetch --all",
@@ -354,6 +366,57 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
             "git push origin v2.0",
             "git fetch --all",
             "git fetch -p",
+        ], data_get($spy, '*.0'));
+    }
+
+    /**
+     * @throws Exception
+     * @throws \ReflectionException
+     * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\InitDriver
+     */
+    public function testRestartNot()
+    {
+        $spy = [];
+        $mock = \Mockery::mock(SystemCommand::class);
+
+        $mock->shouldReceive('exec')
+            ->never()
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
+
+        $shell_mock = \Mockery::mock(InteractiveShell::class);
+
+        $shell_mock->shouldReceive('interactiveShell')
+            ->once()
+            ->with('Rebuild? yes/no', false)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                return 'aaaa';
+            });
+
+        Container::bind(
+            SystemCommandInterface::class,
+            function () use ($mock) {
+                return $mock;
+            }
+        );
+
+        Container::bind(
+            InteractiveShellInterface::class,
+            function () use ($shell_mock) {
+                return $shell_mock;
+            }
+        );
+
+        $InitDriver = App::make(InitDriver::class);
+
+        $InitDriver->restart();
+
+        dump(data_get($spy, '*.0'));
+        $this->assertSame([
         ], data_get($spy, '*.0'));
     }
 

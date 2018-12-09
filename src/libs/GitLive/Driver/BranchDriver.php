@@ -66,6 +66,28 @@ class BranchDriver extends DriverBase
     }
 
     /**
+     * Has a branch.
+     *
+     * @param string $branch
+     * @return bool
+     */
+    public function hasBranch($branch)
+    {
+        $branches = $this->branchListAll();
+        if ($branches->search('remotes/origin/' . $branch)) {
+            return true;
+        }
+        if ($branches->search('remotes/upstream/' . $branch)) {
+            return true;
+        }
+        if ($branches->search($branch)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Get a Collection from the text of the result of "git branch - list".
      *
      * @param $branch
