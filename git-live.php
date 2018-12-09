@@ -21,8 +21,9 @@
 include __DIR__ . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 if (!defined('GIT_LIVE_INSTALL_PATH')) {
-    define('GIT_LIVE_INSTALL_PATH', mb_ereg_replace('^phar://', '', dirname(__DIR__)));
+    define('GIT_LIVE_INSTALL_PATH', mb_ereg_replace('^phar://', '', __DIR__));
 }
+
 
 $GitLive = \App::make(\GitLive\GitLive::class);
 $GitLive->execute();
