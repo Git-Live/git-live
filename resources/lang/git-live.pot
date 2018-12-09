@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-26 22:31+0900\n"
+"POT-Creation-Date: 2018-12-09 12:32+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,394 +17,481 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src//libs/GitLive/Driver/PullRequestDriver.php:59
+#: src//libs/GitLive/Driver/ResetDriver.php:68
+#: src//libs/GitLive/Command/PullCommand.php:110
+msgid "Undefined remote option : "
+msgstr ""
+
+#: src//libs/GitLive/Driver/FeatureDriver.php:155
+#, php-format
+msgid "error: feature name %s not found"
+msgstr ""
+
+#: src//libs/GitLive/Driver/PullRequestDriver.php:65
 msgid "Feature branch create fail."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:51
+#: src//libs/GitLive/Driver/InitDriver.php:58
 msgid "Please enter only your remote-repository."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:52
+#: src//libs/GitLive/Driver/InitDriver.php:59
 msgid "Please enter common remote-repository."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:54
+#: src//libs/GitLive/Driver/InitDriver.php:61
 msgid "Please enter deploying dedicated remote-repository."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:55
-#: src//libs/GitLive/Driver/InitDriver.php:67
+#: src//libs/GitLive/Driver/InitDriver.php:62
+#: src//libs/GitLive/Driver/InitDriver.php:74
 msgid "If you return in the blank, it becomes the default setting."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:66
+#: src//libs/GitLive/Driver/InitDriver.php:73
 msgid "Please enter work directory path."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:92
+#: src//libs/GitLive/Driver/InitDriver.php:99
 msgid "Could not automatically get the local directory."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:157
+#: src//libs/GitLive/Driver/InitDriver.php:151
+msgid "It is very risky project.\n"
+msgstr ""
+
+#: src//libs/GitLive/Driver/InitDriver.php:153
 msgid "Rebuild? yes/no"
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:69
-#: src//libs/GitLive/Driver/DeployBase.php:71
-#: src//libs/GitLive/Driver/DeployBase.php:78
-#: src//libs/GitLive/Driver/DeployBase.php:207
-#: src//libs/GitLive/Driver/DeployBase.php:209
-#: src//libs/GitLive/Driver/DeployBase.php:217
+#: src//libs/GitLive/Driver/DeployBase.php:95
+#: src//libs/GitLive/Driver/DeployBase.php:98
+#: src//libs/GitLive/Driver/DeployBase.php:105
+#: src//libs/GitLive/Driver/DeployBase.php:239
+#: src//libs/GitLive/Driver/DeployBase.php:242
+#: src//libs/GitLive/Driver/DeployBase.php:250
 #, php-format
 msgid "Already %1$s opened."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:241
-#: src//libs/GitLive/Driver/DeployBase.php:291
-#: src//libs/GitLive/Driver/DeployBase.php:337
-#: src//libs/GitLive/Driver/DeployBase.php:383
-#: src//libs/GitLive/Driver/DeployBase.php:433
-#: src//libs/GitLive/Driver/DeployBase.php:486
+#: src//libs/GitLive/Driver/DeployBase.php:274
+#: src//libs/GitLive/Driver/DeployBase.php:324
+#: src//libs/GitLive/Driver/DeployBase.php:370
+#: src//libs/GitLive/Driver/DeployBase.php:389
+#: src//libs/GitLive/Driver/DeployBase.php:409
+#: src//libs/GitLive/Driver/DeployBase.php:430
 #, php-format
 msgid "%1$s is not open."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:318
+#: src//libs/GitLive/Driver/DeployBase.php:351
 #, php-format
 msgid "%1$s is open."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:323
+#: src//libs/GitLive/Driver/DeployBase.php:356
 #, php-format
 msgid "%1$s is close."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:457
-msgid " is not hotfix branch."
-msgstr ""
-
-#: src//libs/GitLive/Driver/DeployBase.php:459
-msgid " is not release branch."
-msgstr ""
-
-#: src//libs/GitLive/Driver/DeployBase.php:461
-msgid " is not deploy mode."
-msgstr ""
-
-#: src//libs/GitLive/Driver/DeployBase.php:519
-#: src//libs/GitLive/Driver/DeployBase.php:525
-#: src//libs/GitLive/Driver/DeployBase.php:534
-#: src//libs/GitLive/Driver/DeployBase.php:548
-#: src//libs/GitLive/Driver/DeployBase.php:560
-#, php-format
-msgid "%1$s close is failed."
-msgstr ""
-
-#: src//libs/GitLive/Driver/DeployBase.php:520
-#: src//libs/GitLive/Driver/DeployBase.php:526
-#: src//libs/GitLive/Driver/DeployBase.php:549
-#: src//libs/GitLive/Driver/DeployBase.php:561
-#, php-format
-msgid "%1$s branch has a commit that is not on the %2$s branch"
-msgstr ""
-
-#: src//libs/GitLive/Driver/DeployBase.php:603
+#: src//libs/GitLive/Driver/DeployBase.php:453
 #, php-format
 msgid "Add a remote repository %s."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DriverBase.php:81
-#: src//libs/GitLive/Driver/DriverBase.php:114
+#: src//libs/GitLive/Driver/DeployBase.php:526
+msgid " is not hotfix branch."
+msgstr ""
+
+#: src//libs/GitLive/Driver/DeployBase.php:529
+msgid " is not release branch."
+msgstr ""
+
+#: src//libs/GitLive/Driver/DeployBase.php:532
+msgid " is not deploy mode."
+msgstr ""
+
+#: src//libs/GitLive/Driver/DeployBase.php:570
+#: src//libs/GitLive/Driver/DeployBase.php:577
+#: src//libs/GitLive/Driver/DeployBase.php:587
+#: src//libs/GitLive/Driver/DeployBase.php:602
+#: src//libs/GitLive/Driver/DeployBase.php:615
+#, php-format
+msgid "%1$s close is failed."
+msgstr ""
+
+#: src//libs/GitLive/Driver/DeployBase.php:571
+#: src//libs/GitLive/Driver/DeployBase.php:578
+#: src//libs/GitLive/Driver/DeployBase.php:603
+#: src//libs/GitLive/Driver/DeployBase.php:616
+#, php-format
+msgid "%1$s branch has a commit that is not on the %2$s branch"
+msgstr ""
+
+#: src//libs/GitLive/Driver/DriverBase.php:91
+#: src//libs/GitLive/Driver/DriverBase.php:125
 msgid "Not a git repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/Hotfix/HotfixState.php:53
-#: src//libs/GitLive/Command/Hotfix/HotfixState.php:56
-msgid "Check the status of hotfix."
+#: src//libs/GitLive/Driver/DriverBase.php:202
+msgid "Please clean or commit."
 msgstr ""
 
-#: src//libs/GitLive/Command/Hotfix/HotfixState.php:57
-#: src//libs/GitLive/Command/Release/ReleaseState.php:42
-msgid "Check only."
+#: src//libs/GitLive/Support/FileSystem.php:70
+msgid "Being redirected to"
 msgstr ""
 
-#: src//libs/GitLive/Command/Hotfix/HotfixState.php:58
-#: src//libs/GitLive/Command/Hotfix/HotfixIs.php:57
-#: src//libs/GitLive/Command/Release/ReleaseIs.php:57
-#: src//libs/GitLive/Command/Release/ReleaseState.php:43
-msgid "With merge commit."
+#: src//libs/GitLive/Support/FileSystem.php:74
+msgid "Connected..."
 msgstr ""
 
-#: src//libs/GitLive/Command/Hotfix/HotfixPull.php:52
-#: src//libs/GitLive/Command/Hotfix/HotfixPull.php:55
-msgid "Pull upstream/hotfix and deploy/hotfix."
+#: src//libs/GitLive/Support/FileSystem.php:78
+msgid "Got the file size"
 msgstr ""
 
-#: src//libs/GitLive/Command/Hotfix/HotfixOpen.php:53
-#: src//libs/GitLive/Command/Hotfix/HotfixOpen.php:56
-#: src//libs/GitLive/Command/Hotfix/HotfixTrack.php:52
-#: src//libs/GitLive/Command/Hotfix/HotfixTrack.php:55
-msgid "Support preparation of a new production hotfix/."
+#: src//libs/GitLive/Support/FileSystem.php:82
+msgid "Found the mime-type"
 msgstr ""
 
-#: src//libs/GitLive/Command/Hotfix/HotfixOpen.php:53
-#: src//libs/GitLive/Command/Hotfix/HotfixOpen.php:56
-#: src//libs/GitLive/Command/Hotfix/HotfixTrack.php:52
-#: src//libs/GitLive/Command/Hotfix/HotfixTrack.php:55
-msgid "Allow for minor bug fixes and preparing meta-data for a hotfix"
+#: src//libs/GitLive/Support/FileSystem.php:86
+#, php-format
+msgid "Made some progress, downloaded %s so far"
 msgstr ""
 
-#: src//libs/GitLive/Command/Hotfix/HotfixPush.php:37
-#: src//libs/GitLive/Command/Hotfix/HotfixPush.php:40
-msgid "Push upstream/hotfix and deploy/hotfix."
-msgstr ""
-
-#: src//libs/GitLive/Command/Hotfix/HotfixSync.php:52
-#: src//libs/GitLive/Command/Hotfix/HotfixSync.php:55
+#: src//libs/GitLive/Command/Hotfix/HotfixSyncCommand.php:54
+#: src//libs/GitLive/Command/Hotfix/HotfixSyncCommand.php:57
 msgid "Run git live hotfix pull and git live hotfix push in succession."
 msgstr ""
 
-#: src//libs/GitLive/Command/Hotfix/HotfixClose.php:56
-#: src//libs/GitLive/Command/Hotfix/HotfixClose.php:59
+#: src//libs/GitLive/Command/Hotfix/HotfixIsCommand.php:55
+#: src//libs/GitLive/Command/Hotfix/HotfixIsCommand.php:58
+msgid "Whether the hotfix is open, or to see what is closed."
+msgstr ""
+
+#: src//libs/GitLive/Command/Hotfix/HotfixIsCommand.php:59
+#: src//libs/GitLive/Command/Hotfix/HotfixStateCommand.php:60
+#: src//libs/GitLive/Command/Release/ReleaseIsCommand.php:59
+#: src//libs/GitLive/Command/Release/ReleaseStateCommand.php:45
+msgid "With merge commit."
+msgstr ""
+
+#: src//libs/GitLive/Command/Hotfix/HotfixOpenCommand.php:55
+#: src//libs/GitLive/Command/Hotfix/HotfixOpenCommand.php:58
+#: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:54
+#: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:57
+msgid "Support preparation of a new production hotfix/."
+msgstr ""
+
+#: src//libs/GitLive/Command/Hotfix/HotfixOpenCommand.php:55
+#: src//libs/GitLive/Command/Hotfix/HotfixOpenCommand.php:58
+#: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:54
+#: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:57
+msgid "Allow for minor bug fixes and preparing meta-data for a hotfix"
+msgstr ""
+
+#: src//libs/GitLive/Command/Hotfix/HotfixCloseCommand.php:61
+#: src//libs/GitLive/Command/Hotfix/HotfixCloseCommand.php:64
 msgid ""
 "Finish up a hotfix.Merges the hotfix branch back into 'master'.Tags the "
 "hotfix with its name.Back-merges the hotfix into 'develop'.Removes the "
 "hotfix branch."
 msgstr ""
 
-#: src//libs/GitLive/Command/Hotfix/HotfixClose.php:61
-#: src//libs/GitLive/Command/Release/ReleaseClose.php:59
+#: src//libs/GitLive/Command/Hotfix/HotfixCloseCommand.php:66
+#: src//libs/GitLive/Command/Release/ReleaseCloseCommand.php:61
 msgid "Do not check develop repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/Hotfix/HotfixDestroy.php:53
-#: src//libs/GitLive/Command/Hotfix/HotfixDestroy.php:56
+#: src//libs/GitLive/Command/Hotfix/HotfixPushCommand.php:39
+#: src//libs/GitLive/Command/Hotfix/HotfixPushCommand.php:42
+msgid "Push upstream/hotfix and deploy/hotfix."
+msgstr ""
+
+#: src//libs/GitLive/Command/Hotfix/HotfixStateCommand.php:55
+#: src//libs/GitLive/Command/Hotfix/HotfixStateCommand.php:58
+msgid "Check the status of hotfix."
+msgstr ""
+
+#: src//libs/GitLive/Command/Hotfix/HotfixStateCommand.php:59
+#: src//libs/GitLive/Command/Release/ReleaseStateCommand.php:44
+msgid "Check only."
+msgstr ""
+
+#: src//libs/GitLive/Command/Hotfix/HotfixPullCommand.php:54
+#: src//libs/GitLive/Command/Hotfix/HotfixPullCommand.php:57
+msgid "Pull upstream/hotfix and deploy/hotfix."
+msgstr ""
+
+#: src//libs/GitLive/Command/Hotfix/HotfixDestroyCommand.php:55
+#: src//libs/GitLive/Command/Hotfix/HotfixDestroyCommand.php:58
 msgid "Discard hotfix. However, keep working in the local repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/Hotfix/HotfixDestroy.php:57
-#: src//libs/GitLive/Command/Release/ReleaseDestroy.php:57
+#: src//libs/GitLive/Command/Hotfix/HotfixDestroyCommand.php:59
+#: src//libs/GitLive/Command/Release/ReleaseDestroyCommand.php:59
 msgid "Destroy with local repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/Hotfix/HotfixIs.php:53
-#: src//libs/GitLive/Command/Hotfix/HotfixIs.php:56
-msgid "Whether the hotfix is open, or to see what is closed."
-msgstr ""
-
-#: src//libs/GitLive/Command/LogCommand.php:50
+#: src//libs/GitLive/Command/LogCommand.php:52
 msgid "log control"
 msgstr ""
 
-#: src//libs/GitLive/Command/LogCommand.php:53
+#: src//libs/GitLive/Command/LogCommand.php:55
 msgid "Log control"
 msgstr ""
 
-#: src//libs/GitLive/Command/Merge/MergeMaster.php:52
-#: src//libs/GitLive/Command/Merge/MergeMaster.php:55
-msgid "Merge upstream master."
-msgstr ""
-
-#: src//libs/GitLive/Command/Merge/StateMaster.php:52
-#: src//libs/GitLive/Command/Merge/StateMaster.php:55
+#: src//libs/GitLive/Command/Merge/StateMasterCommand.php:54
+#: src//libs/GitLive/Command/Merge/StateMasterCommand.php:57
 msgid "Prior confirmation of merge master."
 msgstr ""
 
-#: src//libs/GitLive/Command/Merge/StateDevelop.php:52
-#: src//libs/GitLive/Command/Merge/StateDevelop.php:55
-msgid "Prior confirmation of merge develop."
-msgstr ""
-
-#: src//libs/GitLive/Command/Merge/MergeDevelop.php:52
-#: src//libs/GitLive/Command/Merge/MergeDevelop.php:55
+#: src//libs/GitLive/Command/Merge/MergeDevelopCommand.php:54
+#: src//libs/GitLive/Command/Merge/MergeDevelopCommand.php:57
 msgid "Merge upstream develop."
 msgstr ""
 
-#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestTrack.php:53
-#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestTrack.php:56
+#: src//libs/GitLive/Command/Merge/MergeMasterCommand.php:54
+#: src//libs/GitLive/Command/Merge/MergeMasterCommand.php:57
+msgid "Merge upstream master."
+msgstr ""
+
+#: src//libs/GitLive/Command/Merge/StateDevelopCommand.php:54
+#: src//libs/GitLive/Command/Merge/StateDevelopCommand.php:57
+msgid "Prior confirmation of merge develop."
+msgstr ""
+
+#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestTrack.php:55
+#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestTrack.php:58
 msgid "Checkout pull request locally."
 msgstr ""
 
-#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestPull.php:52
-#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestPull.php:55
+#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestPull.php:54
+#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestPull.php:57
 msgid "Pull pull request locally."
 msgstr ""
 
-#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestFeatureStart.php:54
-#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestFeatureStart.php:57
+#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestFeatureStart.php:56
+#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestFeatureStart.php:59
 msgid "Feature start and merge pull request."
 msgstr ""
 
-#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestMerge.php:53
-#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestMerge.php:56
+#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestMerge.php:55
+#: src//libs/GitLive/Command/GitHubPullRequest/PullRequestMerge.php:58
 msgid "Merge pull request locally."
 msgstr ""
 
-#: src//libs/GitLive/Command/Config/SetCommand.php:54
 #: src//libs/GitLive/Command/Config/SetCommand.php:57
+#: src//libs/GitLive/Command/Config/SetCommand.php:61
 msgid "Write the setting for gitlive in the config file."
 msgstr ""
 
-#: src//libs/GitLive/Command/StartCommand.php:51
-#: src//libs/GitLive/Command/StartCommand.php:54
+#: src//libs/GitLive/Command/Config/SetCommand.php:76
+msgid ""
+"For writing options: write to global ~/.gitconfig file rather than the "
+"repository .git/config, write to $XDG_CONFIG_HOME/git/config file if this "
+"file exists and the ~/.gitconfig file does not."
+msgstr ""
+
+#: src//libs/GitLive/Command/Config/SetCommand.php:77
+msgid ""
+"For reading options: read only from global ~/.gitconfig and from "
+"$XDG_CONFIG_HOME/git/config rather than from all available files."
+msgstr ""
+
+#: src//libs/GitLive/Command/Config/SetCommand.php:78
+#: src//libs/GitLive/Command/Config/SetCommand.php:86
+#: src//libs/GitLive/Command/Config/SetCommand.php:94
+msgid "See also the section called \"FILES\"."
+msgstr ""
+
+#: src//libs/GitLive/Command/Config/SetCommand.php:84
+msgid ""
+"For writing options: write to system-wide $(prefix)/etc/gitconfig rather "
+"than the repository .git/config."
+msgstr ""
+
+#: src//libs/GitLive/Command/Config/SetCommand.php:85
+msgid ""
+"For reading options: read only from system-wide $(prefix)/etc/gitconfig "
+"rather than from all available files."
+msgstr ""
+
+#: src//libs/GitLive/Command/Config/SetCommand.php:92
+msgid ""
+"For writing options: write to the repository .git/config file. This is the "
+"default behavior."
+msgstr ""
+
+#: src//libs/GitLive/Command/Config/SetCommand.php:93
+msgid ""
+"For reading options: read only from the repository .git/config rather than "
+"from all available files."
+msgstr ""
+
+#: src//libs/GitLive/Command/StartCommand.php:53
+#: src//libs/GitLive/Command/StartCommand.php:56
 msgid "Refresh your branch."
 msgstr ""
 
-#: src//libs/GitLive/Command/PushCommand.php:38
+#: src//libs/GitLive/Command/PushCommand.php:40
 msgid "Push from the appropriate remote repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/PushCommand.php:41
-#: src//libs/GitLive/Command/PullCommand.php:38
-#: src//libs/GitLive/Command/PullCommand.php:41
+#: src//libs/GitLive/Command/PushCommand.php:43
+#: src//libs/GitLive/Command/PullCommand.php:44
+#: src//libs/GitLive/Command/PullCommand.php:47
 msgid "Pull from the appropriate remote repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/CommandBase.php:49
+#: src//libs/GitLive/Command/CommandBase.php:63
 msgid ""
 "Alert: An update to the Git Live is available. Run \"git live self-update\" "
 "to get the latest version."
 msgstr ""
 
-#: src//libs/GitLive/Command/FeatureCommand.php:50
-#: src//libs/GitLive/Command/FeatureCommand.php:53
+#: src//libs/GitLive/Command/FeatureCommand.php:52
+#: src//libs/GitLive/Command/FeatureCommand.php:55
 msgid "Feature control"
 msgstr ""
 
-#: src//libs/GitLive/Command/InitCommand.php:52
-#: src//libs/GitLive/Command/InitCommand.php:55
+#: src//libs/GitLive/Command/InitCommand.php:54
+#: src//libs/GitLive/Command/InitCommand.php:57
 msgid "Initialize git live flow."
 msgstr ""
 
-#: src//libs/GitLive/Command/Release/ReleaseSync.php:37
-#: src//libs/GitLive/Command/Release/ReleaseSync.php:40
-msgid "Run git live release pull and git live release push in succession."
-msgstr ""
-
-#: src//libs/GitLive/Command/Release/ReleasePush.php:37
-#: src//libs/GitLive/Command/Release/ReleasePush.php:40
-msgid "Push upstream/release and deploy/release."
-msgstr ""
-
-#: src//libs/GitLive/Command/Release/ReleaseIs.php:53
-#: src//libs/GitLive/Command/Release/ReleaseIs.php:56
+#: src//libs/GitLive/Command/Release/ReleaseIsCommand.php:55
+#: src//libs/GitLive/Command/Release/ReleaseIsCommand.php:58
 msgid "Whether the release is open, or to see what is closed."
 msgstr ""
 
-#: src//libs/GitLive/Command/Release/ReleaseDestroy.php:53
-#: src//libs/GitLive/Command/Release/ReleaseDestroy.php:56
-msgid "Discard release. However, keep working in the local repository."
+#: src//libs/GitLive/Command/Release/ReleasePushCommand.php:39
+#: src//libs/GitLive/Command/Release/ReleasePushCommand.php:42
+msgid "Push upstream/release and deploy/release."
 msgstr ""
 
-#: src//libs/GitLive/Command/Release/ReleaseTrack.php:37
-#: src//libs/GitLive/Command/Release/ReleaseTrack.php:40
-#: src//libs/GitLive/Command/Release/ReleaseOpen.php:55
-#: src//libs/GitLive/Command/Release/ReleaseOpen.php:58
-msgid "Support preparation of a new production release/."
-msgstr ""
-
-#: src//libs/GitLive/Command/Release/ReleaseTrack.php:37
-#: src//libs/GitLive/Command/Release/ReleaseTrack.php:40
-#: src//libs/GitLive/Command/Release/ReleaseOpen.php:55
-#: src//libs/GitLive/Command/Release/ReleaseOpen.php:58
-msgid "Allow for minor bug fixes and preparing meta-data for a release"
-msgstr ""
-
-#: src//libs/GitLive/Command/Release/ReleasePull.php:52
-#: src//libs/GitLive/Command/Release/ReleasePull.php:55
-msgid "Pull upstream/release and deploy/release."
-msgstr ""
-
-#: src//libs/GitLive/Command/Release/ReleaseState.php:38
-#: src//libs/GitLive/Command/Release/ReleaseState.php:41
-msgid "Check the status of release."
-msgstr ""
-
-#: src//libs/GitLive/Command/Release/ReleaseClose.php:54
-#: src//libs/GitLive/Command/Release/ReleaseClose.php:57
+#: src//libs/GitLive/Command/Release/ReleaseCloseCommand.php:56
+#: src//libs/GitLive/Command/Release/ReleaseCloseCommand.php:59
 msgid ""
 "Finish up a release.Merges the release branch back into 'master'.Tags the "
 "release with its name.Back-merges the release into 'develop'.Removes the "
 "release branch."
 msgstr ""
 
-#: src//libs/GitLive/Command/ReStartCommand.php:51
-#: src//libs/GitLive/Command/ReStartCommand.php:54
+#: src//libs/GitLive/Command/Release/ReleaseSyncCommand.php:39
+#: src//libs/GitLive/Command/Release/ReleaseSyncCommand.php:42
+msgid "Run git live release pull and git live release push in succession."
+msgstr ""
+
+#: src//libs/GitLive/Command/Release/ReleaseOpenCommand.php:60
+#: src//libs/GitLive/Command/Release/ReleaseOpenCommand.php:63
+#: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:39
+#: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:42
+msgid "Support preparation of a new production release/."
+msgstr ""
+
+#: src//libs/GitLive/Command/Release/ReleaseOpenCommand.php:60
+#: src//libs/GitLive/Command/Release/ReleaseOpenCommand.php:63
+#: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:39
+#: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:42
+msgid "Allow for minor bug fixes and preparing meta-data for a release"
+msgstr ""
+
+#: src//libs/GitLive/Command/Release/ReleaseDestroyCommand.php:55
+#: src//libs/GitLive/Command/Release/ReleaseDestroyCommand.php:58
+msgid "Discard release. However, keep working in the local repository."
+msgstr ""
+
+#: src//libs/GitLive/Command/Release/ReleasePullCommand.php:54
+#: src//libs/GitLive/Command/Release/ReleasePullCommand.php:57
+msgid "Pull upstream/release and deploy/release."
+msgstr ""
+
+#: src//libs/GitLive/Command/Release/ReleaseStateCommand.php:40
+#: src//libs/GitLive/Command/Release/ReleaseStateCommand.php:43
+msgid "Check the status of release."
+msgstr ""
+
+#: src//libs/GitLive/Command/ReStartCommand.php:53
+#: src//libs/GitLive/Command/ReStartCommand.php:56
 msgid "Re init this project."
 msgstr ""
 
-#: src//libs/GitLive/Command/MergeCommand.php:50
-#: src//libs/GitLive/Command/MergeCommand.php:53
+#: src//libs/GitLive/Command/MergeCommand.php:52
+#: src//libs/GitLive/Command/MergeCommand.php:55
 msgid "Merge control"
 msgstr ""
 
-#: src//libs/GitLive/Command/Log/LogDevelopCommand.php:37
-#: src//libs/GitLive/Command/Log/LogDevelopCommand.php:40
+#: src//libs/GitLive/Command/Log/LogDevelopCommand.php:39
+#: src//libs/GitLive/Command/Log/LogDevelopCommand.php:42
 msgid "Show diff upstream develop branch."
 msgstr ""
 
-#: src//libs/GitLive/Command/Log/LogMasterCommand.php:37
-#: src//libs/GitLive/Command/Log/LogMasterCommand.php:40
+#: src//libs/GitLive/Command/Log/LogMasterCommand.php:39
+#: src//libs/GitLive/Command/Log/LogMasterCommand.php:42
 msgid "Show diff upstream master branch."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/PublishCommand.php:53
 #: src//libs/GitLive/Command/Feature/PublishCommand.php:56
+#: src//libs/GitLive/Command/Feature/PublishCommand.php:59
 msgid "Safe push to upstream repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/FeaturePullCommand.php:53
 #: src//libs/GitLive/Command/Feature/FeaturePullCommand.php:56
+#: src//libs/GitLive/Command/Feature/FeaturePullCommand.php:59
 msgid "Safe pull to origin repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/ListCommand.php:52
 #: src//libs/GitLive/Command/Feature/ListCommand.php:55
+#: src//libs/GitLive/Command/Feature/ListCommand.php:58
 msgid "Display features list."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/TrackCommand.php:53
 #: src//libs/GitLive/Command/Feature/TrackCommand.php:56
+#: src//libs/GitLive/Command/Feature/TrackCommand.php:59
 msgid "Safe checkout feature branch from upstream repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/ChangeCommand.php:38
 #: src//libs/GitLive/Command/Feature/ChangeCommand.php:41
+#: src//libs/GitLive/Command/Feature/ChangeCommand.php:44
 msgid "Cheackout other feature branch."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/FeatureStartCommand.php:53
 #: src//libs/GitLive/Command/Feature/FeatureStartCommand.php:56
+#: src//libs/GitLive/Command/Feature/FeatureStartCommand.php:59
 msgid "Create a new feature branch."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/CloseCommand.php:53
 #: src//libs/GitLive/Command/Feature/CloseCommand.php:56
+#: src//libs/GitLive/Command/Feature/CloseCommand.php:59
 msgid "Remove feature branch, from all repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/FeaturePushCommand.php:53
 #: src//libs/GitLive/Command/Feature/FeaturePushCommand.php:56
+#: src//libs/GitLive/Command/Feature/FeaturePushCommand.php:59
 msgid "Safe push to origin repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/CleanCommand.php:51
-#: src//libs/GitLive/Command/CleanCommand.php:54
+#: src//libs/GitLive/Command/Feature/FeatureStatusCommand.php:56
+#: src//libs/GitLive/Command/Feature/FeatureStatusCommand.php:59
+msgid "Show the feature status."
+msgstr ""
+
+#: src//libs/GitLive/Command/CleanCommand.php:53
+#: src//libs/GitLive/Command/CleanCommand.php:56
 msgid "Will reset the branch before the last commit."
 msgstr ""
 
-#: src//libs/GitLive/Command/SelfUpdateCommand.php:37
-#: src//libs/GitLive/Command/SelfUpdateCommand.php:40
+#: src//libs/GitLive/Command/SelfUpdateCommand.php:39
+#: src//libs/GitLive/Command/SelfUpdateCommand.php:42
 msgid "Update git-live command."
 msgstr ""
 
-#: src//libs/GitLive/Command/HotfixCommand.php:50
-#: src//libs/GitLive/Command/HotfixCommand.php:53
+#: src//libs/GitLive/Command/HotfixCommand.php:52
+#: src//libs/GitLive/Command/HotfixCommand.php:55
 msgid "hotfix control"
 msgstr ""
 
-#: src//libs/GitLive/Command/ReleaseCommand.php:50
-#: src//libs/GitLive/Command/ReleaseCommand.php:53
+#: src//libs/GitLive/Command/ReleaseCommand.php:52
+#: src//libs/GitLive/Command/ReleaseCommand.php:55
 msgid "release control"
 msgstr ""
