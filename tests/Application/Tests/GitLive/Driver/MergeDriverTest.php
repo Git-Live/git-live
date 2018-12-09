@@ -41,53 +41,91 @@ class MergeDriverTest extends TestCase
      */
     public function testStateDevelop()
     {
+        $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturn('.git');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '.git';
+            });
         /*
                 $mock->shouldReceive('exec')
                     ->once()
                     ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
-                    ->andReturn('');
+                    ->andReturnUsing(function(...$val) use (&$spy) {
+                $spy[] = $val;
+                return '';
+            });
 
                 $mock->shouldReceive('exec')
                     ->once()
                     ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
-                    ->andReturn('');
+                    ->andReturnUsing(function(...$val) use (&$spy) {
+                $spy[] = $val;
+                return '';
+            });
         */
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturn('stage');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'stage';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/stage --stdout', 256, 256)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         /*
         $mock->shouldReceive('exec')
             ->once()
             ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/stage --stdout| git apply --check', 256, 256)
-            ->andReturn('');
+            ->andReturnUsing(function(...$val) use (&$spy) {
+                $spy[] = $val;
+                return '';
+            });
 */
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch upstream', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p upstream', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         Container::bind(
             SystemCommandInterface::class,
@@ -100,7 +138,16 @@ class MergeDriverTest extends TestCase
 
         $MergeDriver->stateDevelop();
 
-        $this->assertTrue(true);
+        dump(data_get($spy, '*.0'));
+        $this->assertSame([
+            "git rev-parse --git-dir 2> /dev/null",
+            "git config --get gitlive.branch.develop.name",
+            "git fetch --all",
+            "git fetch -p",
+            "git fetch upstream",
+            "git fetch -p upstream",
+            "git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/stage --stdout",
+        ], data_get($spy, '*.0'));
     }
 
     /**
@@ -111,58 +158,92 @@ class MergeDriverTest extends TestCase
      */
     public function testStateMaster()
     {
+        $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturn('.git');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '.git';
+            });
         /*
                 $mock->shouldReceive('exec')
                     ->once()
                     ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
-                    ->andReturn('');
+                    ->andReturnUsing(function(...$val) use (&$spy) {
+                $spy[] = $val;
+                return '';
+            });
 
                 $mock->shouldReceive('exec')
                     ->once()
                     ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
-                    ->andReturn('');
+                    ->andReturnUsing(function(...$val) use (&$spy) {
+                $spy[] = $val;
+                return '';
+            });
         */
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturn('master');
-        $mock->shouldReceive('exec')
-            ->twice()
-            ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout', 256, 256)
-            ->andReturn('error: test.file: No such file or directory');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
 
+                return 'master';
+            });
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout| git apply --check', 256, 256)
-            ->andReturn('error: test.file: No such file or directory');
+            ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout', 256, 256)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'error: test.file: No such file or directory';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout| git apply --check', false, 256)
-            ->andReturn('error: test.file: No such file or directory');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'error: test.file: No such file or directory';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch upstream', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p upstream', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         Container::bind(
             SystemCommandInterface::class,
@@ -176,6 +257,18 @@ class MergeDriverTest extends TestCase
         $res = $MergeDriver->stateMaster();
 
         $this->assertSame('error: test.file: No such file or directory', $res);
+
+        dump(data_get($spy, '*.0'));
+        $this->assertSame([
+            "git rev-parse --git-dir 2> /dev/null",
+            "git config --get gitlive.branch.master.name",
+            "git fetch --all",
+            "git fetch -p",
+            "git fetch upstream",
+            "git fetch -p upstream",
+            "git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout",
+            "git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout| git apply --check",
+        ], data_get($spy, '*.0'));
     }
 
     /**
@@ -186,49 +279,84 @@ class MergeDriverTest extends TestCase
      */
     public function testMergeDevelop()
     {
+        $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturn('.git');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '.git';
+            });
         /*
                 $mock->shouldReceive('exec')
                     ->once()
                     ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
-                    ->andReturn('');
+                    ->andReturnUsing(function(...$val) use (&$spy) {
+                $spy[] = $val;
+                return '';
+            });
 
                 $mock->shouldReceive('exec')
                     ->once()
                     ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
-                    ->andReturn('');
+                    ->andReturnUsing(function(...$val) use (&$spy) {
+                $spy[] = $val;
+                return '';
+            });
         */
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturn('stage');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'stage';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch upstream', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p upstream', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git merge upstream/stage', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         Container::bind(
             SystemCommandInterface::class,
@@ -241,7 +369,16 @@ class MergeDriverTest extends TestCase
 
         $MergeDriver->mergeDevelop();
 
-        $this->assertTrue(true);
+        dump(data_get($spy, '*.0'));
+        $this->assertSame([
+            "git rev-parse --git-dir 2> /dev/null",
+            "git config --get gitlive.branch.develop.name",
+            "git fetch --all",
+            "git fetch -p",
+            "git fetch upstream",
+            "git fetch -p upstream",
+            "git merge upstream/stage",
+        ], data_get($spy, '*.0'));
     }
 
     /**
@@ -252,49 +389,84 @@ class MergeDriverTest extends TestCase
      */
     public function testMergeMaster()
     {
+        $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturn('.git');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '.git';
+            });
         /*
                 $mock->shouldReceive('exec')
                     ->once()
                     ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
-                    ->andReturn('');
+                    ->andReturnUsing(function(...$val) use (&$spy) {
+                $spy[] = $val;
+                return '';
+            });
 
                 $mock->shouldReceive('exec')
                     ->once()
                     ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
-                    ->andReturn('');
+                    ->andReturnUsing(function(...$val) use (&$spy) {
+                $spy[] = $val;
+                return '';
+            });
         */
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturn('master');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'master';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch upstream', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p upstream', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git merge upstream/master', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         Container::bind(
             SystemCommandInterface::class,
@@ -307,6 +479,15 @@ class MergeDriverTest extends TestCase
 
         $MergeDriver->mergeMaster();
 
-        $this->assertTrue(true);
+        dump(data_get($spy, '*.0'));
+        $this->assertSame([
+            "git rev-parse --git-dir 2> /dev/null",
+            "git config --get gitlive.branch.master.name",
+            "git fetch --all",
+            "git fetch -p",
+            "git fetch upstream",
+            "git fetch -p upstream",
+            "git merge upstream/master",
+        ], data_get($spy, '*.0'));
     }
 }

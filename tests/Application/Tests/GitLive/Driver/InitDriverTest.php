@@ -46,21 +46,17 @@ class InitDriverTest extends TestCase
      */
     public function testRestartError()
     {
+        $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
-        $mock->shouldReceive('exec')
-            //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturn('.git');
-
-        $mock->shouldReceive('exec')
-            //->once()
-            ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturn('build');
 
         $mock->shouldReceive('exec')
             //->once()
             ->with('git remote -v', 256, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         Container::bind(
             SystemCommandInterface::class,
@@ -73,137 +69,243 @@ class InitDriverTest extends TestCase
 
         $InitDriver->restart();
 
-        $this->assertTrue(true);
+        dump(data_get($spy, '*.0'));
+        $this->assertSame([
+        ], data_get($spy, '*.0'));
     }
+
+    /**
+     * @throws Exception
+     * @throws \ReflectionException
+     */
     public function testRestart()
     {
+        $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
-            ->once()
+            ->between(3, 3)
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturn('.git');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '.git';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git reset --hard HEAD', false, null)
-            ->andReturn('build');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git clean -df', false, null)
-            ->andReturn('build');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git remote -v', 256, null)
-            ->andReturn('build	https://github.com/Git-Live/TestRepository.git (fetch)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'build	https://github.com/Git-Live/TestRepository.git (fetch)
 build	https://github.com/Git-Live/TestRepository.git (push)
 origin	https://github.com/suzunone/TestRepository.git (fetch)
 origin	https://github.com/suzunone/TestRepository.git (push)
 upstream	https://github.com/Git-Live/TestRepository.git (fetch)
-upstream	https://github.com/Git-Live/TestRepository.git (push)');
+upstream	https://github.com/Git-Live/TestRepository.git (push)';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturn('build');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'build';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturn('staging');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'staging';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturn('v2.0');
-/*
-        $mock->shouldReceive('exec')
-            ->once()
-            ->with('git fetch -p build', false, null)
-            ->andReturn('');
-*/
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'v2.0';
+            });
+        /*
+                $mock->shouldReceive('exec')
+                    ->once()
+                    ->with('git fetch -p build', false, null)
+                   ->andReturnUsing(function(...$val) use (&$spy) {
+                        $spy[] = $val;
+                        return '';
+                    });
+        */
         $mock->shouldReceive('exec')
             ->twice()
             ->with('git fetch --all', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->twice()
             ->with('git fetch -p', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git checkout -b temp', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git branch -d staging', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git branch -d v2.0', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git push origin :staging', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git push origin :v2.0', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git checkout remotes/upstream/staging', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git checkout -b staging', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git push origin staging', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git checkout remotes/upstream/v2.0', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git checkout -b v2.0', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git push origin v2.0', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturn('.git');
+            ->with('git push origin v2.0', false, null)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '.git';
+            });
 
         /*
         $mock->shouldReceive('exec')
             ->once()
             ->with('git branch -d develop', false, NULL)
-            ->andReturn('');
+           ->andReturnUsing(function(...$val) use (&$spy) {
+                $spy[] = $val;
+                return '';
+            });
 
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git push origin :develop', false, NULL)
-            ->andReturn('');
+           ->andReturnUsing(function(...$val) use (&$spy) {
+                $spy[] = $val;
+                return '';
+            });
 */
         $shell_mock = \Mockery::mock(InteractiveShell::class);
         $shell_mock->shouldReceive('interactiveShell')
             ->once()
             ->with('Rebuild? yes/no', false)
-            ->andReturn('yes');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'yes';
+            });
 
         Container::bind(
             SystemCommandInterface::class,
@@ -223,7 +325,34 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)');
 
         $InitDriver->restart();
 
-        $this->assertTrue(true);
+        dump(data_get($spy, '*.0'));
+        $this->assertSame([
+            "git remote -v",
+            "git rev-parse --git-dir 2> /dev/null",
+            "git config --get gitlive.deploy.remote",
+            "Rebuild? yes/no",
+            "git reset --hard HEAD",
+            "git clean -df",
+            "git fetch --all",
+            "git fetch -p",
+            "git checkout -b temp",
+            "git rev-parse --git-dir 2> /dev/null",
+            "git config --get gitlive.branch.develop.name",
+            "git branch -d staging",
+            "git rev-parse --git-dir 2> /dev/null",
+            "git config --get gitlive.branch.master.name",
+            "git branch -d v2.0",
+            "git push origin :staging",
+            "git push origin :v2.0",
+            "git checkout remotes/upstream/staging",
+            "git checkout -b staging",
+            "git push origin staging",
+            "git checkout remotes/upstream/v2.0",
+            "git checkout -b v2.0",
+            "git push origin v2.0",
+            "git fetch --all",
+            "git fetch -p",
+        ], data_get($spy, '*.0'));
     }
 
     public function testStart()

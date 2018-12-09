@@ -65,12 +65,6 @@ class MergeDriver extends DriverBase
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
 
-        $res = $this->patchApplyCheck($branch);
-
-        if ($res) {
-            return '';
-        }
-
         return $this->patchApplyDiff($branch);
     }
 

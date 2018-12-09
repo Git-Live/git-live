@@ -41,34 +41,59 @@ class LogDriverTest extends TestCase
      */
     public function testLogDevelop()
     {
+        $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturn('.git');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '.git';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturn('stage');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'stage';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
-            ->andReturn('refs/heads/feature/example_1');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'refs/heads/feature/example_1';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git log --pretty=fuller --name-status --left-right upstream/stage..refs/heads/feature/example_1', false, 256)
-            ->andReturn('diff text');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'diff text';
+            });
 
         Container::bind(
             SystemCommandInterface::class,
@@ -82,6 +107,16 @@ class LogDriverTest extends TestCase
         $res = $logDriver->logDevelop();
 
         $this->assertSame('diff text', $res);
+
+        dump(data_get($spy, '*.0'));
+        $this->assertSame([
+            "git rev-parse --git-dir 2> /dev/null",
+            "git config --get gitlive.branch.develop.name",
+            "git fetch --all",
+            "git fetch -p",
+            "git symbolic-ref HEAD 2>/dev/null",
+            "git log --pretty=fuller --name-status --left-right upstream/stage..refs/heads/feature/example_1",
+        ], data_get($spy, '*.0'));
     }
 
     /**
@@ -92,34 +127,59 @@ class LogDriverTest extends TestCase
      */
     public function testLogMaster()
     {
+        $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturn('.git');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '.git';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p', false, null)
-            ->andReturn('');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
-            ->andReturn('refs/heads/feature/example_1');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'refs/heads/feature/example_1';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git log --pretty=fuller --name-status --left-right upstream/master..refs/heads/feature/example_1', false, 256)
-            ->andReturn('diff text');
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'diff text';
+            });
 
         Container::bind(
             SystemCommandInterface::class,
@@ -133,5 +193,15 @@ class LogDriverTest extends TestCase
         $res = $logDriver->logMaster();
 
         $this->assertSame('diff text', $res);
+
+        dump(data_get($spy, '*.0'));
+        $this->assertSame([
+            "git rev-parse --git-dir 2> /dev/null",
+            "git config --get gitlive.branch.master.name",
+            "git fetch --all",
+            "git fetch -p",
+            "git symbolic-ref HEAD 2>/dev/null",
+            "git log --pretty=fuller --name-status --left-right upstream/master..refs/heads/feature/example_1",
+        ], data_get($spy, '*.0'));
     }
 }

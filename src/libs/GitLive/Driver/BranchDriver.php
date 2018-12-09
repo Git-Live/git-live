@@ -73,10 +73,11 @@ class BranchDriver extends DriverBase
      */
     private function makeArray($branch)
     {
-        $branch = explode("\n", trim($branch));
+        $branch = explode("\n", rtrim($branch));
 
         array_walk($branch, function (&$item) {
-            $item = trim(mb_substr($item, 1));
+            $pos = strpos($item, ' -> ') ?: null;
+            $item = trim(mb_substr($item, 1, $pos));
         });
 
         return collect($branch);

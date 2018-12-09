@@ -57,6 +57,7 @@ class ConfigDriver extends DriverBase
 
     /**
      * Clear the local cache for testing
+     * @codeCoverageIgnore
      */
     public static function reset()
     {
