@@ -129,16 +129,28 @@ class ReleaseDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p upstream', false, null)
-            ->andReturn();
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch unit_deploy', false, null)
-            ->andReturn();
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p unit_deploy', false, null)
-            ->andReturn();
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git remote', true, null)
@@ -151,7 +163,11 @@ class ReleaseDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git branch -a', 256, 256)
-            ->andReturn();
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         Container::bind(
             SystemCommandInterface::class,
@@ -168,17 +184,21 @@ class ReleaseDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.deploy.remote",
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.develop.name",
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.master.name",
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.release.prefix.name",
-            "git fetch --all",
-            "git fetch -p",
-            "git remote",
+            0 => "git rev-parse --git-dir 2> /dev/null",
+            1 => "git config --get gitlive.deploy.remote",
+            2 => "git rev-parse --git-dir 2> /dev/null",
+            3 => "git config --get gitlive.branch.develop.name",
+            4 => "git rev-parse --git-dir 2> /dev/null",
+            5 => "git config --get gitlive.branch.master.name",
+            6 => "git rev-parse --git-dir 2> /dev/null",
+            7 => "git config --get gitlive.branch.release.prefix.name",
+            8 => "git fetch --all",
+            9 => "git fetch -p",
+            10 => "git fetch -p upstream",
+            11 => "git fetch unit_deploy",
+            12 => "git fetch -p unit_deploy",
+            13 => "git remote",
+            14 => "git branch -a",
         ], data_get($spy, '*.0'));
     }
 
@@ -275,20 +295,36 @@ class ReleaseDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch upstream', false, null)
-            ->andReturn();
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p upstream', false, null)
-            ->andReturn();
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
 
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch unit_deploy', false, null)
-            ->andReturn();
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p unit_deploy', false, null)
-            ->andReturn();
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git remote', true, null)
@@ -322,18 +358,22 @@ class ReleaseDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.deploy.remote",
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.develop.name",
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.master.name",
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.release.prefix.name",
-            "git fetch --all",
-            "git fetch -p",
-            "git remote",
-            "git branch -a",
+            0 => "git rev-parse --git-dir 2> /dev/null",
+            1 => "git config --get gitlive.deploy.remote",
+            2 => "git rev-parse --git-dir 2> /dev/null",
+            3 => "git config --get gitlive.branch.develop.name",
+            4 => "git rev-parse --git-dir 2> /dev/null",
+            5 => "git config --get gitlive.branch.master.name",
+            6 => "git rev-parse --git-dir 2> /dev/null",
+            7 => "git config --get gitlive.branch.release.prefix.name",
+            8 => "git fetch --all",
+            9 => "git fetch -p",
+            10 => "git fetch upstream",
+            11 => "git fetch -p upstream",
+            12 => "git fetch unit_deploy",
+            13 => "git fetch -p unit_deploy",
+            14 => "git remote",
+            15 => "git branch -a",
         ], data_get($spy, '*.0'));
     }
 }
