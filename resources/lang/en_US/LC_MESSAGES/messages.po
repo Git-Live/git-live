@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-09 14:08+0900\n"
+"POT-Creation-Date: 2018-12-09 20:51+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,12 +22,19 @@ msgstr ""
 msgid "Undefined remote option"
 msgstr ""
 
-#: src//libs/GitLive/Driver/FeatureDriver.php:155
+#: src//libs/GitLive/Driver/FeatureDriver.php:85
+#: src//libs/GitLive/Driver/PullRequestDriver.php:61
+#: src//libs/GitLive/Driver/PullRequestDriver.php:96
+#, php-format
+msgid "%s branch is duplicate."
+msgstr ""
+
+#: src//libs/GitLive/Driver/FeatureDriver.php:160
 #, php-format
 msgid "error: feature name %s not found"
 msgstr ""
 
-#: src//libs/GitLive/Driver/PullRequestDriver.php:65
+#: src//libs/GitLive/Driver/PullRequestDriver.php:69
 msgid "Feature branch create fail."
 msgstr ""
 
@@ -56,12 +63,12 @@ msgstr ""
 msgid "Could not automatically get the local directory."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:151
-msgid "It is very risky project.\n"
+#: src//libs/GitLive/Driver/InitDriver.php:150
+msgid "Rebuild? yes/no"
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:153
-msgid "Rebuild? yes/no"
+#: src//libs/GitLive/Driver/InitDriver.php:157
+msgid "It is very risky project.\n"
 msgstr ""
 
 #: src//libs/GitLive/Driver/DeployBase.php:95
@@ -219,7 +226,7 @@ msgstr ""
 
 #: src//libs/GitLive/Command/Hotfix/HotfixPullCommand.php:54
 #: src//libs/GitLive/Command/Hotfix/HotfixPullCommand.php:57
-msgid "Pull upstream/hotfix and deploy/hotfix."
+msgid "Pull upstream/hotfix and deploy'shotfix."
 msgstr ""
 
 #: src//libs/GitLive/Command/Hotfix/HotfixDestroyCommand.php:55
@@ -280,49 +287,49 @@ msgstr ""
 msgid "Merge pull request locally."
 msgstr ""
 
-#: src//libs/GitLive/Command/Config/SetCommand.php:57
-#: src//libs/GitLive/Command/Config/SetCommand.php:61
+#: src//libs/GitLive/Command/Config/SetCommand.php:56
+#: src//libs/GitLive/Command/Config/SetCommand.php:60
 msgid "Write the setting for gitlive in the config file."
 msgstr ""
 
-#: src//libs/GitLive/Command/Config/SetCommand.php:76
+#: src//libs/GitLive/Command/Config/SetCommand.php:75
 msgid ""
 "For writing options: write to global ~/.gitconfig file rather than the "
 "repository .git/config, write to $XDG_CONFIG_HOME/git/config file if this "
 "file exists and the ~/.gitconfig file does not."
 msgstr ""
 
-#: src//libs/GitLive/Command/Config/SetCommand.php:77
+#: src//libs/GitLive/Command/Config/SetCommand.php:76
 msgid ""
 "For reading options: read only from global ~/.gitconfig and from "
 "$XDG_CONFIG_HOME/git/config rather than from all available files."
 msgstr ""
 
-#: src//libs/GitLive/Command/Config/SetCommand.php:78
-#: src//libs/GitLive/Command/Config/SetCommand.php:86
-#: src//libs/GitLive/Command/Config/SetCommand.php:94
+#: src//libs/GitLive/Command/Config/SetCommand.php:77
+#: src//libs/GitLive/Command/Config/SetCommand.php:85
+#: src//libs/GitLive/Command/Config/SetCommand.php:93
 msgid "See also the section called \"FILES\"."
 msgstr ""
 
-#: src//libs/GitLive/Command/Config/SetCommand.php:84
+#: src//libs/GitLive/Command/Config/SetCommand.php:83
 msgid ""
 "For writing options: write to system-wide $(prefix)/etc/gitconfig rather "
 "than the repository .git/config."
 msgstr ""
 
-#: src//libs/GitLive/Command/Config/SetCommand.php:85
+#: src//libs/GitLive/Command/Config/SetCommand.php:84
 msgid ""
 "For reading options: read only from system-wide $(prefix)/etc/gitconfig "
 "rather than from all available files."
 msgstr ""
 
-#: src//libs/GitLive/Command/Config/SetCommand.php:92
+#: src//libs/GitLive/Command/Config/SetCommand.php:91
 msgid ""
 "For writing options: write to the repository .git/config file. This is the "
 "default behavior."
 msgstr ""
 
-#: src//libs/GitLive/Command/Config/SetCommand.php:93
+#: src//libs/GitLive/Command/Config/SetCommand.php:92
 msgid ""
 "For reading options: read only from the repository .git/config rather than "
 "from all available files."
@@ -431,23 +438,23 @@ msgstr ""
 msgid "Show diff upstream master branch."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/PublishCommand.php:56
-#: src//libs/GitLive/Command/Feature/PublishCommand.php:59
+#: src//libs/GitLive/Command/Feature/PublishCommand.php:55
+#: src//libs/GitLive/Command/Feature/PublishCommand.php:58
 msgid "Safe push to upstream repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/FeaturePullCommand.php:56
-#: src//libs/GitLive/Command/Feature/FeaturePullCommand.php:59
+#: src//libs/GitLive/Command/Feature/FeaturePullCommand.php:55
+#: src//libs/GitLive/Command/Feature/FeaturePullCommand.php:58
 msgid "Safe pull to origin repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/ListCommand.php:55
-#: src//libs/GitLive/Command/Feature/ListCommand.php:58
+#: src//libs/GitLive/Command/Feature/ListCommand.php:54
+#: src//libs/GitLive/Command/Feature/ListCommand.php:57
 msgid "Display features list."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/TrackCommand.php:56
-#: src//libs/GitLive/Command/Feature/TrackCommand.php:59
+#: src//libs/GitLive/Command/Feature/TrackCommand.php:55
+#: src//libs/GitLive/Command/Feature/TrackCommand.php:58
 msgid "Safe checkout feature branch from upstream repository."
 msgstr ""
 
@@ -456,23 +463,23 @@ msgstr ""
 msgid "Cheackout other feature branch."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/FeatureStartCommand.php:56
-#: src//libs/GitLive/Command/Feature/FeatureStartCommand.php:59
+#: src//libs/GitLive/Command/Feature/FeatureStartCommand.php:55
+#: src//libs/GitLive/Command/Feature/FeatureStartCommand.php:58
 msgid "Create a new feature branch."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/CloseCommand.php:56
-#: src//libs/GitLive/Command/Feature/CloseCommand.php:59
+#: src//libs/GitLive/Command/Feature/CloseCommand.php:55
+#: src//libs/GitLive/Command/Feature/CloseCommand.php:58
 msgid "Remove feature branch, from all repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/FeaturePushCommand.php:56
-#: src//libs/GitLive/Command/Feature/FeaturePushCommand.php:59
+#: src//libs/GitLive/Command/Feature/FeaturePushCommand.php:55
+#: src//libs/GitLive/Command/Feature/FeaturePushCommand.php:58
 msgid "Safe push to origin repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/FeatureStatusCommand.php:56
-#: src//libs/GitLive/Command/Feature/FeatureStatusCommand.php:59
+#: src//libs/GitLive/Command/Feature/FeatureStatusCommand.php:55
+#: src//libs/GitLive/Command/Feature/FeatureStatusCommand.php:58
 msgid "Show the feature status."
 msgstr ""
 
