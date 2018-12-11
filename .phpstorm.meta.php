@@ -19,6 +19,7 @@
 namespace PHPSTORM_META
 {
 
+    use GitLive\Command\CommandBase;
     use GitLive\Driver\BranchDriver;
     use GitLive\Driver\ConfigDriver;
     use GitLive\Driver\DriverBase;
@@ -55,6 +56,25 @@ namespace PHPSTORM_META
 
 
     override(DriverBase::Driver(0), map([
+        '' => '@',
+        // custom mappings
+        'Branch' => BranchDriver::class,
+        'Config' => ConfigDriver::class,
+        'Feature' => FeatureDriver::class,
+        'Fetch' => FeatureDriver::class,
+        'Hotfix' => HotfixDriver::class,
+        'Init' => InitDriver::class,
+        'Log' => LogDriver::class,
+        'Merge' => MergeDriver::class,
+        'PullRequest' => PullRequestDriver::class,
+        'Release' => ReleaseDriver::class,
+        'Reset' => ResetDriver::class,
+        'Update' => UpdateDriver::class,,
+        'LastestVersion' => LastestVersionDriver::class,
+    ]));
+
+
+    override(CommandBase::Driver(0), map([
         '' => '@',
         // custom mappings
         'Branch' => BranchDriver::class,

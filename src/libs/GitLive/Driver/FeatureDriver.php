@@ -334,9 +334,9 @@ class FeatureDriver extends DriverBase
     protected function changeIf($branch_list, $remote_branch, $feature_branch, $option = [])
     {
         if ($branch_list->search($remote_branch)) {
-            $this->GitCmdExecutor->checkout($remote_branch, [], false, OutputInterface::VERBOSITY_VERY_VERBOSE);
+            $this->GitCmdExecutor->checkout($remote_branch, $option, false, OutputInterface::VERBOSITY_VERY_VERBOSE);
 
-            $option = ['-b'];
+            $option[] = '-b';
 
             return $this->GitCmdExecutor->checkout($feature_branch, $option, false, OutputInterface::VERBOSITY_VERY_VERBOSE);
         }

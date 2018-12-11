@@ -1521,11 +1521,11 @@ class CollectionTest extends TestCase
      */
     public function testMap()
     {
-        $data = new Collection(['first' => 'suzunone', 'last' => 'otwell']);
+        $data = new Collection(['first' => 'suzunone', 'last' => 'eleven']);
         $data = $data->map(function ($item, $key) {
             return $key . '-' . strrev($item);
         });
-        $this->assertEquals(['first' => 'first-rolyat', 'last' => 'last-llewto'], $data->all());
+        $this->assertEquals(['first' => 'first-enonuzus', 'last' => 'last-nevele'], $data->all());
     }
     /**
      * @covers \GitLive\Support\Collection
@@ -1754,11 +1754,11 @@ class CollectionTest extends TestCase
      */
     public function testTransform()
     {
-        $data = new Collection(['first' => 'suzunone', 'last' => 'otwell']);
+        $data = new Collection(['first' => 'suzunone', 'last' => 'eleven']);
         $data->transform(function ($item, $key) {
             return $key . '-' . strrev($item);
         });
-        $this->assertEquals(['first' => 'first-rolyat', 'last' => 'last-llewto'], $data->all());
+        $this->assertEquals(['first' => 'first-enonuzus', 'last' => 'last-nevele'], $data->all());
     }
     /**
      * @covers \GitLive\Support\Collection
@@ -2708,16 +2708,16 @@ class CollectionTest extends TestCase
     {
         $collection = collect([
             new TestSupportCollectionHigherOrderItem,
-            new TestSupportCollectionHigherOrderItem('suzunone'),
+            new TestSupportCollectionHigherOrderItem('SUZUNONE'),
             new TestSupportCollectionHigherOrderItem('foo'),
         ]);
         $this->assertEquals([
             'suzunone' => [$collection[0]],
-            'suzunone' => [$collection[1]],
+            'SUZUNONE' => [$collection[1]],
             'foo' => [$collection[2]],
         ], $collection->groupBy->name->toArray());
         $this->assertEquals([
-            'suzunone' => [$collection[0], $collection[1]],
+            'SUZUNONE' => [$collection[0], $collection[1]],
             'FOO' => [$collection[2]],
         ], $collection->groupBy->uppercase()->toArray());
     }
@@ -2731,7 +2731,7 @@ class CollectionTest extends TestCase
         $collection = collect([$person1, $person2]);
         $this->assertEquals(['suzunone', 'Yaz'], $collection->map->name->toArray());
         $collection = collect([new TestSupportCollectionHigherOrderItem, new TestSupportCollectionHigherOrderItem]);
-        $this->assertEquals(['suzunone', 'suzunone'], $collection->each->uppercase()->map->name->toArray());
+        $this->assertEquals(['SUZUNONE', 'SUZUNONE'], $collection->each->uppercase()->map->name->toArray());
     }
     /**
      * @covers \GitLive\Support\Collection
@@ -2743,7 +2743,7 @@ class CollectionTest extends TestCase
         $collection = collect([$person1, $person2]);
         $this->assertEquals(['suzunone', 'Yaz'], $collection->map->name->toArray());
         $collection = collect([new TestSupportCollectionHigherOrderItem, new TestSupportCollectionHigherOrderItem]);
-        $this->assertEquals(['suzunone', 'suzunone'], $collection->each->uppercase()->map->name->toArray());
+        $this->assertEquals(['SUZUNONE', 'SUZUNONE'], $collection->each->uppercase()->map->name->toArray());
     }
     /**
      * @covers \GitLive\Support\Collection

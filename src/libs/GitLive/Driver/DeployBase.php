@@ -411,9 +411,9 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param bool $remove_local OPTIONAL:false
-     * @throws Exception
      * @return void
-     *
+     * @throws Exception
+     * @throws \ReflectionException
      */
     public function buildDestroy($remove_local = false)
     {
@@ -525,8 +525,9 @@ abstract class DeployBase extends DriverBase
      * @param  string $repo
      * @param  string $mode
      * @param bool    $remove_local OPTIONAL:false
-     * @throws Exception
      * @return void
+     * @throws Exception
+     * @throws \ReflectionException
      */
     protected function deployDestroy($repo, $mode, $remove_local = false)
     {

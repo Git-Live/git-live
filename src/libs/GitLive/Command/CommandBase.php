@@ -21,10 +21,7 @@
 namespace GitLive\Command;
 
 use App;
-use GitLive\Driver\ConfigDriver;
 use GitLive\Driver\LastestVersionDriver;
-use GitLive\GitLive;
-use JapaneseDate\DateTime;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -60,26 +57,14 @@ abstract class CommandBase extends Command
     public function updateChecker(OutputInterface $output)
     {
         try {
-            if ($this->Driver(LastestVersionDriver::class)->ckNewVersion()) {
+            if (App::make(LastestVersionDriver::class)->ckNewVersion()) {
                 $output->writeln('Alert:' . __('An update to the Git Live is available. Run "git live self-update" to get the latest version.'));
             }
         } catch (\Exception $exception) {
         }
     }
 
-    /**
-     *
-     *
-     * @access      public
-     * @param  string $driver_name
-     * @throws \ReflectionException
-     * @return \GitLive\Driver\DriverBase
-     * @codeCoverageIgnore
-     */
-    public function Driver($driver_name)
-    {
-        return App::make('\GitLive\Driver\\' . $driver_name . 'Driver');
-    }
+
 
     protected function configure()
     {

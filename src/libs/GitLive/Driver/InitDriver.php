@@ -21,7 +21,6 @@
 namespace GitLive\Driver;
 
 use App;
-use GitLive\Support\FileSystem;
 use GitLive\Support\InteractiveShellInterface;
 use Symfony\Component\Console\Input\InputInterface;
 
