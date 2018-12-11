@@ -154,7 +154,7 @@ class InitDriver extends DriverBase
         }
 
         if ($this->isRisky()) {
-            throw new Exception(__('It is very risky project.' . "\n" . $this->GitCmdExecutor->remote(['-v'], true)));
+            throw new Exception(__('It is very risky project.') . "\n" . $this->GitCmdExecutor->remote(['-v'], true));
         }
 
         $this->Driver(FetchDriver::class)->clean();

@@ -8,18 +8,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-09 20:51+0900\n"
+"POT-Creation-Date: 2018-12-11 21:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src//libs/GitLive/Driver/ResetDriver.php:68
 #: src//libs/GitLive/Command/PullCommand.php:110
-msgid "Undefined remote option"
+msgid "Undefined remote option."
 msgstr ""
 
 #: src//libs/GitLive/Driver/FeatureDriver.php:85
@@ -31,7 +31,7 @@ msgstr ""
 
 #: src//libs/GitLive/Driver/FeatureDriver.php:160
 #, php-format
-msgid "error: feature name %s not found"
+msgid "Feature name %s not found"
 msgstr ""
 
 #: src//libs/GitLive/Driver/PullRequestDriver.php:69
@@ -68,99 +68,102 @@ msgid "Rebuild? yes/no"
 msgstr ""
 
 #: src//libs/GitLive/Driver/InitDriver.php:157
-msgid "It is very risky project.\n"
+msgid "It is very risky project."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:95
-#: src//libs/GitLive/Driver/DeployBase.php:98
-#: src//libs/GitLive/Driver/DeployBase.php:105
-#: src//libs/GitLive/Driver/DeployBase.php:239
-#: src//libs/GitLive/Driver/DeployBase.php:242
-#: src//libs/GitLive/Driver/DeployBase.php:250
+#: src//libs/GitLive/Driver/DeployBase.php:108
+#: src//libs/GitLive/Driver/DeployBase.php:111
+#: src//libs/GitLive/Driver/DeployBase.php:118
+#: src//libs/GitLive/Driver/DeployBase.php:251
+#: src//libs/GitLive/Driver/DeployBase.php:254
+#: src//libs/GitLive/Driver/DeployBase.php:261
 #, php-format
-msgid "Already %1$s opened."
+msgid "Already %s opened."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:274
-#: src//libs/GitLive/Driver/DeployBase.php:324
-#: src//libs/GitLive/Driver/DeployBase.php:370
-#: src//libs/GitLive/Driver/DeployBase.php:389
-#: src//libs/GitLive/Driver/DeployBase.php:409
-#: src//libs/GitLive/Driver/DeployBase.php:430
+#: src//libs/GitLive/Driver/DeployBase.php:285
+#: src//libs/GitLive/Driver/DeployBase.php:336
+#: src//libs/GitLive/Driver/DeployBase.php:382
+#: src//libs/GitLive/Driver/DeployBase.php:401
+#: src//libs/GitLive/Driver/DeployBase.php:421
+#: src//libs/GitLive/Driver/DeployBase.php:442
 #, php-format
-msgid "%1$s is not open."
+msgid "%s is not open."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:351
+#: src//libs/GitLive/Driver/DeployBase.php:363
 #, php-format
-msgid "%1$s is open."
+msgid "%s is open."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:356
+#: src//libs/GitLive/Driver/DeployBase.php:368
 #, php-format
-msgid "%1$s is close."
+msgid "%s is close."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:453
+#: src//libs/GitLive/Driver/DeployBase.php:465
 #, php-format
 msgid "Add a remote repository %s."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:526
-msgid " is not hotfix branch."
-msgstr ""
-
-#: src//libs/GitLive/Driver/DeployBase.php:529
-msgid " is not release branch."
-msgstr ""
-
-#: src//libs/GitLive/Driver/DeployBase.php:532
-msgid " is not deploy mode."
-msgstr ""
-
-#: src//libs/GitLive/Driver/DeployBase.php:570
-#: src//libs/GitLive/Driver/DeployBase.php:577
-#: src//libs/GitLive/Driver/DeployBase.php:587
-#: src//libs/GitLive/Driver/DeployBase.php:602
-#: src//libs/GitLive/Driver/DeployBase.php:615
+#: src//libs/GitLive/Driver/DeployBase.php:540
 #, php-format
-msgid "%1$s close is failed."
+msgid "%s is not hotfix branch."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:571
-#: src//libs/GitLive/Driver/DeployBase.php:578
-#: src//libs/GitLive/Driver/DeployBase.php:603
+#: src//libs/GitLive/Driver/DeployBase.php:543
+#, php-format
+msgid "%s is not release branch."
+msgstr ""
+
+#: src//libs/GitLive/Driver/DeployBase.php:546
+#, php-format
+msgid "%s is not deploy mode."
+msgstr ""
+
+#: src//libs/GitLive/Driver/DeployBase.php:584
+#: src//libs/GitLive/Driver/DeployBase.php:591
+#: src//libs/GitLive/Driver/DeployBase.php:601
 #: src//libs/GitLive/Driver/DeployBase.php:616
+#: src//libs/GitLive/Driver/DeployBase.php:629
 #, php-format
-msgid "%1$s branch has a commit that is not on the %2$s branch"
+msgid "%s close is failed."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DriverBase.php:91
-#: src//libs/GitLive/Driver/DriverBase.php:125
+#: src//libs/GitLive/Driver/DeployBase.php:585
+#: src//libs/GitLive/Driver/DeployBase.php:592
+#: src//libs/GitLive/Driver/DeployBase.php:617
+#: src//libs/GitLive/Driver/DeployBase.php:630
+#, php-format
+msgid "%s branch has a commit that is not on the %2$s branch"
+msgstr ""
+
+#: src//libs/GitLive/Driver/DriverBase.php:92
+#: src//libs/GitLive/Driver/DriverBase.php:126
 msgid "Not a git repository."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DriverBase.php:202
+#: src//libs/GitLive/Driver/DriverBase.php:196
 msgid "Please clean or commit."
 msgstr ""
 
-#: src//libs/GitLive/Support/FileSystem.php:70
+#: src//libs/GitLive/Support/FileSystem.php:72
 msgid "Being redirected to"
 msgstr ""
 
-#: src//libs/GitLive/Support/FileSystem.php:74
+#: src//libs/GitLive/Support/FileSystem.php:76
 msgid "Connected..."
 msgstr ""
 
-#: src//libs/GitLive/Support/FileSystem.php:78
+#: src//libs/GitLive/Support/FileSystem.php:80
 msgid "Got the file size"
 msgstr ""
 
-#: src//libs/GitLive/Support/FileSystem.php:82
+#: src//libs/GitLive/Support/FileSystem.php:84
 msgid "Found the mime-type"
 msgstr ""
 
-#: src//libs/GitLive/Support/FileSystem.php:86
+#: src//libs/GitLive/Support/FileSystem.php:88
 #, php-format
 msgid "Made some progress, downloaded %s so far"
 msgstr ""
@@ -183,20 +186,28 @@ msgid "With merge commit."
 msgstr ""
 
 #: src//libs/GitLive/Command/Hotfix/HotfixOpenCommand.php:55
-#: src//libs/GitLive/Command/Hotfix/HotfixOpenCommand.php:58
-#: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:54
-#: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:57
-msgid "Support preparation of a new production hotfix/."
+msgid "Start hotfix {name}."
 msgstr ""
 
-#: src//libs/GitLive/Command/Hotfix/HotfixOpenCommand.php:55
 #: src//libs/GitLive/Command/Hotfix/HotfixOpenCommand.php:58
+msgid "Support preparation of a new production hotfix."
+msgstr ""
+
+#: src//libs/GitLive/Command/Hotfix/HotfixOpenCommand.php:59
 #: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:54
 #: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:57
 msgid "Allow for minor bug fixes and preparing meta-data for a hotfix"
 msgstr ""
 
+#: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:54
+#: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:57
+msgid "Support preparation of a new production hotfix/."
+msgstr ""
+
 #: src//libs/GitLive/Command/Hotfix/HotfixCloseCommand.php:61
+msgid "Finish hotfix {name}."
+msgstr ""
+
 #: src//libs/GitLive/Command/Hotfix/HotfixCloseCommand.php:64
 msgid ""
 "Finish up a hotfix.Merges the hotfix branch back into 'master'.Tags the "
@@ -240,11 +251,8 @@ msgid "Destroy with local repository."
 msgstr ""
 
 #: src//libs/GitLive/Command/LogCommand.php:52
-msgid "log control"
-msgstr ""
-
 #: src//libs/GitLive/Command/LogCommand.php:55
-msgid "Log control"
+msgid "Alias to \"log: *\" tasks."
 msgstr ""
 
 #: src//libs/GitLive/Command/Merge/StateMasterCommand.php:54
@@ -350,15 +358,15 @@ msgstr ""
 msgid "Pull from the appropriate remote repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/CommandBase.php:63
+#: src//libs/GitLive/Command/CommandBase.php:64
 msgid ""
-"Alert: An update to the Git Live is available. Run \"git live self-update\" "
-"to get the latest version."
+"An update to the Git Live is available. Run \"git live self-update\" to get "
+"the latest version."
 msgstr ""
 
 #: src//libs/GitLive/Command/FeatureCommand.php:52
 #: src//libs/GitLive/Command/FeatureCommand.php:55
-msgid "Feature control"
+msgid "Alias to \"feature: *\" tasks."
 msgstr ""
 
 #: src//libs/GitLive/Command/InitCommand.php:54
@@ -377,6 +385,9 @@ msgid "Push upstream/release and deploy/release."
 msgstr ""
 
 #: src//libs/GitLive/Command/Release/ReleaseCloseCommand.php:56
+msgid "Finish release {name}."
+msgstr ""
+
 #: src//libs/GitLive/Command/Release/ReleaseCloseCommand.php:59
 msgid ""
 "Finish up a release.Merges the release branch back into 'master'.Tags the "
@@ -390,17 +401,22 @@ msgid "Run git live release pull and git live release push in succession."
 msgstr ""
 
 #: src//libs/GitLive/Command/Release/ReleaseOpenCommand.php:60
-#: src//libs/GitLive/Command/Release/ReleaseOpenCommand.php:63
-#: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:39
-#: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:42
-msgid "Support preparation of a new production release/."
+msgid "Start new release named {name}."
 msgstr ""
 
-#: src//libs/GitLive/Command/Release/ReleaseOpenCommand.php:60
+#: src//libs/GitLive/Command/Release/ReleaseOpenCommand.php:63
+msgid "Support preparation of a new production release."
+msgstr ""
+
 #: src//libs/GitLive/Command/Release/ReleaseOpenCommand.php:63
 #: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:39
 #: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:42
 msgid "Allow for minor bug fixes and preparing meta-data for a release"
+msgstr ""
+
+#: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:39
+#: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:42
+msgid "Support preparation of a new production release/."
 msgstr ""
 
 #: src//libs/GitLive/Command/Release/ReleaseDestroyCommand.php:55
@@ -425,7 +441,7 @@ msgstr ""
 
 #: src//libs/GitLive/Command/MergeCommand.php:52
 #: src//libs/GitLive/Command/MergeCommand.php:55
-msgid "Merge control"
+msgid "Alias to \"merge: *\" tasks."
 msgstr ""
 
 #: src//libs/GitLive/Command/Log/LogDevelopCommand.php:39
@@ -438,24 +454,37 @@ msgstr ""
 msgid "Show diff upstream master branch."
 msgstr ""
 
+#: src//libs/GitLive/Command/Feature/FeatureCloseCommand.php:55
+msgid "Finish feature."
+msgstr ""
+
+#: src//libs/GitLive/Command/Feature/FeatureCloseCommand.php:58
+#, php-format
+msgid "Remove feature branch, from %s and %s repository."
+msgstr ""
+
 #: src//libs/GitLive/Command/Feature/PublishCommand.php:55
 #: src//libs/GitLive/Command/Feature/PublishCommand.php:58
-msgid "Safe push to upstream repository."
+msgid "Start sharing feature {feature_name} on upstream."
 msgstr ""
 
 #: src//libs/GitLive/Command/Feature/FeaturePullCommand.php:55
+msgid "Safe pull to upstream repository."
+msgstr ""
+
 #: src//libs/GitLive/Command/Feature/FeaturePullCommand.php:58
 msgid "Safe pull to origin repository."
 msgstr ""
 
 #: src//libs/GitLive/Command/Feature/ListCommand.php:54
 #: src//libs/GitLive/Command/Feature/ListCommand.php:57
-msgid "Display features list."
+msgid "Lists existing features."
 msgstr ""
 
 #: src//libs/GitLive/Command/Feature/TrackCommand.php:55
 #: src//libs/GitLive/Command/Feature/TrackCommand.php:58
-msgid "Safe checkout feature branch from upstream repository."
+#, php-format
+msgid "Start tracking feature {feature_name} that is shared on %s"
 msgstr ""
 
 #: src//libs/GitLive/Command/Feature/ChangeCommand.php:41
@@ -465,12 +494,7 @@ msgstr ""
 
 #: src//libs/GitLive/Command/Feature/FeatureStartCommand.php:55
 #: src//libs/GitLive/Command/Feature/FeatureStartCommand.php:58
-msgid "Create a new feature branch."
-msgstr ""
-
-#: src//libs/GitLive/Command/Feature/CloseCommand.php:55
-#: src//libs/GitLive/Command/Feature/CloseCommand.php:58
-msgid "Remove feature branch, from all repository."
+msgid "Start new feature {feature_name}."
 msgstr ""
 
 #: src//libs/GitLive/Command/Feature/FeaturePushCommand.php:55
@@ -495,10 +519,10 @@ msgstr ""
 
 #: src//libs/GitLive/Command/HotfixCommand.php:52
 #: src//libs/GitLive/Command/HotfixCommand.php:55
-msgid "hotfix control"
+msgid "Alias to \"hotfix: *\" tasks."
 msgstr ""
 
 #: src//libs/GitLive/Command/ReleaseCommand.php:52
 #: src//libs/GitLive/Command/ReleaseCommand.php:55
-msgid "release control"
+msgid "Alias to \"release: *\" tasks."
 msgstr ""

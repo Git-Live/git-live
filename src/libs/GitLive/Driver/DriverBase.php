@@ -311,7 +311,7 @@ abstract class DriverBase extends GitBase
      * @throws \ReflectionException
      * @return \GitLive\Support\Collection
      */
-    public function getGitLiveSettiong()
+    public function getGitLiveSetting()
     {
         $setting = collect([]);
 

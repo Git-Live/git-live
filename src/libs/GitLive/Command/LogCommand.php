@@ -49,10 +49,10 @@ class LogCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('log control'))
+            ->setDescription(__('Alias to "log: *" tasks.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Log control'))
+            ->setHelp(__('Alias to "log: *" tasks.'))
             ->addArgument(
                 'task',
                 InputArgument::REQUIRED,

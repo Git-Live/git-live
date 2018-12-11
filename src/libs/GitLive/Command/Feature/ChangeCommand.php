@@ -43,7 +43,7 @@ class ChangeCommand extends CommandBase
             // the "--help" option
             ->setHelp(__('Cheackout other feature branch.'))
             ->addArgument('branch_name', InputArgument::REQUIRED, 'feature name')
-            ->addOption('detach', '', InputOption::VALUE_NONE, 'Prepare to work on top of <commit>, by detaching HEAD at it (see"DETACHED HEAD" section), and updating the index and the files in theworking tree.')
+            ->addOption('detach', '', InputOption::VALUE_NONE, 'Prepare to work on top of <commit>, by detaching HEAD at it (see"DETACHED HEAD" section), and updating the index and the files in the working tree.')
         ;
     }
 

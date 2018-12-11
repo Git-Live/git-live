@@ -52,11 +52,11 @@ class PublishCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Safe push to upstream repository.'))
+            ->setDescription(__('Start sharing feature {feature_name} on upstream.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Safe push to upstream repository.'))
-            ->addArgument('branch_name', InputArgument::OPTIONAL, 'feature name');
+            ->setHelp(__('Start sharing feature {feature_name} on upstream.'))
+            ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name');
     }
 
     /**
@@ -72,6 +72,6 @@ class PublishCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $FeatureDriver->featurePublish($input->getArgument('branch_name'));
+        $FeatureDriver->featurePublish($input->getArgument('feature_name'));
     }
 }

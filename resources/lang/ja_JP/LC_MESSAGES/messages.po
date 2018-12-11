@@ -29,27 +29,27 @@ msgid "Not a git repository."
 msgstr "Gitリモートリポジトリではありません。"
 
 #, php-format
-msgid "%1$s close is failed."
-msgstr "%1$s closeに失敗しました。"
+msgid "%s close is failed."
+msgstr "%s closeに失敗しました。"
 
 #, php-format
-msgid "%1$s branch has a commit that is not on the %2$s branch"
-msgstr "%1$sブランチに%2$sより新しいコミットが存在します。"
+msgid "%s branch has a commit that is not on the %2$s branch"
+msgstr "%sブランチに%2$sより新しいコミットが存在します。"
 
 #, php-format
-msgid "Already %1$s opened."
-msgstr "既に%1$s openされています。"
+msgid "Already %s opened."
+msgstr "既に%s openされています。"
 
 #, php-format
-msgid "%1$s is not open."
-msgstr "%1$s openされていません。"
+msgid "%s is not open."
+msgstr "%s openされていません。"
 
 #, php-format
-msgid "%1$s is open."
+msgid "%s is open."
 msgstr ""
 
 #, php-format
-msgid "%1$s is close."
+msgid "%s is close."
 msgstr ""
 
 msgid "Please enter only your remote-repository."

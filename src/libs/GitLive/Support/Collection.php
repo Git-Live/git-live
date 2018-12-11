@@ -25,14 +25,36 @@ use ArrayIterator;
 use CachingIterator;
 use Countable;
 use Exception;
-use GitLive\GitBase;
 use IteratorAggregate;
 use JsonSerializable;
 use stdClass;
 use Symfony\Component\VarDumper\VarDumper;
 use Traversable;
 
-class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, IteratorAggregate, Jsonable, JsonSerializable
+/**
+ * @property-read HigherOrderCollectionProxy $average
+ * @property-read HigherOrderCollectionProxy $avg
+ * @property-read HigherOrderCollectionProxy $contains
+ * @property-read HigherOrderCollectionProxy $each
+ * @property-read HigherOrderCollectionProxy $every
+ * @property-read HigherOrderCollectionProxy $filter
+ * @property-read HigherOrderCollectionProxy $first
+ * @property-read HigherOrderCollectionProxy $flatMap
+ * @property-read HigherOrderCollectionProxy $groupBy
+ * @property-read HigherOrderCollectionProxy $keyBy
+ * @property-read HigherOrderCollectionProxy $map
+ * @property-read HigherOrderCollectionProxy $max
+ * @property-read HigherOrderCollectionProxy $min
+ * @property-read HigherOrderCollectionProxy $partition
+ * @property-read HigherOrderCollectionProxy $reject
+ * @property-read HigherOrderCollectionProxy $sortBy
+ * @property-read HigherOrderCollectionProxy $sortByDesc
+ * @property-read HigherOrderCollectionProxy $sum
+ * @property-read HigherOrderCollectionProxy $unique
+ *
+ * Class Collection
+ */
+class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate, Jsonable, JsonSerializable
 {
     /**
      * The items contained in the collection.
@@ -40,7 +62,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
      * @var array
      */
     protected $items = [];
-
     /**
      * The methods that can be proxied.
      *
@@ -51,7 +72,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
         'flatMap', 'groupBy', 'keyBy', 'map', 'max', 'min', 'partition',
         'reject', 'some', 'sortBy', 'sortByDesc', 'sum', 'unique',
     ];
-
     /**
      * Create a new collection.
      *
@@ -62,7 +82,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         $this->items = $this->getArrayableItems($items);
     }
-
     /**
      * Convert the collection to its string representation.
      *
@@ -72,7 +91,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->toJson();
     }
-
     /**
      * Dynamically access collection proxies.
      *
@@ -83,13 +101,12 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
      */
     public function __get($key)
     {
-        if (! in_array($key, static::$proxies, true)) {
+        if (! in_array($key, static::$proxies)) {
             throw new Exception("Property [{$key}] does not exist on this collection instance.");
         }
 
         return new HigherOrderCollectionProxy($this, $key);
     }
-
     /**
      * Create a new collection instance if the value isn't one already.
      *
@@ -100,7 +117,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static($items);
     }
-
     /**
      * Wrap the given value in a collection if applicable.
      *
@@ -113,7 +129,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             ? new static($value)
             : new static(Arr::wrap($value));
     }
-
     /**
      * Get the underlying items from the given collection if applicable.
      *
@@ -124,7 +139,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $value instanceof self ? $value->all() : $value;
     }
-
     /**
      * Create a new collection by invoking the callback a given amount of times.
      *
@@ -137,14 +151,12 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
         if ($number < 1) {
             return new static;
         }
-
         if (is_null($callback)) {
             return new static(range(1, $number));
         }
 
         return (new static(range(1, $number)))->map($callback);
     }
-
     /**
      * Get all of the items in the collection.
      *
@@ -154,32 +166,26 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->items;
     }
-
     /**
      * Get the average value of a given key.
      *
-     * 指定したキーの平均値を返します。
-     *
      * @param  null|callable|string  $callback
-     * @return int
+     * @return mixed
      */
     public function avg($callback = null)
     {
         $callback = $this->valueRetriever($callback);
-
         $items = $this->map(function ($value) use ($callback) {
             return $callback($value);
         })->filter(function ($value) {
             return ! is_null($value);
         });
-
         if ($count = $items->count()) {
             return $items->sum() / $count;
         }
 
         return 0;
     }
-
     /**
      * Alias for the "avg" method.
      *
@@ -190,14 +196,11 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->avg($callback);
     }
-
     /**
      * Get the median of a given key.
      *
-     * 指定したキーの中央値を返します。
-     *
      * @param  null|array|string $key
-     * @return int
+     * @return mixed
      */
     public function median($key = null)
     {
@@ -205,15 +208,11 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             ->filter(function ($item) {
                 return ! is_null($item);
             })->sort()->values();
-
         $count = $values->count();
-
-        if ($count === 0) {
-            return 0;
+        if ($count == 0) {
+            return null;
         }
-
         $middle = (int) ($count / 2);
-
         if ($count % 2) {
             return $values->get($middle);
         }
@@ -222,36 +221,29 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             $values->get($middle - 1), $values->get($middle),
         ]))->average();
     }
-
     /**
      * Get the mode of a given key.
      *
      * @param  null|array|string  $key
-     * @return null|array|Collection
+     * @return null|array
      */
     public function mode($key = null)
     {
         if ($this->count() === 0) {
             return null;
         }
-
         $collection = isset($key) ? $this->pluck($key) : $this;
-
         $counts = new self;
-
         $collection->each(function ($value) use ($counts) {
             $counts[$value] = isset($counts[$value]) ? $counts[$value] + 1 : 1;
         });
-
         $sorted = $counts->sort();
-
         $highestValue = $sorted->last();
 
         return $sorted->filter(function ($value) use ($highestValue) {
-            return $value === $highestValue;
+            return $value == $highestValue;
         })->sort()->keys()->all();
     }
-
     /**
      * Collapse the collection of items into a single array.
      *
@@ -261,7 +253,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(Arr::collapse($this->items));
     }
-
     /**
      * Alias for the "contains" method.
      *
@@ -274,7 +265,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->contains(...func_get_args());
     }
-
     /**
      * Determine if an item exists in the collection.
      *
@@ -292,12 +282,11 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
                 return $this->first($key, $placeholder) !== $placeholder;
             }
 
-            return in_array($key, $this->items, true);
+            return in_array($key, $this->items);
         }
 
         return $this->contains($this->operatorForWhere(...func_get_args()));
     }
-
     /**
      * Determine if an item exists in the collection using strict comparison.
      *
@@ -312,14 +301,12 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
                 return data_get($item, $key) === $value;
             });
         }
-
         if ($this->useAsCallable($key)) {
             return ! is_null($this->first($key));
         }
 
         return in_array($key, $this->items, true);
     }
-
     /**
      * Cross join with the given lists, returning all possible permutations.
      *
@@ -337,20 +324,20 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     /**
      * Dump the collection and end the script.
      *
-     * @param mixed $args
+     * @param array $args
      * @return void
+     * @codeCoverageIgnore
      */
     public function dd(...$args)
     {
         call_user_func_array([$this, 'dump'], $args);
-
         die(1);
     }
-
     /**
      * Dump the collection.
      *
      * @return $this
+     * @codeCoverageIgnore
      */
     public function dump()
     {
@@ -362,7 +349,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return $this;
     }
-
     /**
      * Get the items in the collection that are not present in the given items.
      *
@@ -373,7 +359,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_diff($this->items, $this->getArrayableItems($items)));
     }
-
     /**
      * Get the items in the collection that are not present in the given items.
      *
@@ -385,7 +370,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_udiff($this->items, $this->getArrayableItems($items), $callback));
     }
-
     /**
      * Get the items in the collection whose keys and values are not present in the given items.
      *
@@ -396,7 +380,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_diff_assoc($this->items, $this->getArrayableItems($items)));
     }
-
     /**
      * Get the items in the collection whose keys and values are not present in the given items.
      *
@@ -408,7 +391,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_diff_uassoc($this->items, $this->getArrayableItems($items), $callback));
     }
-
     /**
      * Get the items in the collection whose keys are not present in the given items.
      *
@@ -419,7 +401,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_diff_key($this->items, $this->getArrayableItems($items)));
     }
-
     /**
      * Get the items in the collection whose keys are not present in the given items.
      *
@@ -431,7 +412,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_diff_ukey($this->items, $this->getArrayableItems($items), $callback));
     }
-
     /**
      * Execute a callback over each item.
      *
@@ -448,7 +428,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return $this;
     }
-
     /**
      * Execute a callback over each nested chunk of items.
      *
@@ -463,7 +442,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             return $callback(...$chunk);
         });
     }
-
     /**
      * Determine if all items in the collection pass the given test.
      *
@@ -476,7 +454,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         if (func_num_args() === 1) {
             $callback = $this->valueRetriever($key);
-
             foreach ($this->items as $k => $v) {
                 if (! $callback($v, $k)) {
                     return false;
@@ -488,11 +465,10 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return $this->every($this->operatorForWhere(...func_get_args()));
     }
-
     /**
      * Get all items except for those with the specified keys.
      *
-     * @param  \GitLive\Support\Collection|mixed  $keys
+     * @param  mixed|self  $keys
      * @return static
      */
     public function except($keys)
@@ -505,7 +481,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return new static(Arr::except($this->items, $keys));
     }
-
     /**
      * Run a filter over each of the items.
      *
@@ -520,7 +495,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return new static(array_filter($this->items));
     }
-
     /**
      * Apply the callback if the value is truthy.
      *
@@ -540,7 +514,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return $this;
     }
-
     /**
      * Apply the callback if the collection is empty.
      *
@@ -552,7 +525,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->when($this->isEmpty(), $callback, $default);
     }
-
     /**
      * Apply the callback if the collection is not empty.
      *
@@ -564,7 +536,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->when($this->isNotEmpty(), $callback, $default);
     }
-
     /**
      * Apply the callback if the value is falsy.
      *
@@ -577,7 +548,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->when(! $value, $callback, $default);
     }
-
     /**
      * Apply the callback unless the collection is empty.
      *
@@ -589,7 +559,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->whenNotEmpty($callback, $default);
     }
-
     /**
      * Apply the callback unless the collection is not empty.
      *
@@ -601,7 +570,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->whenEmpty($callback, $default);
     }
-
     /**
      * Filter items by the given key value pair.
      *
@@ -614,7 +582,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->filter($this->operatorForWhere(...func_get_args()));
     }
-
     /**
      * Filter items by the given key value pair using strict comparison.
      *
@@ -626,7 +593,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->where($key, '===', $value);
     }
-
     /**
      * Filter items by the given key value pair.
      *
@@ -643,7 +609,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             return in_array(data_get($item, $key), $values, $strict);
         });
     }
-
     /**
      * Filter items by the given key value pair using strict comparison.
      *
@@ -655,7 +620,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->whereIn($key, $values, true);
     }
-
     /**
      * Filter items by the given key value pair.
      *
@@ -672,7 +636,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             return in_array(data_get($item, $key), $values, $strict);
         });
     }
-
     /**
      * Filter items by the given key value pair using strict comparison.
      *
@@ -684,7 +647,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->whereNotIn($key, $values, true);
     }
-
     /**
      * Filter the items, removing any items that don't match the given type.
      *
@@ -697,7 +659,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             return $value instanceof $type;
         });
     }
-
     /**
      * Get the first item from the collection.
      *
@@ -709,7 +670,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return Arr::first($this->items, $callback, $default);
     }
-
     /**
      * Get the first item by the given key value pair.
      *
@@ -718,11 +678,10 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
      * @param  mixed  $value
      * @return mixed
      */
-    public function firstWhere($key, $operator = null, $value = null)
+    public function firstWhere($key, $operator, $value = null)
     {
         return $this->first($this->operatorForWhere(...func_get_args()));
     }
-
     /**
      * Get a flattened array of the items in the collection.
      *
@@ -733,7 +692,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(Arr::flatten($this->items, $depth));
     }
-
     /**
      * Flip the items in the collection.
      *
@@ -743,7 +701,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_flip($this->items));
     }
-
     /**
      * Remove an item from the collection by key.
      *
@@ -758,7 +715,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return $this;
     }
-
     /**
      * Get an item from the collection by key.
      *
@@ -774,11 +730,8 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return value($default);
     }
-
     /**
      * Group an associative array by a field or using a callback.
-     *
-     * 指定したキーによりコレクションのアイテムをグループにまとめます。
      *
      * @param  callable|string  $groupBy
      * @param  bool  $preserveKeys
@@ -788,43 +741,30 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         if (is_array($groupBy)) {
             $nextGroups = $groupBy;
-
             $groupBy = array_shift($nextGroups);
         }
-
         $groupBy = $this->valueRetriever($groupBy);
-
         $results = [];
-
         foreach ($this->items as $key => $value) {
             $groupKeys = $groupBy($value, $key);
-
             if (! is_array($groupKeys)) {
                 $groupKeys = [$groupKeys];
             }
-
             foreach ($groupKeys as $groupKey) {
                 $groupKey = is_bool($groupKey) ? (int) $groupKey : $groupKey;
-
                 if (! array_key_exists($groupKey, $results)) {
                     $results[$groupKey] = new static;
                 }
-
                 $results[$groupKey]->offsetSet($preserveKeys ? $key : null, $value);
             }
         }
-
         $result = new static($results);
-
         if (! empty($nextGroups)) {
-            return $result->map(function ($item) {
-                return $item;
-            })->groupBy($nextGroups, $preserveKeys);
+            return $result->map->groupBy($nextGroups, $preserveKeys);
         }
 
         return $result;
     }
-
     /**
      * Key an associative array by a field or using a callback.
      *
@@ -834,22 +774,17 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     public function keyBy($keyBy)
     {
         $keyBy = $this->valueRetriever($keyBy);
-
         $results = [];
-
         foreach ($this->items as $key => $item) {
             $resolvedKey = $keyBy($item, $key);
-
             if (is_object($resolvedKey)) {
                 $resolvedKey = (string) $resolvedKey;
             }
-
             $results[$resolvedKey] = $item;
         }
 
         return new static($results);
     }
-
     /**
      * Determine if an item exists in the collection by key.
      *
@@ -859,7 +794,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     public function has($key)
     {
         $keys = is_array($key) ? $key : func_get_args();
-
         foreach ($keys as $value) {
             if (! $this->offsetExists($value)) {
                 return false;
@@ -868,7 +802,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return true;
     }
-
     /**
      * Concatenate values of a given key as a string.
      *
@@ -879,14 +812,12 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     public function implode($value, $glue = null)
     {
         $first = $this->first();
-
         if (is_array($first) || is_object($first)) {
             return implode($glue, $this->pluck($value)->all());
         }
 
         return implode($value, $this->items);
     }
-
     /**
      * Intersect the collection with the given items.
      *
@@ -897,7 +828,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_intersect($this->items, $this->getArrayableItems($items)));
     }
-
     /**
      * Intersect the collection with the given items by key.
      *
@@ -911,7 +841,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             $this->getArrayableItems($items)
         ));
     }
-
     /**
      * Determine if the collection is empty or not.
      *
@@ -921,7 +850,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return empty($this->items);
     }
-
     /**
      * Determine if the collection is not empty.
      *
@@ -931,7 +859,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return ! $this->isEmpty();
     }
-
     /**
      * Get the keys of the collection items.
      *
@@ -941,7 +868,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_keys($this->items));
     }
-
     /**
      * Get the last item from the collection.
      *
@@ -953,7 +879,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return Arr::last($this->items, $callback, $default);
     }
-
     /**
      * Get the values of a given key.
      *
@@ -965,7 +890,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(Arr::pluck($this->items, $value, $key));
     }
-
     /**
      * Run a map over each of the items.
      *
@@ -975,12 +899,10 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     public function map(callable $callback)
     {
         $keys = array_keys($this->items);
-
         $items = array_map($callback, $this->items, $keys);
 
         return new static(array_combine($keys, $items));
     }
-
     /**
      * Run a map over each nested chunk of items.
      *
@@ -995,7 +917,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             return $callback(...$chunk);
         });
     }
-
     /**
      * Run a dictionary map over the items.
      *
@@ -1007,24 +928,18 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     public function mapToDictionary(callable $callback)
     {
         $dictionary = [];
-
         foreach ($this->items as $key => $item) {
             $pair = $callback($item, $key);
-
             $key = key($pair);
-
             $value = reset($pair);
-
             if (! isset($dictionary[$key])) {
                 $dictionary[$key] = [];
             }
-
             $dictionary[$key][] = $value;
         }
 
         return new static($dictionary);
     }
-
     /**
      * Run a grouping map over the items.
      *
@@ -1039,7 +954,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return $groups->map([$this, 'make']);
     }
-
     /**
      * Run an associative map over each of the items.
      *
@@ -1051,10 +965,8 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     public function mapWithKeys(callable $callback)
     {
         $result = [];
-
         foreach ($this->items as $key => $value) {
             $assoc = $callback($value, $key);
-
             foreach ($assoc as $mapKey => $mapValue) {
                 $result[$mapKey] = $mapValue;
             }
@@ -1062,7 +974,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return new static($result);
     }
-
     /**
      * Map a collection and flatten the result by a single level.
      *
@@ -1073,7 +984,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->map($callback)->collapse();
     }
-
     /**
      * Map the values into a new class.
      *
@@ -1086,7 +996,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             return new $class($value, $key);
         });
     }
-
     /**
      * Get the max value of a given key.
      *
@@ -1105,7 +1014,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             return is_null($result) || $value > $result ? $value : $result;
         });
     }
-
     /**
      * Merge the collection with the given items.
      *
@@ -1116,7 +1024,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_merge($this->items, $this->getArrayableItems($items)));
     }
-
     /**
      * Create a collection by using this collection for keys and another for its values.
      *
@@ -1127,7 +1034,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_combine($this->all(), $this->getArrayableItems($values)));
     }
-
     /**
      * Union the collection with the given items.
      *
@@ -1138,7 +1044,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static($this->items + $this->getArrayableItems($items));
     }
-
     /**
      * Get the min value of a given key.
      *
@@ -1157,7 +1062,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             return is_null($result) || $value < $result ? $value : $result;
         });
     }
-
     /**
      * Create a new collection consisting of every n-th element.
      *
@@ -1168,20 +1072,16 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     public function nth($step, $offset = 0)
     {
         $new = [];
-
         $position = 0;
-
         foreach ($this->items as $item) {
             if ($position % $step === $offset) {
                 $new[] = $item;
             }
-
             $position++;
         }
 
         return new static($new);
     }
-
     /**
      * Get the items with the specified keys.
      *
@@ -1193,16 +1093,13 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
         if (is_null($keys)) {
             return new static($this->items);
         }
-
         if ($keys instanceof self) {
             $keys = $keys->all();
         }
-
         $keys = is_array($keys) ? $keys : func_get_args();
 
         return new static(Arr::only($this->items, $keys));
     }
-
     /**
      * "Paginate" the collection by slicing it into a smaller collection.
      *
@@ -1216,7 +1113,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return $this->slice($offset, $perPage);
     }
-
     /**
      * Partition the collection into two arrays using the given callback or key.
      *
@@ -1228,18 +1124,15 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     public function partition($key, $operator = null, $value = null)
     {
         $partitions = [new static, new static];
-
         $callback = func_num_args() === 1
             ? $this->valueRetriever($key)
             : $this->operatorForWhere(...func_get_args());
-
         foreach ($this->items as $key => $item) {
             $partitions[(int) ! $callback($item, $key)][$key] = $item;
         }
 
         return new static($partitions);
     }
-
     /**
      * Pass the collection to the given callback and return the result.
      *
@@ -1250,7 +1143,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $callback($this);
     }
-
     /**
      * Get and remove the last item from the collection.
      *
@@ -1260,7 +1152,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return array_pop($this->items);
     }
-
     /**
      * Push an item onto the beginning of the collection.
      *
@@ -1274,7 +1165,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return $this;
     }
-
     /**
      * Push an item onto the end of the collection.
      *
@@ -1287,7 +1177,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return $this;
     }
-
     /**
      * Push all of the given items onto the collection.
      *
@@ -1297,14 +1186,12 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     public function concat($source)
     {
         $result = new static($this);
-
         foreach ($source as $item) {
             $result->push($item);
         }
 
         return $result;
     }
-
     /**
      * Get and remove an item from the collection.
      *
@@ -1316,7 +1203,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return Arr::pull($this->items, $key, $default);
     }
-
     /**
      * Put an item in the collection by key.
      *
@@ -1330,7 +1216,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return $this;
     }
-
     /**
      * Get one or a specified number of items randomly from the collection.
      *
@@ -1347,7 +1232,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return new static(Arr::random($this->items, $number));
     }
-
     /**
      * Reduce the collection to a single value.
      *
@@ -1359,7 +1243,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return array_reduce($this->items, $callback, $initial);
     }
-
     /**
      * Create a collection of all elements that do not pass a given truth test.
      *
@@ -1375,10 +1258,9 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
         }
 
         return $this->filter(function ($item) use ($callback) {
-            return $item !== $callback;
+            return $item != $callback;
         });
     }
-
     /**
      * Reverse items order.
      *
@@ -1388,11 +1270,8 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_reverse($this->items, true));
     }
-
     /**
      * Search the collection for a given value and return the corresponding key if successful.
-     *
-     * 指定した値でコレクションをサーチし、見つけたキーを返します。アイテムが見つからない場合はfalseを返します。
      *
      * @param  mixed  $value
      * @param  bool  $strict
@@ -1403,7 +1282,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
         if (! $this->useAsCallable($value)) {
             return array_search($value, $this->items, $strict);
         }
-
         foreach ($this->items as $key => $item) {
             if (call_user_func($value, $item, $key)) {
                 return $key;
@@ -1412,7 +1290,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return false;
     }
-
     /**
      * Get and remove the first item from the collection.
      *
@@ -1422,7 +1299,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return array_shift($this->items);
     }
-
     /**
      * Shuffle the items in the collection.
      *
@@ -1433,7 +1309,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(Arr::shuffle($this->items, $seed));
     }
-
     /**
      * Slice the underlying collection array.
      *
@@ -1445,7 +1320,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_slice($this->items, $offset, $length, true));
     }
-
     /**
      * Split a collection into a certain number of groups.
      *
@@ -1457,32 +1331,23 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
         if ($this->isEmpty()) {
             return new static;
         }
-
         $groups = new static;
-
         $groupSize = floor($this->count() / $numberOfGroups);
-
         $remain = $this->count() % $numberOfGroups;
-
         $start = 0;
-
         for ($i = 0; $i < $numberOfGroups; $i++) {
             $size = $groupSize;
-
             if ($i < $remain) {
                 $size++;
             }
-
             if ($size) {
                 $groups->push(new static(array_slice($this->items, $start, $size)));
-
                 $start += $size;
             }
         }
 
         return $groups;
     }
-
     /**
      * Chunk the underlying collection array.
      *
@@ -1494,16 +1359,13 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
         if ($size <= 0) {
             return new static;
         }
-
         $chunks = [];
-
         foreach (array_chunk($this->items, $size, true) as $chunk) {
             $chunks[] = new static($chunk);
         }
 
         return new static($chunks);
     }
-
     /**
      * Sort through each item with a callback.
      *
@@ -1513,14 +1375,12 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     public function sort(callable $callback = null)
     {
         $items = $this->items;
-
         $callback
             ? uasort($items, $callback)
             : asort($items);
 
         return new static($items);
     }
-
     /**
      * Sort the collection using the given callback.
      *
@@ -1532,19 +1392,15 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     public function sortBy($callback, $options = SORT_REGULAR, $descending = false)
     {
         $results = [];
-
         $callback = $this->valueRetriever($callback);
-
         // First we will loop through the items and get the comparator from a callback
         // function which we were given. Then, we will sort the returned values and
         // and grab the corresponding values for the sorted keys from this array.
         foreach ($this->items as $key => $value) {
             $results[$key] = $callback($value, $key);
         }
-
         $descending ? arsort($results, $options)
             : asort($results, $options);
-
         // Once we have sorted all of the keys in the array, we will loop through them
         // and grab the corresponding model so we can set the underlying items list
         // to the sorted version. Then we'll just return the collection instance.
@@ -1554,7 +1410,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return new static($results);
     }
-
     /**
      * Sort the collection in descending order using the given callback.
      *
@@ -1566,7 +1421,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->sortBy($callback, $options, true);
     }
-
     /**
      * Sort the collection keys.
      *
@@ -1577,12 +1431,10 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     public function sortKeys($options = SORT_REGULAR, $descending = false)
     {
         $items = $this->items;
-
         $descending ? krsort($items, $options) : ksort($items, $options);
 
         return new static($items);
     }
-
     /**
      * Sort the collection keys in descending order.
      *
@@ -1593,7 +1445,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->sortKeys($options, true);
     }
-
     /**
      * Splice a portion of the underlying collection array.
      *
@@ -1610,7 +1461,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return new static(array_splice($this->items, $offset, $length, $replacement));
     }
-
     /**
      * Get the sum of the given values.
      *
@@ -1622,14 +1472,12 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
         if (is_null($callback)) {
             return array_sum($this->items);
         }
-
         $callback = $this->valueRetriever($callback);
 
         return $this->reduce(function ($result, $item) use ($callback) {
             return $result + $callback($item);
         }, 0);
     }
-
     /**
      * Take the first or last {$limit} items.
      *
@@ -1644,7 +1492,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return $this->slice(0, $limit);
     }
-
     /**
      * Pass the collection to the given callback and then return it.
      *
@@ -1657,7 +1504,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return $this;
     }
-
     /**
      * Transform each item in the collection using a callback.
      *
@@ -1670,7 +1516,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
 
         return $this;
     }
-
     /**
      * Return only unique items from the collection array.
      *
@@ -1681,20 +1526,17 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     public function unique($key = null, $strict = false)
     {
         $callback = $this->valueRetriever($key);
-
         $exists = [];
 
         return $this->reject(function ($item, $key) use ($callback, $strict, &$exists) {
             if (in_array($id = $callback($item, $key), $exists, $strict)) {
                 return true;
             }
-
             $exists[] = $id;
 
             return false;
         });
     }
-
     /**
      * Return only unique items from the collection array using strict comparison.
      *
@@ -1705,7 +1547,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->unique($key, true);
     }
-
     /**
      * Reset the keys on the underlying array.
      *
@@ -1715,7 +1556,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_values($this->items));
     }
-
     /**
      * Zip the collection together with one or more arrays.
      *
@@ -1730,14 +1570,12 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
         $arrayableItems = array_map(function ($items) {
             return $this->getArrayableItems($items);
         }, func_get_args());
-
         $params = array_merge([function () {
             return new static(func_get_args());
         }, $this->items], $arrayableItems);
 
         return new static(call_user_func_array('array_map', $params));
     }
-
     /**
      * Pad collection to the specified length with a value.
      *
@@ -1749,7 +1587,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new static(array_pad($this->items, $size, $value));
     }
-
     /**
      * Get the collection of items as a plain array.
      *
@@ -1761,7 +1598,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             return $value instanceof Arrayable ? $value->toArray() : $value;
         }, $this->items);
     }
-
     /**
      * Convert the object into something JSON serializable.
      *
@@ -1783,7 +1619,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             return $value;
         }, $this->items);
     }
-
     /**
      * Get the collection of items as JSON.
      *
@@ -1794,7 +1629,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return json_encode($this->jsonSerialize(), $options);
     }
-
     /**
      * Get an iterator for the items.
      *
@@ -1804,7 +1638,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new ArrayIterator($this->items);
     }
-
     /**
      * Get a CachingIterator instance.
      *
@@ -1815,7 +1648,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return new CachingIterator($this->getIterator(), $flags);
     }
-
     /**
      * Count the number of items in the collection.
      *
@@ -1825,17 +1657,15 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return count($this->items);
     }
-
     /**
      * Get a base Support collection instance from this collection.
      *
-     * @return \GitLive\Support\Collection
+     * @return self
      */
     public function toBase()
     {
         return new self($this);
     }
-
     /**
      * Determine if an item exists at an offset.
      *
@@ -1846,7 +1676,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return array_key_exists($key, $this->items);
     }
-
     /**
      * Get an item at a given offset.
      *
@@ -1857,7 +1686,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return $this->items[$key];
     }
-
     /**
      * Set the item at a given offset.
      *
@@ -1873,7 +1701,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             $this->items[$key] = $value;
         }
     }
-
     /**
      * Unset the item at a given offset.
      *
@@ -1884,18 +1711,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         unset($this->items[$key]);
     }
-
-    /**
-     * Add a method to the list of proxied methods.
-     *
-     * @param  string  $method
-     * @return void
-     */
-    public static function proxy($method)
-    {
-        static::$proxies[] = $method;
-    }
-
     /**
      * Get an operator checker callback.
      *
@@ -1908,43 +1723,36 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         if (func_num_args() === 1) {
             $value = true;
-
             $operator = '=';
         }
-
         if (func_num_args() === 2) {
             $value = $operator;
-
             $operator = '=';
         }
 
         return function ($item) use ($key, $operator, $value) {
             $retrieved = data_get($item, $key);
-
             $strings = array_filter([$retrieved, $value], function ($value) {
                 return is_string($value) || (is_object($value) && method_exists($value, '__toString'));
             });
-
-            if (count($strings) < 2 && count(array_filter([$retrieved, $value], 'is_object')) === 1) {
-                return in_array($operator, ['!=', '<>', '!=='], true);
+            if (count($strings) < 2 && count(array_filter([$retrieved, $value], 'is_object')) == 1) {
+                return in_array($operator, ['!=', '<>', '!==']);
             }
-
             switch ($operator) {
-                default:
-                case '=':
-                case '==':  return $retrieved === $value;
-                case '!=':
-                case '<>':  return $retrieved !== $value;
-                case '<':   return $retrieved < $value;
-                case '>':   return $retrieved > $value;
-                case '<=':  return $retrieved <= $value;
-                case '>=':  return $retrieved >= $value;
-                case '===': return $retrieved === $value;
-                case '!==': return $retrieved !== $value;
+            default:
+            case '=':
+            case '==':  return $retrieved == $value;
+            case '!=':
+            case '<>':  return $retrieved != $value;
+            case '<':   return $retrieved < $value;
+            case '>':   return $retrieved > $value;
+            case '<=':  return $retrieved <= $value;
+            case '>=':  return $retrieved >= $value;
+            case '===': return $retrieved === $value;
+            case '!==': return $retrieved !== $value;
             }
         };
     }
-
     /**
      * Determine if the given value is callable, but not a string.
      *
@@ -1955,7 +1763,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
     {
         return ! is_string($value) && is_callable($value);
     }
-
     /**
      * Get a value retrieving callback.
      *
@@ -1972,7 +1779,6 @@ class Collection extends GitBase implements ArrayAccess, Arrayable, Countable, I
             return data_get($item, $value);
         };
     }
-
     /**
      * Results array of items from Collection or Arrayable.
      *

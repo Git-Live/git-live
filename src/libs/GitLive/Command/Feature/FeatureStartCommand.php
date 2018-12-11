@@ -52,11 +52,11 @@ class FeatureStartCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Create a new feature branch.'))
+            ->setDescription(__('Start new feature {feature_name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Create a new feature branch.'))
-            ->addArgument('branch_name', InputArgument::REQUIRED, 'feature name');
+            ->setHelp(__('Start new feature {feature_name}.'))
+            ->addArgument('feature_name', InputArgument::REQUIRED, 'feature name');
     }
 
     /**
@@ -72,6 +72,6 @@ class FeatureStartCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $FeatureDriver->featureStart($input->getArgument('branch_name'));
+        $FeatureDriver->featureStart($input->getArgument('feature_name'));
     }
 }

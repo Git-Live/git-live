@@ -58,7 +58,7 @@ class HotfixCloseCommand extends CommandBase
             // the name of the command (the part after "bin/console")
             ->setName('hotfix:close')
             // the short description shown while running "php bin/console list"
-            ->setDescription(__("Finish up a hotfix.Merges the hotfix branch back into 'master'.Tags the hotfix with its name.Back-merges the hotfix into 'develop'.Removes the hotfix branch."))
+            ->setDescription(__("Finish hotfix {name}."))
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__("Finish up a hotfix.Merges the hotfix branch back into 'master'.Tags the hotfix with its name.Back-merges the hotfix into 'develop'.Removes the hotfix branch."))

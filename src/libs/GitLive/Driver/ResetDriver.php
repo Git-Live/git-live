@@ -65,7 +65,7 @@ class ResetDriver extends DriverBase
 
                 break;
             default:
-                throw new Exception(__('Undefined remote option') . ' : ' . $remote . ' You can use origin upstream deploy');
+                throw new Exception(__('Undefined remote option.') . ' : ' . $remote . ' You can use origin upstream deploy');
         }
     }
 

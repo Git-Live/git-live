@@ -23,7 +23,7 @@ namespace GitLive\Service;
 use GitLive\Command\CleanCommand;
 use GitLive\Command\Config\SetCommand;
 use GitLive\Command\Feature\ChangeCommand;
-use GitLive\Command\Feature\CloseCommand as FeatureCloseCommand;
+use GitLive\Command\Feature\FeatureCloseCommand as FeatureCloseCommand;
 use GitLive\Command\Feature\FeaturePullCommand;
 use GitLive\Command\Feature\FeaturePushCommand;
 use GitLive\Command\Feature\FeatureStartCommand;
@@ -91,7 +91,7 @@ class CommandLineKernelService
 {
     public function register()
     {
-        $regist = [
+        $register = [
             CleanCommand::class,
             SetCommand::class,
             ChangeCommand::class,
@@ -144,7 +144,7 @@ class CommandLineKernelService
             StateMasterCommand::class,
         ];
 
-        return collect($regist)
+        return collect($register)
             ->mapWithKeys(function ($item) {
                 return [$item::getSignature() => function () use ($item) {
                     return new $item;

@@ -107,7 +107,7 @@ class PullCommand extends CommandBase
 
                     break;
                 default:
-                    throw new Exception(__('Undefined remote option') . ' : ' . $remote . "\n" . ' You can use origin upstream deploy');
+                    throw new Exception(__('Undefined remote option.') . ' : ' . $remote . "\n" . ' You can use origin upstream deploy');
             }
         }
     }

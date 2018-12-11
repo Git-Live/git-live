@@ -53,7 +53,7 @@ class ReleaseCloseCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__("Finish up a release.Merges the release branch back into 'master'.Tags the release with its name.Back-merges the release into 'develop'.Removes the release branch."))
+            ->setDescription(__("Finish release {name}."))
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__("Finish up a release.Merges the release branch back into 'master'.Tags the release with its name.Back-merges the release into 'develop'.Removes the release branch."))

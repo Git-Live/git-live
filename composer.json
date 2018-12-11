@@ -31,9 +31,13 @@
   "require": {
     "ext-mbstring": "*",
     "ext-json": "*",
+    "ext-ctype": "*",
     "symfony/console": "^3.4",
     "symfony/var-dumper": "^3.4",
-    "ext-ctype": "*"
+    "symfony/polyfill-ctype": "^1.10",
+    "symfony/polyfill-mbstring": "^1.10",
+    "japanese-date/japanese-date": "^4.0",
+    "gettext/gettext": "4.6.1"
   },
   "require-dev": {
     "phpunit/phpunit": "7.4.4",

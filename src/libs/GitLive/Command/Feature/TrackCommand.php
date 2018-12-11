@@ -52,11 +52,11 @@ class TrackCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Safe checkout feature branch from upstream repository.'))
+            ->setDescription(sprintf(__('Start tracking feature {feature_name} that is shared on %s'), 'upstream'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Safe checkout feature branch from upstream repository.'))
-            ->addArgument('branch_name', InputArgument::REQUIRED, 'feature name');
+            ->setHelp(sprintf(__('Start tracking feature {feature_name} that is shared on %s'), 'upstream'))
+            ->addArgument('feature_name', InputArgument::REQUIRED, 'feature name');
     }
 
     /**
@@ -72,6 +72,6 @@ class TrackCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $FeatureDriver->featureTrack($input->getArgument('branch_name'));
+        $FeatureDriver->featureTrack($input->getArgument('feature_name'));
     }
 }

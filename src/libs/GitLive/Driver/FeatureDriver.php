@@ -157,7 +157,7 @@ class FeatureDriver extends DriverBase
             return $res;
         }
 
-        return sprintf(__('error: feature name %s not found'), $feature_branch);
+        return sprintf('Error:' . __('Feature name %s not found'), $feature_branch);
     }
 
     /**

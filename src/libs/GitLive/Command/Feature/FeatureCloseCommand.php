@@ -29,7 +29,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class CloseCommand
+ * Class FeatureCloseCommand
  *
  * @category   GitCommand
  * @package    GitLive\Command\Feature
@@ -43,7 +43,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/26
  */
-class CloseCommand extends CommandBase
+class FeatureCloseCommand extends CommandBase
 {
     protected static $signature_name = 'feature:close';
 
@@ -52,10 +52,10 @@ class CloseCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Remove feature branch, from all repository.'))
+            ->setDescription(__('Finish feature.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Remove feature branch, from all repository.'))
+            ->setHelp(printf(__('Remove feature branch, from %s and %s repository.'), 'origin', 'upstream'))
             ->addArgument('branch_name', InputArgument::OPTIONAL, 'feature name');
     }
 

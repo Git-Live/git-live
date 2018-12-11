@@ -49,10 +49,10 @@ class ReleaseCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('release control'))
+            ->setDescription(__('Alias to "release: *" tasks.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('release control'))
+            ->setHelp(__('Alias to "release: *" tasks.'))
             ->addArgument(
                 'task',
                 InputArgument::REQUIRED,

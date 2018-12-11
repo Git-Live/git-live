@@ -56,7 +56,7 @@ class FeaturePushCommand extends CommandBase
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__('Safe push to origin repository.'))
-            ->addArgument('branch_name', InputArgument::OPTIONAL, 'feature name');
+            ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name');
     }
 
     /**
@@ -72,6 +72,6 @@ class FeaturePushCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $FeatureDriver->featurePush($input->getArgument('branch_name'));
+        $FeatureDriver->featurePush($input->getArgument('feature_name'));
     }
 }

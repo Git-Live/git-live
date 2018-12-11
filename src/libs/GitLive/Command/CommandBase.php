@@ -22,7 +22,9 @@ namespace GitLive\Command;
 
 use App;
 use GitLive\Driver\ConfigDriver;
+use GitLive\Driver\LastestVersionDriver;
 use GitLive\GitLive;
+use JapaneseDate\DateTime;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -52,89 +54,17 @@ abstract class CommandBase extends Command
     {
         return static::$signature_name;
     }
-
     /**
      * @param OutputInterface $output
      */
     public function updateChecker(OutputInterface $output)
     {
         try {
-            if ($this->ckNewVersion()) {
-                $output->writeln(__('Alert: An update to the Git Live is available. Run "git live self-update" to get the latest version.'));
+            if ($this->Driver(LastestVersionDriver::class)->ckNewVersion()) {
+                $output->writeln('Alert:' . __('An update to the Git Live is available. Run "git live self-update" to get the latest version.'));
             }
         } catch (\Exception $exception) {
         }
-    }
-
-    /**
-     *  新しいVersionが出ていないか確認する
-     *
-     * @access      public
-     * @throws \ReflectionException
-     * @return bool
-     */
-    public function ckNewVersion()
-    {
-        $latest_version = $this->getLatestVersion();
-
-        return (bool)version_compare(GitLive::VERSION, $latest_version, '<');
-    }
-
-    /**
-     * 最終Versionを取得
-     *
-     * @access      public
-     * @throws \ReflectionException
-     * @return string
-     */
-    public function getLatestVersion()
-    {
-        static $latest_version;
-
-        if ($latest_version) {
-            return $latest_version;
-        }
-
-        /**
-         * @var ConfigDriver $ConfigDriver
-         */
-        $ConfigDriver = $this->Driver('Config');
-        $latest_version_fetch_time = (int)$ConfigDriver->getGitLiveParameter('latestversion.fetchtime');
-
-        $update_ck_span = (int)$ConfigDriver->getGitLiveParameter('latestversion.update_ck_span') ?: GitLive::DEFAULT_UPDATE_CK_SPAN;
-
-        if (!empty($latest_version_fetch_time) && (time() - $latest_version_fetch_time) < $update_ck_span) {
-            return $latest_version = $ConfigDriver->getGitLiveParameter('latestversion.val');
-        }
-
-        $opts = [
-            'http' => [
-                'method' => 'GET',
-                'header' => [
-                    'User-Agent: PHP',
-                ],
-            ],
-        ];
-
-        $context = stream_context_create($opts);
-        $contents = file_get_contents(GitLive::VERSION_API, false, $context);
-        if (!$contents) {
-            $latest_version = GitLive::VERSION;
-
-            return $latest_version;
-        }
-
-        $arr = json_decode($contents, true);
-        if (substr($arr['tag_name'], 0, 1) === 'v') {
-            $latest_version = substr($arr['tag_name'], 1);
-        } else {
-            $latest_version = $arr['tag_name'];
-        }
-
-        $ConfigDriver->setLocalParameter('latestversion.fetchtime', time());
-        $ConfigDriver->setLocalParameter('latestversion.val', $latest_version);
-
-        return $latest_version;
     }
 
     /**

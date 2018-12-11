@@ -24,7 +24,7 @@ use App;
 use GitLive\GitCmdExecutor;
 use GitLive\GitLive;
 use GitLive\Support\SystemCommandInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use JapaneseDate\DateTime;
 
 /**
  * Class DeployBase
@@ -105,21 +105,21 @@ abstract class DeployBase extends DriverBase
     public function buildOpen($release_rep = null)
     {
         if ($this->isReleaseOpen()) {
-            throw new Exception(sprintf(__('Already %1$s opened.'), ReleaseDriver::MODE));
+            throw new Exception(sprintf(__('Already %s opened.'), ReleaseDriver::MODE));
         }
         if ($this->isHotfixOpen()) {
-            throw new Exception(sprintf(__('Already %1$s opened.'), HotfixDriver::MODE));
+            throw new Exception(sprintf(__('Already %s opened.'), HotfixDriver::MODE));
         }
 
         $repository = $this->GitCmdExecutor->branch(['-a']);
         $repository = explode("\n", trim($repository));
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/' . $this->deploy_repository_name . '/' . $this->prefix) !== false) {
-                throw new Exception(sprintf(__('Already %1$s opened.'), static::MODE) . "\n" . $value);
+                throw new Exception(sprintf(__('Already %s opened.'), static::MODE) . "\n" . $value);
             }
         }
 
-        $release_rep = $this->prefix . ($release_rep ?: date('Ymdhis'));
+        $release_rep = $this->prefix . ($release_rep ?: DateTime::now()->format('Ymdhis'));
 
         if (static::MODE === ReleaseDriver::MODE) {
             $this->GitCmdExecutor->checkout('upstream/' . $this->develop_branch);
@@ -248,21 +248,21 @@ abstract class DeployBase extends DriverBase
     public function buildOpenWithReleaseTag($tag_name, $release_rep = null)
     {
         if ($this->isReleaseOpen()) {
-            throw new Exception(sprintf(__('Already %1$s opened.'), ReleaseDriver::MODE));
+            throw new Exception(sprintf(__('Already %s opened.'), ReleaseDriver::MODE));
         }
         if ($this->isHotfixOpen()) {
-            throw new Exception(sprintf(__('Already %1$s opened.'), HotfixDriver::MODE));
+            throw new Exception(sprintf(__('Already %s opened.'), HotfixDriver::MODE));
         }
 
         $branches = $this->Driver(BranchDriver::class)->branchListAll();
 
         foreach ($branches as $value) {
             if (strpos($value, 'remotes/' . $this->deploy_repository_name . '/release/') !== false) {
-                throw new Exception(sprintf(__('Already %1$s opened.'), ReleaseDriver::MODE) . "\n" . $value);
+                throw new Exception(sprintf(__('Already %s opened.'), ReleaseDriver::MODE) . "\n" . $value);
             }
         }
 
-        $release_rep = $this->prefix . ($release_rep ?: date('Ymdhis'));
+        $release_rep = $this->prefix . ($release_rep ?: DateTime::now()->format('Ymdhis'));
 
         $this->GitCmdExecutor->checkout('upstream/' . $this->develop_branch);
         $this->GitCmdExecutor->checkout('', ['-b', $release_rep, 'refs/tags/' . $tag_name]);
@@ -282,7 +282,7 @@ abstract class DeployBase extends DriverBase
     public function buildTrack()
     {
         if (!$this->isBuildOpen()) {
-            throw new Exception(sprintf(__('%1$s is not open.'), static::MODE));
+            throw new Exception(sprintf(__('%s is not open.'), static::MODE));
         }
 
         $repo = $this->getBuildRepository();
@@ -333,7 +333,7 @@ abstract class DeployBase extends DriverBase
     public function buildPull()
     {
         if (!$this->isBuildOpen()) {
-            throw new Exception(sprintf(__('%1$s is not open.'), static::MODE));
+            throw new Exception(sprintf(__('%s is not open.'), static::MODE));
         }
 
         $repo = $this->getBuildRepository();
@@ -360,12 +360,12 @@ abstract class DeployBase extends DriverBase
                 $res .= ($this->GitCmdExecutor->log($this->deploy_repository_name . '/' . $this->master_branch, $repo, $option, false, true));
             }
 
-            $res .= (sprintf(__('%1$s is open.'), static::MODE) . "\n");
+            $res .= (sprintf(__('%s is open.'), static::MODE) . "\n");
 
             return $res;
         }
 
-        return (sprintf(__('%1$s is close.'), static::MODE) . "\n");
+        return (sprintf(__('%s is close.'), static::MODE) . "\n");
     }
 
     /**
@@ -379,7 +379,7 @@ abstract class DeployBase extends DriverBase
     public function buildSync()
     {
         if (!$this->isBuildOpen()) {
-            throw new Exception(sprintf(__('%1$s is not open.'), static::MODE));
+            throw new Exception(sprintf(__('%s is not open.'), static::MODE));
         }
 
         $repo = $this->getBuildRepository();
@@ -398,7 +398,7 @@ abstract class DeployBase extends DriverBase
     public function buildPush()
     {
         if (!$this->isBuildOpen()) {
-            throw new Exception(sprintf(__('%1$s is not open.'), static::MODE));
+            throw new Exception(sprintf(__('%s is not open.'), static::MODE));
         }
 
         $repo = $this->getBuildRepository();
@@ -418,7 +418,7 @@ abstract class DeployBase extends DriverBase
     public function buildDestroy($remove_local = false)
     {
         if (!$this->isBuildOpen()) {
-            throw new Exception(sprintf(__('%1$s is not open.'), static::MODE));
+            throw new Exception(sprintf(__('%s is not open.'), static::MODE));
         }
 
         $repo = $this->getBuildRepository();
@@ -439,7 +439,7 @@ abstract class DeployBase extends DriverBase
     public function buildClose($force = false, $tag_name = null)
     {
         if (!$this->isBuildOpen()) {
-            throw new Exception(sprintf(__('%1$s is not open.'), static::MODE));
+            throw new Exception(sprintf(__('%s is not open.'), static::MODE));
         }
 
         $repo = $this->getBuildRepository();
@@ -537,13 +537,13 @@ abstract class DeployBase extends DriverBase
         $this->GitCmdExecutor->push('upstream', ':' . $repo);
 
         if ($mode === HotfixDriver::MODE && strpos($repo, $this->Driver(ConfigDriver::class)->hotfixPrefix()) === false) {
-            throw new Exception($repo . __(' is not hotfix branch.'));
+            throw new Exception(sprintf(__('%s is not hotfix branch.'), $repo));
         }
         if ($mode === ReleaseDriver::MODE && strpos($repo, $this->Driver(ConfigDriver::class)->releasePrefix()) === false) {
-            throw new Exception($repo . __(' is not release branch.'));
+            throw new Exception(sprintf(__('%s is not release branch.'), $repo));
         }
         if ($mode !== HotfixDriver::MODE && $mode !== ReleaseDriver::MODE) {
-            throw new Exception($mode . __(' is not deploy mode.'));
+            throw new Exception(sprintf(__('%s is not deploy mode.'), $repo));
         }
 
         $this->GitCmdExecutor->branch(['-d', $repo]);
@@ -581,15 +581,15 @@ abstract class DeployBase extends DriverBase
 
         if ($this->getSelfBranchRef() !== 'refs/heads/' . $master_branch) {
             $this->GitCmdExecutor->checkout($release_name);
-            $error_msg = sprintf(__('%1$s close is failed.'), $mode) . "\n" .
-                sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Master', ucwords($mode));
+            $error_msg = sprintf(__('%s close is failed.'), $mode) . "\n" .
+                sprintf(__('%s branch has a commit that is not on the %2$s branch'), 'Master', ucwords($mode));
 
             throw new Exception($error_msg);
         }
 
         if (!$this->patchApplyCheck('deploy/' . $release_name)) {
-            $error_msg = sprintf(__('%1$s close is failed.'), $mode) . "\n" .
-                sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Master', ucwords($mode));
+            $error_msg = sprintf(__('%s close is failed.'), $mode) . "\n" .
+                sprintf(__('%s branch has a commit that is not on the %2$s branch'), 'Master', ucwords($mode));
 
             throw new Exception($error_msg);
         }
@@ -598,7 +598,7 @@ abstract class DeployBase extends DriverBase
         $diff = $this->GitCmdExecutor->diff([$deploy_repository_name . '/' . $release_name, $master_branch]);
 
         if (strlen($diff) !== 0) {
-            $error_msg = $diff . "\n" . sprintf(__('%1$s close is failed.'), $mode);
+            $error_msg = $diff . "\n" . sprintf(__('%s close is failed.'), $mode);
 
             throw new Exception($error_msg);
         }
@@ -613,8 +613,8 @@ abstract class DeployBase extends DriverBase
 
         if ($this->getSelfBranchRef() !== 'refs/heads/' . $develop_branch) {
             $this->GitCmdExecutor->checkout($release_name);
-            $error_msg = sprintf(__('%1$s close is failed.'), $mode) . "\n" .
-                sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Develop', ucwords($mode));
+            $error_msg = sprintf(__('%s close is failed.'), $mode) . "\n" .
+                sprintf(__('%s branch has a commit that is not on the %2$s branch'), 'Develop', ucwords($mode));
 
             throw new Exception($error_msg);
         }
@@ -626,8 +626,8 @@ abstract class DeployBase extends DriverBase
         }
 
         if (strlen($diff) !== 0) {
-            $error_msg = sprintf(__('%1$s close is failed.'), $mode) . "\n" .
-                sprintf(__('%1$s branch has a commit that is not on the %2$s branch'), 'Develop', ucwords($mode));
+            $error_msg = sprintf(__('%s close is failed.'), $mode) . "\n" .
+                sprintf(__('%s branch has a commit that is not on the %2$s branch'), 'Develop', ucwords($mode));
 
             throw new Exception($error_msg);
         }

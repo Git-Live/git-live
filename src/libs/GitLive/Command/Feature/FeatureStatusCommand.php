@@ -57,7 +57,7 @@ class FeatureStatusCommand extends CommandBase
             // the "--help" option
             ->setHelp(__('Show the feature status.'))
 
-            ->addArgument('branch_name', InputArgument::OPTIONAL, 'branch_name name')
+            ->addArgument('feature_name', InputArgument::OPTIONAL, 'branch_name name')
         ;
     }
 
@@ -74,7 +74,7 @@ class FeatureStatusCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $res = $FeatureDriver->featureStatus($input->getArgument('branch_name'));
+        $res = $FeatureDriver->featureStatus($input->getArgument('feature_name'));
 
         $output->writeln($res);
     }

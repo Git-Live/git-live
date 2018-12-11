@@ -52,10 +52,11 @@ class HotfixOpenCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Support preparation of a new production hotfix/.') . __("Allow for minor bug fixes and preparing meta-data for a hotfix"))
+            ->setDescription(__('Start hotfix {name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Support preparation of a new production hotfix/.') . __("Allow for minor bug fixes and preparing meta-data for a hotfix"))
+            ->setHelp(__('Support preparation of a new production hotfix.')
+                . __("Allow for minor bug fixes and preparing meta-data for a hotfix"))
             ->addArgument('name', InputArgument::OPTIONAL, 'hotfix_name');
     }
 

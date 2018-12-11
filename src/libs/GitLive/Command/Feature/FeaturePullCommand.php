@@ -52,11 +52,11 @@ class FeaturePullCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Safe pull to origin repository.'))
+            ->setDescription(__('Safe pull to upstream repository.'))
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__('Safe pull to origin repository.'))
-            ->addArgument('branch_name', InputArgument::OPTIONAL, 'feature name');
+            ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name');
     }
 
     /**
@@ -71,6 +71,6 @@ class FeaturePullCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $FeatureDriver->featurePull($input->getArgument('branch_name'));
+        $FeatureDriver->featurePull($input->getArgument('feature_name'));
     }
 }
