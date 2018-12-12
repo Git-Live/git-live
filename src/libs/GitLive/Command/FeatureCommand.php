@@ -59,7 +59,7 @@ class FeatureCommand extends CommandBase
                 'git live feature task'
             )
             ->addArgument(
-                'branch_name',
+                'feature_name',
                 InputArgument::OPTIONAL,
                 'git live feature task option'
             );
@@ -88,9 +88,9 @@ class FeatureCommand extends CommandBase
                 $command = $this->getApplication()->find('feature:status');
 
                 $arguments = [];
-                if ($input->getArgument('branch_name')) {
+                if ($input->getArgument('feature_name')) {
                     $arguments = [
-                        'branch_name' => $input->getArgument('branch_name'),
+                        'feature_name' => $input->getArgument('feature_name'),
                     ];
                 }
 
@@ -103,9 +103,9 @@ class FeatureCommand extends CommandBase
                 $command = $this->getApplication()->find('feature:change');
 
                 $arguments = [];
-                if ($input->getArgument('branch_name')) {
+                if ($input->getArgument('feature_name')) {
                     $arguments = [
-                        'branch_name' => $input->getArgument('branch_name'),
+                        'feature_name' => $input->getArgument('feature_name'),
                     ];
                 }
 
@@ -118,9 +118,9 @@ class FeatureCommand extends CommandBase
                 $command = $this->getApplication()->find('feature:close');
 
                 $arguments = [];
-                if ($input->getArgument('branch_name')) {
+                if ($input->getArgument('feature_name')) {
                     $arguments = [
-                        'branch_name' => $input->getArgument('branch_name'),
+                        'feature_name' => $input->getArgument('feature_name'),
                     ];
                 }
 
@@ -133,9 +133,9 @@ class FeatureCommand extends CommandBase
                 $command = $this->getApplication()->find('feature:publish');
 
                 $arguments = [];
-                if ($input->getArgument('branch_name')) {
+                if ($input->getArgument('feature_name')) {
                     $arguments = [
-                        'branch_name' => $input->getArgument('branch_name'),
+                        'feature_name' => $input->getArgument('feature_name'),
                     ];
                 }
 
@@ -148,9 +148,9 @@ class FeatureCommand extends CommandBase
                 $command = $this->getApplication()->find('feature:pull');
 
                 $arguments = [];
-                if ($input->getArgument('branch_name')) {
+                if ($input->getArgument('feature_name')) {
                     $arguments = [
-                        'branch_name' => $input->getArgument('branch_name'),
+                        'feature_name' => $input->getArgument('feature_name'),
                     ];
                 }
 
@@ -163,9 +163,9 @@ class FeatureCommand extends CommandBase
                 $command = $this->getApplication()->find('feature:push');
 
                 $arguments = [];
-                if ($input->getArgument('branch_name')) {
+                if ($input->getArgument('feature_name')) {
                     $arguments = [
-                        'branch_name' => $input->getArgument('branch_name'),
+                        'feature_name' => $input->getArgument('feature_name'),
                     ];
                 }
 
@@ -178,9 +178,9 @@ class FeatureCommand extends CommandBase
                 $command = $this->getApplication()->find('feature:start');
 
                 $arguments = [];
-                if ($input->getArgument('branch_name')) {
+                if ($input->getArgument('feature_name')) {
                     $arguments = [
-                        'branch_name' => $input->getArgument('branch_name'),
+                        'feature_name' => $input->getArgument('feature_name'),
                     ];
                 }
 
@@ -193,9 +193,9 @@ class FeatureCommand extends CommandBase
                 $command = $this->getApplication()->find('feature:track');
 
                 $arguments = [];
-                if ($input->getArgument('branch_name')) {
+                if ($input->getArgument('feature_name')) {
                     $arguments = [
-                        'branch_name' => $input->getArgument('branch_name'),
+                        'feature_name' => $input->getArgument('feature_name'),
                     ];
                 }
                 $greetInput = new ArrayInput($arguments);

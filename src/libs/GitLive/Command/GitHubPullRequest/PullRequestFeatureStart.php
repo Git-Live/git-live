@@ -58,7 +58,7 @@ class PullRequestFeatureStart extends CommandBase
             // the "--help" Merge
             ->setHelp(__('Feature start and merge pull request.'))
             ->addArgument('pull_request_number', InputArgument::REQUIRED, 'Pull request id')
-            ->addArgument('branch_name', InputArgument::REQUIRED, 'feature_name')
+            ->addArgument('feature_name', InputArgument::REQUIRED, 'feature_name')
             ->addOption(
                 'soft',
                 null,
@@ -83,14 +83,14 @@ class PullRequestFeatureStart extends CommandBase
         if ($input->getOption('soft')) {
             App::make(PullRequestDriver::class)->featureStartSoft(
                 $input->getArgument('pull_request_number'),
-                $input->getArgument('branch_name')
+                $input->getArgument('feature_name')
             );
 
             return 0;
         }
         App::make(PullRequestDriver::class)->featureStart(
             $input->getArgument('pull_request_number'),
-            $input->getArgument('branch_name')
+            $input->getArgument('feature_name')
         );
 
         return 0;

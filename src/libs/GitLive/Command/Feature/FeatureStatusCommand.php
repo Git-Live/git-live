@@ -57,7 +57,7 @@ class FeatureStatusCommand extends CommandBase
             // the "--help" option
             ->setHelp(__('Show the feature status.'))
 
-            ->addArgument('feature_name', InputArgument::OPTIONAL, 'branch_name name')
+            ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature_name name')
         ;
     }
 

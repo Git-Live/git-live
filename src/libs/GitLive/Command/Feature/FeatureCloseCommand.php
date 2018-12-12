@@ -56,7 +56,7 @@ class FeatureCloseCommand extends CommandBase
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(printf(__('Remove feature branch, from %s and %s repository.'), 'origin', 'upstream'))
-            ->addArgument('branch_name', InputArgument::OPTIONAL, 'feature name');
+            ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name');
     }
 
     /**
@@ -71,6 +71,6 @@ class FeatureCloseCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $FeatureDriver->featureClose($input->getArgument('branch_name'));
+        $FeatureDriver->featureClose($input->getArgument('feature_name'));
     }
 }

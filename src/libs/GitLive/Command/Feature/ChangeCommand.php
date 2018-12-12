@@ -42,7 +42,7 @@ class ChangeCommand extends CommandBase
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__('Cheackout other feature branch.'))
-            ->addArgument('branch_name', InputArgument::REQUIRED, 'feature name')
+            ->addArgument('feature_name', InputArgument::REQUIRED, 'feature name')
             ->addOption('detach', '', InputOption::VALUE_NONE, 'Prepare to work on top of <commit>, by detaching HEAD at it (see"DETACHED HEAD" section), and updating the index and the files in the working tree.')
         ;
     }
@@ -60,7 +60,7 @@ class ChangeCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $res = $FeatureDriver->featureChange($input->getArgument('branch_name'));
+        $res = $FeatureDriver->featureChange($input->getArgument('feature_name'));
 
         $output->writeln($res);
     }
