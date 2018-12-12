@@ -134,6 +134,12 @@ class InitDriver extends DriverBase
         $this->GitCmdExecutor->checkout($Config->master());
         $this->GitCmdExecutor->pull('upstream', $Config->master());
         $this->GitCmdExecutor->push('origin', $Config->master());
+
+        // tag
+        $this->GitCmdExecutor->tagPull('upstream');
+        $this->GitCmdExecutor->tagPush('origin');
+
+
     }
 
     /**

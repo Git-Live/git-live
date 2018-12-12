@@ -268,6 +268,21 @@ class GitCmdExecutor extends GitBase
         return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
+
+    /**
+     * @param string    $remote
+     * @param bool      $verbosity
+     * @param null|bool $output_verbosity
+     * @return string
+     */
+    public function tagPull($remote, $verbosity = false, $output_verbosity = null)
+    {
+        $cmd = $this->createCmd('pull', [$remote, '--tags']);
+
+        return $this->exec($cmd, $verbosity, $output_verbosity);
+    }
+
+
     /**
      * @param           $left
      * @param           $right

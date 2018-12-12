@@ -330,7 +330,14 @@ class PullRequestDriverTest extends TestCase
 
                 return '.git';
             });
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git config --get gitlive.branch.develop.name', true, null)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
 
+                return 'stage';
+            });
         $mock->shouldReceive('exec')
             ->once()
             ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
@@ -374,7 +381,7 @@ class PullRequestDriverTest extends TestCase
             9 => 'git rev-parse --git-dir 2> /dev/null',
             10 => 'git config --get gitlive.branch.feature.prefix.name',
             11 => 'git branch -a',
-            12 => 'git checkout upstream/develop',
+            12 => 'git checkout upstream/stage',
             13 => 'git checkout -b feature/new_feature_name',
             14 => 'git symbolic-ref HEAD 2>/dev/null',
             15 => 'git pull upstream pull/24/head',

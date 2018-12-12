@@ -422,5 +422,57 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
 
     public function testStart()
     {
+        $spy = [];
+        $mock = \Mockery::mock(SystemCommand::class);
+        $mock->shouldReceive('exec')
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '.git';
+            });
+        $mock->shouldReceive('exec')
+            //->never()
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
+
+
+        Container::bind(
+            SystemCommandInterface::class,
+            function () use ($mock) {
+                return $mock;
+            }
+        );
+
+
+        $InitDriver = App::make(InitDriver::class);
+
+        $InitDriver->start();
+
+        dump(data_get($spy, '*.0'));
+        $this->assertSame([
+            0 => "git stash -u",
+  1 => "git reset --hard HEAD",
+  2 => "git clean -df",
+  3 => "git fetch --all",
+  4 => "git fetch -p",
+  5 => "git rev-parse --git-dir 2> /dev/null",
+  6 => "git config --get gitlive.branch.develop.name",
+  7 => "git checkout develop",
+  8 => "git pull upstream develop",
+  9 => "git push origin develop",
+  10 => "git rev-parse --git-dir 2> /dev/null",
+  11 => "git config --get gitlive.branch.master.name",
+  12 => "git checkout master",
+  13 => "git pull upstream master",
+  14 => "git push origin master",
+  15 => "git pull upstream --tags",
+  16 => "git push origin --tags",
+        ], data_get($spy, '*.0'));
+
+
     }
 }
