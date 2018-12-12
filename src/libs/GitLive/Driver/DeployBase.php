@@ -84,7 +84,7 @@ abstract class DeployBase extends DriverBase
      * @throws Exception
      * @throws \ReflectionException
      */
-    public function register()
+    public function boot()
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();

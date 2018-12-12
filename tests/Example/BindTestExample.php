@@ -23,6 +23,7 @@ namespace Example;
 /**
  * @internal
  * @coversNothing
+ * @codeCoverageIgnore
  */
 class BindTestExample implements BindTestInterface
 {

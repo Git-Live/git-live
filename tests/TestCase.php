@@ -42,6 +42,7 @@ use PHPUnit\Framework\TestCase as TestCaseBase;
  * @since      2018/11/23
  *
  * @coversNothing
+ * @codeCoverageIgnore
  *
  */
 abstract class TestCase extends TestCaseBase

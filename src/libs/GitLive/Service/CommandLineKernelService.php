@@ -89,9 +89,9 @@ use GitLive\Command\StartCommand;
  */
 class CommandLineKernelService
 {
-    public function register()
+    public function app()
     {
-        $register = [
+        $app = [
             CleanCommand::class,
             SetCommand::class,
             ChangeCommand::class,
@@ -144,7 +144,7 @@ class CommandLineKernelService
             StateMasterCommand::class,
         ];
 
-        return collect($register)
+        return collect($app)
             ->mapWithKeys(function ($item) {
                 return [$item::getSignature() => function () use ($item) {
                     return new $item;

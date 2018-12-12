@@ -37,6 +37,7 @@ use GitLive\Support\SystemCommandInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-09
  * @backupStaticAttributes enabled
+ * @codeCoverageIgnore
  */
 class SystemCommand implements SystemCommandInterface
 {

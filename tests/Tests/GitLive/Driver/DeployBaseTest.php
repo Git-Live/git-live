@@ -142,7 +142,7 @@ class DeployBaseTest extends TestCase
         /**
          * @var ReleaseDriver $ReleaseDriver
          */
-        $ReleaseDriver->register();
+        $ReleaseDriver->boot();
         $ReleaseDriver->buildSync();
 
         dump(data_get($spy, '*.0'));

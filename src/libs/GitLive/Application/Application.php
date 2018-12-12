@@ -58,7 +58,7 @@ class Application extends ConsoleApplication
         $Kernel = App::make(CommandLineKernelService::class);
 
         $commandLoader = new FactoryCommandLoader(
-            $Kernel->register()
+            $Kernel->app()
         );
 
         parent::__construct('GIT Live', GitLive::VERSION);

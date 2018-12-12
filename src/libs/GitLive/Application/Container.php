@@ -128,7 +128,17 @@ class Container
              * @var GitBase $res
              */
             $res = new $concrete;
-            $res->register();
+            try {
+                $boot = $reflector->getMethod('boot');
+            } catch (\Exception $exception) {
+                $boot = null;
+            }
+
+
+            if ($boot) {
+                $res->boot();
+            }
+
 
             return $res;
         }
@@ -144,7 +154,18 @@ class Container
          * @var GitBase $res
          */
         $res = $reflector->newInstanceArgs($instances);
-        $res->register();
+
+        try {
+            $boot = $reflector->getMethod('boot');
+        } catch (\Exception $exception) {
+            $boot = null;
+        }
+
+
+        if ($boot) {
+            $res->boot();
+        }
+
 
         return $res;
     }

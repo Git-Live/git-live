@@ -35,7 +35,7 @@ namespace GitLive;
  */
 class GitBase
 {
-    public function register()
+    public function boot()
     {
     }
 }
