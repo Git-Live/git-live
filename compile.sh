@@ -33,7 +33,7 @@ mv -f vendor vendor.back || true
 php composer.phar install --no-dev
 php composer.phar dump-autoload -a
 
-php box.phar compile -vv
+php box.phar compile -vvv
 
 rm -rf vendor
 mv -f vendor.back vendor || true
