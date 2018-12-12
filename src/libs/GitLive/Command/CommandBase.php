@@ -64,8 +64,6 @@ abstract class CommandBase extends Command
         }
     }
 
-
-
     protected function configure()
     {
         parent::configure();

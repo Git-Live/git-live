@@ -362,20 +362,22 @@ class PullRequestDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git fetch --all",
-            1 => "git fetch -p",
-            2 => "git fetch upstream",
-            3 => "git fetch -p upstream",
-            4 => "git fetch upstream '+refs/pull/*:refs/remotes/pr/*'",
-            5 => "git rev-parse --git-dir 2> /dev/null",
-            6 => "git config --get gitlive.branch.feature.prefix.ignore",
-            7 => "git rev-parse --git-dir 2> /dev/null",
-            8 => "git config --get gitlive.branch.feature.prefix.name",
-            9 => "git branch -a",
-            10 => "git checkout upstream/develop",
-            11 => "git checkout -b feature/new_feature_name",
-            12 => "git symbolic-ref HEAD 2>/dev/null",
-            13 => "git pull upstream pull/24/head",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.develop.name',
+            2 => 'git fetch --all',
+            3 => 'git fetch -p',
+            4 => 'git fetch upstream',
+            5 => 'git fetch -p upstream',
+            6 => "git fetch upstream '+refs/pull/*:refs/remotes/pr/*'",
+            7 => 'git rev-parse --git-dir 2> /dev/null',
+            8 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            9 => 'git rev-parse --git-dir 2> /dev/null',
+            10 => 'git config --get gitlive.branch.feature.prefix.name',
+            11 => 'git branch -a',
+            12 => 'git checkout upstream/develop',
+            13 => 'git checkout -b feature/new_feature_name',
+            14 => 'git symbolic-ref HEAD 2>/dev/null',
+            15 => 'git pull upstream pull/24/head',
         ], data_get($spy, '*.0'));
     }
 }

@@ -88,7 +88,7 @@ class DeployBaseTest extends TestCase
             ->andReturnUsing(function (...$val) use (&$spy) {
                 $spy[] = $val;
 
-                return 'master';
+                return 'v2.0';
             });
 
         $systemCommand->shouldReceive('exec')
@@ -221,7 +221,7 @@ class DeployBaseTest extends TestCase
             ->andReturnUsing(function (...$val) use (&$spy) {
                 $spy[] = $val;
 
-                return 'master';
+                return 'v2.0';
             });
 
         $systemCommand->shouldReceive('exec')
@@ -344,7 +344,7 @@ class DeployBaseTest extends TestCase
             ->andReturnUsing(function (...$val) use (&$spy) {
                 $spy[] = $val;
 
-                return 'master';
+                return 'v2.0';
             });
 
         $systemCommand->shouldReceive('exec')
@@ -2365,7 +2365,7 @@ class DeployBaseTest extends TestCase
             ->andReturnUsing(function (...$val) use (&$spy) {
                 $spy[] = $val;
 
-                return 'master';
+                return 'v2.0';
             });
 
         $systemCommand->shouldReceive('exec')
@@ -2418,7 +2418,7 @@ class DeployBaseTest extends TestCase
         $ReleaseDriver->shouldReceive('getSelfBranchRef')
             ->once()
             ->andReturnUsing(function (...$val) use (&$spy) {
-                return 'refs/heads/master';
+                return 'refs/heads/v2.0';
             });
         $ReleaseDriver->shouldReceive('getSelfBranchRef')
             ->once()
@@ -2441,14 +2441,14 @@ class DeployBaseTest extends TestCase
             5 => "git config --get gitlive.branch.master.name",
             6 => "git rev-parse --git-dir 2> /dev/null",
             7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git checkout unit_deploy/master",
-            9 => "git branch -D master",
-            10 => "git checkout -b master",
+            8 => "git checkout unit_deploy/v2.0",
+            9 => "git branch -D v2.0",
+            10 => "git checkout -b v2.0",
             11 => "git format-patch `git rev-parse --abbrev-ref HEAD`..deploy/unit_release/unit_test_release_1234 --stdout",
             12 => "git merge deploy/unit_release/unit_test_release_1234",
-            13 => "git diff unit_deploy/unit_release/unit_test_release_1234 master",
-            14 => "git push upstream master",
-            15 => "git push unit_deploy master",
+            13 => "git diff unit_deploy/unit_release/unit_test_release_1234 v2.0",
+            14 => "git push upstream v2.0",
+            15 => "git push unit_deploy v2.0",
             16 => "git checkout upstream/stage",
             17 => "git branch -D stage",
             18 => "git checkout -b stage",
@@ -2459,7 +2459,7 @@ class DeployBaseTest extends TestCase
             23 => "git push upstream :unit_release/unit_test_release_1234",
             24 => "git branch -d unit_release/unit_test_release_1234",
             25 => "git fetch upstream",
-            26 => "git checkout upstream/master",
+            26 => "git checkout upstream/v2.0",
             27 => "git tag runit_test_release_1234",
             28 => "git push upstream --tags",
             29 => "git checkout stage",

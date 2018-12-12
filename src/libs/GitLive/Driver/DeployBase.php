@@ -411,9 +411,9 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param bool $remove_local OPTIONAL:false
-     * @return void
      * @throws Exception
      * @throws \ReflectionException
+     * @return void
      */
     public function buildDestroy($remove_local = false)
     {
@@ -525,9 +525,9 @@ abstract class DeployBase extends DriverBase
      * @param  string $repo
      * @param  string $mode
      * @param bool    $remove_local OPTIONAL:false
-     * @return void
      * @throws Exception
      * @throws \ReflectionException
+     * @return void
      */
     protected function deployDestroy($repo, $mode, $remove_local = false)
     {
@@ -642,7 +642,7 @@ abstract class DeployBase extends DriverBase
 
         // タグ付け
         $this->GitCmdExecutor->fetch(['upstream']);
-        $this->GitCmdExecutor->checkout('upstream/master');
+        $this->GitCmdExecutor->checkout('upstream/' . $master_branch);
 
         if (empty($tag_name)) {
             $tag_name = 'r' . $release_name;

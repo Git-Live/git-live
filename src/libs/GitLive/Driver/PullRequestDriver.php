@@ -20,6 +20,8 @@
 
 namespace GitLive\Driver;
 
+use App;
+
 /**
  * Class PullRequestDriver
  *
@@ -49,8 +51,10 @@ class PullRequestDriver extends DriverBase
      */
     public function featureStart($pull_request_number, $branch)
     {
+        $develop_branch = $this->Driver(ConfigDriver::class)->develop();
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
+
         $this->GitCmdExecutor->fetchPullRequest();
 
         if (strpos($branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0) {
@@ -61,7 +65,7 @@ class PullRequestDriver extends DriverBase
             throw new \GitLive\Exception(sprintf(__('%s branch is duplicate.'), $branch));
         }
 
-        $this->GitCmdExecutor->checkout('upstream/develop');
+        $this->GitCmdExecutor->checkout('upstream/' . $develop_branch);
         $this->GitCmdExecutor->checkout($branch, ['-b']);
         $self_branch = $this->getSelfBranchRef();
 
