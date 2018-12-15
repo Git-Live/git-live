@@ -59,5 +59,7 @@ class InteractiveShell implements InteractiveShellInterface
     public function interactiveShell($shell_message, $using_default = false)
     {
         // TODO: Implement interactiveShell() method.
+
+        return '';
     }
 }

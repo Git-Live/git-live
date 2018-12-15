@@ -25,11 +25,11 @@ use GitLive\Application\Container;
 use GitLive\Driver\Exception;
 use GitLive\Driver\HotfixDriver;
 use GitLive\Driver\ReleaseDriver;
-use GitLive\GitCmdExecutor;
 use GitLive\GitLive;
 use GitLive\Mock\SystemCommand;
+use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\SystemCommandInterface;
-use Tests\GitLive\TestCase;
+use Tests\GitLive\Tester\TestCase;
 
 /**
  * @internal
@@ -38,8 +38,7 @@ use Tests\GitLive\TestCase;
 class DeployBaseTest extends TestCase
 {
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -171,8 +170,6 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -294,8 +291,7 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -464,8 +460,6 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -587,8 +581,7 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -711,8 +704,7 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -825,7 +817,7 @@ class DeployBaseTest extends TestCase
         /**
          * @var ReleaseDriver $ReleaseDriver
          */
-        $res = $ReleaseDriver->buildOpen('20181209031124');
+        $ReleaseDriver->buildOpen('20181209031124');
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
@@ -846,8 +838,7 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -981,8 +972,6 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -1104,8 +1093,6 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -1226,8 +1213,7 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -1350,8 +1336,7 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      * @expectedException Exception
@@ -1475,8 +1460,7 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -1601,8 +1585,7 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -1768,8 +1751,7 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -1872,7 +1854,7 @@ class DeployBaseTest extends TestCase
         /**
          * @var ReleaseDriver $ReleaseDriver
          */
-        $res = $ReleaseDriver->buildPull();
+        $ReleaseDriver->buildPull();
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
@@ -1890,8 +1872,7 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -1994,7 +1975,7 @@ class DeployBaseTest extends TestCase
         /**
          * @var ReleaseDriver $ReleaseDriver
          */
-        $res = $ReleaseDriver->buildDestroy();
+        $ReleaseDriver->buildDestroy();
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
@@ -2013,8 +1994,6 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -2180,8 +2159,7 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -2304,8 +2282,6 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */
@@ -2315,8 +2291,7 @@ class DeployBaseTest extends TestCase
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      */

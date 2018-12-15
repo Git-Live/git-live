@@ -26,7 +26,7 @@ use GitLive\Driver\BranchDriver;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\Collection;
 use GitLive\Support\SystemCommandInterface;
-use Tests\GitLive\TestCase;
+use Tests\GitLive\Tester\TestCase;
 
 /**
  * @internal
@@ -35,7 +35,6 @@ use Tests\GitLive\TestCase;
 class BranchDriverTest extends TestCase
 {
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\BranchDriver
      * @covers \GitLive\Driver\DriverBase
      */
@@ -100,7 +99,6 @@ class BranchDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\BranchDriver
      * @covers \GitLive\Driver\DriverBase
      */
@@ -202,7 +200,6 @@ class BranchDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\BranchDriver
      * @covers \GitLive\Driver\DriverBase
      */

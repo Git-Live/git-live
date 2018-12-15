@@ -92,7 +92,6 @@ class FeatureDriver extends DriverBase
     /**
      * @param null|string $branch
      * @throws Exception
-     * @throws \ReflectionException
      * @return string
      */
     public function featureStatus($branch = null)

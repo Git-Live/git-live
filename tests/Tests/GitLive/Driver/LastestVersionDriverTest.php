@@ -27,7 +27,7 @@ use GitLive\Driver\LastestVersionDriver;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
 use JapaneseDate\DateTime;
-use Tests\GitLive\TestCase;
+use Tests\GitLive\Tester\TestCase;
 
 /**
  * Class LastestVersionDriverTest
@@ -43,8 +43,6 @@ use Tests\GitLive\TestCase;
 class LastestVersionDriverTest extends TestCase
 {
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\LastestVersionDriver
      */
     public function testCkNewVersion()
@@ -53,7 +51,6 @@ class LastestVersionDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\LastestVersionDriver
      */
     public function testGetLatestVersion()

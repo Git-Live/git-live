@@ -24,7 +24,7 @@ use App;
 use GitLive\Application\Container;
 use GitLive\Driver\ConfigDriver;
 use GitLive\Driver\FetchDriver;
-use GitLive\GitCmdExecutor;
+use GitLive\Support\GitCmdExecutor;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -47,7 +47,6 @@ class PushCommand extends CommandBase
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @return null|int|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -25,7 +25,7 @@ use Example\BindTestInterface;
 use GitLive\Application\Container;
 use GitLive\GitLive;
 use PHPUnit\Framework\TestCase;
-use Tests\GitLive\InvokeTrait;
+use Tests\GitLive\Tester\InvokeTrait;
 
 /**
  * @internal

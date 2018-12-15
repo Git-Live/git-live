@@ -40,8 +40,7 @@ class Facade
     /**
      * @param       $concrete
      * @param array $with
-     * @throws \ReflectionException
-     * @return mixed
+     * @return null|mixed
      */
     public static function make($concrete, $with = [])
     {
@@ -49,6 +48,10 @@ class Facade
 
         $Container->setWith($with);
 
-        return $Container->build($concrete);
+        try {
+            return $Container->build($concrete);
+        } catch (\ReflectionException $exception) {
+            return null;
+        }
     }
 }

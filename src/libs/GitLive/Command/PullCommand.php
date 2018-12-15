@@ -26,7 +26,7 @@ use GitLive\Driver\ConfigDriver;
 use GitLive\Driver\Exception;
 use GitLive\Driver\FetchDriver;
 use GitLive\Driver\ResetDriver;
-use GitLive\GitCmdExecutor;
+use GitLive\Support\GitCmdExecutor;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -57,8 +57,7 @@ class PullCommand extends CommandBase
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @return null|int|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)

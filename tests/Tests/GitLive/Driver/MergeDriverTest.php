@@ -25,7 +25,7 @@ use GitLive\Application\Container;
 use GitLive\Driver\MergeDriver;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
-use Tests\GitLive\TestCase;
+use Tests\GitLive\Tester\TestCase;
 
 /**
  * @internal
@@ -35,7 +35,6 @@ class MergeDriverTest extends TestCase
 {
     /**
      * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\MergeDriver
      */
@@ -152,7 +151,6 @@ class MergeDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\MergeDriver
      */
@@ -273,7 +271,6 @@ class MergeDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\MergeDriver
      */
@@ -383,7 +380,6 @@ class MergeDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\MergeDriver
      */

@@ -1,6 +1,10 @@
 <?php
+
 /**
- * FeatureStartCommandTest.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -9,22 +13,24 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018-12-13
  */
 
 namespace Tests\GitLive\Command\Feature;
 
 use App;
 use GitLive\Application\Application;
-use Tests\GitLive\CommandTestCase as TestCase;
-use Tests\GitLive\CommandTester;
+use Tests\GitLive\Tester\CommandTestCase as TestCase;
+use Tests\GitLive\Tester\CommandTester;
 
+/**
+ * @internal
+ * @coversNothing
+ */
 class FeatureStartCommandTest extends TestCase
 {
-
     public function testExecute()
     {
         $application = App::make(Application::class);

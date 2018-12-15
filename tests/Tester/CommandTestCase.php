@@ -18,16 +18,15 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace Tests\GitLive;
+namespace Tests\GitLive\Tester;
 
 use App;
 use GitLive\Application\Container;
 use GitLive\Driver\ConfigDriver;
 use GitLive\GitLive;
-use PHPUnit\Framework\TestCase as TestCaseBase;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
-
+use Tests\GitLive\Tester\TestCase as TestCaseBase;
 
 /**
  * Class TestCase

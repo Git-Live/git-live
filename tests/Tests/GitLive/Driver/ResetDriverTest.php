@@ -24,11 +24,11 @@ use App;
 use GitLive\Application\Container;
 use GitLive\Driver\Exception;
 use GitLive\Driver\ResetDriver;
-use GitLive\GitCmdExecutor;
 use GitLive\GitLive;
 use GitLive\Mock\SystemCommand;
+use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\SystemCommandInterface;
-use Tests\GitLive\TestCase;
+use Tests\GitLive\Tester\TestCase;
 
 /**
  * @internal
@@ -37,8 +37,7 @@ use Tests\GitLive\TestCase;
 class ResetDriverTest extends TestCase
 {
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\ResetDriver
      */
@@ -106,8 +105,7 @@ nothing to commit, working tree clean';
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\ResetDriver
      */
@@ -162,8 +160,7 @@ nothing to commit, working tree clean';
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\ResetDriver
      */
@@ -218,8 +215,7 @@ nothing to commit, working tree clean';
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\ResetDriver
      */
@@ -274,8 +270,7 @@ nothing to commit, working tree clean';
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\ResetDriver
      * @expectedException Exception
@@ -331,8 +326,7 @@ nothing to commit, working tree clean';
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\ResetDriver
      */
@@ -400,8 +394,7 @@ nothing to commit, working tree clean';
     }
 
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\ResetDriver
      */

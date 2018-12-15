@@ -29,7 +29,7 @@ use GitLive\Mock\InteractiveShell;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\InteractiveShellInterface;
 use GitLive\Support\SystemCommandInterface;
-use Tests\GitLive\TestCase;
+use Tests\GitLive\Tester\TestCase;
 
 /**
  * @internal
@@ -38,8 +38,7 @@ use Tests\GitLive\TestCase;
 class InitDriverTest extends TestCase
 {
     /**
-     * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\InitDriver
      * @expectedException Exception
@@ -91,7 +90,6 @@ class InitDriverTest extends TestCase
 
     /**
      * @throws Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\InitDriver
      */
@@ -371,7 +369,6 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
 
     /**
      * @throws Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\InitDriver
      */
@@ -439,14 +436,12 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
                 return '';
             });
 
-
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
                 return $mock;
             }
         );
-
 
         $InitDriver = App::make(InitDriver::class);
 
@@ -455,24 +450,22 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
         dump(data_get($spy, '*.0'));
         $this->assertSame([
             0 => "git stash -u",
-  1 => "git reset --hard HEAD",
-  2 => "git clean -df",
-  3 => "git fetch --all",
-  4 => "git fetch -p",
-  5 => "git rev-parse --git-dir 2> /dev/null",
-  6 => "git config --get gitlive.branch.develop.name",
-  7 => "git checkout develop",
-  8 => "git pull upstream develop",
-  9 => "git push origin develop",
-  10 => "git rev-parse --git-dir 2> /dev/null",
-  11 => "git config --get gitlive.branch.master.name",
-  12 => "git checkout master",
-  13 => "git pull upstream master",
-  14 => "git push origin master",
-  15 => "git pull upstream --tags",
-  16 => "git push origin --tags",
+            1 => "git reset --hard HEAD",
+            2 => "git clean -df",
+            3 => "git fetch --all",
+            4 => "git fetch -p",
+            5 => "git rev-parse --git-dir 2> /dev/null",
+            6 => "git config --get gitlive.branch.develop.name",
+            7 => "git checkout develop",
+            8 => "git pull upstream develop",
+            9 => "git push origin develop",
+            10 => "git rev-parse --git-dir 2> /dev/null",
+            11 => "git config --get gitlive.branch.master.name",
+            12 => "git checkout master",
+            13 => "git pull upstream master",
+            14 => "git push origin master",
+            15 => "git pull upstream --tags",
+            16 => "git push origin --tags",
         ], data_get($spy, '*.0'));
-
-
     }
 }

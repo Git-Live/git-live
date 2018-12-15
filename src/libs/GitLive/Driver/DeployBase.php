@@ -21,8 +21,8 @@
 namespace GitLive\Driver;
 
 use App;
-use GitLive\GitCmdExecutor;
 use GitLive\GitLive;
+use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\SystemCommandInterface;
 use JapaneseDate\DateTime;
 
@@ -69,7 +69,6 @@ abstract class DeployBase extends DriverBase
      * @param GitLive                $GitLive
      * @param GitCmdExecutor         $gitCmdExecutor
      * @param SystemCommandInterface $command
-     * @throws \ReflectionException
      */
     public function __construct(GitLive $GitLive, GitCmdExecutor $gitCmdExecutor, SystemCommandInterface $command)
     {
@@ -82,7 +81,6 @@ abstract class DeployBase extends DriverBase
 
     /**
      * @throws Exception
-     * @throws \ReflectionException
      */
     public function boot()
     {
@@ -99,7 +97,6 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param null $release_rep
      * @throws Exception
-     * @throws \ReflectionException
      * @return void
      */
     public function buildOpen($release_rep = null)
@@ -137,7 +134,6 @@ abstract class DeployBase extends DriverBase
      *  Whether the release is open or not
      *
      * @access      public
-     * @throws \ReflectionException
      * @return bool
      * @codeCoverageIgnore
      */
@@ -157,7 +153,6 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @throws \ReflectionException
      * @return string
      */
     public function getReleaseRepository()
@@ -188,7 +183,6 @@ abstract class DeployBase extends DriverBase
      *  Whether the hotfix is open or not
      *
      * @access      public
-     * @throws \ReflectionException
      * @return bool
      * @codeCoverageIgnore
      */
@@ -208,7 +202,6 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @throws \ReflectionException
      * @return string
      */
     public function getHotfixRepository()
@@ -242,7 +235,6 @@ abstract class DeployBase extends DriverBase
      * @param       string $tag_name
      * @param null         $release_rep
      * @throws Exception
-     * @throws \ReflectionException
      * @return      void
      */
     public function buildOpenWithReleaseTag($tag_name, $release_rep = null)
@@ -276,7 +268,6 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @throws \ReflectionException
      * @return void
      */
     public function buildTrack()
@@ -308,7 +299,6 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param  string $repo
      * @throws Exception
-     * @throws \ReflectionException
      * @return void
      */
     public function deployTrack($repo)
@@ -373,7 +363,6 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @throws \ReflectionException
      * @return void
      */
     public function buildSync()
@@ -392,7 +381,6 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @throws \ReflectionException
      * @return void
      */
     public function buildPush()
@@ -412,7 +400,6 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param bool $remove_local OPTIONAL:false
      * @throws Exception
-     * @throws \ReflectionException
      * @return void
      */
     public function buildDestroy($remove_local = false)
@@ -432,9 +419,7 @@ abstract class DeployBase extends DriverBase
      * @param bool $force OPTIONAL:false
      * @param null $tag_name
      * @throws Exception
-     * @throws \ReflectionException
      * @return void
-     *
      */
     public function buildClose($force = false, $tag_name = null)
     {
@@ -451,7 +436,6 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @throws \ReflectionException
      * @return void
      */
     public function enableRelease()
@@ -473,7 +457,6 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param  string $repo
      * @throws Exception
-     * @throws \ReflectionException
      * @return void
      */
     protected function deploySync($repo)
@@ -497,7 +480,6 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param  string $repo
      * @throws Exception
-     * @throws \ReflectionException
      * @return void
      */
     protected function upstreamPush($repo)
@@ -526,7 +508,6 @@ abstract class DeployBase extends DriverBase
      * @param  string $mode
      * @param bool    $remove_local OPTIONAL:false
      * @throws Exception
-     * @throws \ReflectionException
      * @return void
      */
     protected function deployDestroy($repo, $mode, $remove_local = false)
@@ -565,7 +546,6 @@ abstract class DeployBase extends DriverBase
      * @param bool    $force OPTIONAL:false
      * @param null    $tag_name
      * @throws Exception
-     * @throws \ReflectionException
      * @return void
      */
     protected function deployEnd($release_name, $mode, $force = false, $tag_name = null)

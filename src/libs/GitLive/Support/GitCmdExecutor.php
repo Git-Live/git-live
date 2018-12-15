@@ -18,8 +18,9 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace GitLive;
+namespace GitLive\Support;
 
+use GitLive\GitBase;
 use GitLive\Support\SystemCommandInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -268,7 +269,6 @@ class GitCmdExecutor extends GitBase
         return $this->exec($cmd, $verbosity, $output_verbosity);
     }
 
-
     /**
      * @param string    $remote
      * @param bool      $verbosity
@@ -281,7 +281,6 @@ class GitCmdExecutor extends GitBase
 
         return $this->exec($cmd, $verbosity, $output_verbosity);
     }
-
 
     /**
      * @param           $left

@@ -25,7 +25,7 @@ use GitLive\Application\Container;
 use GitLive\Driver\FeatureDriver;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
-use Tests\GitLive\TestCase;
+use Tests\GitLive\Tester\TestCase;
 
 /**
  * Class FeatureDriverTest
@@ -48,7 +48,6 @@ use Tests\GitLive\TestCase;
 class FeatureDriverTest extends TestCase
 {
     /**
-     * @throws \ReflectionException
      * @throws \Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\FeatureDriver
@@ -181,7 +180,6 @@ class FeatureDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @throws \Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\FeatureDriver
@@ -314,7 +312,7 @@ class FeatureDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
+     * @throws \GitLive\Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\FeatureDriver
      */
@@ -457,7 +455,6 @@ class FeatureDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @throws \Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\FeatureDriver
@@ -569,7 +566,6 @@ class FeatureDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @throws \Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\FeatureDriver
@@ -679,7 +675,6 @@ class FeatureDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @throws \Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\FeatureDriver
@@ -791,7 +786,6 @@ class FeatureDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @throws \Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\FeatureDriver
@@ -895,7 +889,6 @@ class FeatureDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @throws \Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\FeatureDriver
@@ -999,7 +992,6 @@ class FeatureDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @throws \Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\FeatureDriver
@@ -1102,7 +1094,6 @@ class FeatureDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\FeatureDriver
      */
@@ -1167,7 +1158,6 @@ class FeatureDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\FeatureDriver
      */
@@ -1279,7 +1269,6 @@ class FeatureDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @throws \Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\FeatureDriver

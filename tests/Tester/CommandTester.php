@@ -1,6 +1,10 @@
 <?php
+
 /**
- * CommandTester.php
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  *
  * @category   GitCommand
  * @package    Git-Live
@@ -9,14 +13,12 @@
  * @author     suzunone<suzunone.eleven@gmail.com>
  * @copyright  Project Git Live
  * @license    MIT
- * @version    GIT: $Id$
+ * @version    GIT: $Id\$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018-12-13
  */
 
-namespace Tests\GitLive;
-
+namespace Tests\GitLive\Tester;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -45,7 +47,7 @@ class CommandTester
     private $command;
     private $input;
     private $output;
-    private $inputs = array();
+    private $inputs = [];
     private $statusCode;
     public function __construct(Command $command)
     {
@@ -64,10 +66,10 @@ class CommandTester
      * @param array $input   An array of command arguments and options
      * @param array $options An array of execution options
      *
-     * @return int The command exit code
      * @throws \Exception
+     * @return int The command exit code
      */
-    public function execute(array $input, array $options = array())
+    public function execute(array $input, array $options = [])
     {
         // set the command name automatically if the application requires
         // this argument and no command name was passed
@@ -75,7 +77,7 @@ class CommandTester
             && (null !== $application = $this->command->getApplication())
             && $application->getDefinition()->hasArgument('command')
         ) {
-            $input = array_merge(array('command' => $this->command->getName()), $input);
+            $input = array_merge(['command' => $this->command->getName()], $input);
         }
         $this->input = new ArrayInput($input);
         if ($this->inputs) {
@@ -89,6 +91,7 @@ class CommandTester
         if (isset($options['verbosity'])) {
             $this->output->setVerbosity($options['verbosity']);
         }
+
         return $this->statusCode = $this->command->run($this->input, $this->output);
     }
     /**
@@ -105,6 +108,7 @@ class CommandTester
         if ($normalize) {
             $display = str_replace(PHP_EOL, "\n", $display);
         }
+
         return $display;
     }
     /**
@@ -145,6 +149,7 @@ class CommandTester
     public function setInputs(array $inputs)
     {
         $this->inputs = $inputs;
+
         return $this;
     }
     private static function createStream(array $inputs)
@@ -152,6 +157,7 @@ class CommandTester
         $stream = fopen('php://memory', 'r+', false);
         fwrite($stream, implode(PHP_EOL, $inputs));
         rewind($stream);
+
         return $stream;
     }
 }

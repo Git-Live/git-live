@@ -13,8 +13,9 @@
   "autoload-dev": {
     "psr-4": {
       "Example\\": "tests/Example/",
-      "Tests\\GitLive\\": "tests/",
-      "GitLive\\Mock\\": "tests/Mock/"
+      "Tests\\GitLive\\Tester\\": "tests/Tester/",
+      "GitLive\\Mock\\": "tests/Mock/",
+      "Tests\\GitLive\\": "tests/Tests/GitLive/"
     }
 
   },

@@ -20,8 +20,8 @@
 
 namespace GitLive\Driver;
 
-use GitLive\GitCmdExecutor;
 use GitLive\GitLive;
+use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\SystemCommandInterface;
 
 /**
@@ -65,7 +65,6 @@ class HotfixDriver extends DeployBase
      * @param GitCmdExecutor         $gitCmdExecutor
      * @param SystemCommandInterface $command
      * @throws Exception
-     * @throws \ReflectionException
      */
     public function __construct($GitLive, GitCmdExecutor $gitCmdExecutor, SystemCommandInterface $command)
     {
@@ -75,7 +74,6 @@ class HotfixDriver extends DeployBase
     }
 
     /**
-     * @throws \ReflectionException
      * @return bool
      */
     public function isBuildOpen()
@@ -85,7 +83,6 @@ class HotfixDriver extends DeployBase
 
     /**
      * @throws Exception
-     * @throws \ReflectionException
      * @return string
      */
     public function getBuildRepository()

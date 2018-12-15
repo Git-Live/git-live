@@ -51,7 +51,6 @@ class Application extends ConsoleApplication
 {
     /**
      * Application constructor.
-     * @throws \ReflectionException
      */
     public function __construct()
     {

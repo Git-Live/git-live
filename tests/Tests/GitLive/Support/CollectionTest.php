@@ -197,7 +197,9 @@ class CollectionTest extends TestCase
         $secondRandom = $collection->shuffle(1234);
         $this->assertEquals($firstRandom, $secondRandom);
     }
+
     /**
+     * @throws \ReflectionException
      * @covers \GitLive\Support\Collection
      */
     public function testGetArrayableItems()
@@ -253,6 +255,9 @@ class CollectionTest extends TestCase
      */
     public function testToJsonEncodesTheJsonSerializeResult()
     {
+        /**
+         * @var self $c
+         */
         $c = $this->getMockBuilder(Collection::class)->setMethods(['jsonSerialize'])->getMock();
         $c->expects($this->once())->method('jsonSerialize')->will($this->returnValue('foo'));
         $results = $c->toJson();
@@ -263,6 +268,9 @@ class CollectionTest extends TestCase
      */
     public function testCastingToStringJsonEncodesTheToArrayResult()
     {
+        /**
+         * @var self $c
+         */
         $c = $this->getMockBuilder(Collection::class)->setMethods(['jsonSerialize'])->getMock();
         $c->expects($this->once())->method('jsonSerialize')->will($this->returnValue('foo'));
         $this->assertJsonStringEqualsJsonString(json_encode('foo'), (string) $c);
@@ -806,6 +814,8 @@ class CollectionTest extends TestCase
             if (is_string($key)) {
                 return false;
             }
+
+            return null;
         });
         $this->assertEquals([1, 2, 'foo' => 'bar'], $result);
     }
@@ -1410,6 +1420,7 @@ class CollectionTest extends TestCase
      */
     public function testUnwrapCollectionWithScalar()
     {
+        /** @noinspection PhpParamsInspection */
         $this->assertEquals('foo', Collection::unwrap('foo'));
     }
     /**
@@ -3106,9 +3117,11 @@ class TestAccessorEloquentTestStub
     {
         $this->attributes = $attributes;
     }
+
     /**
      * @covers \GitLive\Support\Collection
      * @param mixed $attribute
+     * @return mixed
      */
     public function __get($attribute)
     {
@@ -3119,9 +3132,11 @@ class TestAccessorEloquentTestStub
 
         return $this->{$attribute};
     }
+
     /**
      * @covers \GitLive\Support\Collection
      * @param mixed $attribute
+     * @return bool
      */
     public function __isset($attribute)
     {
@@ -3151,17 +3166,21 @@ class TestArrayAccessImplementation implements ArrayAccess
     {
         $this->arr = $arr;
     }
+
     /**
      * @covers \GitLive\Support\Collection
      * @param mixed $offset
+     * @return bool
      */
     public function offsetExists($offset)
     {
         return isset($this->arr[$offset]);
     }
+
     /**
      * @covers \GitLive\Support\Collection
      * @param mixed $offset
+     * @return mixed
      */
     public function offsetGet($offset)
     {
@@ -3200,6 +3219,7 @@ class TestJsonableObject implements Jsonable
     /**
      * @covers \GitLive\Support\Collection
      * @param mixed $options
+     * @return string
      */
     public function toJson($options = 0)
     {

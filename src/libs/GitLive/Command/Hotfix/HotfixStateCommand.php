@@ -63,7 +63,6 @@ class HotfixStateCommand extends CommandBase
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @throws \ReflectionException
      * @return null|int|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)

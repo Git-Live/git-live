@@ -123,7 +123,6 @@ class GitLive extends GitBase
     }
 
     /**
-     * @throws \ReflectionException
      * @throws \Exception
      */
     public function execute()

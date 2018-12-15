@@ -72,7 +72,6 @@ class PullRequestFeatureStart extends CommandBase
      * @param OutputInterface $output
      * @throws \GitLive\Driver\Exception
      * @throws \GitLive\Exception
-     * @throws \ReflectionException
      * @return null|int
      */
     protected function execute(InputInterface $input, OutputInterface $output)

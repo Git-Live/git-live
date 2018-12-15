@@ -25,7 +25,7 @@ use GitLive\Application\Container;
 use GitLive\Driver\ConfigDriver;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
-use Tests\GitLive\TestCase;
+use Tests\GitLive\Tester\TestCase;
 
 /**
  * @coversNothing
@@ -35,7 +35,6 @@ use Tests\GitLive\TestCase;
 class ConfigDriverTest extends TestCase
 {
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\ConfigDriver
      * @covers \GitLive\Driver\DriverBase
      */
@@ -87,7 +86,6 @@ class ConfigDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\ConfigDriver
      * @covers \GitLive\Driver\DriverBase
      */
@@ -134,7 +132,6 @@ class ConfigDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\ConfigDriver
      * @covers \GitLive\Driver\DriverBase
      */
@@ -186,7 +183,6 @@ class ConfigDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\ConfigDriver
      * @covers \GitLive\Driver\DriverBase
      */
@@ -239,7 +235,6 @@ class ConfigDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\ConfigDriver
      * @covers \GitLive\Driver\DriverBase
      */
@@ -286,7 +281,6 @@ class ConfigDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\ConfigDriver
      * @covers \GitLive\Driver\DriverBase
      */
@@ -333,7 +327,6 @@ class ConfigDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\ConfigDriver
      * @covers \GitLive\Driver\DriverBase
      */
@@ -380,7 +373,6 @@ class ConfigDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\ConfigDriver
      * @covers \GitLive\Driver\DriverBase
      */
@@ -442,7 +434,6 @@ class ConfigDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\ConfigDriver
      * @covers \GitLive\Driver\DriverBase
      */
@@ -502,7 +493,6 @@ class ConfigDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\ConfigDriver
      * @covers \GitLive\Driver\DriverBase
      */
@@ -554,7 +544,6 @@ class ConfigDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\ConfigDriver
      * @covers \GitLive\Driver\DriverBase
      */

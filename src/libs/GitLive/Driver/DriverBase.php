@@ -22,10 +22,11 @@ namespace GitLive\Driver;
 
 use App;
 use GitLive\GitBase;
-use GitLive\GitCmdExecutor;
 use GitLive\GitLive;
 use GitLive\Support\FileSystem;
+use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\SystemCommandInterface;
+use ReflectionException;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -51,7 +52,7 @@ abstract class DriverBase extends GitBase
     protected $GitLive;
 
     /**
-     * @var \GitLive\GitCmdExecutor
+     * @var \GitLive\Support\GitCmdExecutor
      */
     protected $GitCmdExecutor;
 
@@ -142,7 +143,7 @@ abstract class DriverBase extends GitBase
     {
         try {
             return App::make($driver_name);
-        } catch (\ReflectionException $exception) {
+        } catch (ReflectionException $exception) {
             dd($exception);
         }
 
@@ -202,7 +203,6 @@ abstract class DriverBase extends GitBase
     /**
      * Riskyな状態かどうか
      *
-     * @throws \ReflectionException
      * @return bool
      */
     public function isRisky()
@@ -308,7 +308,6 @@ abstract class DriverBase extends GitBase
     }
 
     /**
-     * @throws \ReflectionException
      * @return \GitLive\Support\Collection
      */
     public function getGitLiveSetting()

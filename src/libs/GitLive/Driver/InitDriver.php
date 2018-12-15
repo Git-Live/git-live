@@ -138,8 +138,6 @@ class InitDriver extends DriverBase
         // tag
         $this->GitCmdExecutor->tagPull('upstream');
         $this->GitCmdExecutor->tagPush('origin');
-
-
     }
 
     /**
@@ -147,7 +145,6 @@ class InitDriver extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @throws \ReflectionException
      * @return void
      */
     public function restart()

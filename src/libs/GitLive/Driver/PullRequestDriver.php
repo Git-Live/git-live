@@ -20,8 +20,6 @@
 
 namespace GitLive\Driver;
 
-use App;
-
 /**
  * Class PullRequestDriver
  *

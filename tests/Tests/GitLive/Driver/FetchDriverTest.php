@@ -25,7 +25,7 @@ use GitLive\Application\Container;
 use GitLive\Driver\FetchDriver;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
-use Tests\GitLive\TestCase;
+use Tests\GitLive\Tester\TestCase;
 
 /**
  * @internal
@@ -34,7 +34,6 @@ use Tests\GitLive\TestCase;
 class FetchDriverTest extends TestCase
 {
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\FetchDriver
      */
     public function testAll()
@@ -87,7 +86,6 @@ class FetchDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\FetchDriver
      */
     public function testDeploy()
@@ -151,7 +149,6 @@ class FetchDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\FetchDriver
      */
     public function testUpstream()
@@ -203,7 +200,6 @@ class FetchDriverTest extends TestCase
     }
 
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\FetchDriver
      */
     public function testOrigin()

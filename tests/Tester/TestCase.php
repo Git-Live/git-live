@@ -18,7 +18,7 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace Tests\GitLive;
+namespace Tests\GitLive\Tester;
 
 use App;
 use GitLive\Application\Container;

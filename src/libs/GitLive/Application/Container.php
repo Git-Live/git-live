@@ -128,17 +128,16 @@ class Container
              * @var GitBase $res
              */
             $res = new $concrete;
+
             try {
                 $boot = $reflector->getMethod('boot');
             } catch (\Exception $exception) {
                 $boot = null;
             }
 
-
             if ($boot) {
                 $res->boot();
             }
-
 
             return $res;
         }
@@ -161,11 +160,9 @@ class Container
             $boot = null;
         }
 
-
         if ($boot) {
             $res->boot();
         }
-
 
         return $res;
     }

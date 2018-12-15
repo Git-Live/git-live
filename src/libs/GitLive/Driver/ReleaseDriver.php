@@ -20,8 +20,8 @@
 
 namespace GitLive\Driver;
 
-use GitLive\GitCmdExecutor;
 use GitLive\GitLive;
+use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\SystemCommandInterface;
 
 /**
@@ -49,7 +49,6 @@ class ReleaseDriver extends DeployBase
      * @param GitCmdExecutor         $gitCmdExecutor
      * @param SystemCommandInterface $command
      * @throws Exception
-     * @throws \ReflectionException
      */
     public function __construct($GitLive, GitCmdExecutor $gitCmdExecutor, SystemCommandInterface $command)
     {
@@ -59,7 +58,6 @@ class ReleaseDriver extends DeployBase
     }
 
     /**
-     * @throws \ReflectionException
      * @return bool
      */
     public function isBuildOpen()
@@ -69,7 +67,6 @@ class ReleaseDriver extends DeployBase
 
     /**
      * @throws Exception
-     * @throws \ReflectionException
      * @return string
      */
     public function getBuildRepository()

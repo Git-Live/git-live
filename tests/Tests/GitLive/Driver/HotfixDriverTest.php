@@ -26,7 +26,7 @@ use GitLive\Driver\HotfixDriver;
 use GitLive\Driver\ReleaseDriver;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
-use Tests\GitLive\TestCase;
+use Tests\GitLive\Tester\TestCase;
 
 /**
  * @internal
@@ -35,7 +35,6 @@ use Tests\GitLive\TestCase;
 class HptfixDriverTest extends TestCase
 {
     /**
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\HotfixDriver
@@ -202,7 +201,6 @@ class HptfixDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\HotfixDriver

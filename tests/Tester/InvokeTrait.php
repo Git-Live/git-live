@@ -18,7 +18,7 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace Tests\GitLive;
+namespace Tests\GitLive\Tester;
 
 /**
  * Class InvokeTrait

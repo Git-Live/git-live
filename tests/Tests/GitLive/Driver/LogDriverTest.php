@@ -25,7 +25,7 @@ use GitLive\Application\Container;
 use GitLive\Driver\LogDriver;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
-use Tests\GitLive\TestCase;
+use Tests\GitLive\Tester\TestCase;
 
 /**
  * @internal
@@ -35,7 +35,6 @@ class LogDriverTest extends TestCase
 {
     /**
      * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\LogDriver
      */
@@ -121,7 +120,6 @@ class LogDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @throws \ReflectionException
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\LogDriver
      */
