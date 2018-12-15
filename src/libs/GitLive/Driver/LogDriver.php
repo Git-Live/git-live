@@ -75,6 +75,6 @@ class LogDriver extends DriverBase
         $this->Driver(FetchDriver::class)->all();
         $to_branch = $this->getSelfBranchRef();
 
-        return $this->GitCmdExecutor->log('upstream/' . $from_branch, $to_branch, ['--left-right'], false, OutputInterface::VERBOSITY_DEBUG);
+        return $this->GitCmdExecutor->log('upstream/' . $from_branch, $to_branch, ['--left-right'], false, false, OutputInterface::VERBOSITY_DEBUG);
     }
 }

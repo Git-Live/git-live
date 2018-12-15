@@ -101,7 +101,7 @@ class InitDriver extends DriverBase
             $clone_dir = $auto_clone_dir;
         }
 
-        $this->GitCmdExecutor->copy(['--recursive', $clone_repository, $clone_dir]);
+        $this->GitCmdExecutor->clone(['--recursive', $clone_repository, $clone_dir]);
 
         $this->chdir($clone_dir);
 

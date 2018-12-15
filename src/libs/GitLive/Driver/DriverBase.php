@@ -26,7 +26,6 @@ use GitLive\GitLive;
 use GitLive\Support\FileSystem;
 use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\SystemCommandInterface;
-use ReflectionException;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -141,13 +140,12 @@ abstract class DriverBase extends GitBase
      */
     public function Driver($driver_name)
     {
-        try {
-            return App::make($driver_name);
-        } catch (ReflectionException $exception) {
-            dd($exception);
+        $res = App::make($driver_name);
+        if ($res === null) {
+            throw new Exception('Undefined Driver.' . $driver_name);
         }
 
-        throw new Exception('Undefined Driver.' . $driver_name);
+        return $res;
     }
 
     /**

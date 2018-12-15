@@ -23,13 +23,17 @@ namespace Example;
 /**
  * @coversNothing
  * @codeCoverageIgnore
- *
- * @internal
  */
-class BindTestExample implements BindTestInterface
+class BindTestDependExample
 {
-    public function example()
+    public $bindTest;
+
+    /**
+     * BindTestDependExample constructor.
+     * @param BindTestInterface $bindTest
+     */
+    public function __construct(BindTestInterface $bindTest)
     {
-        // TODO: Implement example() method.
+        $this->bindTest = $bindTest;
     }
 }

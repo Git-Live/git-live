@@ -26,7 +26,7 @@ namespace Example;
  *
  * @internal
  */
-class BindTestExample implements BindTestInterface
+class BindTestWithExample implements BindTestInterface
 {
     public function example()
     {

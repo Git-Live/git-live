@@ -54,8 +54,6 @@ abstract class CommandTestCase extends TestCaseBase
     {
         parent::setUp();
 
-        App::make(GitLive::class);
-        ConfigDriver::reset();
         $this->spy = [];
 
         $mock = \Mockery::mock(SystemCommand::class);
@@ -81,12 +79,5 @@ abstract class CommandTestCase extends TestCaseBase
                 return $mock;
             }
         );
-    }
-
-    protected function tearDown()
-    {
-        parent::tearDown();
-
-        \Mockery::close();
     }
 }

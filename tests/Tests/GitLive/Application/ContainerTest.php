@@ -20,8 +20,11 @@
 
 namespace Tests\GitLive\Application;
 
+use Example\BindTestContextExample;
+use Example\BindTestDependExample;
 use Example\BindTestExample;
 use Example\BindTestInterface;
+use Example\BindTestWithExample;
 use GitLive\Application\Container;
 use GitLive\GitLive;
 use PHPUnit\Framework\TestCase;
@@ -40,7 +43,58 @@ class ContainerTest extends TestCase
      */
     public function testBindContext()
     {
-        $this->assertTrue(true);
+        $BindWith = new BindTestWithExample();
+        Container::bindContext('$' . 'bindTest', $BindWith);
+        Container::bindContext('$' . 'text', 'Suzunone');
+        Container::bindContext('$' . 'closure', function () {
+            return 'Eleven';
+        });
+
+        $Container = new Container();
+        /**
+         * @var BindTestContextExample $obj
+         */
+        $obj = $Container->build(BindTestContextExample::class);
+        $this->assertInstanceOf(BindTestContextExample::class, $obj);
+        $this->assertInstanceOf(BindTestWithExample::class, $obj->bindTest);
+        $this->assertEquals('Suzunone', $obj->text);
+        $this->assertEquals('Eleven', $obj->closure);
+        $this->assertEquals('123456789', $obj->default_value);
+        $this->assertNull($obj->nothing);
+        $this->assertTrue($obj->is_boot);
+
+        $this->assertEquals(Container::getContextContainers()['$bindTest'], $BindWith);
+        Container::reset();
+
+        $this->assertEquals(Container::getContextContainers(), []);
+        $this->assertEquals(Container::getContainers(), []);
+    }
+
+    /**
+     * @covers \GitLive\Application\Container
+     */
+    public function testBuildClosure()
+    {
+        $obj = new BindTestExample();
+
+        Container::bind(BindTestInterface::class, function () use ($obj) {
+            return $obj;
+        });
+
+        $Container = new Container();
+        $this->assertSame($obj, $Container->build(function () {
+            return BindTestInterface::class;
+        }));
+
+        $this->assertSame($obj, $Container->build(function () {
+            return BindTestInterface::class;
+        }));
+        $this->assertSame($obj, $Container->build(function () {
+            return BindTestInterface::class;
+        }));
+        $this->assertSame($obj, $Container->build(function () {
+            return BindTestInterface::class;
+        }));
     }
 
     /**
@@ -48,7 +102,15 @@ class ContainerTest extends TestCase
      */
     public function testSetWith()
     {
-        $this->assertTrue(true);
+        Container::bind(BindTestInterface::class, BindTestExample::class);
+
+        $BindWith = new BindTestWithExample();
+
+        $Container = new Container();
+        $Container->setWith(['bindTest' => $BindWith]);
+        $obj = $Container->build(BindTestDependExample::class);
+        $this->assertInstanceOf(BindTestDependExample::class, $obj);
+        $this->assertInstanceOf(BindTestWithExample::class, $obj->bindTest);
     }
 
     /**
@@ -59,8 +121,37 @@ class ContainerTest extends TestCase
         Container::bind(BindTestInterface::class, BindTestExample::class);
 
         $this->assertSame([
-            'Example\BindTestInterface' => 'Example\BindTestExample'
+            'Example\BindTestInterface' => 'Example\BindTestExample',
         ], Container::getContainers());
+
+        $Container = new Container();
+        $this->assertInstanceOf(BindTestExample::class, $Container->build(BindTestInterface::class));
+    }
+
+    /**
+     * @covers \GitLive\Application\Container
+     */
+    public function testBindDepend()
+    {
+        Container::bind(BindTestInterface::class, BindTestExample::class);
+
+        $Container = new Container();
+        $obj = $Container->build(BindTestDependExample::class);
+        $this->assertInstanceOf(BindTestDependExample::class, $obj);
+        $this->assertInstanceOf(BindTestExample::class, $obj->bindTest);
+    }
+
+    /**
+     * @covers \GitLive\Application\Container
+     */
+    public function testBindWith()
+    {
+        Container::bind(BindTestInterface::class, BindTestExample::class);
+
+        $Container = new Container();
+        $obj = $Container->build(BindTestDependExample::class);
+        $this->assertInstanceOf(BindTestDependExample::class, $obj);
+        $this->assertInstanceOf(BindTestExample::class, $obj->bindTest);
     }
 
     /**

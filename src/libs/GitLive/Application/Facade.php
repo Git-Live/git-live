@@ -38,8 +38,8 @@ namespace GitLive\Application;
 class Facade
 {
     /**
-     * @param       $concrete
-     * @param array $with
+     * @param  \Closure|string $concrete
+     * @param array            $with
      * @return null|mixed
      */
     public static function make($concrete, $with = [])
@@ -48,10 +48,13 @@ class Facade
 
         $Container->setWith($with);
 
+        $res = null;
+
         try {
-            return $Container->build($concrete);
+            $res = $Container->build($concrete);
         } catch (\ReflectionException $exception) {
-            return null;
         }
+
+        return $res;
     }
 }

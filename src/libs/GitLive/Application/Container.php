@@ -23,6 +23,7 @@ namespace GitLive\Application;
 use Closure;
 use GitLive\GitBase;
 use ReflectionClass;
+use ReflectionException;
 use ReflectionParameter;
 
 /**
@@ -110,7 +111,7 @@ class Container
     public function build($concrete)
     {
         if ($concrete instanceof Closure) {
-            return $concrete($this);
+            $concrete = $concrete($this);
         }
 
         $reflector = new ReflectionClass($concrete);
@@ -128,31 +129,19 @@ class Container
              * @var GitBase $res
              */
             $res = new $concrete;
+        } else {
+            $dependencies = $constructor->getParameters();
 
-            try {
-                $boot = $reflector->getMethod('boot');
-            } catch (\Exception $exception) {
-                $boot = null;
-            }
+            $instances = $this->resolveDependencies(
+                $dependencies
+            );
 
-            if ($boot) {
-                $res->boot();
-            }
-
-            return $res;
+            array_pop($this->buildStack);
+            /**
+             * @var GitBase $res
+             */
+            $res = $reflector->newInstanceArgs($instances);
         }
-
-        $dependencies = $constructor->getParameters();
-
-        $instances = $this->resolveDependencies(
-            $dependencies
-        );
-
-        array_pop($this->buildStack);
-        /**
-         * @var GitBase $res
-         */
-        $res = $reflector->newInstanceArgs($instances);
 
         try {
             $boot = $reflector->getMethod('boot');
@@ -174,6 +163,9 @@ class Container
      */
     public function notInstantiable($concrete)
     {
+        if (!isset(static::$container[$concrete])) {
+            throw new ReflectionException($concrete . ' is not bind.');
+        }
         $concrete = static::$container[$concrete];
         if ($concrete instanceof Closure) {
             return $concrete($this);

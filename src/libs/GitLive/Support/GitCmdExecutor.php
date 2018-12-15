@@ -21,7 +21,6 @@
 namespace GitLive\Support;
 
 use GitLive\GitBase;
-use GitLive\Support\SystemCommandInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -94,7 +93,7 @@ class GitCmdExecutor extends GitBase
      * @param null|bool $output_verbosity
      * @return string
      */
-    public function copy(array $options = [], $verbosity = false, $output_verbosity = null)
+    public function clone(array $options = [], $verbosity = false, $output_verbosity = null)
     {
         $cmd = $this->createCmd('clone', $options);
 
@@ -286,13 +285,14 @@ class GitCmdExecutor extends GitBase
      * @param           $left
      * @param           $right
      * @param array     $option
+     * @param bool      $without_common_commit
      * @param null|bool $verbosity
      * @param null|bool $output_verbosity
      * @return string
      */
-    public function log($left, $right, $option = [], $verbosity = true, $output_verbosity = null)
+    public function log($left, $right, $option = [], $without_common_commit = false, $verbosity = true, $output_verbosity = null)
     {
-        $option[] = $left . '..' . $right;
+        $option[] = $left . ($without_common_commit ? '...' : '..') . $right;
         array_unshift($option, '--name-status');
         array_unshift($option, '--pretty=fuller');
 
