@@ -32,6 +32,7 @@ namespace GitLive;
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
+ * @codeCoverageIgnore
  */
 class Exception extends \Exception
 {

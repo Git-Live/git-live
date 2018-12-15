@@ -31,6 +31,11 @@ use Tests\GitLive\Tester\CommandTester;
  */
 class FeatureStartCommandTest extends TestCase
 {
+    /**
+     * @throws \Exception
+     * @covers \GitLive\Command\Feature\FeatureStartCommand
+     * @covers \GitLive\Service\CommandLineKernelService
+     */
     public function testExecute()
     {
         $application = App::make(Application::class);

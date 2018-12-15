@@ -91,7 +91,6 @@ class FacadeTest extends TestCase
 
     /**
      * @covers \GitLive\Application\Facade
-     * @expectedException \ReflectionException
      */
     public function testMakeError()
     {

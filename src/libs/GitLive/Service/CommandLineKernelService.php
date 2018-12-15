@@ -85,7 +85,6 @@ use GitLive\Command\StartCommand;
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
- * @codeCoverageIgnore
  */
 class CommandLineKernelService
 {

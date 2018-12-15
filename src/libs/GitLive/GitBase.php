@@ -32,8 +32,9 @@ namespace GitLive;
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
  * @since      Class available since Release 1.0.0
+ * @codeCoverageIgnore
  */
-class GitBase
+abstract class GitBase
 {
     public function boot()
     {
