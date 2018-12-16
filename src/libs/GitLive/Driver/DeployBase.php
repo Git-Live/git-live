@@ -116,7 +116,7 @@ abstract class DeployBase extends DriverBase
             }
         }
 
-        $release_rep = $this->prefix . ($release_rep ?: DateTime::now()->format('Ymdhis'));
+        $release_rep = $this->prefix . ($release_rep ?: DateTime::now()->format('YmdHis'));
 
         if (static::MODE === ReleaseDriver::MODE) {
             $this->GitCmdExecutor->checkout('upstream/' . $this->develop_branch);
@@ -254,7 +254,7 @@ abstract class DeployBase extends DriverBase
             }
         }
 
-        $release_rep = $this->prefix . ($release_rep ?: DateTime::now()->format('Ymdhis'));
+        $release_rep = $this->prefix . ($release_rep ?: DateTime::now()->format('YmdHis'));
 
         $this->GitCmdExecutor->checkout('upstream/' . $this->develop_branch);
         $this->GitCmdExecutor->checkout('', ['-b', $release_rep, 'refs/tags/' . $tag_name]);
