@@ -33,7 +33,7 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
  * @internal
  * @coversNothing
  */
-class ReleaseOpenCommandTest extends TestCase
+class HotfixOpenCommandTest extends TestCase
 {
     use CommandTestTrait;
     use MakeGitTestRepoTrait;
@@ -61,9 +61,9 @@ class ReleaseOpenCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Release\ReleaseOpenCommand
+     * @covers \GitLive\Command\Hotfix\HotfixOpenCommand
      * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\ReleaseDriver
+     * @covers \GitLive\Driver\HotfixDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
@@ -74,7 +74,7 @@ class ReleaseOpenCommandTest extends TestCase
 
         DateTime::setTestNow(DateTime::factory('2018-12-01 22:33:45'));
 
-        $command = $application->find('release:open');
+        $command = $application->find('hotfix:open');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
@@ -91,7 +91,7 @@ class ReleaseOpenCommandTest extends TestCase
         dump($output);
         //$this->assertContains('Already up to date.', $output);
         $this->assertContains('new branch', $output);
-        $this->assertContains('release/20181201223345 -> release/20181201223345', $output);
+        $this->assertContains('hotfix/20181201223345 -> hotfix/20181201223345', $output);
         $this->assertNotContains('fatal', $output);
 
         dump($this->spy);
@@ -106,7 +106,7 @@ class ReleaseOpenCommandTest extends TestCase
             4 => "git rev-parse --git-dir 2> /dev/null",
             5 => "git config --get gitlive.branch.master.name",
             6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
+            7 => "git config --get gitlive.branch.hotfix.prefix.name",
             8 => "git fetch --all",
             9 => "git fetch -p",
             10 => "git fetch upstream",
@@ -114,15 +114,15 @@ class ReleaseOpenCommandTest extends TestCase
             12 => "git fetch deploy",
             13 => "git fetch -p deploy",
             14 => "git remote",
-            15 => "git branch -a",
-            16 => "git rev-parse --git-dir 2> /dev/null",
-            17 => "git config --get gitlive.branch.hotfix.prefix.name",
+            15 => "git rev-parse --git-dir 2> /dev/null",
+            16 => "git config --get gitlive.branch.release.prefix.name",
+            17 => "git branch -a",
             18 => "git branch -a",
             19 => "git branch -a",
-            20 => "git checkout upstream/develop",
-            21 => "git checkout -b release/20181201223345",
-            22 => "git push upstream release/20181201223345",
-            23 => "git push deploy release/20181201223345",
+            20 => "git checkout upstream/master",
+            21 => "git checkout -b hotfix/20181201223345",
+            22 => "git push upstream hotfix/20181201223345",
+            23 => "git push deploy hotfix/20181201223345",
         ], data_get($this->spy, '*.0'));
 
         // ...
@@ -132,9 +132,9 @@ class ReleaseOpenCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Release\ReleaseOpenCommand
+     * @covers \GitLive\Command\Hotfix\HotfixOpenCommand
      * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\ReleaseDriver
+     * @covers \GitLive\Driver\HotfixDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteWithName()
@@ -145,7 +145,7 @@ class ReleaseOpenCommandTest extends TestCase
 
         DateTime::setTestNow(DateTime::factory('2018-12-01 22:33:45'));
 
-        $command = $application->find('release:open');
+        $command = $application->find('hotfix:open');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
@@ -163,7 +163,7 @@ class ReleaseOpenCommandTest extends TestCase
         dump($output);
         //$this->assertContains('Already up to date.', $output);
         $this->assertContains('new branch', $output);
-        $this->assertContains('release/ut_release -> release/ut_release', $output);
+        $this->assertContains('hotfix/ut_release -> hotfix/ut_release', $output);
         $this->assertNotContains('fatal', $output);
 
         dump($this->spy);
@@ -178,7 +178,7 @@ class ReleaseOpenCommandTest extends TestCase
             4 => "git rev-parse --git-dir 2> /dev/null",
             5 => "git config --get gitlive.branch.master.name",
             6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
+            7 => "git config --get gitlive.branch.hotfix.prefix.name",
             8 => "git fetch --all",
             9 => "git fetch -p",
             10 => "git fetch upstream",
@@ -186,15 +186,15 @@ class ReleaseOpenCommandTest extends TestCase
             12 => "git fetch deploy",
             13 => "git fetch -p deploy",
             14 => "git remote",
-            15 => "git branch -a",
-            16 => "git rev-parse --git-dir 2> /dev/null",
-            17 => "git config --get gitlive.branch.hotfix.prefix.name",
+            15 => "git rev-parse --git-dir 2> /dev/null",
+            16 => "git config --get gitlive.branch.release.prefix.name",
+            17 => "git branch -a",
             18 => "git branch -a",
             19 => "git branch -a",
-            20 => "git checkout upstream/develop",
-            21 => "git checkout -b release/ut_release",
-            22 => "git push upstream release/ut_release",
-            23 => "git push deploy release/ut_release",
+            20 => "git checkout upstream/master",
+            21 => "git checkout -b hotfix/ut_release",
+            22 => "git push upstream hotfix/ut_release",
+            23 => "git push deploy hotfix/ut_release",
         ], data_get($this->spy, '*.0'));
 
         // ...
@@ -204,9 +204,9 @@ class ReleaseOpenCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Release\ReleaseOpenCommand
+     * @covers \GitLive\Command\Hotfix\HotfixOpenCommand
      * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\ReleaseDriver
+     * @covers \GitLive\Driver\HotfixDriver
      * @covers \GitLive\Service\CommandLineKernelService
      * @expectedException Exception
      */
@@ -220,7 +220,7 @@ class ReleaseOpenCommandTest extends TestCase
 
         DateTime::setTestNow(DateTime::factory('2018-12-01 22:33:45'));
 
-        $command = $application->find('release:open');
+        $command = $application->find('hotfix:open');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
@@ -238,7 +238,7 @@ class ReleaseOpenCommandTest extends TestCase
         dump($output);
         //$this->assertContains('Already up to date.', $output);
         $this->assertContains('new branch', $output);
-        $this->assertContains('release/ut_release -> release/ut_release', $output);
+        $this->assertContains('hotfix/ut_release -> hotfix/ut_release', $output);
         $this->assertNotContains('fatal', $output);
 
         dump($this->spy);
@@ -252,9 +252,9 @@ class ReleaseOpenCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Release\ReleaseOpenCommand
+     * @covers \GitLive\Command\Hotfix\HotfixOpenCommand
      * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\ReleaseDriver
+     * @covers \GitLive\Driver\HotfixDriver
      * @covers \GitLive\Service\CommandLineKernelService
      * @expectedException Exception
      */
@@ -268,7 +268,7 @@ class ReleaseOpenCommandTest extends TestCase
 
         DateTime::setTestNow(DateTime::factory('2018-12-01 22:33:45'));
 
-        $command = $application->find('release:open');
+        $command = $application->find('hotfix:open');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
@@ -286,7 +286,7 @@ class ReleaseOpenCommandTest extends TestCase
         dump($output);
         //$this->assertContains('Already up to date.', $output);
         $this->assertContains('new branch', $output);
-        $this->assertContains('release/ut_release -> release/ut_release', $output);
+        $this->assertContains('hotfix/ut_release -> hotfix/ut_release', $output);
         $this->assertNotContains('fatal', $output);
 
         dump($this->spy);

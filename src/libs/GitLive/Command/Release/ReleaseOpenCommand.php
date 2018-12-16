@@ -75,6 +75,6 @@ class ReleaseOpenCommand extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        App::make(ReleaseDriver::class)->buildOpen($input->getArgument('name'));
+        $output->writeln(App::make(ReleaseDriver::class)->buildOpen($input->getArgument('name')));
     }
 }

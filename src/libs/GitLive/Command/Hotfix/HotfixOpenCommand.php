@@ -72,6 +72,6 @@ class HotfixOpenCommand extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        App::make(HotfixDriver::class)->buildOpen($input->getArgument('name'));
+        $output->writeln(App::make(HotfixDriver::class)->buildOpen($input->getArgument('name')));
     }
 }

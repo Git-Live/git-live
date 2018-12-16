@@ -97,7 +97,7 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param null $release_rep
      * @throws Exception
-     * @return void
+     * @return string
      */
     public function buildOpen($release_rep = null)
     {
@@ -118,16 +118,19 @@ abstract class DeployBase extends DriverBase
 
         $release_rep = $this->prefix . ($release_rep ?: DateTime::now()->format('YmdHis'));
 
+        $res = '';
         if (static::MODE === ReleaseDriver::MODE) {
-            $this->GitCmdExecutor->checkout('upstream/' . $this->develop_branch);
+            $res .= $this->GitCmdExecutor->checkout('upstream/' . $this->develop_branch);
         } elseif (static::MODE === HotfixDriver::MODE) {
-            $this->GitCmdExecutor->checkout('upstream/' . $this->master_branch);
+            $res .= $this->GitCmdExecutor->checkout('upstream/' . $this->master_branch);
         }
 
-        $this->GitCmdExecutor->checkout($release_rep, ['-b']);
+        $res .= $this->GitCmdExecutor->checkout($release_rep, ['-b']);
 
-        $this->GitCmdExecutor->push('upstream', $release_rep);
-        $this->GitCmdExecutor->push($this->deploy_repository_name, $release_rep);
+        $res .= $this->GitCmdExecutor->push('upstream', $release_rep);
+        $res .= $this->GitCmdExecutor->push($this->deploy_repository_name, $release_rep);
+
+        return $res;
     }
 
     /**
