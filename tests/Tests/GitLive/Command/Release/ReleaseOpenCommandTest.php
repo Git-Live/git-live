@@ -125,6 +125,7 @@ class ReleaseOpenCommandTest extends TestCase
             23 => "git push deploy release/20181201223345",
         ], data_get($this->spy, '*.0'));
 
+        $this->assertContains('* release/20181201223345', $this->execCmdToLocalRepo('git branch'));
         // ...
     }
 
@@ -197,6 +198,7 @@ class ReleaseOpenCommandTest extends TestCase
             23 => "git push deploy release/ut_release",
         ], data_get($this->spy, '*.0'));
 
+        $this->assertContains('* release/ut_release', $this->execCmdToLocalRepo('git branch'));
         // ...
     }
 
