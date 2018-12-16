@@ -102,13 +102,19 @@ class FeatureDriver extends DriverBase
                 $branch = $this->Driver(ConfigDriver::class)->develop();
             } elseif ($self_branch === $this->Driver(ConfigDriver::class)->develop()) {
                 $branch = $this->Driver(ConfigDriver::class)->master();
-            } elseif ($this->Driver(HotfixDriver::class)->isHotfixOpen()) {
+            } elseif (strpos($this->Driver(ConfigDriver::class)->hotfixPrefix(), $self_branch) === 0 && $this->Driver(HotfixDriver::class)->isHotfixOpen()) {
                 $branch = $this->Driver(ConfigDriver::class)->master();
-            } elseif ($this->Driver(ReleaseDriver::class)->isReleaseOpen()) {
+            } elseif (strpos($this->Driver(ConfigDriver::class)->releasePrefix(), $self_branch) === 0 && $this->Driver(ReleaseDriver::class)->isReleaseOpen()) {
                 $branch = $this->Driver(ConfigDriver::class)->develop();
             } else {
                 $branch = $this->Driver(ConfigDriver::class)->develop();
             }
+        } elseif (!strpos($branch, $this->Driver(ConfigDriver::class)->hotfixPrefix()) !== 0
+            && strpos($branch, $this->Driver(ConfigDriver::class)->releasePrefix()) !== 0
+            && (strlen($this->Driver(ConfigDriver::class)->featurePrefix()) > 0
+                && strpos($branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0)
+        ) {
+            $branch = $this->Driver(ConfigDriver::class)->featurePrefix() . $branch;
         }
 
         return $this->GitCmdExecutor->diff([$branch, '--name-status'], false, OutputInterface::VERBOSITY_DEBUG);

@@ -67,7 +67,9 @@ trait CommandTestTrait
                 $current_work_dir = getcwd();
 
                 chdir($this->local_test_repository);
-                $res = `$val[0]`;
+
+                $execute_cmd = $val[0] . ' 2>&1';
+                $res = `$execute_cmd`;
 
                 dump($val);
                 dump($res);

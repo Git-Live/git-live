@@ -50,9 +50,12 @@ use PHPUnit\Framework\TestCase as TestCaseBase;
  */
 abstract class TestCase extends TestCaseBase
 {
+    protected $git_live = 'git live';
     protected function setUp()
     {
         parent::setUp();
+
+        $this->git_live = 'php ' . dirname(dirname(__DIR__)) . '/bin/git-live.phar';
 
         App::make(GitLive::class);
         ConfigDriver::reset();

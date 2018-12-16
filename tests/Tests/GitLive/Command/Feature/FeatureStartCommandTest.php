@@ -42,6 +42,7 @@ class FeatureStartCommandTest extends TestCase
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
      * @covers \GitLive\Command\Feature\FeatureStartCommand
+     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
@@ -64,7 +65,10 @@ class FeatureStartCommandTest extends TestCase
         $output = $commandTester->getDisplay();
         $this->assertContains('', $output);
 
+        dump($this->spy);
         dump(data_get($this->spy, '*.0'));
+        dump($output);
+
         $this->assertEquals([
             0 => 'git rev-parse --git-dir 2> /dev/null',
             1 => 'git config --get gitlive.branch.feature.prefix.ignore',
@@ -91,6 +95,7 @@ class FeatureStartCommandTest extends TestCase
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
      * @covers \GitLive\Command\Feature\FeatureStartCommand
+     * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
      * @expectedException Exception
      */

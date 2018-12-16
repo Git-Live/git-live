@@ -20,7 +20,7 @@ namespace Tests\GitLive\Tester;
 
 trait MakeGitTestRepoTrait
 {
-    protected $remote_origin_repository,$remote_upstream_repository,$remote_deployrepository,$local_test_repository;
+    protected $remote_origin_repository, $remote_upstream_repository, $remote_deployrepository, $local_test_repository;
 
     protected function makeGitTestRepoTraitBoot()
     {
@@ -28,47 +28,51 @@ trait MakeGitTestRepoTrait
         $current_work_dir = getcwd();
 
         $ds = DIRECTORY_SEPARATOR;
-        $storage = PROJECT_ROOT_DIR.$ds.'storage'.$ds.'unit_testing';
+        $storage = PROJECT_ROOT_DIR . $ds . 'storage' . $ds . 'unit_testing';
 
         // 初期化
         $cmd = "rm -rf {$storage}";
         `$cmd`;
 
-        $remote_origin = $storage.$ds.'git_live_origin_test.git';
-        $remote_upstream = $storage.$ds.'git_live_upstream_test.git';
-        $remote_deploy = $storage.$ds.'git_live_deploy_test.git';
-        $init_working  = $storage.$ds.'init_working';
-        $local_test  = $storage.$ds.'local_test';
+        $remote_origin = $storage . $ds . 'git_live_origin_test.git';
+        $remote_upstream = $storage . $ds . 'git_live_upstream_test.git';
+        $remote_deploy = $storage . $ds . 'git_live_deploy_test.git';
+        $init_working = $storage . $ds . 'init_working';
+        $local_test = $storage . $ds . 'local_test';
 
-        echo `git init --bare --shared=true $remote_upstream`;
+        `git init --bare --shared=true $remote_upstream`;
 
 
         mkdir($init_working);
         chdir($init_working);
-        echo `git init`;
-        echo `git remote add origin $remote_upstream`;
-        echo `git remote -v`;
-        file_put_contents($init_working.$ds.'README.md', '# unit testing');
-        echo `git add ./`;
-        echo `git commit -am "init"`;
-        echo `git push origin master`;
-        echo `git checkout -b develop`;
-        echo `git push origin develop`;
+        `git init`;
+        `git remote add origin $remote_upstream`;
+        `git remote -v`;
+        file_put_contents($init_working . $ds . 'README.md', '# unit testing');
+        `git add ./`;
+        `git commit -am "init"`;
+        `git push origin master`;
+        `git checkout -b develop`;
+        `git push origin develop`;
 
-        echo `git clone $remote_upstream $remote_origin`;
-        echo `git init --bare --shared=true $remote_origin`;
+        `git clone $remote_upstream $remote_origin`;
+        `git init --bare --shared=true $remote_origin`;
 
-        echo `git clone $remote_upstream $remote_deploy`;
-        echo `git init --bare --shared=true $remote_deploy`;
-
+        `git clone $remote_upstream $remote_deploy`;
+        `git init --bare --shared=true $remote_deploy`;
 
 
         chdir($storage);
 
-        $remote_deploy = $storage.$ds.'local_test';
-        $cmd = "git live init {$remote_origin} {$remote_upstream} {$remote_deploy} {$local_test}";
-
+        $remote_deploy = $storage . $ds . 'local_test';
+        $cmd = $this->git_live." init {$remote_origin} {$remote_upstream} {$remote_deploy} {$local_test}";
         `$cmd`;
+
+
+        chdir($local_test);
+        `git checkout upstream/develop`;
+        `git checkout -b develop`;
+        `git checkout master`;
 
 
         // 変数定義
@@ -84,17 +88,28 @@ trait MakeGitTestRepoTrait
 
     public function assertHasBranch($branch_name)
     {
+        $branch_list = $this->makeArray($this->execCmdToLocalRepo('git branch -a'));
+
+
+        $this->assertTrue($branch_list->search($branch_name) !== false);
+    }
+
+    public function execCmdToLocalRepo($cmd)
+    {
         // カレント取得
         $current_work_dir = getcwd();
 
         chdir($this->local_test_repository);
 
-        $branch_list = $this->makeArray(`git branch`);
+        $execute_cmd = $cmd . ' 2>&1';
+        $res = `$execute_cmd`;
 
 
         // 場所をもとに戻す
+        chdir($current_work_dir);
 
-        $this->assertTrue($branch_list->search($branch_name) !== false);
+        return $res;
+
     }
 
 
