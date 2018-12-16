@@ -72,6 +72,8 @@ class FeaturePushCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $FeatureDriver->featurePush($input->getArgument('feature_name'));
+        $res = $FeatureDriver->featurePush($input->getArgument('feature_name'));
+
+        $output->writeln($res);
     }
 }

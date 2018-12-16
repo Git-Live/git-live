@@ -71,6 +71,8 @@ class FeaturePullCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $FeatureDriver->featurePull($input->getArgument('feature_name'));
+        $res = $FeatureDriver->featurePull($input->getArgument('feature_name'));
+
+        $output->writeln($res);
     }
 }

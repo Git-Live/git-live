@@ -77,6 +77,7 @@ class FeatureStartCommandTest extends TestCase
         // the output of the command in the console
         $output = $commandTester->getDisplay();
         $this->assertContains('', $output);
+        $this->assertNotContains('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -131,6 +132,7 @@ class FeatureStartCommandTest extends TestCase
         // the output of the command in the console
         $output = $commandTester->getDisplay();
         $this->assertContains('', $output);
+        $this->assertNotContains('fatal', $output);
 
         $command = $application->find('feature:start');
         $commandTester = new CommandTester($command);

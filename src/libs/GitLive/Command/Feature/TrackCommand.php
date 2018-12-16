@@ -72,6 +72,8 @@ class TrackCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $FeatureDriver->featureTrack($input->getArgument('feature_name'));
+        $res = $FeatureDriver->featureTrack($input->getArgument('feature_name'));
+
+        $output->writeln($res);
     }
 }

@@ -171,7 +171,7 @@ class FeatureDriver extends DriverBase
      * @access      public
      * @param  null|string $branch OPTIONAL:NULL
      * @throws \Exception
-     * @return void
+     * @return string
      */
     public function featurePublish($branch = null)
     {
@@ -189,7 +189,7 @@ class FeatureDriver extends DriverBase
             $branch = $feature_prefix . $branch;
         }
 
-        $this->GitCmdExecutor->push('upstream', $branch);
+        return $this->GitCmdExecutor->push('upstream', $branch);
     }
 
     /**
@@ -198,7 +198,7 @@ class FeatureDriver extends DriverBase
      * @access      public
      * @param  null|string $branch OPTIONAL:NULL
      * @throws \Exception
-     * @return void
+     * @return string
      */
     public function featurePush($branch = null)
     {
@@ -216,7 +216,7 @@ class FeatureDriver extends DriverBase
             $branch = $feature_prefix . $branch;
         }
 
-        $this->GitCmdExecutor->push('origin', $branch);
+        return $this->GitCmdExecutor->push('origin', $branch);
     }
 
     /**
@@ -225,7 +225,7 @@ class FeatureDriver extends DriverBase
      * @access      public
      * @param  string $branch
      * @throws \Exception
-     * @return void
+     * @return string
      */
     public function featureTrack($branch)
     {
@@ -237,27 +237,35 @@ class FeatureDriver extends DriverBase
         $Fetch->all();
         $Fetch->upstream();
 
-        $self_repository = $this->getSelfBranch();
         if (strlen($feature_prefix) > 0 && strpos($branch, $feature_prefix) !== 0) {
             $branch = $feature_prefix . $branch;
         }
-        if ($self_repository !== $branch) {
+
+        $self_repository = $this->getSelfBranch();
+        $branch_list = $this->Driver(BranchDriver::class)->branchListAll();
+        $remote_branch = 'remotes/upstream/' . $branch;
+        if ($branch_list->search($remote_branch) === false) {
+            throw new Exception(printf(__('%s could not read from remote repository.'), $remote_branch));
+        }
+        if ($branch_list->search($branch) === false) {
             $this->GitCmdExecutor->checkout('upstream/' . $branch);
             $this->GitCmdExecutor->checkout($branch, ['-b']);
+        } elseif ($self_repository !== $branch) {
+            $this->GitCmdExecutor->checkout($branch);
         }
 
-        $this->GitCmdExecutor->pull('upstream', $branch);
+        return $this->GitCmdExecutor->pull('upstream', $branch);
     }
 
     /**
      * 共用Repositoryからpullする
      *
      * @access      public
-     * @param  null|string $repository OPTIONAL:NULL
+     * @param  null|string $branch OPTIONAL:NULL
      * @throws \Exception
-     * @return void
+     * @return string
      */
-    public function featurePull($repository = null)
+    public function featurePull($branch = null)
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
@@ -267,13 +275,26 @@ class FeatureDriver extends DriverBase
         $Fetch->all();
         $Fetch->upstream();
 
-        if ($repository === null) {
-            $repository = $this->getSelfBranchRef();
-        } elseif (strpos($repository, $feature_prefix) !== 0) {
-            $repository = $feature_prefix . $repository;
+        if ($branch === null) {
+            $branch = $this->getSelfBranch();
+        } elseif (strpos($branch, $feature_prefix) !== 0) {
+            $branch = $feature_prefix . $branch;
         }
 
-        $this->GitCmdExecutor->pull('upstream', $repository);
+        $branch_list = $this->Driver(BranchDriver::class)->branchListAll();
+        $res = '';
+
+        $remote_branch = 'remotes/upstream/' . $branch;
+        if ($branch_list->search($remote_branch) !== false) {
+            $res .= $this->GitCmdExecutor->pull('upstream', $branch);
+        }
+
+        $remote_branch = 'remotes/origin/' . $branch;
+        if ($branch_list->search($remote_branch) !== false) {
+            $res .= $this->GitCmdExecutor->pull('origin', $branch);
+        }
+
+        return $res;
     }
 
     /**

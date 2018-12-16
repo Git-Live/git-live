@@ -88,6 +88,8 @@ trait MakeGitTestRepoTrait
         chdir($local_test);
         `git checkout upstream/develop`;
         `git checkout -b develop`;
+        `git push origin develop`;
+        `git push deploy develop`;
         `git checkout master`;
 
 

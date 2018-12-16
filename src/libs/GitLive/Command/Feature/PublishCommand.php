@@ -72,6 +72,7 @@ class PublishCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $FeatureDriver->featurePublish($input->getArgument('feature_name'));
+        $res = $FeatureDriver->featurePublish($input->getArgument('feature_name'));
+        $output->writeln($res);
     }
 }

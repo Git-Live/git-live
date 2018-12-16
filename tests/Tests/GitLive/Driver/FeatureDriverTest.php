@@ -151,6 +151,17 @@ class FeatureDriverTest extends TestCase
                 return '';
             });
 
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git branch -a', true, null)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '  remotes/upstream/feature/unit_testing
+  feature/unit_testing
+  remotes/upstream/feature/20180116';
+            });
+
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
@@ -173,7 +184,8 @@ class FeatureDriverTest extends TestCase
                 "git fetch upstream",
                 "git fetch -p upstream",
                 "git rev-parse --abbrev-ref HEAD 2>/dev/null",
-                "git pull upstream feature/unit_testing",
+                'git branch -a',
+                'git pull upstream feature/unit_testing',
             ],
             data_get($spy, '*.0')
         );
@@ -282,6 +294,17 @@ class FeatureDriverTest extends TestCase
                 return '';
             });
 
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git branch -a', true, null)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '  remotes/upstream/feature/unit_testing
+  remotes/upstream/feature/20180115
+  remotes/upstream/feature/20180116';
+            });
+
         Container::bind(
             SystemCommandInterface::class,
             function () use ($mock) {
@@ -304,6 +327,7 @@ class FeatureDriverTest extends TestCase
             "git fetch upstream",
             "git fetch -p upstream",
             "git rev-parse --abbrev-ref HEAD 2>/dev/null",
+            'git branch -a',
             "git checkout upstream/feature/unit_testing",
             "git checkout -b feature/unit_testing",
             "git pull upstream feature/unit_testing",
@@ -1338,19 +1362,37 @@ class FeatureDriverTest extends TestCase
             });
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
+            ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true, null)
             ->andReturnUsing(function (...$val) use (&$spy) {
                 $spy[] = $val;
 
-                return 'refs/heads/feature/example_1';
+                return 'feature/example_1';
             });
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git pull upstream refs/heads/feature/example_1', false, null)
+            ->with('git pull upstream feature/example_1', false, null)
             ->andReturnUsing(function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
+            });
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git pull origin feature/example_1', false, null)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
+        $mock->shouldReceive('exec')
+            // ->once()
+            ->with('git branch -a', true, null)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '  remotes/upstream/feature/example_1
+                  remotes/origin/feature/example_1
+                feature/example_1';
             });
 
         Container::bind(
@@ -1374,8 +1416,10 @@ class FeatureDriverTest extends TestCase
             "git fetch -p",
             "git fetch upstream",
             "git fetch -p upstream",
-            "git symbolic-ref HEAD 2>/dev/null",
-            "git pull upstream refs/heads/feature/example_1",
+            'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            'git branch -a',
+            'git pull upstream feature/example_1',
+            'git pull origin feature/example_1',
         ], data_get($spy, '*.0'));
     }
 }

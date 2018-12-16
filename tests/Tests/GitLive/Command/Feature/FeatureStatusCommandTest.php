@@ -87,6 +87,7 @@ class FeatureStatusCommandTest extends TestCase
         // the output of the command in the console
         $output = $commandTester->getDisplay();
         $this->assertContains('', $output);
+        $this->assertNotContains('fatal', $output);
 
         dump($this->spy);
 
