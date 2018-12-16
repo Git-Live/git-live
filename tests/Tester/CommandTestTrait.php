@@ -41,6 +41,7 @@ use GitLive\Support\SystemCommandInterface;
  * @since      2018-12-16
  * @mixin TestCase
  * @mixin MakeGitTestRepoTrait
+ * @codeCoverageIgnore
  */
 trait CommandTestTrait
 {

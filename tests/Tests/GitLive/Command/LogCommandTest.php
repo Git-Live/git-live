@@ -25,14 +25,43 @@ use GitLive\Application\Application;
 use Tests\GitLive\Tester\CommandTestCase as TestCase;
 use Tests\GitLive\Tester\CommandTester;
 use Tests\GitLive\Tester\CommandTestTrait;
+use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
+ * Class LogCommandTest
+ *
+ * @category   GitCommand
+ * @package    Tests\GitLive\Command
+ * @subpackage Core
+ * @author     akito<akito-artisan@five-foxes.com>
+ * @author     suzunone<suzunone.eleven@gmail.com>
+ * @copyright  Project Git Live
+ * @license    MIT
+ * @version    GIT: $Id$
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
+ * @since      2018-12-16
  * @internal
  * @coversNothing
  */
 class LogCommandTest extends TestCase
 {
     use CommandTestTrait;
+    use MakeGitTestRepoTrait;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->execCmdToLocalRepo($this->git_live . ' feature start suzunone_branch');
+        $this->execCmdToLocalRepo('echo "# new file" > new_text.md');
+        $this->execCmdToLocalRepo('git add ./');
+        $this->execCmdToLocalRepo('git commit -am "add new file"');
+        $this->execCmdToLocalRepo('echo "\n\n * someting text" >> README.md');
+        $this->execCmdToLocalRepo('git add ./');
+        $this->execCmdToLocalRepo('git commit -am "edit readme"');
+    }
+
     /**
      * @throws \Exception
      * @covers \GitLive\Application\Application
@@ -58,16 +87,19 @@ class LogCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('', $output);
+        $this->assertContains("A\tnew_text.md", $output);
+        $this->assertContains("M\tREADME.md", $output);
 
+        dump($this->spy);
         dump(data_get($this->spy, '*.0'));
+        dump($output);
         $this->assertEquals([
             0 => "git rev-parse --git-dir 2> /dev/null",
             1 => "git config --get gitlive.branch.develop.name",
             2 => "git fetch --all",
             3 => "git fetch -p",
-            4 => "git symbolic-ref HEAD 2>/dev/null",
-            5 => "git log --pretty=fuller --name-status=name-status --left-right upstream/develop..feature/suzunone_branch",
+            4 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            5 => "git log --pretty=fuller --name-status --left-right upstream/develop..feature/suzunone_branch",
         ], data_get($this->spy, '*.0'));
 
         // ...
@@ -98,16 +130,19 @@ class LogCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('', $output);
+        $this->assertContains("A\tnew_text.md", $output);
+        $this->assertContains("M\tREADME.md", $output);
 
+        dump($this->spy);
         dump(data_get($this->spy, '*.0'));
+        dump($output);
         $this->assertEquals([
             0 => "git rev-parse --git-dir 2> /dev/null",
             1 => "git config --get gitlive.branch.master.name",
             2 => "git fetch --all",
             3 => "git fetch -p",
-            4 => "git symbolic-ref HEAD 2>/dev/null",
-            5 => "git log --pretty=fuller --name-status=name-status --left-right upstream/master..feature/suzunone_branch",
+            4 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            5 => "git log --pretty=fuller --name-status --left-right upstream/master..feature/suzunone_branch",
         ], data_get($this->spy, '*.0'));
 
         // ...

@@ -76,7 +76,7 @@ class LogDriver extends DriverBase
     public function log($from_branch, $option = [])
     {
         $this->Driver(FetchDriver::class)->all();
-        $to_branch = $this->getSelfBranchRef();
+        $to_branch = $this->getSelfBranch();
 
         $option[] = '--left-right';
 

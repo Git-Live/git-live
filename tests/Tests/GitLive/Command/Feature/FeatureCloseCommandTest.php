@@ -22,14 +22,13 @@ namespace Tests\GitLive\Command\Feature;
 
 use App;
 use GitLive\Application\Application;
-use GitLive\Exception;
 use Tests\GitLive\Tester\CommandTestCase as TestCase;
 use Tests\GitLive\Tester\CommandTester;
 use Tests\GitLive\Tester\CommandTestTrait;
 use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
- * Class FeatureStartCommandTest
+ * Class FeatureCloseCommandTest
  *
  * @category   GitCommand
  * @package    Tests\GitLive\Command\Feature
@@ -45,16 +44,27 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
  * @internal
  * @coversNothing
  */
-class FeatureStartCommandTest extends TestCase
+class FeatureCloseCommandTest extends TestCase
 {
     use CommandTestTrait;
     use MakeGitTestRepoTrait;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->execCmdToLocalRepo($this->git_live . ' feature start suzunone_branch_2');
+
+        $this->execCmdToLocalRepo($this->git_live . ' feature push');
+        $this->execCmdToLocalRepo($this->git_live . ' feature publish');
+        $this->execCmdToLocalRepo($this->git_live . ' feature start suzunone_branch');
+    }
 
     /**
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeatureStartCommand
+     * @covers \GitLive\Command\Feature\FeatureCloseCommand
      * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
@@ -62,13 +72,13 @@ class FeatureStartCommandTest extends TestCase
     {
         $application = App::make(Application::class);
 
-        $command = $application->find('feature:start');
+        $command = $application->find('feature:close');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
 
             // pass arguments to the helper
-            'feature_name' => 'suzunone_branch_new',
+            // 'feature_name' => 'suzunone_branch_new',
 
             // prefix the key with two dashes when passing options,
             // e.g: '--some-option' => 'option_value',
@@ -76,53 +86,53 @@ class FeatureStartCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('', $output);
+        $this->assertEquals('', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
         dump($output);
 
         $this->assertEquals([
-            0 => 'git rev-parse --git-dir 2> /dev/null',
-            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
-            2 => 'git rev-parse --git-dir 2> /dev/null',
-            3 => 'git config --get gitlive.branch.feature.prefix.name',
-            4 => 'git fetch --all',
-            5 => 'git fetch -p',
-            6 => 'git fetch upstream',
-            7 => 'git fetch -p upstream',
-            8 => 'git branch -a',
-            9 => 'git rev-parse --git-dir 2> /dev/null',
-            10 => 'git config --get gitlive.branch.develop.name',
-            11 => 'git checkout upstream/develop',
-            12 => 'git checkout -b feature/suzunone_branch_new',
+            0 => "git rev-parse --git-dir 2> /dev/null",
+            1 => "git config --get gitlive.branch.feature.prefix.ignore",
+            2 => "git rev-parse --git-dir 2> /dev/null",
+            3 => "git config --get gitlive.branch.feature.prefix.name",
+            4 => "git fetch --all",
+            5 => "git fetch -p",
+            6 => "git fetch upstream",
+            7 => "git fetch -p upstream",
+            8 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
+            9 => "git push upstream :feature/suzunone_branch",
+            10 => "git push origin :feature/suzunone_branch",
+            11 => "git rev-parse --git-dir 2> /dev/null",
+            12 => "git config --get gitlive.branch.develop.name",
+            13 => "git checkout develop",
+            14 => "git branch -D feature/suzunone_branch",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertHasBranch('feature/suzunone_branch_new');
+        $this->assertHasBranch('feature/suzunone_branch_2');
+        $this->assertHasNotBranch('feature/suzunone_branch');
     }
 
     /**
-     * duplicate feature test
-     *
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeatureStartCommand
+     * @covers \GitLive\Command\Feature\FeatureCloseCommand
      * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
-     * @expectedException Exception
      */
-    public function testExecuteError()
+    public function testExecuteWithFeature()
     {
         $application = App::make(Application::class);
 
-        $command = $application->find('feature:start');
+        $command = $application->find('feature:close');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
 
             // pass arguments to the helper
-            'feature_name' => 'suzunone_branch',
+            'feature_name' => 'suzunone_branch_2',
 
             // prefix the key with two dashes when passing options,
             // e.g: '--some-option' => 'option_value',
@@ -130,22 +140,31 @@ class FeatureStartCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('', $output);
+        $this->assertEquals('', $output);
 
-        $command = $application->find('feature:start');
-        $commandTester = new CommandTester($command);
-        $commandTester->execute([
-            'command' => $command->getName(),
+        dump($this->spy);
+        dump(data_get($this->spy, '*.0'));
+        dump($output);
 
-            // pass arguments to the helper
-            'feature_name' => 'suzunone_branch',
+        $this->assertEquals([
+            "git rev-parse --git-dir 2> /dev/null",
+            "git config --get gitlive.branch.feature.prefix.ignore",
+            "git rev-parse --git-dir 2> /dev/null",
+            "git config --get gitlive.branch.feature.prefix.name",
+            "git fetch --all",
+            "git fetch -p",
+            "git fetch upstream",
+            "git fetch -p upstream",
+            // "git rev-parse --abbrev-ref HEAD 2>/dev/null",
+            "git push upstream :feature/suzunone_branch_2",
+            "git push origin :feature/suzunone_branch_2",
+            "git rev-parse --git-dir 2> /dev/null",
+            "git config --get gitlive.branch.develop.name",
+            "git checkout develop",
+            "git branch -D feature/suzunone_branch_2",
+        ], data_get($this->spy, '*.0'));
 
-            // prefix the key with two dashes when passing options,
-            // e.g: '--some-option' => 'option_value',
-        ]);
-
-        // the output of the command in the console
-        $output = $commandTester->getDisplay();
-        $this->assertContains('', $output);
+        $this->assertHasNotBranch('feature/suzunone_branch_2');
+        $this->assertHasBranch('feature/suzunone_branch');
     }
 }

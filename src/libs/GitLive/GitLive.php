@@ -30,8 +30,10 @@ use GitLive\Support\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
 
 /**
+ * Class GitLive
+ *
  * @category   GitCommand
- * @package    Git-Live
+ * @package    GitLive
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
@@ -40,7 +42,8 @@ use GitLive\Support\SystemCommandInterface;
  * @version    GIT: $Id$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
+ * @since      2018-12-16
+ * @codeCoverageIgnore
  */
 class GitLive extends GitBase
 {

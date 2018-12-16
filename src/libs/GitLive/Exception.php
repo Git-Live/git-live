@@ -21,8 +21,10 @@
 namespace GitLive;
 
 /**
+ * Class Exception
+ *
  * @category   GitCommand
- * @package    Git-Live
+ * @package    GitLive
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
@@ -31,8 +33,7 @@ namespace GitLive;
  * @version    GIT: $Id$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      Class available since Release 1.0.0
- * @codeCoverageIgnore
+ * @since      2018-12-16
  */
 class Exception extends \Exception
 {

@@ -87,11 +87,11 @@ abstract class CommandBase extends Command
             return true;
         })
             ->map(function ($item, $key) {
-                if ($item === true) {
+                if ($item === $key || $item === true) {
                     return '--' . $key;
                 }
 
                 return '--' . $key . '=' . $item;
-            })->toArray();
+            })->values()->toArray();
     }
 }

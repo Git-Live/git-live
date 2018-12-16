@@ -32,11 +32,17 @@ use Tests\GitLive\Tester\TestCase;
 /**
  * Class LastestVersionDriverTest
  *
- * @package Tests\GitLive\Driver
- * @author      Fumikazu Kitagawa<f.kitagawa@eisys.co.jp>
- * @link        http://eisysgit.dlsite.com/Ci-en/webapp
- * @see         http://eisysgit.dlsite.com/Ci-en/webapp
- *
+ * @category   GitCommand
+ * @package    Tests\GitLive\Driver
+ * @subpackage Core
+ * @author     akito<akito-artisan@five-foxes.com>
+ * @author     suzunone<suzunone.eleven@gmail.com>
+ * @copyright  Project Git Live
+ * @license    MIT
+ * @version    GIT: $Id$
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
+ * @since      2018-12-16
  * @internal
  * @coversNothing
  */

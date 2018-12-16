@@ -17,7 +17,22 @@
 
 namespace Tests\GitLive\Tester;
 
-
+/**
+ * Class MakeGitTestRepoTrait
+ *
+ * @category   GitCommand
+ * @package    Tests\GitLive\Tester
+ * @subpackage Core
+ * @author     akito<akito-artisan@five-foxes.com>
+ * @author     suzunone<suzunone.eleven@gmail.com>
+ * @copyright  Project Git Live
+ * @license    MIT
+ * @version    GIT: $Id$
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
+ * @since      2018-12-16
+ * @codeCoverageIgnore
+ */
 trait MakeGitTestRepoTrait
 {
     protected $remote_origin_repository, $remote_upstream_repository, $remote_deployrepository, $local_test_repository;
@@ -48,7 +63,8 @@ trait MakeGitTestRepoTrait
         `git init`;
         `git remote add origin $remote_upstream`;
         `git remote -v`;
-        file_put_contents($init_working . $ds . 'README.md', '# unit testing');
+        file_put_contents($init_working . $ds . 'README.md', '# unit testing Read me');
+        file_put_contents($init_working . $ds . 'LICENSE.md', '# unit testing License');
         `git add ./`;
         `git commit -am "init"`;
         `git push origin master`;
@@ -92,6 +108,15 @@ trait MakeGitTestRepoTrait
 
 
         $this->assertTrue($branch_list->search($branch_name) !== false);
+    }
+
+
+    public function assertHasNotBranch($branch_name)
+    {
+        $branch_list = $this->makeArray($this->execCmdToLocalRepo('git branch -a'));
+
+
+        $this->assertFalse($branch_list->search($branch_name) !== false);
     }
 
     public function execCmdToLocalRepo($cmd)

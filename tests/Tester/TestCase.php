@@ -41,25 +41,30 @@ use PHPUnit\Framework\TestCase as TestCaseBase;
  * @see https://github.com/Git-Live/git-live
  * @since      2018/11/23
  *
- * @coversNothing
  * @codeCoverageIgnore
  * @mixin InvokeTrait
  * @mixin MakeGitTestRepoTrait
  * @mixin CommandTestTrait
- *
  */
 abstract class TestCase extends TestCaseBase
 {
     protected $git_live = 'git live';
+
+    /**
+     * @throws \ReflectionException
+     */
     protected function setUp()
     {
         parent::setUp();
 
+        // ビルド済ファイルへのパス
         $this->git_live = 'php ' . dirname(dirname(__DIR__)) . '/bin/git-live.phar';
 
+        // gitliveの初期化と、Containerのリセット
         App::make(GitLive::class);
         ConfigDriver::reset();
 
+        // 読み込むTraitによって処理を分ける
         $self_reflection = new \ReflectionClass($this);
         $traits = collect($self_reflection->getTraitNames());
 
@@ -74,6 +79,9 @@ abstract class TestCase extends TestCaseBase
         }
     }
 
+    /**
+     * @return voic
+     */
     protected function tearDown()
     {
         parent::tearDown();
