@@ -22,12 +22,11 @@ namespace GitLive\Command\Log;
 
 use App;
 use GitLive\Application\Container;
-use GitLive\Command\CommandBase;
 use GitLive\Driver\LogDriver;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class LogMasterCommand extends CommandBase
+class LogMasterCommand extends BaseLogCommand
 {
     protected static $signature_name = 'log:master';
 
@@ -54,7 +53,9 @@ class LogMasterCommand extends CommandBase
         Container::bindContext('$output', $output);
 
         $output->writeln(
-            App::make(LogDriver::class)->logMaster()
+            App::make(LogDriver::class)->logMaster(
+                $this->getOptions($input)
+            )
         );
     }
 }

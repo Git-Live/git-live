@@ -87,7 +87,7 @@ class LogDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git log --pretty=fuller --name-status --left-right upstream/stage..refs/heads/feature/example_1', false, 256)
+            ->with('git log --left-right upstream/stage..refs/heads/feature/example_1', false, 256)
             ->andReturnUsing(function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -114,7 +114,7 @@ class LogDriverTest extends TestCase
             "git fetch --all",
             "git fetch -p",
             "git symbolic-ref HEAD 2>/dev/null",
-            "git log --pretty=fuller --name-status --left-right upstream/stage..refs/heads/feature/example_1",
+            "git log --left-right upstream/stage..refs/heads/feature/example_1",
         ], data_get($spy, '*.0'));
     }
 
@@ -172,7 +172,7 @@ class LogDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git log --pretty=fuller --name-status --left-right upstream/master..refs/heads/feature/example_1', false, 256)
+            ->with('git log --left-right upstream/master..refs/heads/feature/example_1', false, 256)
             ->andReturnUsing(function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -199,7 +199,7 @@ class LogDriverTest extends TestCase
             "git fetch --all",
             "git fetch -p",
             "git symbolic-ref HEAD 2>/dev/null",
-            "git log --pretty=fuller --name-status --left-right upstream/master..refs/heads/feature/example_1",
+            "git log --left-right upstream/master..refs/heads/feature/example_1",
         ], data_get($spy, '*.0'));
     }
 }

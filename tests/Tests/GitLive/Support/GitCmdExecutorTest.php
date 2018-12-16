@@ -292,7 +292,7 @@ class GitCmdExecutorTest extends TestCase
         $obj->log('develop', 'master');
 
         $this->assertEquals([
-            'git log --pretty=fuller --name-status develop..master'
+            'git log develop..master'
         ], data_get($this->spy, '*.0'));
     }
 

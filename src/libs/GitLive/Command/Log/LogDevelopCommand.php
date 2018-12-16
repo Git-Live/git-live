@@ -25,9 +25,10 @@ use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\LogDriver;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class LogDevelopCommand extends CommandBase
+class LogDevelopCommand extends BaseLogCommand
 {
     protected static $signature_name = 'log:develop';
 
@@ -39,7 +40,8 @@ class LogDevelopCommand extends CommandBase
             ->setDescription(__('Show diff upstream develop branch.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Show diff upstream develop branch.'));
+            ->setHelp(__('Show diff upstream develop branch.'))
+        ;
     }
 
     /**
@@ -54,7 +56,9 @@ class LogDevelopCommand extends CommandBase
         Container::bindContext('$output', $output);
 
         $output->writeln(
-            App::make(LogDriver::class)->logDevelop()
+            App::make(LogDriver::class)->logDevelop(
+                $this->getOptions($input)
+            )
         );
     }
 }

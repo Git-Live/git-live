@@ -34,7 +34,8 @@ if (!defined('GIT_LIVE_VERSION')) {
     }
 }
 
-define('RESOURCES_DIR', dirname(__DIR__) . DIRECTORY_SEPARATOR . 'resources');
+define('PROJECT_ROOT_DIR', dirname(__DIR__));
+define('RESOURCES_DIR', PROJECT_ROOT_DIR . DIRECTORY_SEPARATOR . 'resources');
 
 class_alias(\GitLive\Application\Facade::class, 'App');
 

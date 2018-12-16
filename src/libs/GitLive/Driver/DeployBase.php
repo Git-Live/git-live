@@ -346,7 +346,12 @@ abstract class DeployBase extends DriverBase
         if ($this->isBuildOpen()) {
             if (!$ck_only) {
                 $repo = $this->getBuildRepository();
-                $option = $with_merge_commit ? [] : ['--no-merges'];
+
+                $option[] = '--pretty=fuller';
+                $option[] = '--name-status';
+                if (!$with_merge_commit) {
+                    $option[] = '--no-merges';
+                }
                 $res .= ($this->GitCmdExecutor->log($this->deploy_repository_name . '/' . $this->master_branch, $repo, $option, false, false, true));
             }
 

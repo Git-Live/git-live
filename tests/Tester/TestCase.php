@@ -43,6 +43,9 @@ use PHPUnit\Framework\TestCase as TestCaseBase;
  *
  * @coversNothing
  * @codeCoverageIgnore
+ * @mixin InvokeTrait
+ * @mixin MakeGitTestRepoTrait
+ * @mixin CommandTestTrait
  *
  */
 abstract class TestCase extends TestCaseBase
@@ -53,6 +56,19 @@ abstract class TestCase extends TestCaseBase
 
         App::make(GitLive::class);
         ConfigDriver::reset();
+
+        $self_reflection = new \ReflectionClass($this);
+        $traits = collect($self_reflection->getTraitNames());
+
+        // テスト用Gitリポジトリの使用
+        if ($traits->search(MakeGitTestRepoTrait::class) !== false) {
+            $this->makeGitTestRepoTraitBoot();
+        }
+
+        // コマンドラインテスト用処理(MakeGitTestRepoTraitに依存)
+        if ($traits->search(CommandTestTrait::class) !== false) {
+            $this->commandTestTraitBoot();
+        }
     }
 
     protected function tearDown()

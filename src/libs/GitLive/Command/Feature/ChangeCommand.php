@@ -52,8 +52,7 @@ class ChangeCommand extends CommandBase
                 . "\n\n"
                 . __('When checking out paths from the index, do not fail upon unmerged entries; instead, unmerged entries are
            ignored.')
-                )
-        ;
+            );
     }
 
     /**
@@ -69,7 +68,7 @@ class ChangeCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $res = $FeatureDriver->featureChange($input->getArgument('feature_name'), $input->getOptions());
+        $res = $FeatureDriver->featureChange($input->getArgument('feature_name'), $this->getOptions($input));
 
         $output->writeln($res);
     }

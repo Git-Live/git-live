@@ -45,36 +45,48 @@ class LogDriver extends DriverBase
      *  developとの差分をみる
      *
      * @access      public
+     * @param array $option
      * @throws Exception
      * @return string
      */
-    public function logDevelop()
+    public function logDevelop($option = [])
     {
-        return $this->log($this->Driver(ConfigDriver::class)->develop());
+        return $this->log($this->Driver(ConfigDriver::class)->develop(), $option);
     }
 
     /**
      *  masterとの差分を見る
      *
      * @access      public
+     * @param array $option
      * @throws Exception
      * @return string
      */
-    public function logMaster()
+    public function logMaster($option = [])
     {
-        return $this->log($this->Driver(ConfigDriver::class)->master());
+        return $this->log($this->Driver(ConfigDriver::class)->master(), $option);
     }
 
     /**
      * @param string $from_branch
+     * @param array  $option
      * @throws Exception
      * @return string
      */
-    public function log($from_branch)
+    public function log($from_branch, $option = [])
     {
         $this->Driver(FetchDriver::class)->all();
         $to_branch = $this->getSelfBranchRef();
 
-        return $this->GitCmdExecutor->log('upstream/' . $from_branch, $to_branch, ['--left-right'], false, false, OutputInterface::VERBOSITY_DEBUG);
+        $option[] = '--left-right';
+
+        return $this->GitCmdExecutor->log(
+            'upstream/' . $from_branch,
+            $to_branch,
+            $option,
+            false,
+            false,
+            OutputInterface::VERBOSITY_DEBUG
+        );
     }
 }

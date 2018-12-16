@@ -55,7 +55,7 @@ class FeaturePushCommand extends CommandBase
             ->setDescription(__('Safe push to origin repository.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Safe push to origin repository.'))
+            ->setHelp(__('Safe push to origin repository.') . __('The default feature name is self.'))
             ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name');
     }
 

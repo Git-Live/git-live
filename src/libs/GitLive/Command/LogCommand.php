@@ -73,6 +73,8 @@ class LogCommand extends CommandBase
                 $command = $this->getApplication()->find('log:develop');
 
                 $arguments = [
+                    '--name-status' => 'name-status',
+                    '--pretty' => 'fuller',
                 ];
 
                 $greetInput = new ArrayInput($arguments);
@@ -83,7 +85,10 @@ class LogCommand extends CommandBase
             case 'master':
                 $command = $this->getApplication()->find('log:master');
 
-                $arguments = [];
+                $arguments = [
+                    '--name-status' => 'name-status',
+                    '--pretty' => 'fuller',
+                ];
 
                 $greetInput = new ArrayInput($arguments);
 

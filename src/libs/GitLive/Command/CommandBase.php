@@ -23,6 +23,7 @@ namespace GitLive\Command;
 use App;
 use GitLive\Driver\LastestVersionDriver;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -70,5 +71,27 @@ abstract class CommandBase extends Command
         $this
             // the name of the command (the part after "bin/console")
             ->setName(static::$signature_name);
+    }
+
+    /**
+     * @param InputInterface $input
+     * @return \GitLive\Support\Collection
+     */
+    protected function getOptions(InputInterface $input)
+    {
+        return collect($input->getOptions())->filter(function ($item) {
+            if ($item === false || $item === null) {
+                return false;
+            }
+
+            return true;
+        })
+            ->map(function ($item, $key) {
+                if ($item === true) {
+                    return '--' . $key;
+                }
+
+                return '--' . $key . '=' . $item;
+            })->toArray();
     }
 }

@@ -139,7 +139,7 @@ class FeatureDriver extends DriverBase
 
         $branch_list = $this->Driver(BranchDriver::class)->branchListAll();
 
-        if ($branch_list->search($feature_branch)) {
+        if ($branch_list->search($feature_branch) !== false) {
             return $this->GitCmdExecutor->checkout($feature_branch, $option, false, OutputInterface::VERBOSITY_VERY_VERBOSE);
         }
 
@@ -332,7 +332,7 @@ class FeatureDriver extends DriverBase
      */
     protected function changeIf($branch_list, $remote_branch, $feature_branch, $option = [])
     {
-        if ($branch_list->search($remote_branch)) {
+        if ($branch_list->search($remote_branch) !== false) {
             $this->GitCmdExecutor->checkout($remote_branch, $option, false, OutputInterface::VERBOSITY_VERY_VERBOSE);
 
             $option[] = '-b';

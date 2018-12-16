@@ -293,8 +293,6 @@ class GitCmdExecutor extends GitBase
     public function log($left, $right, $option = [], $without_common_commit = false, $verbosity = true, $output_verbosity = null)
     {
         $option[] = $left . ($without_common_commit ? '...' : '..') . $right;
-        array_unshift($option, '--name-status');
-        array_unshift($option, '--pretty=fuller');
 
         $cmd = $this->createCmd('log', $option);
 

@@ -49,35 +49,4 @@ use Tests\GitLive\Tester\TestCase as TestCaseBase;
  */
 abstract class CommandTestCase extends TestCaseBase
 {
-    protected $spy;
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->spy = [];
-
-        $mock = \Mockery::mock(SystemCommand::class);
-        $mock->shouldReceive('exec')
-            //->once()
-            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
-                $this->spy[] = $val;
-
-                return '.git';
-            });
-
-        $mock->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
-                $this->spy[] = $val;
-
-                return '';
-            });
-
-        Container::bind(
-            SystemCommandInterface::class,
-            function () use ($mock) {
-                return $mock;
-            }
-        );
-    }
 }
