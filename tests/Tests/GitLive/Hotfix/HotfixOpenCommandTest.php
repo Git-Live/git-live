@@ -68,8 +68,6 @@ class HotfixOpenCommandTest extends TestCase
      */
     public function testExecute()
     {
-        $this->execCmdToLocalRepo('git push upstream feature/suzunone_branch');
-        $this->execCmdToLocalRepo('git push origin feature/suzunone_branch');
         $application = App::make(Application::class);
 
         DateTime::setTestNow(DateTime::factory('2018-12-01 22:33:45'));
@@ -139,8 +137,6 @@ class HotfixOpenCommandTest extends TestCase
      */
     public function testExecuteWithName()
     {
-        $this->execCmdToLocalRepo('git push upstream feature/suzunone_branch');
-        $this->execCmdToLocalRepo('git push origin feature/suzunone_branch');
         $application = App::make(Application::class);
 
         DateTime::setTestNow(DateTime::factory('2018-12-01 22:33:45'));
@@ -212,8 +208,6 @@ class HotfixOpenCommandTest extends TestCase
      */
     public function testExecuteDuplicateRelease()
     {
-        $this->execCmdToLocalRepo('git push upstream feature/suzunone_branch');
-        $this->execCmdToLocalRepo('git push origin feature/suzunone_branch');
         $this->execCmdToLocalRepo($this->git_live . ' release open');
 
         $application = App::make(Application::class);
@@ -260,8 +254,6 @@ class HotfixOpenCommandTest extends TestCase
      */
     public function testExecuteDuplicateHotfix()
     {
-        $this->execCmdToLocalRepo('git push upstream feature/suzunone_branch');
-        $this->execCmdToLocalRepo('git push origin feature/suzunone_branch');
         $this->execCmdToLocalRepo($this->git_live . ' hotfix open');
 
         $application = App::make(Application::class);

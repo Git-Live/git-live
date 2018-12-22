@@ -57,7 +57,7 @@ class TrackCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeaturePushCommand
+     * @covers \GitLive\Command\Feature\TrackCommand
      * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
@@ -123,7 +123,7 @@ class TrackCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeaturePushCommand
+     * @covers \GitLive\Command\Feature\TrackCommand
      * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
@@ -187,7 +187,7 @@ class TrackCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeaturePushCommand
+     * @covers \GitLive\Command\Feature\TrackCommand
      * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
@@ -252,7 +252,7 @@ class TrackCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeaturePushCommand
+     * @covers \GitLive\Command\Feature\TrackCommand
      * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
      * @expectedException Exception

@@ -47,7 +47,7 @@ class PullCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeaturePushCommand
+     * @covers \GitLive\Command\Feature\FeaturePullCommand
      * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
@@ -103,7 +103,7 @@ class PullCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeaturePushCommand
+     * @covers \GitLive\Command\Feature\FeaturePullCommand
      * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
@@ -157,7 +157,7 @@ class PullCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeaturePushCommand
+     * @covers \GitLive\Command\Feature\FeaturePullCommand
      * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
@@ -211,7 +211,7 @@ class PullCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeaturePushCommand
+     * @covers \GitLive\Command\Feature\FeaturePullCommand
      * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
