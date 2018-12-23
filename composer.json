@@ -38,6 +38,8 @@
     "symfony/polyfill-ctype": "^1.10",
     "symfony/polyfill-mbstring": "^1.10",
     "japanese-date/japanese-date": "^4.0",
+    "symfony/translation": "^3.4",
+    "symfony/debug": "^3.4",
     "gettext/gettext": "4.6.1"
   },
   "require-dev": {

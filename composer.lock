@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c9a73d924827ad7e1557b17770dd91c",
+    "content-hash": "d4d093d7229d9ca6018f7237da01002f",
     "packages": [
         {
             "name": "gettext/gettext",
@@ -346,101 +346,33 @@
             "time": "2018-11-26T12:48:07+00:00"
         },
         {
-            "name": "symfony/contracts",
-            "version": "v1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/contracts.git",
-                "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/contracts/zipball/1aa7ab2429c3d594dd70689604b5cf7421254cdf",
-                "reference": "1aa7ab2429c3d594dd70689604b5cf7421254cdf",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1.3"
-            },
-            "require-dev": {
-                "psr/cache": "^1.0",
-                "psr/container": "^1.0"
-            },
-            "suggest": {
-                "psr/cache": "When using the Cache contracts",
-                "psr/container": "When using the Service contracts",
-                "symfony/cache-contracts-implementation": "",
-                "symfony/service-contracts-implementation": "",
-                "symfony/translation-contracts-implementation": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Contracts\\": ""
-                },
-                "exclude-from-classmap": [
-                    "**/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "A set of abstractions extracted out of the Symfony components",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "abstractions",
-                "contracts",
-                "decoupling",
-                "interfaces",
-                "interoperability",
-                "standards"
-            ],
-            "time": "2018-12-05T08:06:11+00:00"
-        },
-        {
             "name": "symfony/debug",
-            "version": "v4.2.1",
+            "version": "v3.4.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "e0a2b92ee0b5b934f973d90c2f58e18af109d276"
+                "reference": "a2233f555ddf55e5600f386fba7781cea1cb82d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/e0a2b92ee0b5b934f973d90c2f58e18af109d276",
-                "reference": "e0a2b92ee0b5b934f973d90c2f58e18af109d276",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/a2233f555ddf55e5600f386fba7781cea1cb82d3",
+                "reference": "a2233f555ddf55e5600f386fba7781cea1cb82d3",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3",
+                "php": "^5.5.9|>=7.0.8",
                 "psr/log": "~1.0"
             },
             "conflict": {
-                "symfony/http-kernel": "<3.4"
+                "symfony/http-kernel": ">=2.3,<2.3.24|~2.4.0|>=2.5,<2.5.9|>=2.6,<2.6.2"
             },
             "require-dev": {
-                "symfony/http-kernel": "~3.4|~4.0"
+                "symfony/http-kernel": "~2.8|~3.0|~4.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -467,7 +399,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2018-11-28T18:24:18+00:00"
+            "time": "2018-11-27T12:43:10+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -588,38 +520,33 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v4.2.1",
+            "version": "v3.4.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "c0e2191e9bed845946ab3d99767513b56ca7dcd6"
+                "reference": "bdbe940ed3ef4179f86032086c32d3a858becc0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/c0e2191e9bed845946ab3d99767513b56ca7dcd6",
-                "reference": "c0e2191e9bed845946ab3d99767513b56ca7dcd6",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/bdbe940ed3ef4179f86032086c32d3a858becc0f",
+                "reference": "bdbe940ed3ef4179f86032086c32d3a858becc0f",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3",
-                "symfony/contracts": "^1.0.2",
+                "php": "^5.5.9|>=7.0.8",
                 "symfony/polyfill-mbstring": "~1.0"
             },
             "conflict": {
-                "symfony/config": "<3.4",
+                "symfony/config": "<2.8",
                 "symfony/dependency-injection": "<3.4",
                 "symfony/yaml": "<3.4"
             },
-            "provide": {
-                "symfony/translation-contracts-implementation": "1.0"
-            },
             "require-dev": {
                 "psr/log": "~1.0",
-                "symfony/config": "~3.4|~4.0",
-                "symfony/console": "~3.4|~4.0",
+                "symfony/config": "~2.8|~3.0|~4.0",
                 "symfony/dependency-injection": "~3.4|~4.0",
                 "symfony/finder": "~2.8|~3.0|~4.0",
-                "symfony/intl": "~3.4|~4.0",
+                "symfony/intl": "^2.8.18|^3.2.5|~4.0",
                 "symfony/yaml": "~3.4|~4.0"
             },
             "suggest": {
@@ -630,7 +557,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -657,7 +584,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2018-12-06T10:45:32+00:00"
+            "time": "2018-11-26T10:17:44+00:00"
         },
         {
             "name": "symfony/var-dumper",
