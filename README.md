@@ -7,45 +7,45 @@
 ![php-version](https://img.shields.io/badge/php-7.1-blue.svg)
 ![php-version](https://img.shields.io/badge/php-7.2-blue.svg)
 ## git-flow
+Although "[git-flow](http://nvie.com/posts/a-successful-git-branching-model/)" has the complexity as pointed out in "[github-flow](http://scottchacon.com/2011/08/31/github-flow.html)", it is familiar already as a standard workflow
 
-[git-flow](http://nvie.com/posts/a-successful-git-branching-model/)
-は[github-flow](http://scottchacon.com/2011/08/31/github-flow.html)で指摘されているような複雑さはあるものの、
-すでに標準的なワークフローとして馴染んでいます。
+At the same time, there are also many projects that adopt GitHub and similar hosting services as source code management system.
+The benefit of adopting GitHub is very big, but the best one is pull request.
 
-それと同時に、ソースコードを管理するシステムとしてGitHubやそれに類するホスティングサービスを採用するプロジェクトもまた多くなっています。
-GitHubを採用する恩恵は非常に大きなものですが、その最たるものはプルリクエストです。
-[github-flow](http://scottchacon.com/2011/08/31/github-flow.html)では、
-
-> 「GitHub has an amazing code review system called Pull Requests that I fear not enough people know about.」
-> (GitHubには、残念だが十分な人々には知られていない プルリクエスト と呼ばれる素晴らしいコードレビューの仕組みがある。)
-
-と言われていますが、2016年現在、GitHubを使っていてプルリクエストを知らない人はいないのではないでしょうか。
-
-git-flowはGit Hubを用いない開発手法であるため、残念ながら、プルリクエストの仕組みがgit-flowには含まれません。
-
-git-live-flowはその問題点を解決するべく、git-flowにプルリクエストの機構を組み込みました。
+It is said to be 
 
 
-## 要件
-git-liveは、phpで作られた、git コマンドの集合体です。
+> GitHub has an amazing code review system called Pull Requests that I fear not enough people know about.
 
-git liveフローを実施するために必要なコマンドが集まっています。
+in  [github-flow](http://scottchacon.com/2011/08/31/github-flow.html), but as of 2016, there is no one who does not know the pull request when using GitHub.
 
-git-liveを使用するためには、PHP7.0以上が必要です。
+Unfortunately, since git-flow is a development method that does not use Git Hub, the mechanism of pull request is not included in git-flow.
 
-## インストール方法
+In order to solve the problem, git-live-flow has incorporated a pull request mechanism into git-flow.
 
-### Unix系OS
+## System requirements
+git-live is a collection of git commands created with php.
+
+git live The commands necessary to implement the flow are gathered.
+
+In order to use git-live, PHP 7.0 or higher is necessary.
+
+## Installation method
+
+### Unix/Linux/MacOS
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 $ wget https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar -O git-live
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-もしくは
+
+OR
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 $ curl https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar -o git-live
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-その後、
+after that,
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 $ chmod 0777 ./git-live
 $ sudo mv ./git-live /usr/local/bin/git-live
@@ -53,8 +53,7 @@ $ sudo mv ./git-live /usr/local/bin/git-live
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Windows
-
-以下のファイルを、パスが通ったディレクトリにおいてください。
+Please place the following files in the directory where the path passed.
 
  * https://raw.githubusercontent.com/Git-Live/git-live/v2.0/git-live.php
  * https://raw.githubusercontent.com/Git-Live/git-live/v2.0/bin/git-live.bat
