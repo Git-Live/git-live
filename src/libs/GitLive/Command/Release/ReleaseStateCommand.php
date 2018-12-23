@@ -41,8 +41,8 @@ class ReleaseStateCommand extends CommandBase
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__('Check the status of release.'))
-            ->addOption('ck_only', 'd', InputOption::VALUE_NONE, __('Check only.'))
-            ->addOption('with_merge_commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
+            ->addOption('ck-only', 'd', InputOption::VALUE_NONE, __('Check only.'))
+            ->addOption('with-merge-commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
     }
 
     /**
