@@ -120,7 +120,6 @@ class FileSystem extends GitBase implements FileSystemInterface
 
                             break;
                     }
-                    echo "\n";
                 },
             ]
         );
@@ -142,7 +141,7 @@ class FileSystem extends GitBase implements FileSystemInterface
         if (!$this->output) {
             echo $message . ($value ? ' : ' . $value : '') . "\n";
         } elseif ($value) {
-            $this->output->writeln("{$message} : <info>{$value}</info>\n");
+            $this->output->writeln("{$message} : <info>{$value}</info>");
         } else {
             $this->output->writeln($message);
         }
