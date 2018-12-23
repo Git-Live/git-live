@@ -71,7 +71,7 @@ class ReleaseIsCommand extends CommandBase
 
         $res = App::make(ReleaseDriver::class)->buildState(
             true,
-            $input->getOption('with_merge_commit')
+            $input->getOption('with-merge-commit')
         );
 
         $output->writeln($res);

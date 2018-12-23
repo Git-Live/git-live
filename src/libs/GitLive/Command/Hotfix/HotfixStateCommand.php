@@ -71,8 +71,8 @@ class HotfixStateCommand extends CommandBase
         Container::bindContext('$output', $output);
 
         $res = App::make(HotfixDriver::class)->buildState(
-            $input->getOption('ck_only'),
-            $input->getOption('with_merge_commit')
+            $input->getOption('ck-only'),
+            $input->getOption('with-merge-commit')
         );
 
         $output->writeln($res);

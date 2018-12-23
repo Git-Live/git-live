@@ -117,7 +117,6 @@ class ReleaseDestroyCommandTest extends TestCase
     }
 
 
-
     /**
      * @throws \Exception
      * @covers \GitLive\Application\Application
@@ -179,10 +178,14 @@ class ReleaseDestroyCommandTest extends TestCase
             16 => "git branch -a",
             17 => "git push deploy :release/unit_test_deploy",
             18 => "git push upstream :release/unit_test_deploy",
+            19 => "git reset --hard HEAD",
+            20 => "git clean -df",
+            21 => "git checkout develop",
+            22 => "git branch -d release/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* release/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
-        $this->assertContains('develop', $this->execCmdToLocalRepo('git branch'));
+        $this->assertNotContains('release/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* develop', $this->execCmdToLocalRepo('git branch'));
         // ...
     }
 }

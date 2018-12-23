@@ -71,7 +71,7 @@ class HotfixDestroyCommand extends CommandBase
         Container::bindContext('$output', $output);
 
         App::make(HotfixDriver::class)->buildDestroy(
-            $input->getOption('remove_local')
+            $input->getOption('remove-local')
         );
     }
 }

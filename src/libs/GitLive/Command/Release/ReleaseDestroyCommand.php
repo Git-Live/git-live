@@ -71,7 +71,7 @@ class ReleaseDestroyCommand extends CommandBase
         Container::bindContext('$output', $output);
 
         App::make(ReleaseDriver::class)->buildDestroy(
-            $input->getOption('remove_local')
+            $input->getOption('remove-local')
         );
     }
 }
