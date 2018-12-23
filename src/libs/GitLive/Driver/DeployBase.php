@@ -536,12 +536,12 @@ abstract class DeployBase extends DriverBase
             throw new Exception(sprintf(__('%s is not deploy mode.'), $repo));
         }
 
-        $this->GitCmdExecutor->branch(['-d', $repo]);
 
         // ローカルブランチの削除
         if ($remove_local) {
             $this->clean();
             $this->GitCmdExecutor->checkout($this->Driver(ConfigDriver::class)->develop());
+            $this->GitCmdExecutor->branch(['-d', $repo]);
         }
     }
 
