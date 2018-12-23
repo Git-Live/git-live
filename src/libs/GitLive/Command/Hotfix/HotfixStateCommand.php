@@ -56,8 +56,8 @@ class HotfixStateCommand extends CommandBase
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__('Check the status of hotfix.'))
-            ->addOption('ck_only', 'd', InputOption::VALUE_NONE, __('Check only.'))
-            ->addOption('with_merge_commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
+            ->addOption('ck-only', 'd', InputOption::VALUE_NONE, __('Check only.'))
+            ->addOption('with-merge-commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
     }
 
     /**
@@ -71,8 +71,8 @@ class HotfixStateCommand extends CommandBase
         Container::bindContext('$output', $output);
 
         $res = App::make(HotfixDriver::class)->buildState(
-            $input->getOption('ck_only'),
-            $input->getOption('with_merge_commit')
+            $input->getOption('ck-only'),
+            $input->getOption('with-merge-commit')
         );
 
         $output->writeln($res);

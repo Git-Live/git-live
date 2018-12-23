@@ -87,12 +87,13 @@ class MergeDriver extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @return void
+     * @return string
      */
     public function mergeDevelop()
     {
         $branch = 'upstream/' . $this->Driver(ConfigDriver::class)->develop();
-        $this->merge($branch);
+
+        return $this->merge($branch);
     }
 
     /**
@@ -100,13 +101,14 @@ class MergeDriver extends DriverBase
      *
      * @param $branch
      * @throws Exception
+     * @return string
      */
     public function merge($branch)
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
 
-        $this->GitCmdExecutor->merge($branch);
+        return $this->GitCmdExecutor->merge($branch);
     }
 
     /**
@@ -114,11 +116,12 @@ class MergeDriver extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @return void
+     * @return string
      */
     public function mergeMaster()
     {
         $branch = 'upstream/' . $this->Driver(ConfigDriver::class)->master();
-        $this->merge($branch);
+
+        return $this->merge($branch);
     }
 }

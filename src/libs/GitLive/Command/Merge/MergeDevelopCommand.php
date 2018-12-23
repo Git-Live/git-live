@@ -68,7 +68,9 @@ class MergeDevelopCommand extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        App::make(MergeDriver::class)->mergeDevelop();
+        $res = App::make(MergeDriver::class)->mergeDevelop();
+
+        $output->writeln($res);
 
         return 0;
     }

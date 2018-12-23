@@ -18,33 +18,21 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace Tests\GitLive\Command;
+namespace Tests\GitLive\Command\Log;
 
 use App;
 use GitLive\Application\Application;
+use JapaneseDate\DateTime;
 use Tests\GitLive\Tester\CommandTestCase as TestCase;
 use Tests\GitLive\Tester\CommandTester;
 use Tests\GitLive\Tester\CommandTestTrait;
 use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
- * Class LogCommandTest
- *
- * @category   GitCommand
- * @package    Tests\GitLive\Command
- * @subpackage Core
- * @author     akito<akito-artisan@five-foxes.com>
- * @author     suzunone<suzunone.eleven@gmail.com>
- * @copyright  Project Git Live
- * @license    MIT
- * @version    GIT: $Id$
- * @link       https://github.com/Git-Live/git-live
- * @see        https://github.com/Git-Live/git-live
- * @since      2018-12-16
  * @internal
  * @coversNothing
  */
-class LogCommandTest extends TestCase
+class LogDevelopCommandTest extends TestCase
 {
     use CommandTestTrait;
     use MakeGitTestRepoTrait;
@@ -60,27 +48,34 @@ class LogCommandTest extends TestCase
         $this->execCmdToLocalRepo('echo "\n\n * something text" >> README.md');
         $this->execCmdToLocalRepo('git add ./');
         $this->execCmdToLocalRepo('git commit -am "edit readme"');
+        $this->execCmdToLocalRepo($this->git_live . ' feature publish');
+
+        $this->execCmdToLocalRepo($this->git_live . ' feature start suzunone_branch_2');
+        $this->execCmdToLocalRepo('git checkout feature/suzunone_branch');
     }
 
     /**
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\LogCommand
+     * @covers \GitLive\Command\Log\BaseLogCommand
+     * @covers \GitLive\Command\Log\LogDevelopCommand
+     * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\MergeDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
-    public function testExecuteDevelop()
+    public function testExecute()
     {
         $application = App::make(Application::class);
 
-        $command = $application->find('log');
-        $commandTester = new CommandTester($command);
+        DateTime::setTestNow(DateTime::factory('2018-12-01 22:33:45'));
 
+        $command = $application->find('log:develop');
+        $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
 
             // pass arguments to the helper
-            'task' => 'develop',
 
             // prefix the key with two dashes when passing options,
             // e.g: '--some-option' => 'option_value',
@@ -88,19 +83,26 @@ class LogCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains("A\tnew_text.md", $output);
-        $this->assertContains("M\tREADME.md", $output);
+
+        dump($output);
+        //$this->assertContains('Already up to date.', $output);
+        //$this->assertContains('new branch', $output);
+        //$this->assertContains('release/unit_test_deploy -> release/unit_test_deploy', $output);
+        $this->assertNotContains('fatal', $output);
+        $this->assertContains('edit readme', $output);
+        $this->assertContains('add new file', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
         dump($output);
+
         $this->assertEquals([
             0 => "git rev-parse --git-dir 2> /dev/null",
             1 => "git config --get gitlive.branch.develop.name",
             2 => "git fetch --all",
             3 => "git fetch -p",
-            4 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
-            5 => "git log --pretty=fuller --name-status --left-right upstream/develop..feature/suzunone_branch",
+            4 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
+            5 => "git log --left-right upstream/develop..feature/suzunone_branch",
         ], data_get($this->spy, '*.0'));
 
         // ...
@@ -110,20 +112,26 @@ class LogCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\LogCommand
+     * @covers \GitLive\Command\Log\BaseLogCommand
+     * @covers \GitLive\Command\Log\LogDevelopCommand
+     * @covers \GitLive\Driver\DriverBase
+     * @covers \GitLive\Driver\MergeDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
-    public function testExecuteMaster()
+    public function testExecuteDefaultOption()
     {
         $application = App::make(Application::class);
 
-        $command = $application->find('log');
+        DateTime::setTestNow(DateTime::factory('2018-12-01 22:33:45'));
+
+        $command = $application->find('log:develop');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
 
+            '--pretty' => 'fuller',
+            '--name-status' => true,
             // pass arguments to the helper
-            'task' => 'master',
 
             // prefix the key with two dashes when passing options,
             // e.g: '--some-option' => 'option_value',
@@ -131,19 +139,28 @@ class LogCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains("A\tnew_text.md", $output);
-        $this->assertContains("M\tREADME.md", $output);
+
+        dump($output);
+        //$this->assertContains('Already up to date.', $output);
+        //$this->assertContains('new branch', $output);
+        //$this->assertContains('release/unit_test_deploy -> release/unit_test_deploy', $output);
+        $this->assertNotContains('fatal', $output);
+        $this->assertContains('edit readme', $output);
+        $this->assertContains('add new file', $output);
+        $this->assertContains('README.md', $output);
+        $this->assertContains('new_text.md', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
         dump($output);
+
         $this->assertEquals([
             0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.master.name",
+            1 => "git config --get gitlive.branch.develop.name",
             2 => "git fetch --all",
             3 => "git fetch -p",
-            4 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
-            5 => "git log --pretty=fuller --name-status --left-right upstream/master..feature/suzunone_branch",
+            4 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
+            5 => "git log --pretty=fuller --name-status --left-right upstream/develop..feature/suzunone_branch",
         ], data_get($this->spy, '*.0'));
 
         // ...

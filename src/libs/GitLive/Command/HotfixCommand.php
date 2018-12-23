@@ -173,7 +173,7 @@ class HotfixCommand extends CommandBase
                 $command = $this->getApplication()->find('hotfix:state');
 
                 $arguments = [
-                    'with_merge_commit' => true,
+                    'with-merge-commit' => true,
                 ];
 
                 $greetInput = new ArrayInput($arguments);
@@ -206,7 +206,7 @@ class HotfixCommand extends CommandBase
                 $command = $this->getApplication()->find('hotfix:destroy');
 
                 $arguments = [
-                    'remove_local' => true,
+                    'remove-local' => true,
                 ];
 
                 $greetInput = new ArrayInput($arguments);

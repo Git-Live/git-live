@@ -68,7 +68,9 @@ class MergeMasterCommand extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        App::make(MergeDriver::class)->mergeMaster();
+        $res = App::make(MergeDriver::class)->mergeMaster();
+
+        $output->writeln($res);
 
         return 0;
     }

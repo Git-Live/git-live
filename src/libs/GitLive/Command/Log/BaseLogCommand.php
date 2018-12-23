@@ -23,7 +23,7 @@ namespace GitLive\Command\Log;
 use GitLive\Command\CommandBase;
 use Symfony\Component\Console\Input\InputOption;
 
-class BaseLogCommand extends CommandBase
+abstract class BaseLogCommand extends CommandBase
 {
     protected function configure()
     {
@@ -78,7 +78,7 @@ class BaseLogCommand extends CommandBase
                 __('Pretty-print the contents of the commit logs in a given format, where <format> can be one of oneline, short, medium, full, fuller, email, raw, format:<string> and tformat:<string>.') . "\n"
                 . __('When <format> is none of the above, and has %placeholder in it, it acts as if --pretty=tformat:<format> were given.')
             )
-            ->addOption('format', '', InputOption::VALUE_REQUIRED, __(''))
+            ->addOption('format', '', InputOption::VALUE_REQUIRED, __('The format:<string> format allows you to specify which information you want to show. It works a little bit like printf format, with the notable exception that you get a newline with %n instead of \n.'))
             ->addOption(
                 'diff-filter',
                 '',

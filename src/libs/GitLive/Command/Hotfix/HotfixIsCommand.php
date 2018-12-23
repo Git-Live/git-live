@@ -56,7 +56,7 @@ class HotfixIsCommand extends CommandBase
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__('Whether the hotfix is open, or to see what is closed.'))
-            ->addOption('with_merge_commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
+            ->addOption('with-merge-commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
     }
 
     /**
@@ -71,7 +71,7 @@ class HotfixIsCommand extends CommandBase
 
         $res = App::make(HotfixDriver::class)->buildState(
             true,
-            $input->getOption('with_merge_commit')
+            $input->getOption('with-merge-commit')
         );
 
         $output->writeln($res);

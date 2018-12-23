@@ -2002,7 +2002,6 @@ class DeployBaseTest extends TestCase
             7 => "git config --get gitlive.branch.release.prefix.name",
             8 => "git push unit_deploy :unit_release/unit_test_release_1234",
             9 => "git push upstream :unit_release/unit_test_release_1234",
-            10 => "git branch -d unit_release/unit_test_release_1234",
         ], data_get($spy, '*.0'));
     }
 

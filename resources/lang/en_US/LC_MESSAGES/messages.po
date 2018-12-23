@@ -8,132 +8,137 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-11 21:15+0900\n"
+"POT-Creation-Date: 2018-12-23 23:10+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src//libs/GitLive/Driver/ResetDriver.php:68
-#: src//libs/GitLive/Command/PullCommand.php:110
+#: src//libs/GitLive/Command/PullCommand.php:109
 msgid "Undefined remote option."
 msgstr ""
 
 #: src//libs/GitLive/Driver/FeatureDriver.php:85
-#: src//libs/GitLive/Driver/PullRequestDriver.php:61
-#: src//libs/GitLive/Driver/PullRequestDriver.php:96
+#: src//libs/GitLive/Driver/PullRequestDriver.php:63
+#: src//libs/GitLive/Driver/PullRequestDriver.php:98
 #, php-format
 msgid "%s branch is duplicate."
 msgstr ""
 
-#: src//libs/GitLive/Driver/FeatureDriver.php:160
+#: src//libs/GitLive/Driver/FeatureDriver.php:165
 #, php-format
 msgid "Feature name %s not found"
 msgstr ""
 
-#: src//libs/GitLive/Driver/PullRequestDriver.php:69
+#: src//libs/GitLive/Driver/FeatureDriver.php:248
+#, php-format
+msgid "%s could not read from remote repository."
+msgstr ""
+
+#: src//libs/GitLive/Driver/PullRequestDriver.php:71
 msgid "Feature branch create fail."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:58
+#: src//libs/GitLive/Driver/InitDriver.php:57
 msgid "Please enter only your remote-repository."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:59
+#: src//libs/GitLive/Driver/InitDriver.php:58
 msgid "Please enter common remote-repository."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:61
+#: src//libs/GitLive/Driver/InitDriver.php:60
 msgid "Please enter deploying dedicated remote-repository."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:62
-#: src//libs/GitLive/Driver/InitDriver.php:74
+#: src//libs/GitLive/Driver/InitDriver.php:61
+#: src//libs/GitLive/Driver/InitDriver.php:73
 msgid "If you return in the blank, it becomes the default setting."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:73
+#: src//libs/GitLive/Driver/InitDriver.php:72
 msgid "Please enter work directory path."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:99
+#: src//libs/GitLive/Driver/InitDriver.php:98
 msgid "Could not automatically get the local directory."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:150
+#: src//libs/GitLive/Driver/InitDriver.php:152
 msgid "Rebuild? yes/no"
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:157
+#: src//libs/GitLive/Driver/InitDriver.php:159
 msgid "It is very risky project."
 msgstr ""
 
+#: src//libs/GitLive/Driver/DeployBase.php:105
 #: src//libs/GitLive/Driver/DeployBase.php:108
-#: src//libs/GitLive/Driver/DeployBase.php:111
-#: src//libs/GitLive/Driver/DeployBase.php:118
-#: src//libs/GitLive/Driver/DeployBase.php:251
-#: src//libs/GitLive/Driver/DeployBase.php:254
-#: src//libs/GitLive/Driver/DeployBase.php:261
+#: src//libs/GitLive/Driver/DeployBase.php:115
+#: src//libs/GitLive/Driver/DeployBase.php:246
+#: src//libs/GitLive/Driver/DeployBase.php:249
+#: src//libs/GitLive/Driver/DeployBase.php:256
 #, php-format
 msgid "Already %s opened."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:285
-#: src//libs/GitLive/Driver/DeployBase.php:336
-#: src//libs/GitLive/Driver/DeployBase.php:382
-#: src//libs/GitLive/Driver/DeployBase.php:401
-#: src//libs/GitLive/Driver/DeployBase.php:421
-#: src//libs/GitLive/Driver/DeployBase.php:442
+#: src//libs/GitLive/Driver/DeployBase.php:279
+#: src//libs/GitLive/Driver/DeployBase.php:329
+#: src//libs/GitLive/Driver/DeployBase.php:379
+#: src//libs/GitLive/Driver/DeployBase.php:397
+#: src//libs/GitLive/Driver/DeployBase.php:416
+#: src//libs/GitLive/Driver/DeployBase.php:435
 #, php-format
 msgid "%s is not open."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:363
+#: src//libs/GitLive/Driver/DeployBase.php:361
 #, php-format
 msgid "%s is open."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:368
+#: src//libs/GitLive/Driver/DeployBase.php:366
 #, php-format
 msgid "%s is close."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:465
+#: src//libs/GitLive/Driver/DeployBase.php:457
 #, php-format
 msgid "Add a remote repository %s."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:540
+#: src//libs/GitLive/Driver/DeployBase.php:530
 #, php-format
 msgid "%s is not hotfix branch."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:543
+#: src//libs/GitLive/Driver/DeployBase.php:533
 #, php-format
 msgid "%s is not release branch."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:546
+#: src//libs/GitLive/Driver/DeployBase.php:536
 #, php-format
 msgid "%s is not deploy mode."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:584
-#: src//libs/GitLive/Driver/DeployBase.php:591
-#: src//libs/GitLive/Driver/DeployBase.php:601
-#: src//libs/GitLive/Driver/DeployBase.php:616
-#: src//libs/GitLive/Driver/DeployBase.php:629
+#: src//libs/GitLive/Driver/DeployBase.php:572
+#: src//libs/GitLive/Driver/DeployBase.php:579
+#: src//libs/GitLive/Driver/DeployBase.php:589
+#: src//libs/GitLive/Driver/DeployBase.php:604
+#: src//libs/GitLive/Driver/DeployBase.php:617
 #, php-format
 msgid "%s close is failed."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DeployBase.php:585
-#: src//libs/GitLive/Driver/DeployBase.php:592
-#: src//libs/GitLive/Driver/DeployBase.php:617
-#: src//libs/GitLive/Driver/DeployBase.php:630
+#: src//libs/GitLive/Driver/DeployBase.php:573
+#: src//libs/GitLive/Driver/DeployBase.php:580
+#: src//libs/GitLive/Driver/DeployBase.php:605
+#: src//libs/GitLive/Driver/DeployBase.php:618
 #, php-format
 msgid "%s branch has a commit that is not on the %2$s branch"
 msgstr ""
@@ -143,29 +148,28 @@ msgstr ""
 msgid "Not a git repository."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DriverBase.php:196
+#: src//libs/GitLive/Driver/DriverBase.php:195
 msgid "Please clean or commit."
 msgstr ""
 
-#: src//libs/GitLive/Support/FileSystem.php:72
+#: src//libs/GitLive/Support/FileSystem.php:95
 msgid "Being redirected to"
 msgstr ""
 
-#: src//libs/GitLive/Support/FileSystem.php:76
+#: src//libs/GitLive/Support/FileSystem.php:99
 msgid "Connected..."
 msgstr ""
 
-#: src//libs/GitLive/Support/FileSystem.php:80
+#: src//libs/GitLive/Support/FileSystem.php:103
 msgid "Got the file size"
 msgstr ""
 
-#: src//libs/GitLive/Support/FileSystem.php:84
+#: src//libs/GitLive/Support/FileSystem.php:110
 msgid "Found the mime-type"
 msgstr ""
 
-#: src//libs/GitLive/Support/FileSystem.php:88
-#, php-format
-msgid "Made some progress, downloaded %s so far"
+#: src//libs/GitLive/Support/FileSystem.php:118
+msgid "Made some progress, downloaded"
 msgstr ""
 
 #: src//libs/GitLive/Command/Hotfix/HotfixSyncCommand.php:54
@@ -194,14 +198,22 @@ msgid "Support preparation of a new production hotfix."
 msgstr ""
 
 #: src//libs/GitLive/Command/Hotfix/HotfixOpenCommand.php:59
-#: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:54
-#: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:57
-msgid "Allow for minor bug fixes and preparing meta-data for a hotfix"
+msgid "Allow for minor bug fixes and preparing meta-data for a hotfix."
+msgstr ""
+
+#: src//libs/GitLive/Command/Hotfix/HotfixOpenCommand.php:60
+#: src//libs/GitLive/Command/Release/ReleaseOpenCommand.php:63
+msgid "The default feature name is PHP date format \"YmdHis\"."
 msgstr ""
 
 #: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:54
 #: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:57
 msgid "Support preparation of a new production hotfix/."
+msgstr ""
+
+#: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:54
+#: src//libs/GitLive/Command/Hotfix/HotfixTrackCommand.php:57
+msgid "Allow for minor bug fixes and preparing meta-data for a hotfix"
 msgstr ""
 
 #: src//libs/GitLive/Command/Hotfix/HotfixCloseCommand.php:61
@@ -358,7 +370,7 @@ msgstr ""
 msgid "Pull from the appropriate remote repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/CommandBase.php:64
+#: src//libs/GitLive/Command/CommandBase.php:62
 msgid ""
 "An update to the Git Live is available. Run \"git live self-update\" to get "
 "the latest version."
@@ -409,14 +421,17 @@ msgid "Support preparation of a new production release."
 msgstr ""
 
 #: src//libs/GitLive/Command/Release/ReleaseOpenCommand.php:63
-#: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:39
-#: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:42
-msgid "Allow for minor bug fixes and preparing meta-data for a release"
+msgid "Allow for minor bug fixes and preparing meta-data for a release."
 msgstr ""
 
 #: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:39
 #: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:42
 msgid "Support preparation of a new production release/."
+msgstr ""
+
+#: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:39
+#: src//libs/GitLive/Command/Release/ReleaseTrackCommand.php:42
+msgid "Allow for minor bug fixes and preparing meta-data for a release"
 msgstr ""
 
 #: src//libs/GitLive/Command/Release/ReleaseDestroyCommand.php:55
@@ -444,23 +459,285 @@ msgstr ""
 msgid "Alias to \"merge: *\" tasks."
 msgstr ""
 
-#: src//libs/GitLive/Command/Log/LogDevelopCommand.php:39
-#: src//libs/GitLive/Command/Log/LogDevelopCommand.php:42
+#: src//libs/GitLive/Command/Log/LogDevelopCommand.php:40
+#: src//libs/GitLive/Command/Log/LogDevelopCommand.php:43
 msgid "Show diff upstream develop branch."
 msgstr ""
 
-#: src//libs/GitLive/Command/Log/LogMasterCommand.php:39
-#: src//libs/GitLive/Command/Log/LogMasterCommand.php:42
+#: src//libs/GitLive/Command/Log/LogMasterCommand.php:38
+#: src//libs/GitLive/Command/Log/LogMasterCommand.php:41
 msgid "Show diff upstream master branch."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:32
+msgid ""
+"This is a shorthand for \"--pretty=oneline --abbrev-commit\" used together."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:37
+msgid ""
+"Instead of showing the full 40-byte hexadecimal commit object name, show "
+"only a partial prefix. Non default number of digits can be specified with "
+"\"--abbrev=<n>\" (which also modifies diff output, if it isdisplayed)."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:39
+msgid ""
+"This should make \"--pretty=oneline\" a whole lot more readable for people "
+"using 80-column terminals."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:41
+msgid ""
+"Show the full 40-byte hexadecimal commit object name. This negates --abbrev-"
+"commit and those options which\n"
+"           imply it such as \"--oneline\". It also overrides the log."
+"abbrevCommit variable."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:43
+msgid "Print only merge commits. This is exactly the same as --min-parents=2."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:44
+msgid ""
+" Do not print commits with more than one parent. This is exactly the same as "
+"--max-parents=1."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:45
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:46
+msgid ""
+"reset these limits (to no limit) again. Equivalent forms are --min-parents=0 "
+"(any commit has 0 or more parents) and --max-parents=-1 (negative numbers "
+"denote no upper limit)."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:47
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:50
+msgid ""
+"Show only commits which have at least (or at most) that many parent commits."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:48
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:51
+msgid ""
+"In particular, --max-parents=1 is the same as --no-merges, --min-parents=2 "
+"is the same as --merges."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:49
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:52
+msgid ""
+"--max-parents=0 gives all root commits and --min-parents=3 all octopus "
+"merges."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:57
+msgid ""
+"Draw a text-based graphical representation of the commit history on the left "
+"hand side of the output."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:58
+msgid ""
+"This may cause extra lines to be printed in between commits, in order for "
+"the graph history to be drawn properly. Cannot be combined with --no-walk."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:59
+msgid "This enables parent rewriting, see History Simplification above."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:60
+msgid ""
+"This implies the --topo-order option by default, but the --date-order option "
+"may also be specified."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:62
+msgid ""
+"Show no parents before all of its children are shown, and avoid showing "
+"commits on multiple lines of history intermixed."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:63
+msgid ""
+"Show no parents before all of its children are shown, but otherwise show "
+"commits in the commit timestamp order."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:64
+msgid ""
+"Show no parents before all of its children are shown, but otherwise show "
+"commits in the author timestamp order."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:65
+msgid ""
+"Output the commits chosen to be shown (see Commit Limiting section above) in "
+"reverse order. Cannot be combined with --walk-reflogs."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:70
+msgid ""
+"Instead of walking the commit ancestry chain, walk reflog entries from the "
+"most recent one to older ones."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:71
+msgid "When this option is used you cannot specify commits to exclude"
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:72
+msgid ""
+" (that is, ^commit, commit1..commit2, and commit1...commit2 notations cannot "
+"be used)."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:78
+msgid ""
+"Pretty-print the contents of the commit logs in a given format, where "
+"<format> can be one of oneline, short, medium, full, fuller, email, raw, "
+"format:<string> and tformat:<string>."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:79
+msgid ""
+"When <format> is none of the above, and has %placeholder in it, it acts as "
+"if --pretty=tformat:<format> were given."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:81
+msgid ""
+"The format:<string> format allows you to specify which information you want "
+"to show. It works a little bit like printf format, with the notable "
+"exception that you get a newline with %n instead of \\n."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:86
+msgid ""
+"Select only files that are Added (A), Copied (C), Deleted (D), Modified (M), "
+"Renamed (R), have their type (i.e. regular file, symlink, submodule, ...) "
+"changed (T), are Unmerged (U), are Unknown (X), or have had their pairing "
+"Broken(B)."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:87
+msgid "Any combination of the filter characters (including none) can be used."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:88
+msgid ""
+"When * (All-or-none) is added to the combination, all paths are selected if "
+"there is any file that matches other criteria in the comparison; if there is "
+"no file that matches other criteria, nothing is selected."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:94
+msgid ""
+"Show only names and status of changed files. See the description of the --"
+"diff-filter option on what the status letters mean."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:100
+msgid "[short|full|auto|no]"
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:101
+msgid "Print out the ref names of any commits that are shown."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:102
+msgid ""
+"If short is specified, the ref name prefixes refs/heads/, refs/tags/ and "
+"refs/remotes/ will not be printed."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:103
+msgid ""
+"If full is specified, the full ref name (including prefix) will be printed."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:104
+msgid ""
+"If auto is specified, then if the output is going to a terminal, the ref "
+"names are shown as if short were given, otherwise no ref names are shown."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:105
+msgid "The default option is short."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:111
+msgid "Generate patch (see section on generating patches)."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:117
+msgid ""
+"Suppress diff output. Useful for commands like git show that show the patch "
+"by default, or to cancel the effect of --patch."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:123
+msgid "For each commit, show a summary of changes using the raw diff format."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:124
+msgid "See the \"RAW OUTPUT FORMAT\" section of git-diff(1)."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:125
+msgid ""
+"This is different from showing the log itself in raw format, which you can "
+"achieve with --format=raw."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:131
+msgid "Synonym for -p --raw."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:138
+msgid ""
+"Enable the heuristic that shift diff hunk boundaries to make patches easier "
+"to read."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:139
+msgid "This is the default."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:145
+msgid "Disable the indent heuristic."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:151
+msgid "Spend extra time to make sure the smallest possible diff is produced."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:157
+msgid "Generate a diff using the \"patience diff\" algorithm."
+msgstr ""
+
+#: src//libs/GitLive/Command/Log/BaseLogCommand.php:163
+msgid "Generate a diff using the \"histogram diff\" algorithm."
 msgstr ""
 
 #: src//libs/GitLive/Command/Feature/FeatureCloseCommand.php:55
 msgid "Finish feature."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/FeatureCloseCommand.php:58
+#: src//libs/GitLive/Command/Feature/FeatureCloseCommand.php:59
 #, php-format
 msgid "Remove feature branch, from %s and %s repository."
+msgstr ""
+
+#: src//libs/GitLive/Command/Feature/FeatureCloseCommand.php:60
+#: src//libs/GitLive/Command/Feature/PublishCommand.php:58
+#: src//libs/GitLive/Command/Feature/FeaturePullCommand.php:58
+#: src//libs/GitLive/Command/Feature/FeaturePushCommand.php:58
+#: src//libs/GitLive/Command/Feature/FeatureStatusCommand.php:58
+msgid "The default feature name is self."
 msgstr ""
 
 #: src//libs/GitLive/Command/Feature/PublishCommand.php:55
@@ -492,6 +769,24 @@ msgstr ""
 msgid "Cheackout other feature branch."
 msgstr ""
 
+#: src//libs/GitLive/Command/Feature/ChangeCommand.php:45
+msgid "feature name"
+msgstr ""
+
+#: src//libs/GitLive/Command/Feature/ChangeCommand.php:50
+msgid ""
+"When switching branches, proceed even if the index or the working tree "
+"differs from HEAD. This is used to\n"
+"           throw away local changes."
+msgstr ""
+
+#: src//libs/GitLive/Command/Feature/ChangeCommand.php:53
+msgid ""
+"When checking out paths from the index, do not fail upon unmerged entries; "
+"instead, unmerged entries are\n"
+"           ignored."
+msgstr ""
+
 #: src//libs/GitLive/Command/Feature/FeatureStartCommand.php:55
 #: src//libs/GitLive/Command/Feature/FeatureStartCommand.php:58
 msgid "Start new feature {feature_name}."
@@ -512,9 +807,17 @@ msgstr ""
 msgid "Will reset the branch before the last commit."
 msgstr ""
 
-#: src//libs/GitLive/Command/SelfUpdateCommand.php:39
-#: src//libs/GitLive/Command/SelfUpdateCommand.php:42
+#: src//libs/GitLive/Command/SelfUpdateCommand.php:40
+#: src//libs/GitLive/Command/SelfUpdateCommand.php:43
 msgid "Update git-live command."
+msgstr ""
+
+#: src//libs/GitLive/Command/SelfUpdateCommand.php:44
+msgid "Save path."
+msgstr ""
+
+#: src//libs/GitLive/Command/SelfUpdateCommand.php:49
+msgid "Get a master phar."
 msgstr ""
 
 #: src//libs/GitLive/Command/HotfixCommand.php:52

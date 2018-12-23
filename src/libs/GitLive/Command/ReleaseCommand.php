@@ -173,7 +173,7 @@ class ReleaseCommand extends CommandBase
                 $command = $this->getApplication()->find('release:state');
 
                 $arguments = [
-                    'with_merge_commit' => true,
+                    'with-merge-commit' => true,
                 ];
 
                 $greetInput = new ArrayInput($arguments);
@@ -206,7 +206,7 @@ class ReleaseCommand extends CommandBase
                 $command = $this->getApplication()->find('release:destroy');
 
                 $arguments = [
-                    'remove_local' => true,
+                    'remove-local' => true,
                 ];
 
                 $greetInput = new ArrayInput($arguments);

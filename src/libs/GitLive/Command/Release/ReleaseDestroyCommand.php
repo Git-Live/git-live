@@ -56,7 +56,7 @@ class ReleaseDestroyCommand extends CommandBase
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__("Discard release. However, keep working in the local repository."))
-            ->addOption('remove_local', 'R', InputOption::VALUE_NONE, __('Destroy with local repository.'));
+            ->addOption('remove-local', 'R', InputOption::VALUE_NONE, __('Destroy with local repository.'));
     }
 
     /**
@@ -71,7 +71,7 @@ class ReleaseDestroyCommand extends CommandBase
         Container::bindContext('$output', $output);
 
         App::make(ReleaseDriver::class)->buildDestroy(
-            $input->getOption('remove_local')
+            $input->getOption('remove-local')
         );
     }
 }
