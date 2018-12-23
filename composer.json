@@ -1,8 +1,8 @@
 {
   "name": "git-live/git-live",
-  "description": "GitHub Flowを拡張した、開発フローGit Live Flowをサポートするためのコマンドラインツール。",
+  "description": "Development flow with extended GitHub Flow A command line tool to support Git Live Flow.",
   "minimum-stability": "stable",
-  "license": "proprietary",
+  "license": "MIT",
   "autoload": {
     "psr-4": {
       "GitLive\\": "src/libs/GitLive/"
