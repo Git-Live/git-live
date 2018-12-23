@@ -21,7 +21,6 @@
 namespace Tests\GitLive\Tester;
 
 use App;
-use GitLive\Application\Container;
 use GitLive\Driver\ConfigDriver;
 use GitLive\GitLive;
 use PHPUnit\Framework\TestCase as TestCaseBase;
@@ -80,7 +79,7 @@ abstract class TestCase extends TestCaseBase
     }
 
     /**
-     * @return voic
+     * @return void
      */
     protected function tearDown()
     {

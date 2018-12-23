@@ -23,6 +23,7 @@ namespace GitLive\Command;
 use App;
 use GitLive\Application\Container;
 use GitLive\Support\FileSystem;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -40,11 +41,12 @@ class SelfUpdateCommand extends CommandBase
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__('Update git-live command.'))
+            ->addArgument('save_path', InputArgument::OPTIONAL, __('Save path.'))
             ->addOption(
                 'no-cache',
                 'c',
                 InputOption::VALUE_NONE,
-                'Get a master phar.'
+                __('Get a master phar.')
             );
     }
 
@@ -58,7 +60,7 @@ class SelfUpdateCommand extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        if (GIT_LIVE_VERSION === 'cli') {
+        if (GIT_LIVE_VERSION === 'cli' && !$input->getArgument('save_path')) {
             return 1;
         }
 
@@ -69,7 +71,7 @@ class SelfUpdateCommand extends CommandBase
 
         $FileSystem = App::make(FileSystem::class);
 
-        $FileSystem->putContents(GIT_LIVE_INSTALL_PATH, $FileSystem->getContentsWithProgress($url));
+        $FileSystem->putContents($input->getArgument('save_path') ?: GIT_LIVE_INSTALL_PATH, $FileSystem->getContentsWithProgress($url));
 
         return 0;
     }

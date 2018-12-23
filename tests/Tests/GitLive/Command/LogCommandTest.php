@@ -57,7 +57,7 @@ class LogCommandTest extends TestCase
         $this->execCmdToLocalRepo('echo "# new file" > new_text.md');
         $this->execCmdToLocalRepo('git add ./');
         $this->execCmdToLocalRepo('git commit -am "add new file"');
-        $this->execCmdToLocalRepo('echo "\n\n * someting text" >> README.md');
+        $this->execCmdToLocalRepo('echo "\n\n * something text" >> README.md');
         $this->execCmdToLocalRepo('git add ./');
         $this->execCmdToLocalRepo('git commit -am "edit readme"');
     }
@@ -75,6 +75,7 @@ class LogCommandTest extends TestCase
 
         $command = $application->find('log');
         $commandTester = new CommandTester($command);
+
         $commandTester->execute([
             'command' => $command->getName(),
 

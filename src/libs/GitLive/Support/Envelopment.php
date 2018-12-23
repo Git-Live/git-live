@@ -60,7 +60,7 @@ class Envelopment extends GitBase
      */
     public function isDebug()
     {
-        return $this->getEnv('APP_ENV', 'production') === 'production';
+        return $this->getEnv('APP_ENV', 'production') !== 'production';
     }
 
     /**
@@ -82,6 +82,6 @@ class Envelopment extends GitBase
      */
     public function putEnv($key, $value)
     {
-        return putenv($key . '=' . var_export($value, true));
+        return putenv($key . '=' . $value);
     }
 }
