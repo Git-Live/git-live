@@ -32,7 +32,7 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
  * @internal
  * @coversNothing
  */
-class ReleaseCloseCommandTest extends TestCase
+class ReleasePushCommandTest extends TestCase
 {
     use CommandTestTrait;
     use MakeGitTestRepoTrait;
@@ -60,7 +60,7 @@ class ReleaseCloseCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Release\ReleaseCloseCommand
+     * @covers \GitLive\Command\Release\ReleasePushCommand
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\ReleaseDriver
      * @covers \GitLive\Service\CommandLineKernelService
@@ -72,7 +72,7 @@ class ReleaseCloseCommandTest extends TestCase
 
         DateTime::setTestNow(DateTime::factory('2018-12-01 22:33:45'));
 
-        $command = $application->find('release:close');
+        $command = $application->find('release:push');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
@@ -114,35 +114,15 @@ class ReleaseCloseCommandTest extends TestCase
             14 => "git remote",
             15 => "git branch -a",
             16 => "git branch -a",
-            17 => "git checkout deploy/master",
-            18 => "git branch -D master",
-            19 => "git checkout -b master",
-            20 => "git symbolic-ref HEAD 2>/dev/null",
-            21 => "git format-patch `git rev-parse --abbrev-ref HEAD`..deploy/release/unit_test_deploy --stdout",
-            22 => "git format-patch `git rev-parse --abbrev-ref HEAD`..deploy/release/unit_test_deploy --stdout| git apply --check",
-            23 => "git merge deploy/release/unit_test_deploy",
-            24 => "git diff deploy/release/unit_test_deploy master",
-            25 => "git push upstream master",
-            26 => "git push deploy master",
-            27 => "git checkout upstream/develop",
-            28 => "git branch -D develop",
-            29 => "git checkout -b develop",
-            30 => "git symbolic-ref HEAD 2>/dev/null",
-            31 => "git merge deploy/release/unit_test_deploy",
-            32 => "git diff deploy/release/unit_test_deploy develop",
-            33 => "git push upstream develop",
-            34 => "git push deploy :release/unit_test_deploy",
-            35 => "git push upstream :release/unit_test_deploy",
-            36 => "git branch -d release/unit_test_deploy",
-            37 => "git fetch upstream",
-            38 => "git checkout upstream/master",
-            39 => "git tag runit_test_deploy",
-            40 => "git push upstream --tags",
-            41 => "git checkout develop",
+            17 => "git branch",
+            18 => "git checkout release/unit_test_deploy",
+            19 => "git pull upstream release/unit_test_deploy",
+            20 => "git pull deploy release/unit_test_deploy",
+            21 => "git status release/unit_test_deploy",
+            22 => "git push upstream release/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertNotContains('release/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
-        $this->assertContains('* develop', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* release/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
         // ...
     }
 }

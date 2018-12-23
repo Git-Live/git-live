@@ -32,7 +32,7 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
  * @internal
  * @coversNothing
  */
-class ReleaseDestroyCommandTest extends TestCase
+class ReleaseIsCommandTest extends TestCase
 {
     use CommandTestTrait;
     use MakeGitTestRepoTrait;
@@ -60,19 +60,18 @@ class ReleaseDestroyCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Release\ReleaseDestroyCommand
+     * @covers \GitLive\Command\Release\ReleaseIsCommand
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\ReleaseDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
-    public function testExecute()
+    public function testExecuteIsClose()
     {
-        $this->execCmdToLocalRepo($this->git_live . ' release open unit_test_deploy');
         $application = App::make(Application::class);
 
         DateTime::setTestNow(DateTime::factory('2018-12-01 22:33:45'));
 
-        $command = $application->find('release:destroy');
+        $command = $application->find('release:is');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
@@ -88,8 +87,7 @@ class ReleaseDestroyCommandTest extends TestCase
 
         dump($output);
         //$this->assertContains('Already up to date.', $output);
-        //$this->assertContains('new branch', $output);
-        //$this->assertContains('release/unit_test_deploy -> release/unit_test_deploy', $output);
+        $this->assertContains('release is close.', $output);
         $this->assertNotContains('fatal', $output);
 
         dump($this->spy);
@@ -113,13 +111,8 @@ class ReleaseDestroyCommandTest extends TestCase
             13 => "git fetch -p deploy",
             14 => "git remote",
             15 => "git branch -a",
-            16 => "git branch -a",
-            17 => "git push deploy :release/unit_test_deploy",
-            18 => "git push upstream :release/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* release/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
-        $this->assertContains('develop', $this->execCmdToLocalRepo('git branch'));
         // ...
     }
 
@@ -127,23 +120,23 @@ class ReleaseDestroyCommandTest extends TestCase
      * @throws \Exception
      * @covers \GitLive\Application\Application
      * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Release\ReleaseDestroyCommand
+     * @covers \GitLive\Command\Release\ReleaseIsCommand
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\ReleaseDriver
      * @covers \GitLive\Service\CommandLineKernelService
      */
-    public function testExecuteRemoveLocal()
+    public function testExecuteHotfixIsOpen()
     {
-        $this->execCmdToLocalRepo($this->git_live . ' release open unit_test_deploy');
+        $this->execCmdToLocalRepo($this->git_live . ' hotfix open unit_test_deploy');
+
         $application = App::make(Application::class);
 
         DateTime::setTestNow(DateTime::factory('2018-12-01 22:33:45'));
 
-        $command = $application->find('release:destroy');
+        $command = $application->find('release:is');
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
-            '--remove-local' => true,
 
             // pass arguments to the helper
 
@@ -156,8 +149,7 @@ class ReleaseDestroyCommandTest extends TestCase
 
         dump($output);
         //$this->assertContains('Already up to date.', $output);
-        //$this->assertContains('new branch', $output);
-        //$this->assertContains('release/unit_test_deploy -> release/unit_test_deploy', $output);
+        $this->assertContains('release is close.', $output);
         $this->assertNotContains('fatal', $output);
 
         dump($this->spy);
@@ -181,17 +173,70 @@ class ReleaseDestroyCommandTest extends TestCase
             13 => "git fetch -p deploy",
             14 => "git remote",
             15 => "git branch -a",
-            16 => "git branch -a",
-            17 => "git push deploy :release/unit_test_deploy",
-            18 => "git push upstream :release/unit_test_deploy",
-            19 => "git reset --hard HEAD",
-            20 => "git clean -df",
-            21 => "git checkout develop",
-            22 => "git branch -d release/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertNotContains('release/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
-        $this->assertContains('* develop', $this->execCmdToLocalRepo('git branch'));
+        // ...
+    }
+
+    /**
+     * @throws \Exception
+     * @covers \GitLive\Application\Application
+     * @covers \GitLive\Command\CommandBase
+     * @covers \GitLive\Command\Release\ReleaseIsCommand
+     * @covers \GitLive\Driver\DeployBase
+     * @covers \GitLive\Driver\ReleaseDriver
+     * @covers \GitLive\Service\CommandLineKernelService
+     */
+    public function testExecuteIsOpen()
+    {
+        $this->execCmdToLocalRepo($this->git_live . ' release open unit_test_deploy');
+
+        $application = App::make(Application::class);
+
+        DateTime::setTestNow(DateTime::factory('2018-12-01 22:33:45'));
+
+        $command = $application->find('release:is');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute([
+            'command' => $command->getName(),
+
+            // pass arguments to the helper
+
+            // prefix the key with two dashes when passing options,
+            // e.g: '--some-option' => 'option_value',
+        ]);
+
+        // the output of the command in the console
+        $output = $commandTester->getDisplay();
+
+        dump($output);
+        //$this->assertContains('Already up to date.', $output);
+        $this->assertContains('release is open.', $output);
+        $this->assertNotContains('fatal', $output);
+
+        dump($this->spy);
+        dump(data_get($this->spy, '*.0'));
+        dump($output);
+
+        $this->assertEquals([
+            0 => "git rev-parse --git-dir 2> /dev/null",
+            1 => "git config --get gitlive.deploy.remote",
+            2 => "git rev-parse --git-dir 2> /dev/null",
+            3 => "git config --get gitlive.branch.develop.name",
+            4 => "git rev-parse --git-dir 2> /dev/null",
+            5 => "git config --get gitlive.branch.master.name",
+            6 => "git rev-parse --git-dir 2> /dev/null",
+            7 => "git config --get gitlive.branch.release.prefix.name",
+            8 => "git fetch --all",
+            9 => "git fetch -p",
+            10 => "git fetch upstream",
+            11 => "git fetch -p upstream",
+            12 => "git fetch deploy",
+            13 => "git fetch -p deploy",
+            14 => "git remote",
+            15 => "git branch -a",
+        ], data_get($this->spy, '*.0'));
+
         // ...
     }
 }

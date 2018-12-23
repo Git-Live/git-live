@@ -536,7 +536,6 @@ abstract class DeployBase extends DriverBase
             throw new Exception(sprintf(__('%s is not deploy mode.'), $repo));
         }
 
-
         // ローカルブランチの削除
         if ($remove_local) {
             $this->clean();
