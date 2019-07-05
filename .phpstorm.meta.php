@@ -26,7 +26,7 @@ namespace PHPSTORM_META
     use GitLive\Driver\FeatureDriver;
     use GitLive\Driver\HotfixDriver;
     use GitLive\Driver\InitDriver;
-    use GitLive\Driver\LastestVersionDriver;
+    use GitLive\Driver\LatestVersionDriver;
     use GitLive\Driver\LogDriver;
     use GitLive\Driver\MergeDriver;
     use GitLive\Driver\PullRequestDriver;
@@ -51,7 +51,7 @@ namespace PHPSTORM_META
         ReleaseDriver::class => ReleaseDriver::class,
         UpdateDriver::class => UpdateDriver::class,
         ResetDriver::class => ResetDriver::class,
-        LastestVersionDriver::class => LastestVersionDriver::class,
+        LatestVersionDriver::class => LatestVersionDriver::class,
     ]));
 
 
@@ -72,7 +72,7 @@ namespace PHPSTORM_META
         'Release' => ReleaseDriver::class,
         'Reset' => ResetDriver::class,
         'Update' => UpdateDriver::class,,
-        'LastestVersion' => LastestVersionDriver::class,
+        'LatestVersion' => LatestVersionDriver::class,
     ]));
 
 
@@ -91,6 +91,6 @@ namespace PHPSTORM_META
         'Release' => ReleaseDriver::class,
         'Reset' => ResetDriver::class,
         'Update' => UpdateDriver::class,,
-        'LastestVersion' => LastestVersionDriver::class,
+        'LatestVersion' => LatestVersionDriver::class,
     ]));
 }
