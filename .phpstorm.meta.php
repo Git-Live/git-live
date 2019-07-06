@@ -30,6 +30,7 @@ namespace PHPSTORM_META
     use GitLive\Driver\LogDriver;
     use GitLive\Driver\MergeDriver;
     use GitLive\Driver\PullRequestDriver;
+    use GitLive\Driver\FireDriver;
     use GitLive\Driver\ReleaseDriver;
     use GitLive\Driver\ResetDriver;
     use GitLive\Driver\UpdateDriver;
@@ -52,6 +53,7 @@ namespace PHPSTORM_META
         UpdateDriver::class => UpdateDriver::class,
         ResetDriver::class => ResetDriver::class,
         LatestVersionDriver::class => LatestVersionDriver::class,
+        FireDriver::class => FireDriver::class,
     ]));
 
 

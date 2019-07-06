@@ -315,6 +315,19 @@ class GitCmdExecutor extends GitBase
     }
 
     /**
+     * @param array $options
+     * @param bool  $verbosity
+     * @param null|bool  $output_verbosity
+     * @return string
+     */
+    public function add(array $options = [], $verbosity = false, $output_verbosity = null)
+    {
+        $cmd = $this->createCmd('add', $options);
+
+        return $this->exec($cmd, $verbosity, $output_verbosity);
+    }
+
+    /**
      * chdirへのAlias
      *
      * @access      public
@@ -335,6 +348,21 @@ class GitCmdExecutor extends GitBase
         $cmd = 'git rev-parse --show-toplevel';
 
         return trim($this->exec($cmd, OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
+    }
+
+    /**
+     * @param string $message
+     */
+    public function commit(string $message)
+    {
+        $message = trim($message);
+        if ($message === '') {
+            $message = date('YmdHis').' git live commit';
+        }
+
+        $message = str_replace('"', '\\"', $message);
+        $cmd = 'git commit -m "'.$message.'" --no-verify';
+        $this->command->exec($cmd, $verbosity, $output_verbosity);
     }
 
     /**

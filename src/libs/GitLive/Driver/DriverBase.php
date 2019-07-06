@@ -23,6 +23,7 @@ namespace GitLive\Driver;
 use App;
 use GitLive\GitBase;
 use GitLive\GitLive;
+use GitLive\Support\Collection;
 use GitLive\Support\FileSystem;
 use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\SystemCommandInterface;
@@ -321,5 +322,24 @@ abstract class DriverBase extends GitBase
         }
 
         return $setting;
+    }
+
+    public function stashPush($branch)
+    {
+        $stash = trim($this->exec('git stash list'));
+        if ($stash === '') {
+            return;
+        }
+
+        $shas = Collection::make(explode("\n", trim($this->exec('git rev-list -g stash'))));
+
+        foreach ($shas as $sha) {
+            if ($sha === '') {
+                break;
+            }
+            $cmd = 'git push --no-verify origin '.$sha.':refs/heads/'.$branch.'-stash-'.$sha.'';
+            $this->exec($cmd);
+        }
+
     }
 }
