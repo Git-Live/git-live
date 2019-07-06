@@ -36,17 +36,17 @@ class ReleaseTrackCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Support preparation of a new production release/.') . __("Allow for minor bug fixes and preparing meta-data for a release"))
+            ->setDescription(__('Support preparation of a new production release/.') . __('Allow for minor bug fixes and preparing meta-data for a release'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Support preparation of a new production release/.') . __("Allow for minor bug fixes and preparing meta-data for a release"));
+            ->setHelp(__('Support preparation of a new production release/.') . __('Allow for minor bug fixes and preparing meta-data for a release'));
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \GitLive\Driver\Exception
      * @return null|int|void
+     * @throws \GitLive\Driver\Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

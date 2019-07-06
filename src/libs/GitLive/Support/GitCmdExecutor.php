@@ -357,7 +357,7 @@ class GitCmdExecutor extends GitBase
     {
         $cmd = 'git ' . $git_task;
         if (count($options)) {
-            $cmd .= ' ' . join(' ', $options);
+            $cmd .= ' ' . implode(' ', $options);
         }
 
         return $cmd;

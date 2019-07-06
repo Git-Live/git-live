@@ -144,8 +144,8 @@ class CommandLineKernelService
         ];
 
         return collect($app)
-            ->mapWithKeys(function ($item) {
-                return [$item::getSignature() => function () use ($item) {
+            ->mapWithKeys(static function ($item) {
+                return [$item::getSignature() => static function () use ($item) {
                     return new $item;
                 }];
             })

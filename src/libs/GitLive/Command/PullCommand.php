@@ -74,7 +74,7 @@ class PullCommand extends CommandBase
 
         if (empty($remote)) {
             $remote = 'origin';
-            switch ((string)$branch) {
+            switch ($branch) {
                 case 'refs/heads/' . $ConfigDriver->develop():
                 case 'refs/heads/' . $ConfigDriver->master():
                     $remote = 'upstream';

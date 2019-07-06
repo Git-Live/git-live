@@ -65,7 +65,7 @@ class InteractiveShell extends GitBase implements InteractiveShellInterface
     public function interactiveShell($shell_message, $using_default = false)
     {
         if (is_array($shell_message)) {
-            $shell_message = join("\n", $shell_message);
+            $shell_message = implode("\n", $shell_message);
         }
 
         $res = '';

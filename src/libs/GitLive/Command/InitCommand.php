@@ -62,10 +62,10 @@ class InitCommand extends CommandBase
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \GitLive\Driver\Exception
      * @return null|int|void
+     * @throws \GitLive\Driver\Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

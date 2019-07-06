@@ -162,7 +162,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
         if ($number < 1) {
             return new static;
         }
-        if (is_null($callback)) {
+        if ($callback === null) {
             return new static(range(1, $number));
         }
 
@@ -186,10 +186,10 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     public function avg($callback = null)
     {
         $callback = $this->valueRetriever($callback);
-        $items = $this->map(function ($value) use ($callback) {
+        $items = $this->map(static function ($value) use ($callback) {
             return $callback($value);
-        })->filter(function ($value) {
-            return ! is_null($value);
+        })->filter(static function ($value) {
+            return $value !== null;
         });
         if ($count = $items->count()) {
             return $items->sum() / $count;
@@ -216,8 +216,8 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     public function median($key = null)
     {
         $values = (isset($key) ? $this->pluck($key) : $this)
-            ->filter(function ($item) {
-                return ! is_null($item);
+            ->filter(static function ($item) {
+                return $item !== null;
             })->sort()->values();
         $count = $values->count();
         if ($count == 0) {
@@ -245,13 +245,13 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
         }
         $collection = isset($key) ? $this->pluck($key) : $this;
         $counts = new self;
-        $collection->each(function ($value) use ($counts) {
+        $collection->each(static function ($value) use ($counts) {
             $counts[$value] = isset($counts[$value]) ? $counts[$value] + 1 : 1;
         });
         $sorted = $counts->sort();
         $highestValue = $sorted->last();
 
-        return $sorted->filter(function ($value) use ($highestValue) {
+        return $sorted->filter(static function ($value) use ($highestValue) {
             return $value == $highestValue;
         })->sort()->keys()->all();
     }
@@ -308,12 +308,12 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     public function containsStrict($key, $value = null)
     {
         if (func_num_args() === 2) {
-            return $this->contains(function ($item) use ($key, $value) {
+            return $this->contains(static function ($item) use ($key, $value) {
                 return data_get($item, $key) === $value;
             });
         }
         if ($this->useAsCallable($key)) {
-            return ! is_null($this->first($key));
+            return $this->first($key) !== null;
         }
 
         return in_array($key, $this->items, true);
@@ -354,7 +354,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     {
         (new static(func_get_args()))
             ->push($this)
-            ->each(function ($item) {
+            ->each(static function ($item) {
                 VarDumper::dump($item);
             });
 
@@ -447,7 +447,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function eachSpread(callable $callback)
     {
-        return $this->each(function ($chunk, $key) use ($callback) {
+        return $this->each(static function ($chunk, $key) use ($callback) {
             $chunk[] = $key;
 
             return $callback(...$chunk);
@@ -616,7 +616,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     {
         $values = $this->getArrayableItems($values);
 
-        return $this->filter(function ($item) use ($key, $values, $strict) {
+        return $this->filter(static function ($item) use ($key, $values, $strict) {
             return in_array(data_get($item, $key), $values, $strict);
         });
     }
@@ -643,7 +643,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     {
         $values = $this->getArrayableItems($values);
 
-        return $this->reject(function ($item) use ($key, $values, $strict) {
+        return $this->reject(static function ($item) use ($key, $values, $strict) {
             return in_array(data_get($item, $key), $values, $strict);
         });
     }
@@ -666,7 +666,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function whereInstanceOf($type)
     {
-        return $this->filter(function ($value) use ($type) {
+        return $this->filter(static function ($value) use ($type) {
             return $value instanceof $type;
         });
     }
@@ -922,7 +922,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function mapSpread(callable $callback)
     {
-        return $this->map(function ($chunk, $key) use ($callback) {
+        return $this->map(static function ($chunk, $key) use ($callback) {
             $chunk[] = $key;
 
             return $callback(...$chunk);
@@ -1003,7 +1003,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function mapInto($class)
     {
-        return $this->map(function ($value, $key) use ($class) {
+        return $this->map(static function ($value, $key) use ($class) {
             return new $class($value, $key);
         });
     }
@@ -1017,12 +1017,12 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     {
         $callback = $this->valueRetriever($callback);
 
-        return $this->filter(function ($value) {
-            return ! is_null($value);
-        })->reduce(function ($result, $item) use ($callback) {
+        return $this->filter(static function ($value) {
+            return $value !== null;
+        })->reduce(static function ($result, $item) use ($callback) {
             $value = $callback($item);
 
-            return is_null($result) || $value > $result ? $value : $result;
+            return $result === null || $value > $result ? $value : $result;
         });
     }
     /**
@@ -1065,12 +1065,12 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     {
         $callback = $this->valueRetriever($callback);
 
-        return $this->map(function ($value) use ($callback) {
+        return $this->map(static function ($value) use ($callback) {
             return $callback($value);
-        })->filter(function ($value) {
-            return ! is_null($value);
-        })->reduce(function ($result, $value) {
-            return is_null($result) || $value < $result ? $value : $result;
+        })->filter(static function ($value) {
+            return $value !== null;
+        })->reduce(static function ($result, $value) {
+            return $result === null || $value < $result ? $value : $result;
         });
     }
     /**
@@ -1101,7 +1101,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function only($keys)
     {
-        if (is_null($keys)) {
+        if ($keys === null) {
             return new static($this->items);
         }
         if ($keys instanceof self) {
@@ -1237,7 +1237,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function random($number = null)
     {
-        if (is_null($number)) {
+        if ($number === null) {
             return Arr::random($this->items);
         }
 
@@ -1263,12 +1263,12 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     public function reject($callback)
     {
         if ($this->useAsCallable($callback)) {
-            return $this->filter(function ($value, $key) use ($callback) {
+            return $this->filter(static function ($value, $key) use ($callback) {
                 return ! $callback($value, $key);
             });
         }
 
-        return $this->filter(function ($item) use ($callback) {
+        return $this->filter(static function ($item) use ($callback) {
             return $item != $callback;
         });
     }
@@ -1480,12 +1480,12 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function sum($callback = null)
     {
-        if (is_null($callback)) {
+        if ($callback === null) {
             return array_sum($this->items);
         }
         $callback = $this->valueRetriever($callback);
 
-        return $this->reduce(function ($result, $item) use ($callback) {
+        return $this->reduce(static function ($result, $item) use ($callback) {
             return $result + $callback($item);
         }, 0);
     }
@@ -1539,7 +1539,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
         $callback = $this->valueRetriever($key);
         $exists = [];
 
-        return $this->reject(function ($item, $key) use ($callback, $strict, &$exists) {
+        return $this->reject(static function ($item, $key) use ($callback, $strict, &$exists) {
             if (in_array($id = $callback($item, $key), $exists, $strict)) {
                 return true;
             }
@@ -1581,7 +1581,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
         $arrayableItems = array_map(function ($items) {
             return $this->getArrayableItems($items);
         }, func_get_args());
-        $params = array_merge([function () {
+        $params = array_merge([static function () {
             return new static(func_get_args());
         }, $this->items], $arrayableItems);
 
@@ -1605,7 +1605,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function toArray()
     {
-        return array_map(function ($value) {
+        return array_map(static function ($value) {
             return $value instanceof Arrayable ? $value->toArray() : $value;
         }, $this->items);
     }
@@ -1616,7 +1616,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function jsonSerialize()
     {
-        return array_map(function ($value) {
+        return array_map(static function ($value) {
             if ($value instanceof JsonSerializable) {
                 return $value->jsonSerialize();
             }
@@ -1706,7 +1706,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function offsetSet($key, $value)
     {
-        if (is_null($key)) {
+        if ($key === null) {
             $this->items[] = $value;
         } else {
             $this->items[$key] = $value;
@@ -1741,9 +1741,9 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
             $operator = '=';
         }
 
-        return function ($item) use ($key, $operator, $value) {
+        return static function ($item) use ($key, $operator, $value) {
             $retrieved = data_get($item, $key);
-            $strings = array_filter([$retrieved, $value], function ($value) {
+            $strings = array_filter([$retrieved, $value], static function ($value) {
                 return is_string($value) || (is_object($value) && method_exists($value, '__toString'));
             });
             if (count($strings) < 2 && count(array_filter([$retrieved, $value], 'is_object')) == 1) {
@@ -1786,7 +1786,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
             return $value;
         }
 
-        return function ($item) use ($value) {
+        return static function ($item) use ($value) {
             return data_get($item, $value);
         };
     }

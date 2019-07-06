@@ -52,18 +52,18 @@ class HotfixDestroyCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__("Discard hotfix. However, keep working in the local repository."))
+            ->setDescription(__('Discard hotfix. However, keep working in the local repository.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__("Discard hotfix. However, keep working in the local repository."))
+            ->setHelp(__('Discard hotfix. However, keep working in the local repository.'))
             ->addOption('remove-local', 'R', InputOption::VALUE_NONE, __('Destroy with local repository.'));
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \GitLive\Driver\Exception
      * @return null|int|void
+     * @throws \GitLive\Driver\Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

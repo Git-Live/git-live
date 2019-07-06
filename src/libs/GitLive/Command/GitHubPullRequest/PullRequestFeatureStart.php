@@ -68,11 +68,11 @@ class PullRequestFeatureStart extends CommandBase
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
+     * @return null|int
      * @throws \GitLive\Driver\Exception
      * @throws \GitLive\Exception
-     * @return null|int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

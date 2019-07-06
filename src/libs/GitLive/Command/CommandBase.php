@@ -79,14 +79,14 @@ abstract class CommandBase extends Command
      */
     protected function getOptions(InputInterface $input)
     {
-        return collect($input->getOptions())->filter(function ($item) {
+        return collect($input->getOptions())->filter(static function ($item) {
             if ($item === false || $item === null) {
                 return false;
             }
 
             return true;
         })
-            ->map(function ($item, $key) {
+            ->map(static function ($item, $key) {
                 if ($item === $key || $item === true) {
                     return '--' . $key;
                 }

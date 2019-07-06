@@ -122,7 +122,7 @@ class Container
         $this->buildStack[] = $concrete;
         $constructor = $reflector->getConstructor();
 
-        if (is_null($constructor)) {
+        if ($constructor === null) {
             array_pop($this->buildStack);
 
             /**
@@ -201,7 +201,7 @@ class Container
             }
             */
 
-            $results[] = is_null($dependency->getClass())
+            $results[] = $dependency->getClass() === null
                 ? $this->resolvePrimitive($dependency)
                 : $this->build($dependency->getClass()->name);
         }
@@ -243,7 +243,7 @@ class Container
      */
     protected function resolvePrimitive(ReflectionParameter $parameter)
     {
-        if (!is_null($concrete = $this->getContextualConcrete('$' . $parameter->name))) {
+        if (($concrete = $this->getContextualConcrete('$' . $parameter->name)) !== null) {
             return $concrete instanceof Closure ? $concrete($this) : $concrete;
         }
 
