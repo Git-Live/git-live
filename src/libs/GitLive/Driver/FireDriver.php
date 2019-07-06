@@ -80,7 +80,7 @@ class FireDriver extends DriverBase
      */
     public function makeFireBranchName(): string
     {
-        return 'fire/' . $this->getSnakeUserName() . '/' . date('YmdHis') . '/' . $this->GitCmdExecutor->getSelfBranch();
+        return 'fire/' . $this->getSnakeUserName() . '/' . date('YmdHis') . '/' . $this->getSelfBranch();
     }
 
     /**
