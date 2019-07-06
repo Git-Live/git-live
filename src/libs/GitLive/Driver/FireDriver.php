@@ -77,6 +77,7 @@ class FireDriver extends DriverBase
 
     /**
      * @return string
+     * @throws Exception
      */
     public function makeFireBranchName(): string
     {
@@ -112,6 +113,7 @@ class FireDriver extends DriverBase
         $this->chNewBranch();
         $this->commit($message);
         $this->GitCmdExecutor->push('origin', $this->getSelfBranch());
+
         $this->stashPush($this->getSelfBranch());
     }
 }
