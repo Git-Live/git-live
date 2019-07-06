@@ -68,11 +68,11 @@ if (!function_exists('data_get')) {
      */
     function data_get($target, $key, $default = null)
     {
-        if (is_null($key)) {
+        if ($key === null) {
             return $target;
         }
         $key = is_array($key) ? $key : explode('.', $key);
-        while (!is_null($segment = array_shift($key))) {
+        while (($segment = array_shift($key)) !== null) {
             if ($segment === '*') {
                 if ($target instanceof Collection) {
                     $target = $target->all();

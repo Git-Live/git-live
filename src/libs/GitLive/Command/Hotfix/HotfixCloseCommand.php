@@ -58,7 +58,7 @@ class HotfixCloseCommand extends CommandBase
             // the name of the command (the part after "bin/console")
             ->setName('hotfix:close')
             // the short description shown while running "php bin/console list"
-            ->setDescription(__("Finish hotfix {name}."))
+            ->setDescription(__('Finish hotfix {name}.'))
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__("Finish up a hotfix.Merges the hotfix branch back into 'master'.Tags the hotfix with its name.Back-merges the hotfix into 'develop'.Removes the hotfix branch."))
@@ -67,10 +67,10 @@ class HotfixCloseCommand extends CommandBase
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \GitLive\Driver\Exception
      * @return null|int|void
+     * @throws \GitLive\Driver\Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

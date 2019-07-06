@@ -23,6 +23,7 @@ namespace GitLive\Driver;
 use App;
 use GitLive\GitBase;
 use GitLive\GitLive;
+use GitLive\Support\Collection;
 use GitLive\Support\FileSystem;
 use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\SystemCommandInterface;
@@ -64,8 +65,8 @@ abstract class DriverBase extends GitBase
      * コンストラクタ
      *
      * @access      public
-     * @param  GitLive               $GitLive
-     * @param GitCmdExecutor         $gitCmdExecutor
+     * @param  GitLive $GitLive
+     * @param GitCmdExecutor $gitCmdExecutor
      * @param SystemCommandInterface $command
      * @codeCoverageIgnore
      */
@@ -102,8 +103,8 @@ abstract class DriverBase extends GitBase
      *
      * @access      public
      * @param  string $cmd
-     * @param bool    $verbosity
-     * @param null    $output_verbosity
+     * @param bool $verbosity
+     * @param null $output_verbosity
      * @return string
      */
     public function exec($cmd, $verbosity = true, $output_verbosity = null)
@@ -226,7 +227,7 @@ abstract class DriverBase extends GitBase
         }
 
         $upstream_push = $upstream_push[1];
-        
+
         if ($origin_push === $deploy_push) {
             return true;
         }
@@ -256,7 +257,7 @@ abstract class DriverBase extends GitBase
      * コンフリクト確認結果の取得
      *
      * @param string $from
-     * @param bool   $verbosity
+     * @param bool $verbosity
      * @return string
      */
     public function patchApplyDiff($from, $verbosity = false)
@@ -321,5 +322,24 @@ abstract class DriverBase extends GitBase
         }
 
         return $setting;
+    }
+
+    public function stashPush(string $branch, $verbosity = false, $output_verbosity = null)
+    {
+        $stash = trim($this->exec('git stash list'));
+        if ($stash === '') {
+            return;
+        }
+
+        $shas = Collection::make(explode("\n", trim($this->exec('git rev-list -g stash'))));
+        foreach ($shas as $sha) {
+            if ($sha === '') {
+                break;
+            }
+            $cmd = 'git push --no-verify origin ' . $sha . ':refs/heads/' . $branch . '-stash-' . $sha . '';
+
+            $this->exec($cmd, $verbosity, $output_verbosity);
+        }
+
     }
 }

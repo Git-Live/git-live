@@ -23,7 +23,7 @@ namespace GitLive\Driver;
 use GitLive\GitLive;
 use JapaneseDate\DateTime;
 
-class LastestVersionDriver extends DriverBase
+class LatestVersionDriver extends DriverBase
 {
     /**
      *  新しいVersionが出ていないか確認する
@@ -32,7 +32,7 @@ class LastestVersionDriver extends DriverBase
      * @throws Exception
      * @return bool
      */
-    public function ckNewVersion()
+    public function ckNewVersion(): bool
     {
         $latest_version = $this->getLatestVersion();
 
@@ -46,7 +46,7 @@ class LastestVersionDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function getLatestVersion()
+    public function getLatestVersion(): string
     {
         static $latest_version;
 

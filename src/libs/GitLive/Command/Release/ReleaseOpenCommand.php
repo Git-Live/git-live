@@ -60,15 +60,15 @@ class ReleaseOpenCommand extends CommandBase
             ->setDescription(__('Start new release named {name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Support preparation of a new production release.') . __("Allow for minor bug fixes and preparing meta-data for a release.") . __('The default feature name is PHP date format "YmdHis".'))
+            ->setHelp(__('Support preparation of a new production release.') . __('Allow for minor bug fixes and preparing meta-data for a release.') . __('The default feature name is PHP date format "YmdHis".'))
             ->addArgument('name', InputArgument::OPTIONAL, 'release_name');
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \GitLive\Driver\Exception
      * @return null|int|void
+     * @throws \GitLive\Driver\Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

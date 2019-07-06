@@ -32,6 +32,7 @@ use GitLive\Command\Feature\ListCommand;
 use GitLive\Command\Feature\PublishCommand;
 use GitLive\Command\Feature\TrackCommand;
 use GitLive\Command\FeatureCommand;
+use GitLive\Command\FireCommand;
 use GitLive\Command\GitHubPullRequest\PullRequestFeatureStart;
 use GitLive\Command\GitHubPullRequest\PullRequestMerge;
 use GitLive\Command\GitHubPullRequest\PullRequestPull;
@@ -141,11 +142,12 @@ class CommandLineKernelService
             MergeMasterCommand::class,
             StateDevelopCommand::class,
             StateMasterCommand::class,
+            FireCommand::class,
         ];
 
         return collect($app)
-            ->mapWithKeys(function ($item) {
-                return [$item::getSignature() => function () use ($item) {
+            ->mapWithKeys(static function ($item) {
+                return [$item::getSignature() => static function () use ($item) {
                     return new $item;
                 }];
             })

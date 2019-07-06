@@ -56,16 +56,16 @@ class HotfixOpenCommand extends CommandBase
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__('Support preparation of a new production hotfix.')
-                . __("Allow for minor bug fixes and preparing meta-data for a hotfix.")
+                . __('Allow for minor bug fixes and preparing meta-data for a hotfix.')
                 . __('The default feature name is PHP date format "YmdHis".'))
             ->addArgument('name', InputArgument::OPTIONAL, 'hotfix_name');
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \GitLive\Driver\Exception
      * @return null|int|void
+     * @throws \GitLive\Driver\Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

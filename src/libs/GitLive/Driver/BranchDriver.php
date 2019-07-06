@@ -112,7 +112,7 @@ class BranchDriver extends DriverBase
     {
         $branch = explode("\n", rtrim($branch));
 
-        array_walk($branch, function (&$item) {
+        array_walk($branch, static function (&$item) {
             $pos = strpos($item, ' -> ') ?: null;
             $item = trim(mb_substr($item, 1, $pos));
         });

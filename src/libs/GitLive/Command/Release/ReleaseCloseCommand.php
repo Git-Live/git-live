@@ -53,7 +53,7 @@ class ReleaseCloseCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__("Finish release {name}."))
+            ->setDescription(__('Finish release {name}.'))
             // the full command description shown when running the command with
             // the "--help" option
             ->setHelp(__("Finish up a release.Merges the release branch back into 'master'.Tags the release with its name.Back-merges the release into 'develop'.Removes the release branch."))
@@ -62,10 +62,10 @@ class ReleaseCloseCommand extends CommandBase
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \GitLive\Driver\Exception
      * @return null|int|void
+     * @throws \GitLive\Driver\Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

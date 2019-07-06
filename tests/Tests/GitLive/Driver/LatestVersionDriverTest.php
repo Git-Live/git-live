@@ -23,14 +23,14 @@ namespace Tests\GitLive\Driver;
 use App;
 use GitLive\Application\Container;
 use GitLive\Driver\FetchDriver;
-use GitLive\Driver\LastestVersionDriver;
+use GitLive\Driver\LatestVersionDriver;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
 use JapaneseDate\DateTime;
 use Tests\GitLive\Tester\TestCase;
 
 /**
- * Class LastestVersionDriverTest
+ * Class LatestVersionDriverTest
  *
  * @category   GitCommand
  * @package    Tests\GitLive\Driver
@@ -46,10 +46,10 @@ use Tests\GitLive\Tester\TestCase;
  * @internal
  * @coversNothing
  */
-class LastestVersionDriverTest extends TestCase
+class LatestVersionDriverTest extends TestCase
 {
     /**
-     * @covers \GitLive\Driver\LastestVersionDriver
+     * @covers \GitLive\Driver\LatestVersionDriver
      */
     public function testCkNewVersion()
     {
@@ -57,7 +57,7 @@ class LastestVersionDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\LastestVersionDriver
+     * @covers \GitLive\Driver\LatestVersionDriver
      */
     public function testGetLatestVersion()
     {
@@ -86,11 +86,11 @@ class LastestVersionDriverTest extends TestCase
             }
         );
 
-        $LastestVersionDriver = App::make(LastestVersionDriver::class);
+        $LatestVersionDriver = App::make(LatestVersionDriver::class);
 
         DateTime::setTestNow(DateTime::factory(1544519632));
 
-        $res = $LastestVersionDriver->getLatestVersion();
+        $res = $LatestVersionDriver->getLatestVersion();
 
         $this->assertSame('1.0.0', $res);
         dump(data_get($spy, '*.0'));

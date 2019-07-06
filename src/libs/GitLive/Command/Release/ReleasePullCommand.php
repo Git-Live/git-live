@@ -51,17 +51,17 @@ class ReleasePullCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__("Pull upstream/release and deploy/release."))
+            ->setDescription(__('Pull upstream/release and deploy/release.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__("Pull upstream/release and deploy/release."));
+            ->setHelp(__('Pull upstream/release and deploy/release.'));
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \GitLive\Driver\Exception
      * @return null|int|void
+     * @throws \GitLive\Driver\Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

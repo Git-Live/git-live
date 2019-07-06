@@ -81,7 +81,7 @@ class SystemCommand extends GitBase implements SystemCommandInterface
         $execute_cmd = $cmd . ' 2>&1';
 
         $this->output->writeln('<fg=yellow>' . $execute_cmd . '</>', OutputInterface::VERBOSITY_DEBUG);
-        $res = `$execute_cmd`;
+        $res = shell_exec($execute_cmd);
 
         $output_verbosity = $output_verbosity??$verbosity;
 
