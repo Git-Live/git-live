@@ -71,9 +71,10 @@ class PushCommand extends CommandBase
 
         $option = [];
 
-        if ($input->hasOption('force')) {
+        if ($input->getOption('force')) {
             $option[] = '-f';
         }
+
         App::make(GitCmdExecutor::class)->push($remote, $branch, $option);
     }
 }

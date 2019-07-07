@@ -52,6 +52,7 @@ use GitLive\Command\Log\LogDevelopCommand;
 use GitLive\Command\Log\LogMasterCommand;
 use GitLive\Command\LogCommand;
 use GitLive\Command\Merge\MergeDevelopCommand;
+use GitLive\Command\Merge\MergeFeatureCommand;
 use GitLive\Command\Merge\MergeMasterCommand;
 use GitLive\Command\Merge\StateDevelopCommand;
 use GitLive\Command\Merge\StateMasterCommand;
@@ -143,6 +144,7 @@ class CommandLineKernelService
             LogMasterCommand::class,
             MergeDevelopCommand::class,
             MergeMasterCommand::class,
+            MergeFeatureCommand::class,
             StateDevelopCommand::class,
             StateMasterCommand::class,
             FireCommand::class,

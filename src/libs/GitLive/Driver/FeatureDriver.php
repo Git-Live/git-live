@@ -54,7 +54,44 @@ class FeatureDriver extends DriverBase
 
         $feature_prefix = $Config->featurePrefix();
 
+
         return (string)$this->GitCmdExecutor->branch(['--list', '"' . $feature_prefix . '*"'], true);
+    }
+
+
+    /**
+     * featureの一覧を取得する
+     *
+     * @access      public
+     * @throws Exception
+     * @throws Exception
+     * @return string
+     */
+    public function mergedFeatureList(): string
+    {
+        $Config = $this->Driver(ConfigDriver::class);
+
+        $feature_prefix = $Config->featurePrefix();
+
+        return (string)$this->GitCmdExecutor->branch(['--list', '"' . $feature_prefix . '*"', '--merged', ], true);
+    }
+
+
+    /**
+     * featureの一覧を取得する
+     *
+     * @access      public
+     * @throws Exception
+     * @throws Exception
+     * @return string
+     */
+    public function noMergedFeatureList(): string
+    {
+        $Config = $this->Driver(ConfigDriver::class);
+
+        $feature_prefix = $Config->featurePrefix();
+
+        return (string)$this->GitCmdExecutor->branch(['--list', '"' . $feature_prefix . '*"', '--no-merged', ], true);
     }
 
     /**

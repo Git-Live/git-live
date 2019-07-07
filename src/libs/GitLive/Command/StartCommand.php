@@ -76,7 +76,7 @@ class StartCommand extends CommandBase
 
         APP::make(InitDriver::class)->start(!$input->hasOption('remote'));
 
-        if (!$input->hasOption('remote')) {
+        if (!$input->getOption('remote')) {
             $output->writeln('<info>' . __('If you also want to update the remote repository, use the -r option.') . '</info>');
         }
     }

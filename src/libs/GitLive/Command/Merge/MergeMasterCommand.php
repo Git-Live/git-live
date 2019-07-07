@@ -28,7 +28,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class StateDevelopCommand
+ * Class MergeMasterCommand
  *
  * @category   GitCommand
  * @package    GitLive\Driver\Merge

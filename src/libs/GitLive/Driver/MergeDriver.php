@@ -112,7 +112,6 @@ class MergeDriver extends DriverBase
     }
 
     /**
-     *  Merge a master branch.
      *
      * @access      public
      * @throws Exception
@@ -123,5 +122,44 @@ class MergeDriver extends DriverBase
         $branch = 'upstream/' . $this->Driver(ConfigDriver::class)->master();
 
         return $this->merge($branch);
+    }
+
+    /**
+     *  Merge a other feature  branch.
+     *
+     * @param string $feature_name
+     * @return string|null
+     * @throws Exception
+     */
+    public function mergeFeature(string $feature_name)
+    {
+        $Config = $this->Driver(ConfigDriver::class);
+        $feature_prefix = (string)$Config->featurePrefix();
+
+        $feature_branch = $feature_name;
+        if ($feature_prefix !== '' && strpos($feature_name, $feature_prefix) !== 0) {
+            $feature_branch = $feature_prefix . $feature_name;
+        }
+
+        $Fetch = $this->Driver(FetchDriver::class);
+
+        $Fetch->all();
+
+
+        $branch_list = $this->Driver(BranchDriver::class)->branchListAll();
+
+        $branch = 'remotes/upstream/' . $feature_branch;
+        if ($branch_list->search($branch) !== false) {
+            return $this->merge($branch);
+
+        }
+
+        $branch = 'remotes/origin/' . $feature_branch;
+        if ($branch_list->search($branch) !== false) {
+            return $this->merge($branch);
+        }
+
+
+        return sprintf('Error:' . __('Feature name %s not found'), $feature_name);
     }
 }

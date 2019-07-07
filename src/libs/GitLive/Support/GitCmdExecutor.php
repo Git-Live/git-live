@@ -253,7 +253,10 @@ class GitCmdExecutor extends GitBase
      */
     public function push($remote, $branch = '', $option = [], $verbosity = false, $output_verbosity = null)
     {
-        $cmd = $this->createCmd('push', collect($option)->union([$remote, $branch]));
+        $option = collect($option);
+        $option->push($remote);
+        $option->push($branch);
+        $cmd = $this->createCmd('push', $option);
 
         return $this->exec($cmd, $verbosity, $output_verbosity);
     }

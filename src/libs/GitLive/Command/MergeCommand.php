@@ -95,6 +95,16 @@ class MergeCommand extends CommandBase
                 return $command->run($greetInput, $output);
 
                 break;
+            case 'feature':
+                $command = $this->getApplication()->find('merge:feature');
+
+                $arguments = ['feature_name' => $input->getArgument('state_hint')];
+
+                $greetInput = new ArrayInput($arguments);
+
+                return $command->run($greetInput, $output);
+
+                break;
             case 'state':
                 if ($input->getArgument('state_hint') === 'master') {
                     $command = $this->getApplication()->find('merge:state:master');

@@ -18,21 +18,21 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace GitLive\Command\Feature;
+namespace GitLive\Command\Merge;
 
 use App;
 use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
-use GitLive\Driver\FeatureDriver;
+use GitLive\Driver\MergeDriver;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class ListCommand
+ * Class MergeFeatureCommand
  *
  * @category   GitCommand
- * @package    GitLive\Command\Feature
+ * @package    GitLive\Driver\Merge
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
@@ -41,66 +41,40 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @version    GIT: $Id$
  * @link       https://github.com/Git-Live/git-live
  * @see        https://github.com/Git-Live/git-live
- * @since      2018/11/23
+ * @since      2018/11/24
  */
-class ListCommand extends CommandBase
+class MergeFeatureCommand extends CommandBase
 {
-    protected static $signature_name = 'feature:list';
+    protected static $signature_name = 'merge:feature';
 
     protected function configure()
     {
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Lists existing features.'))
+            ->setDescription(__('Merge upstream feature.'))
             // the full command description shown when running the command with
             // the "--help" option
+            ->setHelp(__('Merge upstream feature.'))
 
-            ->addOption(
-                'merged',
-                'm',
-                InputOption::VALUE_NONE,
-                'Merged features only'
-            )
-            ->addOption(
-                'no-merged',
-                '',
-                InputOption::VALUE_NONE,
-                'Not merged features only'
-            )
-            ->setHelp(__('Lists existing features.'));
+            ->addArgument('feature_name', InputArgument::REQUIRED, 'feature name');
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \Exception
-     * @return null|int|void
+     * @throws \GitLive\Driver\Exception
+     * @return null|int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        $FeatureDriver = App::make(FeatureDriver::class);
-
-        switch (true) {
-            case $input->getOption('merged'):
-
-                $res = $FeatureDriver->mergedFeatureList();
-
-                break;
-            case $input->getOption('no-merged'):
-                $res = $FeatureDriver->noMergedFeatureList();
-
-                break;
-
-            default:
-                $res = $FeatureDriver->featureList();
-
-                break;
-        }
+        $res = App::make(MergeDriver::class)->mergeFeature($input->getArgument('feature_name'));
 
         $output->writeln($res);
+
+        return 0;
     }
 }
