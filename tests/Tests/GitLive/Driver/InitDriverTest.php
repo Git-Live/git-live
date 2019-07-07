@@ -24,7 +24,6 @@ use App;
 use GitLive\Application\Container;
 use GitLive\Driver\Exception;
 use GitLive\Driver\InitDriver;
-use GitLive\Driver\ReleaseDriver;
 use GitLive\Mock\InteractiveShell;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\InteractiveShellInterface;
@@ -479,6 +478,68 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
             14 => 'git push origin master',
             15 => 'git pull upstream --tags',
             16 => 'git push origin --tags',
+        ], data_get($spy, '*.0'));
+    }
+
+    public function testStartWoPush()
+    {
+        $spy = [];
+        $mock = \Mockery::mock(SystemCommand::class);
+        $mock->shouldReceive('exec')
+            ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '.git';
+            });
+        $mock->shouldReceive('exec')
+            //->never()
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
+
+        Container::bind(
+            SystemCommandInterface::class,
+            static function () use ($mock) {
+                return $mock;
+            }
+        );
+
+        $InitDriver = App::make(InitDriver::class);
+
+        $InitDriver->start();
+
+        dump(data_get($spy, '*.0'));
+
+        $this->assertFalse(in_array('git push origin --tags', data_get($spy, '*.0'), true));
+        $this->assertFalse(in_array('git push origin master', data_get($spy, '*.0'), true));
+        $this->assertFalse(in_array('git push origin develop', data_get($spy, '*.0'), true));
+
+        $this->assertFalse(in_array('git push upstream --tags', data_get($spy, '*.0'), true));
+        $this->assertFalse(in_array('git push upstream master', data_get($spy, '*.0'), true));
+        $this->assertFalse(in_array('git push upstream develop', data_get($spy, '*.0'), true));
+
+        $this->assertFalse(in_array('git push deploy --tags', data_get($spy, '*.0'), true));
+        $this->assertFalse(in_array('git push deploy master', data_get($spy, '*.0'), true));
+        $this->assertFalse(in_array('git push deploy develop', data_get($spy, '*.0'), true));
+
+        $this->assertSame([
+            0 => 'git stash -u',
+            1 => 'git reset --hard HEAD',
+            2 => 'git clean -df',
+            3 => 'git fetch --all',
+            4 => 'git fetch -p',
+            5 => 'git rev-parse --git-dir 2> /dev/null',
+            6 => 'git config --get gitlive.branch.develop.name',
+            7 => 'git checkout develop',
+            8 => 'git pull upstream develop',
+            9 => 'git rev-parse --git-dir 2> /dev/null',
+            10 => 'git config --get gitlive.branch.master.name',
+            11 => 'git checkout master',
+            12 => 'git pull upstream master',
+            13 => 'git pull upstream --tags',
         ], data_get($spy, '*.0'));
     }
 }
