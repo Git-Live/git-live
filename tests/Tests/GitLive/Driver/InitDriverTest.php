@@ -458,7 +458,7 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
 
         $InitDriver = App::make(InitDriver::class);
 
-        $InitDriver->start();
+        $InitDriver->start(false);
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
