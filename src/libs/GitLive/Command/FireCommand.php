@@ -72,6 +72,5 @@ class FireCommand extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
         App::make(FireDriver::class)->fire($input->getArgument('message') ?? '');
-
     }
 }

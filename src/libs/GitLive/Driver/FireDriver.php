@@ -20,7 +20,6 @@
 
 namespace GitLive\Driver;
 
-
 /**
  * Class RefDriver
  *
@@ -67,7 +66,6 @@ class FireDriver extends DriverBase
             $res = trim(get_current_user());
         }
 
-
         if ($res === '') {
             $res = 'git_live';
         }
@@ -76,8 +74,8 @@ class FireDriver extends DriverBase
     }
 
     /**
-     * @return string
      * @throws Exception
+     * @return string
      */
     public function makeFireBranchName(): string
     {

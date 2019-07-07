@@ -96,9 +96,8 @@ class LatestVersionDriverTest extends TestCase
             0 => 'git config --get gitlive.latestversion.fetchtime',
             1 => 'git config --get gitlive.latestversion.update_ck_span',
             2 => 'git config --local gitlive.latestversion.fetchtime "1544519632"',
-            3 => 'git config --local gitlive.latestversion.val "'.$res.'"',
+            3 => 'git config --local gitlive.latestversion.val "' . $res . '"',
         ], data_get($spy, '*.0'));
-
 
         $this->assertSame('2.0.', substr($res, 0, 4));
     }

@@ -64,8 +64,8 @@ class HotfixOpenCommand extends CommandBase
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return null|int|void
      * @throws \GitLive\Driver\Exception
+     * @return null|int|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

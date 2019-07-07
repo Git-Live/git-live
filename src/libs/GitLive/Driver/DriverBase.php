@@ -105,7 +105,7 @@ abstract class DriverBase extends GitBase
      * @param  string $cmd
      * @param bool $verbosity
      * @param null $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function exec($cmd, $verbosity = true, $output_verbosity = null)
     {
@@ -340,6 +340,5 @@ abstract class DriverBase extends GitBase
 
             $this->exec($cmd, $verbosity, $output_verbosity);
         }
-
     }
 }

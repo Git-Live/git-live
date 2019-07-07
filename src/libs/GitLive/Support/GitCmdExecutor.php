@@ -54,7 +54,7 @@ class GitCmdExecutor extends GitBase
     /**
      * @param bool $verbosity
      * @param null $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function fetchPullRequest($verbosity = true, $output_verbosity = null)
     {
@@ -64,21 +64,10 @@ class GitCmdExecutor extends GitBase
     }
 
     /**
-     * @param string $cmd
-     * @param bool $verbosity
-     * @param null|bool $output_verbosity
-     * @return string|null
-     */
-    protected function exec($cmd, $verbosity = false, $output_verbosity = null)
-    {
-        return $this->command->exec($cmd, $verbosity, $output_verbosity);
-    }
-
-    /**
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function config($options = [], $verbosity = true, $output_verbosity = null)
     {
@@ -88,26 +77,10 @@ class GitCmdExecutor extends GitBase
     }
 
     /**
-     * @param string $git_task
-     * @param array|Collection $options
-     * @return string
-     */
-    protected function createCmd(string $git_task, $options = []): string
-    {
-        $cmd = 'git ' . $git_task;
-        $options = collect($options);
-        if ($options->count()) {
-            $cmd .= ' ' . $options->implode(' ');
-        }
-
-        return $cmd;
-    }
-
-    /**
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function tag($options = [], $verbosity = false, $output_verbosity = null)
     {
@@ -120,7 +93,7 @@ class GitCmdExecutor extends GitBase
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function clone($options = [], $verbosity = false, $output_verbosity = null)
     {
@@ -133,7 +106,7 @@ class GitCmdExecutor extends GitBase
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function remote($options = [], $verbosity = false, $output_verbosity = null)
     {
@@ -146,7 +119,7 @@ class GitCmdExecutor extends GitBase
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function status($options = [], $verbosity = false, $output_verbosity = null)
     {
@@ -159,7 +132,7 @@ class GitCmdExecutor extends GitBase
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function diff($options = [], $verbosity = false, $output_verbosity = null)
     {
@@ -173,7 +146,7 @@ class GitCmdExecutor extends GitBase
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function merge($branch, $options = [], $verbosity = false, $output_verbosity = null)
     {
@@ -187,7 +160,7 @@ class GitCmdExecutor extends GitBase
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function fetch($options = [], $verbosity = false, $output_verbosity = null)
     {
@@ -200,7 +173,7 @@ class GitCmdExecutor extends GitBase
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function clean($options = [], $verbosity = false, $output_verbosity = null)
     {
@@ -216,7 +189,7 @@ class GitCmdExecutor extends GitBase
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function reset($options = [], $verbosity = false, $output_verbosity = null)
     {
@@ -233,7 +206,7 @@ class GitCmdExecutor extends GitBase
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function checkout(string $branch, $options = [], $verbosity = false, $output_verbosity = null)
     {
@@ -247,7 +220,7 @@ class GitCmdExecutor extends GitBase
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function branch($options = [], $verbosity = false, $output_verbosity = null)
     {
@@ -261,7 +234,7 @@ class GitCmdExecutor extends GitBase
      * @param string $branch
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function pull($remote, $branch = '', $verbosity = false, $output_verbosity = null)
     {
@@ -275,7 +248,7 @@ class GitCmdExecutor extends GitBase
      * @param string $branch
      * @param bool|string $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function push($remote, $branch = '', $verbosity = false, $output_verbosity = null)
     {
@@ -288,7 +261,7 @@ class GitCmdExecutor extends GitBase
      * @param string $remote
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function tagPush($remote, $verbosity = false, $output_verbosity = null)
     {
@@ -301,7 +274,7 @@ class GitCmdExecutor extends GitBase
      * @param string $remote
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function tagPull($remote, $verbosity = false, $output_verbosity = null)
     {
@@ -317,7 +290,7 @@ class GitCmdExecutor extends GitBase
      * @param bool $without_common_commit
      * @param null|bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function log(string $left, string $right, $option = [], $without_common_commit = false, $verbosity = true, $output_verbosity = null)
     {
@@ -332,7 +305,7 @@ class GitCmdExecutor extends GitBase
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function stash($options = [], $verbosity = false, $output_verbosity = null)
     {
@@ -345,7 +318,7 @@ class GitCmdExecutor extends GitBase
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function add($options = [], $verbosity = false, $output_verbosity = null)
     {
@@ -390,5 +363,32 @@ class GitCmdExecutor extends GitBase
         $message = str_replace('"', '\\"', $message);
         $cmd = 'git commit -m "' . $message . '" --no-verify';
         $this->command->exec($cmd, $verbosity, $output_verbosity);
+    }
+
+    /**
+     * @param string $cmd
+     * @param bool $verbosity
+     * @param null|bool $output_verbosity
+     * @return null|string
+     */
+    protected function exec($cmd, $verbosity = false, $output_verbosity = null)
+    {
+        return $this->command->exec($cmd, $verbosity, $output_verbosity);
+    }
+
+    /**
+     * @param string $git_task
+     * @param array|Collection $options
+     * @return string
+     */
+    protected function createCmd(string $git_task, $options = []): string
+    {
+        $cmd = 'git ' . $git_task;
+        $options = collect($options);
+        if ($options->count()) {
+            $cmd .= ' ' . $options->implode(' ');
+        }
+
+        return $cmd;
     }
 }
