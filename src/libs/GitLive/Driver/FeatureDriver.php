@@ -54,10 +54,8 @@ class FeatureDriver extends DriverBase
 
         $feature_prefix = $Config->featurePrefix();
 
-
         return (string)$this->GitCmdExecutor->branch(['--list', '"' . $feature_prefix . '*"'], true);
     }
-
 
     /**
      * featureの一覧を取得する
@@ -75,7 +73,6 @@ class FeatureDriver extends DriverBase
 
         return (string)$this->GitCmdExecutor->branch(['--list', '"' . $feature_prefix . '*"', '--merged', ], true);
     }
-
 
     /**
      * featureの一覧を取得する

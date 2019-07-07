@@ -94,7 +94,6 @@ class ListCommand extends CommandBase
                 $res = $FeatureDriver->noMergedFeatureList();
 
                 break;
-
             default:
                 $res = $FeatureDriver->featureList();
 

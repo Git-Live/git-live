@@ -128,8 +128,8 @@ class MergeDriver extends DriverBase
      *  Merge a other feature  branch.
      *
      * @param string $feature_name
-     * @return string|null
      * @throws Exception
+     * @return null|string
      */
     public function mergeFeature(string $feature_name)
     {
@@ -145,20 +145,17 @@ class MergeDriver extends DriverBase
 
         $Fetch->all();
 
-
         $branch_list = $this->Driver(BranchDriver::class)->branchListAll();
 
         $branch = 'remotes/upstream/' . $feature_branch;
         if ($branch_list->search($branch) !== false) {
             return $this->merge($branch);
-
         }
 
         $branch = 'remotes/origin/' . $feature_branch;
         if ($branch_list->search($branch) !== false) {
             return $this->merge($branch);
         }
-
 
         return sprintf('Error:' . __('Feature name %s not found'), $feature_name);
     }
