@@ -48,10 +48,11 @@ abstract class CommandBase extends Command
      */
     protected static $signature_name = '';
 
-    public static function getSignature()
+    public static function getSignature(): string
     {
         return static::$signature_name;
     }
+
     /**
      * @param OutputInterface $output
      */
@@ -77,21 +78,22 @@ abstract class CommandBase extends Command
      * @param InputInterface $input
      * @return \GitLive\Support\Collection
      */
-    protected function getOptions(InputInterface $input)
+    protected function getOptions(InputInterface $input): \GitLive\Support\Collection
     {
-        return collect($input->getOptions())->filter(static function ($item) {
-            if ($item === false || $item === null) {
-                return false;
-            }
+        return collect(collect($input->getOptions())
+            ->filter(static function ($item) {
+                if ($item === false || $item === null) {
+                    return false;
+                }
 
-            return true;
-        })
+                return true;
+            })
             ->map(static function ($item, $key) {
                 if ($item === $key || $item === true) {
                     return '--' . $key;
                 }
 
                 return '--' . $key . '=' . $item;
-            })->values()->toArray();
+            })->values()->toArray());
     }
 }

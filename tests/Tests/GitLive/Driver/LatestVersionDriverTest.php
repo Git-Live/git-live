@@ -22,7 +22,6 @@ namespace Tests\GitLive\Driver;
 
 use App;
 use GitLive\Application\Container;
-use GitLive\Driver\FetchDriver;
 use GitLive\Driver\LatestVersionDriver;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
@@ -66,14 +65,14 @@ class LatestVersionDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 //$spy[] = $val;
 
                 return '.git';
             });
 
         $mock->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -81,7 +80,7 @@ class LatestVersionDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -92,13 +91,14 @@ class LatestVersionDriverTest extends TestCase
 
         $res = $LatestVersionDriver->getLatestVersion();
 
-        $this->assertSame('1.0.0', $res);
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git config --get gitlive.latestversion.fetchtime",
-            1 => "git config --get gitlive.latestversion.update_ck_span",
-            2 => "git config --local gitlive.latestversion.fetchtime \"1544519632\"",
-            3 => "git config --local gitlive.latestversion.val \"1.0.0\"",
+            0 => 'git config --get gitlive.latestversion.fetchtime',
+            1 => 'git config --get gitlive.latestversion.update_ck_span',
+            2 => 'git config --local gitlive.latestversion.fetchtime "1544519632"',
+            3 => 'git config --local gitlive.latestversion.val "' . $res . '"',
         ], data_get($spy, '*.0'));
+
+        $this->assertSame('2.0.', substr($res, 0, 4));
     }
 }

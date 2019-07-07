@@ -60,7 +60,7 @@ class ReleaseDriver extends DeployBase
     /**
      * @return bool
      */
-    public function isBuildOpen()
+    public function isBuildOpen():bool
     {
         return $this->isReleaseOpen();
     }
@@ -69,7 +69,7 @@ class ReleaseDriver extends DeployBase
      * @throws Exception
      * @return string
      */
-    public function getBuildRepository()
+    public function getBuildRepository():string
     {
         return $this->getReleaseRepository();
     }

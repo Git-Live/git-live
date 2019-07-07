@@ -46,7 +46,7 @@ class MergeDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function stateDevelop()
+    public function stateDevelop():string
     {
         $branch = 'upstream/' . $this->Driver(ConfigDriver::class)->develop();
 
@@ -60,7 +60,7 @@ class MergeDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function state($branch)
+    public function state($branch):string
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
@@ -75,7 +75,7 @@ class MergeDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function stateMaster()
+    public function stateMaster():string
     {
         $branch = 'upstream/' . $this->Driver(ConfigDriver::class)->master();
 
@@ -87,7 +87,7 @@ class MergeDriver extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @return string
+     * @return null|string
      */
     public function mergeDevelop()
     {
@@ -101,7 +101,7 @@ class MergeDriver extends DriverBase
      *
      * @param $branch
      * @throws Exception
-     * @return string
+     * @return null|string
      */
     public function merge($branch)
     {
@@ -112,16 +112,51 @@ class MergeDriver extends DriverBase
     }
 
     /**
-     *  Merge a master branch.
      *
      * @access      public
      * @throws Exception
-     * @return string
+     * @return null|string
      */
     public function mergeMaster()
     {
         $branch = 'upstream/' . $this->Driver(ConfigDriver::class)->master();
 
         return $this->merge($branch);
+    }
+
+    /**
+     *  Merge a other feature  branch.
+     *
+     * @param string $feature_name
+     * @throws Exception
+     * @return null|string
+     */
+    public function mergeFeature(string $feature_name)
+    {
+        $Config = $this->Driver(ConfigDriver::class);
+        $feature_prefix = (string)$Config->featurePrefix();
+
+        $feature_branch = $feature_name;
+        if ($feature_prefix !== '' && strpos($feature_name, $feature_prefix) !== 0) {
+            $feature_branch = $feature_prefix . $feature_name;
+        }
+
+        $Fetch = $this->Driver(FetchDriver::class);
+
+        $Fetch->all();
+
+        $branch_list = $this->Driver(BranchDriver::class)->branchListAll();
+
+        $branch = 'remotes/upstream/' . $feature_branch;
+        if ($branch_list->search($branch) !== false) {
+            return $this->merge($branch);
+        }
+
+        $branch = 'remotes/origin/' . $feature_branch;
+        if ($branch_list->search($branch) !== false) {
+            return $this->merge($branch);
+        }
+
+        return sprintf('Error:' . __('Feature name %s not found'), $feature_name);
     }
 }

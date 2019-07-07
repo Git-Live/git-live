@@ -65,7 +65,7 @@ class FetchDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -73,7 +73,7 @@ class FetchDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -81,7 +81,7 @@ class FetchDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -92,8 +92,8 @@ class FetchDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            "git fetch --all",
-            "git fetch -p",
+            'git fetch --all',
+            'git fetch -p',
         ], data_get($spy, '*.0'));
     }
 
@@ -109,7 +109,7 @@ class FetchDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -118,7 +118,7 @@ class FetchDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'build';
@@ -127,7 +127,7 @@ class FetchDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch build', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -135,7 +135,7 @@ class FetchDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p build', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -143,7 +143,7 @@ class FetchDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -154,10 +154,10 @@ class FetchDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.deploy.remote",
-            "git fetch build",
-            "git fetch -p build",
+            'git rev-parse --git-dir 2> /dev/null',
+            'git config --get gitlive.deploy.remote',
+            'git fetch build',
+            'git fetch -p build',
         ], data_get($spy, '*.0'));
     }
 
@@ -180,7 +180,7 @@ class FetchDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch upstream', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -188,7 +188,7 @@ class FetchDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p upstream', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -196,7 +196,7 @@ class FetchDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -207,8 +207,8 @@ class FetchDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            "git fetch upstream",
-            "git fetch -p upstream",
+            'git fetch upstream',
+            'git fetch -p upstream',
         ], data_get($spy, '*.0'));
     }
 
@@ -231,7 +231,7 @@ class FetchDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch origin', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -239,7 +239,7 @@ class FetchDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p origin', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -247,7 +247,7 @@ class FetchDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -258,8 +258,8 @@ class FetchDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            "git fetch origin",
-            "git fetch -p origin",
+            'git fetch origin',
+            'git fetch -p origin',
         ], data_get($spy, '*.0'));
     }
 }

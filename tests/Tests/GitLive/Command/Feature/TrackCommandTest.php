@@ -94,19 +94,19 @@ class TrackCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.feature.prefix.ignore",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.feature.prefix.name",
-            4 => "git fetch --all",
-            5 => "git fetch -p",
-            6 => "git fetch upstream",
-            7 => "git fetch -p upstream",
-            8 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
-            9 => "git branch -a",
-            10 => "git checkout upstream/feature/suzunone_branch",
-            11 => "git checkout -b feature/suzunone_branch",
-            12 => "git pull upstream feature/suzunone_branch",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.feature.prefix.name',
+            4 => 'git fetch --all',
+            5 => 'git fetch -p',
+            6 => 'git fetch upstream',
+            7 => 'git fetch -p upstream',
+            8 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            9 => 'git branch -a',
+            10 => 'git checkout upstream/feature/suzunone_branch',
+            11 => 'git checkout -b feature/suzunone_branch',
+            12 => 'git pull upstream feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
         $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch'));
@@ -160,17 +160,17 @@ class TrackCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.feature.prefix.ignore",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.feature.prefix.name",
-            4 => "git fetch --all",
-            5 => "git fetch -p",
-            6 => "git fetch upstream",
-            7 => "git fetch -p upstream",
-            8 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
-            9 => "git branch -a",
-            10 => "git pull upstream feature/suzunone_branch",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.feature.prefix.name',
+            4 => 'git fetch --all',
+            5 => 'git fetch -p',
+            6 => 'git fetch upstream',
+            7 => 'git fetch -p upstream',
+            8 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            9 => 'git branch -a',
+            10 => 'git pull upstream feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
         $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch'));
@@ -223,19 +223,19 @@ class TrackCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.feature.prefix.ignore",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.feature.prefix.name",
-            4 => "git fetch --all",
-            5 => "git fetch -p",
-            6 => "git fetch upstream",
-            7 => "git fetch -p upstream",
-            8 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
-            9 => "git checkout upstream/feature/suzunone_branch",
-            9 => "git branch -a",
-            10 => "git checkout feature/suzunone_branch",
-            11 => "git pull upstream feature/suzunone_branch",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.feature.prefix.name',
+            4 => 'git fetch --all',
+            5 => 'git fetch -p',
+            6 => 'git fetch upstream',
+            7 => 'git fetch -p upstream',
+            8 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            9 => 'git checkout upstream/feature/suzunone_branch',
+            9 => 'git branch -a',
+            10 => 'git checkout feature/suzunone_branch',
+            11 => 'git pull upstream feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
         $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch'));
@@ -289,19 +289,19 @@ class TrackCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.feature.prefix.ignore",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.feature.prefix.name",
-            4 => "git fetch --all",
-            5 => "git fetch -p",
-            6 => "git fetch upstream",
-            7 => "git fetch -p upstream",
-            8 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
-            9 => "git checkout upstream/feature/suzunone_branch",
-            9 => "git branch -a",
-            10 => "git checkout feature/suzunone_branch",
-            11 => "git pull upstream feature/suzunone_branch",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.feature.prefix.name',
+            4 => 'git fetch --all',
+            5 => 'git fetch -p',
+            6 => 'git fetch upstream',
+            7 => 'git fetch -p upstream',
+            8 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            9 => 'git checkout upstream/feature/suzunone_branch',
+            9 => 'git branch -a',
+            10 => 'git checkout feature/suzunone_branch',
+            11 => 'git pull upstream feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
         $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch'));

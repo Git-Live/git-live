@@ -56,7 +56,7 @@ class InteractiveShell implements InteractiveShellInterface
      * @param  bool|string  $using_default OPTIONAL:false
      * @return string
      */
-    public function interactiveShell($shell_message, $using_default = false)
+    public function interactiveShell($shell_message, $using_default = false): string
     {
         // TODO: Implement interactiveShell() method.
 

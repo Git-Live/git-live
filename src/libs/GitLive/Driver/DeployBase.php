@@ -99,7 +99,7 @@ abstract class DeployBase extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function buildOpen($release_rep = null)
+    public function buildOpen($release_rep = null): string
     {
         if ($this->isReleaseOpen()) {
             throw new Exception(sprintf(__('Already %s opened.'), ReleaseDriver::MODE));
@@ -140,7 +140,7 @@ abstract class DeployBase extends DriverBase
      * @return bool
      * @codeCoverageIgnore
      */
-    public function isReleaseOpen()
+    public function isReleaseOpen(): bool
     {
         try {
             $this->getReleaseRepository();
@@ -158,7 +158,7 @@ abstract class DeployBase extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function getReleaseRepository()
+    public function getReleaseRepository(): string
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $release_prefix = App::make(ConfigDriver::class)->releasePrefix();
@@ -189,7 +189,7 @@ abstract class DeployBase extends DriverBase
      * @return bool
      * @codeCoverageIgnore
      */
-    public function isHotfixOpen()
+    public function isHotfixOpen(): bool
     {
         try {
             $this->getHotfixRepository();
@@ -207,7 +207,7 @@ abstract class DeployBase extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function getHotfixRepository()
+    public function getHotfixRepository(): string
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $release_prefix = App::make(ConfigDriver::class)->hotfixPrefix();
@@ -289,12 +289,12 @@ abstract class DeployBase extends DriverBase
     /**
      * @return bool
      */
-    abstract public function isBuildOpen();
+    abstract public function isBuildOpen():bool ;
 
     /**
      * @return string
      */
-    abstract public function getBuildRepository();
+    abstract public function getBuildRepository():string ;
 
     /**
      *  Track a deploy branch.
@@ -342,7 +342,7 @@ abstract class DeployBase extends DriverBase
      * @param       bool $with_merge_commit OPTIONAL:false
      * @return string
      */
-    public function buildState($ck_only = false, $with_merge_commit = false)
+    public function buildState($ck_only = false, $with_merge_commit = false): string
     {
         $res = '';
 
@@ -451,7 +451,7 @@ abstract class DeployBase extends DriverBase
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $remote = $this->GitCmdExecutor->remote([], true);
         $remote = explode("\n", trim($remote));
-        $res = array_search($deploy_repository_name, $remote, true) !== false;
+        $res = in_array($deploy_repository_name, $remote, true);
         if ($res === false) {
             throw new Exception(
                 sprintf(__('Add a remote repository %s.'), $deploy_repository_name)
@@ -583,9 +583,9 @@ abstract class DeployBase extends DriverBase
         }
 
         $this->GitCmdExecutor->merge('deploy/' . $release_name);
-        $diff = $this->GitCmdExecutor->diff([$deploy_repository_name . '/' . $release_name, $master_branch]);
+        $diff = (string)$this->GitCmdExecutor->diff([$deploy_repository_name . '/' . $release_name, $master_branch]);
 
-        if (strlen($diff) !== 0) {
+        if ($diff !== '') {
             $error_msg = $diff . "\n" . sprintf(__('%s close is failed.'), $mode);
 
             throw new Exception($error_msg);
@@ -610,10 +610,10 @@ abstract class DeployBase extends DriverBase
         $this->GitCmdExecutor->merge($deploy_repository_name . '/' . $release_name);
 
         if ($mode === ReleaseDriver::MODE && !$force) {
-            $diff = $this->GitCmdExecutor->diff([$deploy_repository_name . '/' . $release_name, $develop_branch]);
+            $diff = (string)$this->GitCmdExecutor->diff([$deploy_repository_name . '/' . $release_name, $develop_branch]);
         }
 
-        if (strlen($diff) !== 0) {
+        if ($diff !== '') {
             $error_msg = sprintf(__('%s close is failed.'), $mode) . "\n" .
                 sprintf(__('%s branch has a commit that is not on the %2$s branch'), 'Develop', ucwords($mode));
 

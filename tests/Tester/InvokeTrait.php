@@ -50,6 +50,7 @@ trait InvokeTrait
 
         return $method->invokeArgs($instance, $options);
     }
+
     /**
      * @param object|string $instance
      * @param string $property_name
@@ -64,6 +65,7 @@ trait InvokeTrait
 
         return $property->getValue($instance);
     }
+
     /**
      * @param object|string $instance
      * @param string $property_name

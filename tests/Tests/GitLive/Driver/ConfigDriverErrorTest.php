@@ -58,7 +58,7 @@ class ConfigDriverErrorTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -66,7 +66,7 @@ class ConfigDriverErrorTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -79,7 +79,7 @@ class ConfigDriverErrorTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
         ], data_get($spy, '*.0'));
 
         $res = $ConfigDriver->master();
@@ -100,7 +100,7 @@ class ConfigDriverErrorTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -108,7 +108,7 @@ class ConfigDriverErrorTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -121,7 +121,7 @@ class ConfigDriverErrorTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
         ], data_get($spy, '*.0'));
     }
 
@@ -137,7 +137,7 @@ class ConfigDriverErrorTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -145,7 +145,7 @@ class ConfigDriverErrorTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -158,7 +158,7 @@ class ConfigDriverErrorTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
         ], data_get($spy, '*.0'));
 
         $res = $ConfigDriver->deployRemote();
@@ -179,7 +179,7 @@ class ConfigDriverErrorTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -187,7 +187,7 @@ class ConfigDriverErrorTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -200,7 +200,7 @@ class ConfigDriverErrorTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
         ], data_get($spy, '*.0'));
 
         $res = $ConfigDriver->releasePrefix();
@@ -221,7 +221,7 @@ class ConfigDriverErrorTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -229,7 +229,7 @@ class ConfigDriverErrorTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -242,7 +242,7 @@ class ConfigDriverErrorTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
         ], data_get($spy, '*.0'));
     }
 
@@ -258,7 +258,7 @@ class ConfigDriverErrorTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -266,7 +266,7 @@ class ConfigDriverErrorTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -279,7 +279,7 @@ class ConfigDriverErrorTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
         ], data_get($spy, '*.0'));
     }
 
@@ -295,7 +295,7 @@ class ConfigDriverErrorTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -303,7 +303,7 @@ class ConfigDriverErrorTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -316,7 +316,7 @@ class ConfigDriverErrorTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
         ], data_get($spy, '*.0'));
     }
 
@@ -332,7 +332,7 @@ class ConfigDriverErrorTest extends TestCase
         $mock->shouldReceive('exec')
             ->twice()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -340,7 +340,7 @@ class ConfigDriverErrorTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -353,8 +353,8 @@ class ConfigDriverErrorTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git rev-parse --git-dir 2> /dev/null",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git rev-parse --git-dir 2> /dev/null',
         ], data_get($spy, '*.0'));
 
         $res = $ConfigDriver->featurePrefix();
@@ -375,7 +375,7 @@ class ConfigDriverErrorTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -383,7 +383,7 @@ class ConfigDriverErrorTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -396,7 +396,7 @@ class ConfigDriverErrorTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
         ], data_get($spy, '*.0'));
 
         $res = $ConfigDriver->hotfixPrefix();
@@ -417,7 +417,7 @@ class ConfigDriverErrorTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -425,7 +425,7 @@ class ConfigDriverErrorTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -438,7 +438,7 @@ class ConfigDriverErrorTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
         ], data_get($spy, '*.0'));
 
         $res = $ConfigDriver->develop();

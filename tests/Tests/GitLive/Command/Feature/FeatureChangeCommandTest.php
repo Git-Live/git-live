@@ -96,17 +96,17 @@ class FeatureChangeCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.feature.prefix.ignore",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.feature.prefix.name",
-            4 => "git fetch --all",
-            5 => "git fetch -p",
-            6 => "git branch -a",
-            7 => "git rev-parse --git-dir 2> /dev/null",
-            8 => "git config --get gitlive.branch.master.name",
-            9 => "git rev-parse --git-dir 2> /dev/null",
-            10 => "git config --get gitlive.branch.develop.name",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.feature.prefix.name',
+            4 => 'git fetch --all',
+            5 => 'git fetch -p',
+            6 => 'git branch -a',
+            7 => 'git rev-parse --git-dir 2> /dev/null',
+            8 => 'git config --get gitlive.branch.master.name',
+            9 => 'git rev-parse --git-dir 2> /dev/null',
+            10 => 'git config --get gitlive.branch.develop.name',
             11 => 'git checkout remotes/origin/feature/suzunone_branch',
             12 => 'git checkout -b feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
@@ -147,17 +147,17 @@ class FeatureChangeCommandTest extends TestCase
 
         dump(data_get($this->spy, '*.0'));
         $this->assertEquals([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.feature.prefix.ignore",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.feature.prefix.name",
-            4 => "git fetch --all",
-            5 => "git fetch -p",
-            6 => "git branch -a",
-            7 => "git rev-parse --git-dir 2> /dev/null",
-            8 => "git config --get gitlive.branch.master.name",
-            9 => "git rev-parse --git-dir 2> /dev/null",
-            10 => "git config --get gitlive.branch.develop.name",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.feature.prefix.name',
+            4 => 'git fetch --all',
+            5 => 'git fetch -p',
+            6 => 'git branch -a',
+            7 => 'git rev-parse --git-dir 2> /dev/null',
+            8 => 'git config --get gitlive.branch.master.name',
+            9 => 'git rev-parse --git-dir 2> /dev/null',
+            10 => 'git config --get gitlive.branch.develop.name',
             11 => 'git checkout --force remotes/origin/feature/suzunone_branch',
             12 => 'git checkout --force -b feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
@@ -197,14 +197,14 @@ class FeatureChangeCommandTest extends TestCase
 
         dump(data_get($this->spy, '*.0'));
         $this->assertEquals([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.feature.prefix.ignore",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.feature.prefix.name",
-            4 => "git fetch --all",
-            5 => "git fetch -p",
-            6 => "git branch -a",
-            7 => "git checkout --force feature/suzunone_branch",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.feature.prefix.name',
+            4 => 'git fetch --all',
+            5 => 'git fetch -p',
+            6 => 'git branch -a',
+            7 => 'git checkout --force feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
         // ...

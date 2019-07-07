@@ -40,20 +40,20 @@ interface FileSystemInterface
 {
     /**
      * @param string $url
-     * @return string
+     * @return bool|string
      */
     public function getContents($url);
 
     /**
      * @param string $url
-     * @return string
+     * @return false|string
      */
     public function getContentsWithProgress($url);
 
     /**
      * @param string $url
      * @param mixed  $content
-     * @return int
+     * @return bool|int
      */
     public function putContents($url, $content);
 }

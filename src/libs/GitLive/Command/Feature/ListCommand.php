@@ -25,6 +25,7 @@ use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\FeatureDriver;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -54,11 +55,24 @@ class ListCommand extends CommandBase
             ->setDescription(__('Lists existing features.'))
             // the full command description shown when running the command with
             // the "--help" option
+
+            ->addOption(
+                'merged',
+                'm',
+                InputOption::VALUE_NONE,
+                'Merged features only'
+            )
+            ->addOption(
+                'no-merged',
+                '',
+                InputOption::VALUE_NONE,
+                'Not merged features only'
+            )
             ->setHelp(__('Lists existing features.'));
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \Exception
      * @return null|int|void
@@ -70,7 +84,21 @@ class ListCommand extends CommandBase
 
         $FeatureDriver = App::make(FeatureDriver::class);
 
-        $res = $FeatureDriver->featureList();
+        switch (true) {
+            case $input->getOption('merged'):
+
+                $res = $FeatureDriver->mergedFeatureList();
+
+                break;
+            case $input->getOption('no-merged'):
+                $res = $FeatureDriver->noMergedFeatureList();
+
+                break;
+            default:
+                $res = $FeatureDriver->featureList();
+
+                break;
+        }
 
         $output->writeln($res);
     }

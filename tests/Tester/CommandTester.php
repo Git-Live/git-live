@@ -47,9 +47,17 @@ class CommandTester
 {
     private $command;
     private $input;
+    /**
+     * @var OutputInterface $output
+     */
     private $output;
     private $inputs = [];
     private $statusCode;
+
+    /**
+     * CommandTester constructor.
+     * @param Command $command
+     */
     public function __construct(Command $command)
     {
         $this->command = $command;
@@ -106,6 +114,7 @@ class CommandTester
     {
         rewind($this->output->getStream());
         $display = stream_get_contents($this->output->getStream());
+
         if ($normalize) {
             $display = str_replace(PHP_EOL, "\n", $display);
         }

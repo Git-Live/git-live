@@ -64,7 +64,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -72,7 +72,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -80,7 +80,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -89,7 +89,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -97,14 +97,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'v2.0';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -112,7 +112,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -125,29 +125,29 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -159,26 +159,26 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git fetch --all",
-            9 => "git fetch -p",
-            10 => "git fetch upstream",
-            11 => "git fetch -p upstream",
-            12 => "git fetch unit_deploy",
-            13 => "git fetch -p unit_deploy",
-            14 => "git checkout remote/unit_deploy/unit_release/unit_test_release_1234",
-            15 => "git checkout -b unit_release/unit_test_release_1234",
-            16 => "git pull unit_deploy unit_release/unit_test_release_1234",
-            17 => "git pull upstream unit_release/unit_test_release_1234",
-            18 => "git push upstream unit_release/unit_test_release_1234",
-            19 => "git push unit_deploy unit_release/unit_test_release_1234",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git fetch --all',
+            9 => 'git fetch -p',
+            10 => 'git fetch upstream',
+            11 => 'git fetch -p upstream',
+            12 => 'git fetch unit_deploy',
+            13 => 'git fetch -p unit_deploy',
+            14 => 'git checkout remote/unit_deploy/unit_release/unit_test_release_1234',
+            15 => 'git checkout -b unit_release/unit_test_release_1234',
+            16 => 'git pull unit_deploy unit_release/unit_test_release_1234',
+            17 => 'git pull upstream unit_release/unit_test_release_1234',
+            18 => 'git push upstream unit_release/unit_test_release_1234',
+            19 => 'git push unit_deploy unit_release/unit_test_release_1234',
         ], data_get($spy, '*.0'));
     }
 
@@ -195,7 +195,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -203,7 +203,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -211,7 +211,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -220,7 +220,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -228,14 +228,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'v2.0';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -243,7 +243,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -256,30 +256,30 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isReleaseOpen')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -292,14 +292,14 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
         ], data_get($spy, '*.0'));
     }
 
@@ -317,7 +317,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -325,7 +325,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.hotfix.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'hotfix/';
@@ -333,7 +333,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -342,7 +342,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -350,7 +350,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'v2.0';
@@ -358,7 +358,7 @@ class DeployBaseTest extends TestCase
 
         $systemCommand->shouldReceive('exec')
             ->with('git branch -a', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '  develop
@@ -402,7 +402,7 @@ class DeployBaseTest extends TestCase
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -410,7 +410,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -424,29 +424,29 @@ class DeployBaseTest extends TestCase
 
         $ReleaseDriver->shouldReceive('isHotfixOpen')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -460,15 +460,15 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.hotfix.prefix.name",
-            8 => "git branch -a",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.hotfix.prefix.name',
+            8 => 'git branch -a',
         ], data_get($spy, '*.0'));
     }
 
@@ -485,7 +485,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -493,7 +493,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.hotfix.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'hotfix/';
@@ -501,7 +501,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -510,7 +510,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -518,14 +518,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -533,7 +533,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -546,29 +546,29 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -581,15 +581,15 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.hotfix.prefix.name",
-            8 => "git branch -a",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.hotfix.prefix.name',
+            8 => 'git branch -a',
         ], data_get($spy, '*.0'));
     }
 
@@ -607,7 +607,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -615,7 +615,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -623,7 +623,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -632,7 +632,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -640,14 +640,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -655,7 +655,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -668,29 +668,29 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -701,18 +701,18 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git checkout remote/unit_deploy/unit_release/unit_test_release_1234",
-            9 => "git checkout -b unit_release/unit_test_release_1234",
-            10 => "git pull upstream unit_release/unit_test_release_1234",
-            11 => "git pull unit_deploy unit_release/unit_test_release_1234",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git checkout remote/unit_deploy/unit_release/unit_test_release_1234',
+            9 => 'git checkout -b unit_release/unit_test_release_1234',
+            10 => 'git pull upstream unit_release/unit_test_release_1234',
+            11 => 'git pull unit_deploy unit_release/unit_test_release_1234',
         ], data_get($spy, '*.0'));
     }
 
@@ -730,7 +730,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -738,7 +738,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -746,7 +746,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -755,7 +755,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -763,14 +763,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -778,7 +778,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -791,39 +791,39 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
         $ReleaseDriver->shouldReceive('isHotfixOpen')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
         $ReleaseDriver->shouldReceive('isReleaseOpen')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -834,19 +834,19 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git branch -a",
-            9 => "git checkout upstream/stage",
-            10 => "git checkout -b unit_release/20181209031124",
-            11 => "git push upstream unit_release/20181209031124",
-            12 => "git push unit_deploy unit_release/20181209031124",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git branch -a',
+            9 => 'git checkout upstream/stage',
+            10 => 'git checkout -b unit_release/20181209031124',
+            11 => 'git push upstream unit_release/20181209031124',
+            12 => 'git push unit_deploy unit_release/20181209031124',
         ], data_get($spy, '*.0'));
     }
 
@@ -864,7 +864,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -872,7 +872,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -880,7 +880,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -889,7 +889,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -897,14 +897,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -912,7 +912,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -925,39 +925,39 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
         $ReleaseDriver->shouldReceive('isHotfixOpen')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
         $ReleaseDriver->shouldReceive('isReleaseOpen')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -968,19 +968,19 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git branch -a",
-            9 => "git checkout upstream/stage",
-            10 => "git checkout -b unit_release/20181209032006 refs/tags/unit_test_release_tag ",
-            11 => "git push upstream unit_release/20181209032006",
-            12 => "git push unit_deploy unit_release/20181209032006",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git branch -a',
+            9 => 'git checkout upstream/stage',
+            10 => 'git checkout -b unit_release/20181209032006 refs/tags/unit_test_release_tag ',
+            11 => 'git push upstream unit_release/20181209032006',
+            12 => 'git push unit_deploy unit_release/20181209032006',
         ], data_get($spy, '*.0'));
     }
 
@@ -997,7 +997,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -1005,7 +1005,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -1013,7 +1013,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -1022,7 +1022,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -1030,14 +1030,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -1045,7 +1045,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -1058,29 +1058,29 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -1093,15 +1093,15 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git log --pretty=fuller --name-status --no-merges unit_deploy/master..unit_release/unit_test_release_1234",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git log --pretty=fuller --name-status --no-merges unit_deploy/master..unit_release/unit_test_release_1234',
         ], data_get($spy, '*.0'));
     }
 
@@ -1118,7 +1118,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -1126,7 +1126,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -1134,7 +1134,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -1143,7 +1143,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -1151,14 +1151,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -1166,7 +1166,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -1179,29 +1179,29 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -1214,14 +1214,14 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
         ], data_get($spy, '*.0'));
     }
 
@@ -1239,7 +1239,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -1247,7 +1247,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -1255,7 +1255,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -1264,7 +1264,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -1272,7 +1272,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
@@ -1281,14 +1281,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -1296,7 +1296,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -1309,23 +1309,23 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -1336,15 +1336,15 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git remote",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git remote',
         ], data_get($spy, '*.0'));
     }
 
@@ -1363,7 +1363,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -1371,7 +1371,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -1379,7 +1379,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -1388,7 +1388,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -1396,7 +1396,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
@@ -1405,14 +1405,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'none';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -1420,7 +1420,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -1433,23 +1433,23 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -1460,15 +1460,15 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git remote",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git remote',
         ], data_get($spy, '*.0'));
     }
 
@@ -1486,7 +1486,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -1495,7 +1495,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -1503,7 +1503,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -1512,7 +1512,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -1520,7 +1520,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
@@ -1528,14 +1528,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git branch -a', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '  remotes/unit_deploy/unit_release/123456';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -1543,7 +1543,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -1556,23 +1556,23 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
@@ -1585,15 +1585,15 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git branch -a",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git branch -a',
         ], data_get($spy, '*.0'));
     }
 
@@ -1611,7 +1611,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -1619,7 +1619,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -1627,7 +1627,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -1636,7 +1636,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -1644,7 +1644,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
@@ -1652,7 +1652,7 @@ class DeployBaseTest extends TestCase
 
         $systemCommand->shouldReceive('exec')
             ->with('git branch -a', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '  develop
@@ -1696,7 +1696,7 @@ class DeployBaseTest extends TestCase
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -1704,7 +1704,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -1717,29 +1717,29 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isReleaseOpen')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -1751,15 +1751,15 @@ class DeployBaseTest extends TestCase
         $this->assertSame('unit_release/unit_test_release_branch_1234', $res);
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git branch -a",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git branch -a',
         ], data_get($spy, '*.0'));
     }
 
@@ -1777,7 +1777,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -1785,7 +1785,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -1793,7 +1793,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -1802,7 +1802,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -1810,14 +1810,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -1825,7 +1825,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -1838,29 +1838,29 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -1871,16 +1871,16 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git pull upstream unit_release/unit_test_release_1234",
-            9 => "git pull unit_deploy unit_release/unit_test_release_1234",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git pull upstream unit_release/unit_test_release_1234',
+            9 => 'git pull unit_deploy unit_release/unit_test_release_1234',
         ], data_get($spy, '*.0'));
     }
 
@@ -1898,7 +1898,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -1906,7 +1906,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -1914,7 +1914,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -1923,7 +1923,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -1931,14 +1931,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -1946,7 +1946,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -1959,29 +1959,29 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -1992,16 +1992,16 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git push unit_deploy :unit_release/unit_test_release_1234",
-            9 => "git push upstream :unit_release/unit_test_release_1234",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git push unit_deploy :unit_release/unit_test_release_1234',
+            9 => 'git push upstream :unit_release/unit_test_release_1234',
         ], data_get($spy, '*.0'));
     }
 
@@ -2018,7 +2018,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -2026,7 +2026,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -2034,7 +2034,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -2043,7 +2043,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -2051,7 +2051,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
@@ -2059,7 +2059,7 @@ class DeployBaseTest extends TestCase
 
         $systemCommand->shouldReceive('exec')
             ->with('git branch -a', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '  develop
@@ -2102,7 +2102,7 @@ class DeployBaseTest extends TestCase
   ';
             });
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -2110,7 +2110,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -2123,29 +2123,29 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -2158,15 +2158,15 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git branch -a",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git branch -a',
         ], data_get($spy, '*.0'));
     }
 
@@ -2184,7 +2184,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -2192,7 +2192,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -2200,7 +2200,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -2209,7 +2209,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -2217,14 +2217,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -2232,7 +2232,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -2245,29 +2245,29 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
 
@@ -2278,18 +2278,18 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git checkout unit_release/unit_test_release_1234",
-            9 => "git pull upstream unit_release/unit_test_release_1234",
-            10 => "git pull unit_deploy unit_release/unit_test_release_1234",
-            11 => "git push upstream unit_release/unit_test_release_1234",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git checkout unit_release/unit_test_release_1234',
+            9 => 'git pull upstream unit_release/unit_test_release_1234',
+            10 => 'git pull unit_deploy unit_release/unit_test_release_1234',
+            11 => 'git push upstream unit_release/unit_test_release_1234',
         ], data_get($spy, '*.0'));
     }
 
@@ -2316,7 +2316,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -2324,7 +2324,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_release/';
@@ -2332,7 +2332,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'unit_deploy';
@@ -2341,7 +2341,7 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -2349,14 +2349,14 @@ class DeployBaseTest extends TestCase
         $systemCommand->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'v2.0';
             });
 
         $systemCommand->shouldReceive('exec')
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -2364,7 +2364,7 @@ class DeployBaseTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($systemCommand) {
+            static function () use ($systemCommand) {
                 return $systemCommand;
             }
         );
@@ -2377,39 +2377,39 @@ class DeployBaseTest extends TestCase
         );
         $ReleaseDriver->shouldReceive('isBuildOpen')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('isCleanOrFail')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
         $ReleaseDriver->shouldReceive('enableRelease')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return true;
             });
 
         $ReleaseDriver->shouldReceive('isBranchExists')
             ->never()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return false;
             });
 
         $ReleaseDriver->shouldReceive('getBuildRepository')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'unit_release/unit_test_release_1234';
             });
         $ReleaseDriver->shouldReceive('getSelfBranchRef')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'refs/heads/v2.0';
             });
         $ReleaseDriver->shouldReceive('getSelfBranchRef')
             ->once()
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 return 'refs/heads/stage';
             });
 
@@ -2420,36 +2420,36 @@ class DeployBaseTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.develop.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.master.name",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.release.prefix.name",
-            8 => "git checkout unit_deploy/v2.0",
-            9 => "git branch -D v2.0",
-            10 => "git checkout -b v2.0",
-            11 => "git format-patch `git rev-parse --abbrev-ref HEAD`..deploy/unit_release/unit_test_release_1234 --stdout",
-            12 => "git merge deploy/unit_release/unit_test_release_1234",
-            13 => "git diff unit_deploy/unit_release/unit_test_release_1234 v2.0",
-            14 => "git push upstream v2.0",
-            15 => "git push unit_deploy v2.0",
-            16 => "git checkout upstream/stage",
-            17 => "git branch -D stage",
-            18 => "git checkout -b stage",
-            19 => "git merge unit_deploy/unit_release/unit_test_release_1234",
-            20 => "git diff unit_deploy/unit_release/unit_test_release_1234 stage",
-            21 => "git push upstream stage",
-            22 => "git push unit_deploy :unit_release/unit_test_release_1234",
-            23 => "git push upstream :unit_release/unit_test_release_1234",
-            24 => "git branch -d unit_release/unit_test_release_1234",
-            25 => "git fetch upstream",
-            26 => "git checkout upstream/v2.0",
-            27 => "git tag runit_test_release_1234",
-            28 => "git push upstream --tags",
-            29 => "git checkout stage",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.develop.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.master.name',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.release.prefix.name',
+            8 => 'git checkout unit_deploy/v2.0',
+            9 => 'git branch -D v2.0',
+            10 => 'git checkout -b v2.0',
+            11 => 'git format-patch `git rev-parse --abbrev-ref HEAD`..deploy/unit_release/unit_test_release_1234 --stdout',
+            12 => 'git merge deploy/unit_release/unit_test_release_1234',
+            13 => 'git diff unit_deploy/unit_release/unit_test_release_1234 v2.0',
+            14 => 'git push upstream v2.0',
+            15 => 'git push unit_deploy v2.0',
+            16 => 'git checkout upstream/stage',
+            17 => 'git branch -D stage',
+            18 => 'git checkout -b stage',
+            19 => 'git merge unit_deploy/unit_release/unit_test_release_1234',
+            20 => 'git diff unit_deploy/unit_release/unit_test_release_1234 stage',
+            21 => 'git push upstream stage',
+            22 => 'git push unit_deploy :unit_release/unit_test_release_1234',
+            23 => 'git push upstream :unit_release/unit_test_release_1234',
+            24 => 'git branch -d unit_release/unit_test_release_1234',
+            25 => 'git fetch upstream',
+            26 => 'git checkout upstream/v2.0',
+            27 => 'git tag runit_test_release_1234',
+            28 => 'git push upstream --tags',
+            29 => 'git checkout stage',
         ], data_get($spy, '*.0'));
     }
 }

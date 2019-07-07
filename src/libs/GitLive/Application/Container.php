@@ -62,7 +62,7 @@ class Container
     /**
      * @return array
      */
-    public static function getContainers()
+    public static function getContainers(): array
     {
         return static::$container;
     }
@@ -70,7 +70,7 @@ class Container
     /**
      * @return array
      */
-    public static function getContextContainers()
+    public static function getContextContainers(): array
     {
         return static::$contextContainer;
     }
@@ -179,7 +179,7 @@ class Container
      * @throws \ReflectionException
      * @return array
      */
-    protected function resolveDependencies(array $dependencies)
+    protected function resolveDependencies(array $dependencies): array
     {
         $results = [];
         /**
@@ -215,7 +215,7 @@ class Container
      * @param  \ReflectionParameter $dependency
      * @return bool
      */
-    protected function hasParameterOverride($dependency)
+    protected function hasParameterOverride($dependency): bool
     {
         return array_key_exists(
             $dependency->name,

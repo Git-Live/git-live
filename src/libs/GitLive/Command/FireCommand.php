@@ -22,7 +22,6 @@ namespace GitLive\Command;
 
 use App;
 use GitLive\Application\Container;
-use GitLive\Driver\FetchDriver;
 use GitLive\Driver\FireDriver;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -66,6 +65,7 @@ class FireCommand extends CommandBase
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \GitLive\Driver\Exception
      * @return null|int|void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -73,6 +73,5 @@ class FireCommand extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
         App::make(FireDriver::class)->fire($input->getArgument('message') ?? '');
-
     }
 }

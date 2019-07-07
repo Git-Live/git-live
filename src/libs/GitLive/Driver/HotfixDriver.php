@@ -76,7 +76,7 @@ class HotfixDriver extends DeployBase
     /**
      * @return bool
      */
-    public function isBuildOpen()
+    public function isBuildOpen():bool
     {
         return $this->isHotfixOpen();
     }
@@ -85,7 +85,7 @@ class HotfixDriver extends DeployBase
      * @throws Exception
      * @return string
      */
-    public function getBuildRepository()
+    public function getBuildRepository():string
     {
         return $this->getHotfixRepository();
     }

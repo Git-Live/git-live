@@ -95,12 +95,12 @@ class LogCommandTest extends TestCase
         dump(data_get($this->spy, '*.0'));
         dump($output);
         $this->assertEquals([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.develop.name",
-            2 => "git fetch --all",
-            3 => "git fetch -p",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.develop.name',
+            2 => 'git fetch --all',
+            3 => 'git fetch -p',
             4 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
-            5 => "git log --pretty=fuller --name-status --left-right upstream/develop..feature/suzunone_branch",
+            5 => 'git log --pretty=fuller --name-status --left-right upstream/develop..feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
         // ...
@@ -138,12 +138,12 @@ class LogCommandTest extends TestCase
         dump(data_get($this->spy, '*.0'));
         dump($output);
         $this->assertEquals([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.master.name",
-            2 => "git fetch --all",
-            3 => "git fetch -p",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.master.name',
+            2 => 'git fetch --all',
+            3 => 'git fetch -p',
             4 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
-            5 => "git log --pretty=fuller --name-status --left-right upstream/master..feature/suzunone_branch",
+            5 => 'git log --pretty=fuller --name-status --left-right upstream/master..feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
         // ...

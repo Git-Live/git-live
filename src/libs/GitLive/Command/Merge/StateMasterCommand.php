@@ -60,8 +60,8 @@ class StateMasterCommand extends CommandBase
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @return null|int
      * @throws \GitLive\Driver\Exception
+     * @return null|int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

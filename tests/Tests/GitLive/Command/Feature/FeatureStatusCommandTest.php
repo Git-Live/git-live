@@ -93,16 +93,16 @@ class FeatureStatusCommandTest extends TestCase
 
         dump(data_get($this->spy, '*.0'));
         $this->assertEquals([
-            0 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
-            1 => "git rev-parse --git-dir 2> /dev/null",
-            2 => "git config --get gitlive.branch.master.name",
-            3 => "git rev-parse --git-dir 2> /dev/null",
-            4 => "git config --get gitlive.branch.develop.name",
-            5 => "git rev-parse --git-dir 2> /dev/null",
-            6 => "git config --get gitlive.branch.hotfix.prefix.name",
-            7 => "git rev-parse --git-dir 2> /dev/null",
-            8 => "git config --get gitlive.branch.release.prefix.name",
-            9 => "git diff develop --name-status",
+            0 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            1 => 'git rev-parse --git-dir 2> /dev/null',
+            2 => 'git config --get gitlive.branch.master.name',
+            3 => 'git rev-parse --git-dir 2> /dev/null',
+            4 => 'git config --get gitlive.branch.develop.name',
+            5 => 'git rev-parse --git-dir 2> /dev/null',
+            6 => 'git config --get gitlive.branch.hotfix.prefix.name',
+            7 => 'git rev-parse --git-dir 2> /dev/null',
+            8 => 'git config --get gitlive.branch.release.prefix.name',
+            9 => 'git diff develop --name-status',
         ], data_get($this->spy, '*.0'));
     }
 
@@ -143,15 +143,15 @@ class FeatureStatusCommandTest extends TestCase
 
         dump(data_get($this->spy, '*.0'));
         $this->assertEquals([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.hotfix.prefix.name",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.release.prefix.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.feature.prefix.ignore",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.feature.prefix.name",
-            8 => "git diff feature/suzunone_branch_2 --name-status",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.hotfix.prefix.name',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.release.prefix.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.feature.prefix.name',
+            8 => 'git diff feature/suzunone_branch_2 --name-status',
         ], data_get($this->spy, '*.0'));
     }
 
@@ -193,15 +193,15 @@ class FeatureStatusCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.hotfix.prefix.name",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.release.prefix.name",
-            4 => "git rev-parse --git-dir 2> /dev/null",
-            5 => "git config --get gitlive.branch.feature.prefix.ignore",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.feature.prefix.name",
-            8 => "git diff feature/suzunone_branch_2 --name-status",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.hotfix.prefix.name',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.release.prefix.name',
+            4 => 'git rev-parse --git-dir 2> /dev/null',
+            5 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            6 => 'git rev-parse --git-dir 2> /dev/null',
+            7 => 'git config --get gitlive.branch.feature.prefix.name',
+            8 => 'git diff feature/suzunone_branch_2 --name-status',
         ], data_get($this->spy, '*.0'));
     }
 
@@ -220,6 +220,7 @@ class FeatureStatusCommandTest extends TestCase
         $application = App::make(Application::class);
 
         $command = $application->find('feature:status');
+
         $commandTester = new CommandTester($command);
         $commandTester->execute([
             'command' => $command->getName(),
@@ -238,12 +239,12 @@ class FeatureStatusCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
-            1 => "git rev-parse --git-dir 2> /dev/null",
-            2 => "git config --get gitlive.branch.master.name",
-            3 => "git rev-parse --git-dir 2> /dev/null",
-            4 => "git config --get gitlive.branch.develop.name",
-            5 => "git diff develop --name-status",
+            0 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            1 => 'git rev-parse --git-dir 2> /dev/null',
+            2 => 'git config --get gitlive.branch.master.name',
+            3 => 'git rev-parse --git-dir 2> /dev/null',
+            4 => 'git config --get gitlive.branch.develop.name',
+            5 => 'git diff develop --name-status',
         ], data_get($this->spy, '*.0'));
     }
 

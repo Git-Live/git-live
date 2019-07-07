@@ -76,7 +76,7 @@ class ResetDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function upstream()
+    public function upstream(): string
     {
         $this->isCleanOrFail();
 
@@ -93,7 +93,7 @@ class ResetDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function origin()
+    public function origin(): string
     {
         $this->isCleanOrFail();
 
@@ -110,7 +110,7 @@ class ResetDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function deploy()
+    public function deploy(): string
     {
         $this->isCleanOrFail();
 
