@@ -48,13 +48,13 @@ class FeatureDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function featureList()
+    public function featureList(): string
     {
         $Config = $this->Driver(ConfigDriver::class);
 
         $feature_prefix = $Config->featurePrefix();
 
-        return $this->GitCmdExecutor->branch(['--list', '"' . $feature_prefix . '*"'], true);
+        return (string)$this->GitCmdExecutor->branch(['--list', '"' . $feature_prefix . '*"'], true);
     }
 
     /**
@@ -73,11 +73,11 @@ class FeatureDriver extends DriverBase
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
 
-        $feature_prefix = $Config->featurePrefix();
+        $feature_prefix = (string)$Config->featurePrefix();
 
         $Fetch->all();
         $Fetch->upstream();
-        if (strlen($feature_prefix) > 0 && strpos($branch, $feature_prefix) !== 0) {
+        if ($feature_prefix !== '' && strpos($branch, $feature_prefix) !== 0) {
             $branch = $feature_prefix . $branch;
         }
 
@@ -92,7 +92,7 @@ class FeatureDriver extends DriverBase
     /**
      * @param null|string $branch
      * @throws Exception
-     * @return string
+     * @return string|null
      */
     public function featureStatus($branch = null)
     {
@@ -111,7 +111,7 @@ class FeatureDriver extends DriverBase
             }
         } elseif (!strpos($branch, $this->Driver(ConfigDriver::class)->hotfixPrefix()) !== 0
             && strpos($branch, $this->Driver(ConfigDriver::class)->releasePrefix()) !== 0
-            && (strlen($this->Driver(ConfigDriver::class)->featurePrefix()) > 0
+            && ((string)$this->Driver(ConfigDriver::class)->featurePrefix() !== ''
                 && strpos($branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0)
         ) {
             $branch = $this->Driver(ConfigDriver::class)->featurePrefix() . $branch;
@@ -127,15 +127,15 @@ class FeatureDriver extends DriverBase
      * @param  string $branch
      * @param array|Collection $option
      * @throws Exception
-     * @return string
+     * @return bool|string
      */
     public function featureChange($branch, $option = [])
     {
         $Config = $this->Driver(ConfigDriver::class);
-        $feature_prefix = $Config->featurePrefix();
+        $feature_prefix = (string)$Config->featurePrefix();
 
         $feature_branch = $branch;
-        if (strlen($feature_prefix) > 0 && strpos($branch, $feature_prefix) !== 0) {
+        if ($feature_prefix !== '' && strpos($branch, $feature_prefix) !== 0) {
             $feature_branch = $feature_prefix . $branch;
         }
 
@@ -173,23 +173,23 @@ class FeatureDriver extends DriverBase
      * @throws \Exception
      * @return string
      */
-    public function featurePublish($branch = null)
+    public function featurePublish($branch = null): string
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
 
-        $feature_prefix = $Config->featurePrefix();
+        $feature_prefix = (string)$Config->featurePrefix();
 
         $Fetch->all();
         $Fetch->upstream();
 
         if ($branch === null) {
             $branch = $this->getSelfBranchRef();
-        } elseif (strlen($feature_prefix) > 0 && strpos($branch, $feature_prefix) !== 0) {
+        } elseif ($feature_prefix !== '' && strpos($branch, $feature_prefix) !== 0) {
             $branch = $feature_prefix . $branch;
         }
 
-        return $this->GitCmdExecutor->push('upstream', $branch);
+        return (string)$this->GitCmdExecutor->push('upstream', $branch);
     }
 
     /**
@@ -200,23 +200,23 @@ class FeatureDriver extends DriverBase
      * @throws \Exception
      * @return string
      */
-    public function featurePush($branch = null)
+    public function featurePush($branch = null): string
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
 
-        $feature_prefix = $Config->featurePrefix();
+        $feature_prefix = (string)$Config->featurePrefix();
 
         $Fetch->all();
         $Fetch->upstream();
 
         if ($branch === null) {
             $branch = $this->getSelfBranchRef();
-        } elseif (strlen($feature_prefix) > 0 && strpos($branch, $feature_prefix) !== 0) {
+        } elseif ($feature_prefix !== '' && strpos($branch, $feature_prefix) !== 0) {
             $branch = $feature_prefix . $branch;
         }
 
-        return $this->GitCmdExecutor->push('origin', $branch);
+        return (string)$this->GitCmdExecutor->push('origin', $branch);
     }
 
     /**
@@ -227,17 +227,17 @@ class FeatureDriver extends DriverBase
      * @throws \Exception
      * @return string
      */
-    public function featureTrack($branch)
+    public function featureTrack($branch): string
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
 
-        $feature_prefix = $Config->featurePrefix();
+        $feature_prefix = (string)$Config->featurePrefix();
 
         $Fetch->all();
         $Fetch->upstream();
 
-        if (strlen($feature_prefix) > 0 && strpos($branch, $feature_prefix) !== 0) {
+        if ($feature_prefix !== '' && strpos($branch, $feature_prefix) !== 0) {
             $branch = $feature_prefix . $branch;
         }
 
@@ -254,7 +254,7 @@ class FeatureDriver extends DriverBase
             $this->GitCmdExecutor->checkout($branch);
         }
 
-        return $this->GitCmdExecutor->pull('upstream', $branch);
+        return (string)$this->GitCmdExecutor->pull('upstream', $branch);
     }
 
     /**
@@ -265,7 +265,7 @@ class FeatureDriver extends DriverBase
      * @throws \Exception
      * @return string
      */
-    public function featurePull($branch = null)
+    public function featurePull($branch = null): string
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
@@ -310,14 +310,14 @@ class FeatureDriver extends DriverBase
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
 
-        $feature_prefix = $Config->featurePrefix();
+        $feature_prefix = (string)$Config->featurePrefix();
 
         $Fetch->all();
         $Fetch->upstream();
 
         if ($repository === null) {
             $repository = $this->getSelfBranch();
-        } elseif (strlen($feature_prefix) > 0 && strpos($repository, $feature_prefix) !== 0) {
+        } elseif ($feature_prefix !== '' && strpos($repository, $feature_prefix) !== 0) {
             $repository = $feature_prefix . $repository;
         }
 

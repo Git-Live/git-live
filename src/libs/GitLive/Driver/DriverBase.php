@@ -163,7 +163,7 @@ abstract class DriverBase extends GitBase
      * @param null|string $repo
      * @return bool
      */
-    public function isClean($repo = null)
+    public function isClean($repo = null): bool
     {
         if ($repo === null) {
             $err = $this->GitCmdExecutor->status([], true);
@@ -184,7 +184,7 @@ abstract class DriverBase extends GitBase
      * @throws Exception
      * @return bool
      */
-    public function isCleanOrFail($repo = null, $error_msg = null)
+    public function isCleanOrFail($repo = null, $error_msg = null): bool
     {
         if ($repo === null) {
             $err = $this->GitCmdExecutor->status([], true);
@@ -204,7 +204,7 @@ abstract class DriverBase extends GitBase
      *
      * @return bool
      */
-    public function isRisky()
+    public function isRisky(): bool
     {
         $remotes = $this->GitCmdExecutor->remote(['-v'], OutputInterface::VERBOSITY_DEBUG);
         $origin_push = null;
@@ -246,7 +246,7 @@ abstract class DriverBase extends GitBase
      * @param  string $from
      * @return bool
      */
-    public function patchApplyCheck($from)
+    public function patchApplyCheck($from): bool
     {
         $res = $this->patchApplyDiff($from, OutputInterface::VERBOSITY_DEBUG);
 
@@ -290,7 +290,7 @@ abstract class DriverBase extends GitBase
      * @access      public
      * @return      bool
      */
-    public function isGitRepository()
+    public function isGitRepository(): bool
     {
         $res = trim($this->exec('git rev-parse --git-dir 2> /dev/null', OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
 
@@ -309,15 +309,17 @@ abstract class DriverBase extends GitBase
     /**
      * @return \GitLive\Support\Collection
      */
-    public function getGitLiveSetting()
+    public function getGitLiveSetting(): Collection
     {
         $setting = collect([]);
 
         $dir = $this->GitCmdExecutor->topLevelDir() . DIRECTORY_SEPARATOR;
         if (is_file($dir . '.gitlive.dist.json')) {
+            /** @noinspection JsonDecodeUsageInspection */
             $setting = $setting->merge(collect(json_decode(App::make(FileSystem::class)->getContents($dir . '.gitlive.dist.json'))));
         }
         if (is_file($dir . '.gitlive.json')) {
+            /** @noinspection JsonDecodeUsageInspection */
             $setting = $setting->merge(collect(json_decode(App::make(FileSystem::class)->getContents($dir . '.gitlive.json'))));
         }
 

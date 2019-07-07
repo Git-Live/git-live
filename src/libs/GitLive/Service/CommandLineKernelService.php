@@ -89,7 +89,10 @@ use GitLive\Command\StartCommand;
  */
 class CommandLineKernelService
 {
-    public function app()
+    /**
+     * @return array
+     */
+    public function app():array
     {
         $app = [
             CleanCommand::class,
@@ -146,7 +149,8 @@ class CommandLineKernelService
         ];
 
         return collect($app)
-            ->mapWithKeys(static function ($item) {
+            ->mapWithKeys(static function (string $item) {
+                /** @noinspection PhpUndefinedMethodInspection */
                 return [$item::getSignature() => static function () use ($item) {
                     return new $item;
                 }];

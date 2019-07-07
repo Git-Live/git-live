@@ -18,6 +18,24 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
+/**
+ * This file is part of Git-Live
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ *
+ * @category   GitCommand
+ * @package    Git-Live
+ * @subpackage Core
+ * @author     akito<akito-artisan@five-foxes.com>
+ * @author     suzunone<suzunone.eleven@gmail.com>
+ * @copyright  Project Git Live
+ * @license    MIT
+ * @version    GIT: $Id\$
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
+ */
+
 namespace GitLive\Support;
 
 use ArrayAccess;
@@ -26,10 +44,13 @@ use CachingIterator;
 use Countable;
 use Exception;
 use IteratorAggregate;
-use JsonSerializable;
+use /** @noinspection PhpUndefinedClassInspection */
+    JsonSerializable;
 use stdClass;
 use Symfony\Component\VarDumper\VarDumper;
 use Traversable;
+
+/** @noinspection PhpUndefinedClassInspection */
 
 /**
  * Class Collection
@@ -105,6 +126,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
         return $this->toJson();
     }
 
+    /** @noinspection MagicMethodsValidityInspection */
     /**
      * Dynamically access collection proxies.
      *
@@ -115,6 +137,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function __get($key)
     {
+        /** @noinspection TypeUnsafeArraySearchInspection */
         if (!in_array($key, static::$proxies)) {
             throw new Exception("Property [{$key}] does not exist on this collection instance.");
         }
@@ -231,7 +254,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
                 return $item !== null;
             })->sort()->values();
         $count = $values->count();
-        if ($count == 0) {
+        if ($count === 0) {
             return null;
         }
         $middle = (int)($count / 2);
@@ -264,6 +287,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
         $highestValue = $sorted->last();
 
         return $sorted->filter(static function ($value) use ($highestValue) {
+            /** @noinspection TypeUnsafeComparisonInspection */
             return $value == $highestValue;
         })->sort()->keys()->all();
     }
@@ -308,6 +332,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
                 return $this->first($key, $placeholder) !== $placeholder;
             }
 
+            /** @noinspection TypeUnsafeArraySearchInspection */
             return in_array($key, $this->items);
         }
 
@@ -1123,6 +1148,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function union($items)
     {
+        /** @noinspection AdditionOperationOnArraysInspection */
         return new static($this->items + $this->getArrayableItems($items));
     }
 
@@ -1354,6 +1380,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
         }
 
         return $this->filter(static function ($item) use ($callback) {
+            /** @noinspection TypeUnsafeComparisonInspection */
             return $item != $callback;
         });
     }
@@ -1381,7 +1408,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
             return array_search($value, $this->items, $strict);
         }
         foreach ($this->items as $key => $item) {
-            if (call_user_func($value, $item, $key)) {
+            if ($value($item, $key)) {
                 return $key;
             }
         }
@@ -1666,9 +1693,9 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Reset the keys on the underlying array.
      *
-     * @return static
+     * @return self
      */
-    public function values()
+    public function values(): self
     {
         return new static(array_values($this->items));
     }
@@ -1691,7 +1718,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
             return new static(func_get_args());
         }, $this->items], $arrayableItems);
 
-        return new static(call_user_func_array('array_map', $params));
+        return new static(array_map(...$params));
     }
 
     /**
@@ -1711,12 +1738,13 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return array_map(static function ($value) {
             return $value instanceof Arrayable ? $value->toArray() : $value;
         }, $this->items);
     }
+    /** @noinspection ReturnTypeCanBeDeclaredInspection */
 
     /**
      * Convert the object into something JSON serializable.
@@ -1726,6 +1754,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     public function jsonSerialize()
     {
         return array_map(static function ($value) {
+            /** @noinspection PhpUndefinedClassInspection */
             if ($value instanceof JsonSerializable) {
                 return $value->jsonSerialize();
             }
@@ -1749,7 +1778,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     public function toJson($options = 0): string
     {
         return json_encode($this->jsonSerialize(), $options);
-    }
+    }/** @noinspection ReturnTypeCanBeDeclaredInspection */
 
     /**
      * Get an iterator for the items.
@@ -1770,7 +1799,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     public function getCachingIterator($flags = CachingIterator::CALL_TOSTRING): CachingIterator
     {
         return new CachingIterator($this->getIterator(), $flags);
-    }
+    }/** @noinspection ReturnTypeCanBeDeclaredInspection */
 
     /**
      * Count the number of items in the collection.
@@ -1790,7 +1819,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     public function toBase(): self
     {
         return new self($this);
-    }
+    }/** @noinspection ReturnTypeCanBeDeclaredInspection */
 
     /**
      * Determine if an item exists at an offset.
@@ -1865,16 +1894,18 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
             $strings = array_filter([$retrieved, $value], static function ($value) {
                 return is_string($value) || (is_object($value) && method_exists($value, '__toString'));
             });
-            if (count($strings) < 2 && count(array_filter([$retrieved, $value], 'is_object')) == 1) {
+            if (count($strings) < 2 && count(array_filter([$retrieved, $value], 'is_object')) === 1) {
                 return in_array($operator, ['!=', '<>', '!==']);
             }
             switch ($operator) {
                 default:
                 case '=':
                 case '==':
+                    /** @noinspection TypeUnsafeComparisonInspection */
                     return $retrieved == $value;
                 case '!=':
                 case '<>':
+                    /** @noinspection TypeUnsafeComparisonInspection */
                     return $retrieved != $value;
                 case '<':
                     return $retrieved < $value;
@@ -1940,6 +1971,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
         if ($items instanceof Jsonable) {
             return json_decode($items->toJson(), true);
         }
+        /** @noinspection PhpUndefinedClassInspection */
         if ($items instanceof JsonSerializable) {
             return $items->jsonSerialize();
         }

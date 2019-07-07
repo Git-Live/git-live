@@ -84,6 +84,7 @@ class FireDriver extends DriverBase
 
     /**
      *
+     * @throws Exception
      */
     public function chNewBranch()
     {
@@ -99,6 +100,10 @@ class FireDriver extends DriverBase
         $this->GitCmdExecutor->commit($message);
     }
 
+    /**
+     * @param $message
+     * @throws Exception
+     */
     public function fire($message)
     {
         $message = trim($message);

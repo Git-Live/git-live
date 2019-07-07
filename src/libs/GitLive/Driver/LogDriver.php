@@ -50,7 +50,7 @@ class LogDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function logDevelop($option = [])
+    public function logDevelop($option = []): string
     {
         return $this->log($this->Driver(ConfigDriver::class)->develop(), $option);
     }
@@ -63,7 +63,7 @@ class LogDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function logMaster($option = [])
+    public function logMaster($option = []): string
     {
         return $this->log($this->Driver(ConfigDriver::class)->master(), $option);
     }
@@ -74,14 +74,14 @@ class LogDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function log($from_branch, $option = [])
+    public function log($from_branch, $option = []): string
     {
         $this->Driver(FetchDriver::class)->all();
         $to_branch = $this->getSelfBranch();
 
         $option[] = '--left-right';
 
-        return $this->GitCmdExecutor->log(
+        return (string)$this->GitCmdExecutor->log(
             'upstream/' . $from_branch,
             $to_branch,
             $option,

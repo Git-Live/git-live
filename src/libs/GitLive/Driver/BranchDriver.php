@@ -46,7 +46,7 @@ class BranchDriver extends DriverBase
      *
      * @return Collection
      */
-    public function branchList()
+    public function branchList(): Collection
     {
         $branch = $this->GitCmdExecutor->branch([], true);
 
@@ -58,7 +58,7 @@ class BranchDriver extends DriverBase
      *
      * @return Collection
      */
-    public function branchListAll()
+    public function branchListAll(): Collection
     {
         $branch = $this->GitCmdExecutor->branch(['-a'], true);
 
@@ -71,7 +71,7 @@ class BranchDriver extends DriverBase
      * @param string $branch
      * @return bool
      */
-    public function isBranchExistsAll($branch)
+    public function isBranchExistsAll($branch): bool
     {
         $branches = $this->branchListAll();
         if ($branches->search('remotes/origin/' . $branch) !== false) {

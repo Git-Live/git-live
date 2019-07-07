@@ -48,7 +48,7 @@ abstract class CommandBase extends Command
      */
     protected static $signature_name = '';
 
-    public static function getSignature()
+    public static function getSignature(): string
     {
         return static::$signature_name;
     }

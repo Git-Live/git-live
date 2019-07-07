@@ -46,7 +46,7 @@ class Envelopment extends GitBase
      * @return bool
      * @codeCoverageIgnore
      */
-    public function isWin()
+    public function isWin(): bool
     {
         return DIRECTORY_SEPARATOR === '\\';
     }
@@ -58,7 +58,7 @@ class Envelopment extends GitBase
      * @return bool
      * @codeCoverageIgnore
      */
-    public function isDebug()
+    public function isDebug(): bool
     {
         return $this->getEnv('APP_ENV', 'production') !== 'production';
     }
@@ -80,7 +80,7 @@ class Envelopment extends GitBase
      * @param string $value
      * @return bool
      */
-    public function putEnv($key, $value)
+    public function putEnv($key, $value): bool
     {
         return putenv($key . '=' . $value);
     }

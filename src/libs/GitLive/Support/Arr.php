@@ -181,12 +181,13 @@ class Arr extends GitBase
             if (empty($array)) {
                 return value($default);
             }
+            /** @noinspection LoopWhichDoesNotLoopInspection */
             foreach ($array as $item) {
                 return $item;
             }
         }
         foreach ($array as $key => $value) {
-            if (call_user_func($callback, $value, $key)) {
+            if ($callback($value, $key)) {
                 return $value;
             }
         }
@@ -496,9 +497,10 @@ class Arr extends GitBase
         if ($seed === null) {
             shuffle($array);
         } else {
-            srand($seed);
+            mt_srand($seed);
             usort($array, static function () {
-                return rand(-1, 1);
+                /** @noinspection RandomApiMigrationInspection */
+                return mt_rand(-1, 1);
             });
         }
 
@@ -528,6 +530,7 @@ class Arr extends GitBase
                 $value = static::sortRecursive($value);
             }
         }
+        unset($value);
         if (static::isAssoc($array)) {
             ksort($array);
         } else {

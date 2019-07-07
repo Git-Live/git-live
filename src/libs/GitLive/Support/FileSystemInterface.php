@@ -40,7 +40,7 @@ interface FileSystemInterface
 {
     /**
      * @param string $url
-     * @return string
+     * @return bool|string
      */
     public function getContents($url);
 
@@ -53,7 +53,7 @@ interface FileSystemInterface
     /**
      * @param string $url
      * @param mixed  $content
-     * @return int
+     * @return bool|int
      */
     public function putContents($url, $content);
 }

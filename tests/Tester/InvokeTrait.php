@@ -39,8 +39,8 @@ trait InvokeTrait
      * @param object|string $instance
      * @param string $method_name
      * @param array $options
-     * @throws \ReflectionException
      * @return mixed
+     * @throws \ReflectionException
      */
     public function invokeExecuteMethod($instance, string $method_name, array $options)
     {
@@ -50,11 +50,12 @@ trait InvokeTrait
 
         return $method->invokeArgs($instance, $options);
     }
+
     /**
      * @param object|string $instance
      * @param string $property_name
-     * @throws \ReflectionException
      * @return mixed
+     * @throws \ReflectionException
      */
     public function invokeGetProperty($instance, string $property_name)
     {
@@ -64,6 +65,7 @@ trait InvokeTrait
 
         return $property->getValue($instance);
     }
+
     /**
      * @param object|string $instance
      * @param string $property_name
