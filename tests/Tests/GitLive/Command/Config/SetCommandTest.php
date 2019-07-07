@@ -75,14 +75,14 @@ class SetCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains("", $output);
+        $this->assertContains('', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
         dump($output);
 
         $this->assertEquals([
-            "git rev-parse --git-dir 2> /dev/null",
+            'git rev-parse --git-dir 2> /dev/null',
             'git config --local gitlive.branch.develop.name "staging"',
         ], data_get($this->spy, '*.0'));
     }
@@ -115,14 +115,14 @@ class SetCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains("", $output);
+        $this->assertContains('', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
         dump($output);
 
         $this->assertEquals([
-            "git rev-parse --git-dir 2> /dev/null",
+            'git rev-parse --git-dir 2> /dev/null',
             'git config --local gitlive.branch.develop.name "staging"',
         ], data_get($this->spy, '*.0'));
     }
@@ -155,14 +155,14 @@ class SetCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains("", $output);
+        $this->assertContains('', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
         dump($output);
 
         $this->assertEquals([
-            "git rev-parse --git-dir 2> /dev/null",
+            'git rev-parse --git-dir 2> /dev/null',
             'git config --global gitlive.branch.develop.name "staging"',
         ], data_get($this->spy, '*.0'));
     }
@@ -195,14 +195,14 @@ class SetCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains("", $output);
+        $this->assertContains('', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
         dump($output);
 
         $this->assertEquals([
-            "git rev-parse --git-dir 2> /dev/null",
+            'git rev-parse --git-dir 2> /dev/null',
             'git config --system gitlive.branch.develop.name "staging"',
         ], data_get($this->spy, '*.0'));
     }

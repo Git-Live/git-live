@@ -96,13 +96,13 @@ class MergeDevelopCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.develop.name",
-            2 => "git fetch --all",
-            3 => "git fetch -p",
-            4 => "git fetch upstream",
-            5 => "git fetch -p upstream",
-            6 => "git merge upstream/develop",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.develop.name',
+            2 => 'git fetch --all',
+            3 => 'git fetch -p',
+            4 => 'git fetch upstream',
+            5 => 'git fetch -p upstream',
+            6 => 'git merge upstream/develop',
         ], data_get($this->spy, '*.0'));
     }
 }

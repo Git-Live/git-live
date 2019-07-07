@@ -171,7 +171,7 @@ class ArrTest extends TestCase
     public function testFirst()
     {
         $array = [100, 200, 300];
-        $value = Arr::first($array, function ($value) {
+        $value = Arr::first($array, static function ($value) {
             return $value >= 150;
         });
         $this->assertEquals(200, $value);
@@ -183,11 +183,11 @@ class ArrTest extends TestCase
     public function testLast()
     {
         $array = [100, 200, 300];
-        $last = Arr::last($array, function ($value) {
+        $last = Arr::last($array, static function ($value) {
             return $value < 250;
         });
         $this->assertEquals(200, $last);
-        $last = Arr::last($array, function ($value, $key) {
+        $last = Arr::last($array, static function ($value, $key) {
             return $key < 2;
         });
         $this->assertEquals(200, $last);
@@ -561,7 +561,7 @@ class ArrTest extends TestCase
         $sorted = array_values(Arr::sort($unsorted));
         $this->assertEquals($expected, $sorted);
         // sort with closure
-        $sortedWithClosure = array_values(Arr::sort($unsorted, function ($value) {
+        $sortedWithClosure = array_values(Arr::sort($unsorted, static function ($value) {
             return $value['name'];
         }));
         $this->assertEquals($expected, $sortedWithClosure);
@@ -633,7 +633,7 @@ class ArrTest extends TestCase
     public function testWhere()
     {
         $array = [100, '200', 300, '400', 500];
-        $array = Arr::where($array, function ($value, $key) {
+        $array = Arr::where($array, static function ($value, $key) {
             return is_string($value);
         });
         $this->assertEquals([1 => 200, 3 => 400], $array);
@@ -644,7 +644,7 @@ class ArrTest extends TestCase
     public function testWhereKey()
     {
         $array = ['10' => 1, 'foo' => 3, 20 => 2];
-        $array = Arr::where($array, function ($value, $key) {
+        $array = Arr::where($array, static function ($value, $key) {
             return is_numeric($key);
         });
         $this->assertEquals(['10' => 1, 20 => 2], $array);

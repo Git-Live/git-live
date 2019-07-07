@@ -99,7 +99,7 @@ abstract class DeployBase extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function buildOpen($release_rep = null)
+    public function buildOpen($release_rep = null): string
     {
         if ($this->isReleaseOpen()) {
             throw new Exception(sprintf(__('Already %s opened.'), ReleaseDriver::MODE));
@@ -140,7 +140,7 @@ abstract class DeployBase extends DriverBase
      * @return bool
      * @codeCoverageIgnore
      */
-    public function isReleaseOpen()
+    public function isReleaseOpen(): bool
     {
         try {
             $this->getReleaseRepository();
@@ -158,7 +158,7 @@ abstract class DeployBase extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function getReleaseRepository()
+    public function getReleaseRepository(): string
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $release_prefix = App::make(ConfigDriver::class)->releasePrefix();
@@ -189,7 +189,7 @@ abstract class DeployBase extends DriverBase
      * @return bool
      * @codeCoverageIgnore
      */
-    public function isHotfixOpen()
+    public function isHotfixOpen(): bool
     {
         try {
             $this->getHotfixRepository();
@@ -207,7 +207,7 @@ abstract class DeployBase extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function getHotfixRepository()
+    public function getHotfixRepository(): string
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $release_prefix = App::make(ConfigDriver::class)->hotfixPrefix();
@@ -342,7 +342,7 @@ abstract class DeployBase extends DriverBase
      * @param       bool $with_merge_commit OPTIONAL:false
      * @return string
      */
-    public function buildState($ck_only = false, $with_merge_commit = false)
+    public function buildState($ck_only = false, $with_merge_commit = false): string
     {
         $res = '';
 

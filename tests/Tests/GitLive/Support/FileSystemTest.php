@@ -97,7 +97,7 @@ class FileSystemTest extends TestCase
      */
     public function testOutputWithOutput()
     {
-        $output = new StreamOutput(fopen('php://memory', 'w', false));
+        $output = new StreamOutput(fopen('php://memory', 'wb', false));
         $output->setDecorated(false);
 
         $fs = new FileSystem($output);
@@ -116,7 +116,7 @@ class FileSystemTest extends TestCase
      */
     public function testGetContentsWithProgress()
     {
-        $output = new StreamOutput(fopen('php://memory', 'w', false));
+        $output = new StreamOutput(fopen('php://memory', 'wb', false));
         $output->setDecorated(false);
 
         $fs = new FileSystem($output);
@@ -131,7 +131,7 @@ class FileSystemTest extends TestCase
      */
     public function testGetContentsWithProgress301()
     {
-        $output = new StreamOutput(fopen('php://memory', 'w', false));
+        $output = new StreamOutput(fopen('php://memory', 'wb', false));
         $output->setDecorated(false);
 
         $fs = new FileSystem($output);
@@ -146,7 +146,7 @@ class FileSystemTest extends TestCase
      */
     public function testGetContentsWithProgress404()
     {
-        $output = new StreamOutput(fopen('php://memory', 'w', false));
+        $output = new StreamOutput(fopen('php://memory', 'wb', false));
         $output->setDecorated(false);
 
         $fs = new FileSystem($output);

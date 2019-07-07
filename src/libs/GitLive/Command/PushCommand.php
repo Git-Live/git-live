@@ -26,6 +26,7 @@ use GitLive\Driver\ConfigDriver;
 use GitLive\Driver\FetchDriver;
 use GitLive\Support\GitCmdExecutor;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class PushCommand extends CommandBase
@@ -40,6 +41,11 @@ class PushCommand extends CommandBase
             ->setDescription(__('Push from the appropriate remote repository.'))
             // the full command description shown when running the command with
             // the "--help" option
+            ->addOption(
+                'force',
+                'f',
+                InputOption::VALUE_NONE
+            )
             ->setHelp(__('Pull from the appropriate remote repository.'));
     }
 

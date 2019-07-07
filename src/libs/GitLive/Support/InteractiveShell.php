@@ -58,11 +58,11 @@ class InteractiveShell extends GitBase implements InteractiveShellInterface
      *
      * @access      public
      * @param  array|string $shell_message
-     * @param  bool|string  $using_default OPTIONAL:false
+     * @param  bool|string $using_default OPTIONAL:false
      * @return string
      * @codeCoverageIgnore
      */
-    public function interactiveShell($shell_message, $using_default = false)
+    public function interactiveShell($shell_message, $using_default = false): string
     {
         if (is_array($shell_message)) {
             $shell_message = implode("\n", $shell_message);

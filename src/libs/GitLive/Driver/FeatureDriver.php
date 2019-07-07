@@ -125,7 +125,7 @@ class FeatureDriver extends DriverBase
      *
      * @access      public
      * @param  string $branch
-     * @param array   $option
+     * @param array|Collection $option
      * @throws Exception
      * @return string
      */
@@ -329,8 +329,8 @@ class FeatureDriver extends DriverBase
 
     /**
      * @param Collection $branch_list
-     * @param string     $feature_branch
-     * @param array      $option
+     * @param string $feature_branch
+     * @param array|Collection $option
      * @return bool|string
      */
     protected function changeRemoteIf($branch_list, $feature_branch, $option = [])
@@ -352,13 +352,14 @@ class FeatureDriver extends DriverBase
 
     /**
      * @param Collection $branch_list
-     * @param string     $remote_branch
-     * @param string     $feature_branch
-     * @param array      $option
+     * @param string $remote_branch
+     * @param string $feature_branch
+     * @param array|Collection $option
      * @return bool|string
      */
     protected function changeIf($branch_list, $remote_branch, $feature_branch, $option = [])
     {
+        $option = collect($option);
         if ($branch_list->search($remote_branch) !== false) {
             $this->GitCmdExecutor->checkout($remote_branch, $option, false, OutputInterface::VERBOSITY_VERY_VERBOSE);
 

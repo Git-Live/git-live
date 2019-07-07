@@ -91,7 +91,7 @@ class BranchDriver extends DriverBase
      * @param $branch
      * @return bool
      */
-    public function isBranchExistsSimple($branch)
+    public function isBranchExistsSimple($branch): bool
     {
         $branches = $this->branchList();
 
@@ -105,10 +105,10 @@ class BranchDriver extends DriverBase
     /**
      * Get a Collection from the text of the result of "git branch - list".
      *
-     * @param $branch
+     * @param string $branch
      * @return Collection
      */
-    private function makeArray($branch)
+    private function makeArray(string $branch): Collection
     {
         $branch = explode("\n", rtrim($branch));
 

@@ -57,8 +57,8 @@ class FileSystem extends GitBase implements FileSystemInterface
 
     /**
      * @param string $url
-     * @param bool   $use_include_path
-     * @param null   $context
+     * @param bool $use_include_path
+     * @param null $context
      * @return false|string
      */
     public function getContents($url, $use_include_path = false, $context = null)
@@ -68,7 +68,7 @@ class FileSystem extends GitBase implements FileSystemInterface
 
     /**
      * @param string $url
-     * @return string
+     * @return false|string
      */
     public function getContentsWithProgress($url)
     {
@@ -111,7 +111,7 @@ class FileSystem extends GitBase implements FileSystemInterface
 
                             break;
                         case STREAM_NOTIFY_PROGRESS:
-                            if (isset($progressBar)) {
+                            if ($progressBar instanceof ProgressBar) {
                                 $progressBar->advance($bytes_transferred - $bite_diff);
                                 $bite_diff = $bytes_transferred;
                             } else {
@@ -149,9 +149,9 @@ class FileSystem extends GitBase implements FileSystemInterface
 
     /**
      * @param string $url
-     * @param mixed  $content
-     * @param int    $flags
-     * @param null   $context
+     * @param mixed $content
+     * @param int $flags
+     * @param null $context
      * @return bool|int
      */
     public function putContents($url, $content, $flags = 0, $context = null)

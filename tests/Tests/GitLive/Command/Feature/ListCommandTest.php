@@ -74,8 +74,8 @@ class ListCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains(" feature/suzunone_branch1", $output);
-        $this->assertContains(" feature/suzunone_branch2", $output);
+        $this->assertContains(' feature/suzunone_branch1', $output);
+        $this->assertContains(' feature/suzunone_branch2', $output);
         $this->assertNotContains('fatal', $output);
 
         dump($this->spy);
@@ -83,11 +83,11 @@ class ListCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.feature.prefix.ignore",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.feature.prefix.name",
-            4 => "git branch --list \"feature/*\"",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.feature.prefix.name',
+            4 => 'git branch --list "feature/*"',
         ], data_get($this->spy, '*.0'));
 
         // ...

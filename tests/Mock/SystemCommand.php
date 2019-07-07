@@ -47,14 +47,14 @@ class SystemCommand implements SystemCommandInterface
      * @param string   $cmd
      * @param bool|int $verbosity
      * @param null     $output_verbosity
-     * @return string
+     * @return string|null
      */
-    public function exec($cmd, $verbosity = 0, $output_verbosity = null)
+    public function exec(string $cmd, $verbosity = 0, $output_verbosity = null)
     {
         dump($cmd);
 
         static::$cmd_cue[] = $cmd;
 
-        return $cmd;
+        return (string)$cmd;
     }
 }

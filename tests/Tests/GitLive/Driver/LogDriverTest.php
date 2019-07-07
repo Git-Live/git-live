@@ -58,7 +58,7 @@ class LogDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -66,7 +66,7 @@ class LogDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -75,7 +75,7 @@ class LogDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -83,7 +83,7 @@ class LogDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -92,7 +92,7 @@ class LogDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'refs/heads/feature/example_1';
@@ -101,7 +101,7 @@ class LogDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git log --left-right upstream/stage..refs/heads/feature/example_1', false, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'diff text';
@@ -109,7 +109,7 @@ class LogDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -122,12 +122,12 @@ class LogDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.develop.name",
-            "git fetch --all",
-            "git fetch -p",
-            "git rev-parse --abbrev-ref HEAD 2>/dev/null",
-            "git log --left-right upstream/stage..refs/heads/feature/example_1",
+            'git rev-parse --git-dir 2> /dev/null',
+            'git config --get gitlive.branch.develop.name',
+            'git fetch --all',
+            'git fetch -p',
+            'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            'git log --left-right upstream/stage..refs/heads/feature/example_1',
         ], data_get($spy, '*.0'));
     }
 
@@ -143,7 +143,7 @@ class LogDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -151,7 +151,7 @@ class LogDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -160,7 +160,7 @@ class LogDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -168,7 +168,7 @@ class LogDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -177,7 +177,7 @@ class LogDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'refs/heads/feature/example_1';
@@ -186,7 +186,7 @@ class LogDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git log --left-right upstream/master..refs/heads/feature/example_1', false, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'diff text';
@@ -194,7 +194,7 @@ class LogDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -207,12 +207,12 @@ class LogDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.master.name",
-            "git fetch --all",
-            "git fetch -p",
-            "git rev-parse --abbrev-ref HEAD 2>/dev/null",
-            "git log --left-right upstream/master..refs/heads/feature/example_1",
+            'git rev-parse --git-dir 2> /dev/null',
+            'git config --get gitlive.branch.master.name',
+            'git fetch --all',
+            'git fetch -p',
+            'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            'git log --left-right upstream/master..refs/heads/feature/example_1',
         ], data_get($spy, '*.0'));
     }
 }

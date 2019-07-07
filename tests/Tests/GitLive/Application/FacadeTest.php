@@ -64,7 +64,7 @@ class FacadeTest extends TestCase
         $BindWith = new BindTestWithExample();
         Container::bindContext('$' . 'bindTest', $BindWith);
         Container::bindContext('$' . 'text', 'Suzunone');
-        Container::bindContext('$' . 'closure', function () {
+        Container::bindContext('$' . 'closure', static function () {
             return 'Eleven';
         });
 

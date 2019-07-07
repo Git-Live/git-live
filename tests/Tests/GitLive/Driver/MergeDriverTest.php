@@ -58,7 +58,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -84,7 +84,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -92,7 +92,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/stage --stdout', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -109,7 +109,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -117,7 +117,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -125,7 +125,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch upstream', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -133,7 +133,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p upstream', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -141,7 +141,7 @@ class MergeDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -152,13 +152,13 @@ class MergeDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.develop.name",
-            "git fetch --all",
-            "git fetch -p",
-            "git fetch upstream",
-            "git fetch -p upstream",
-            "git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/stage --stdout",
+            'git rev-parse --git-dir 2> /dev/null',
+            'git config --get gitlive.branch.develop.name',
+            'git fetch --all',
+            'git fetch -p',
+            'git fetch upstream',
+            'git fetch -p upstream',
+            'git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/stage --stdout',
         ], data_get($spy, '*.0'));
     }
 
@@ -174,7 +174,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -200,7 +200,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
@@ -208,7 +208,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'error: test.file: No such file or directory';
@@ -217,7 +217,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout| git apply --check', false, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'error: test.file: No such file or directory';
@@ -226,7 +226,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -234,7 +234,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -242,7 +242,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch upstream', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -250,7 +250,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p upstream', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -258,7 +258,7 @@ class MergeDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -271,14 +271,14 @@ class MergeDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.master.name",
-            "git fetch --all",
-            "git fetch -p",
-            "git fetch upstream",
-            "git fetch -p upstream",
-            "git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout",
-            "git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout| git apply --check",
+            'git rev-parse --git-dir 2> /dev/null',
+            'git config --get gitlive.branch.master.name',
+            'git fetch --all',
+            'git fetch -p',
+            'git fetch upstream',
+            'git fetch -p upstream',
+            'git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout',
+            'git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/master --stdout| git apply --check',
         ], data_get($spy, '*.0'));
     }
 
@@ -294,7 +294,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -320,7 +320,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -329,7 +329,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -337,7 +337,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -345,7 +345,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch upstream', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -353,7 +353,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p upstream', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -362,7 +362,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git merge upstream/stage', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -370,7 +370,7 @@ class MergeDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -381,13 +381,13 @@ class MergeDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.develop.name",
-            "git fetch --all",
-            "git fetch -p",
-            "git fetch upstream",
-            "git fetch -p upstream",
-            "git merge upstream/stage",
+            'git rev-parse --git-dir 2> /dev/null',
+            'git config --get gitlive.branch.develop.name',
+            'git fetch --all',
+            'git fetch -p',
+            'git fetch upstream',
+            'git fetch -p upstream',
+            'git merge upstream/stage',
         ], data_get($spy, '*.0'));
     }
 
@@ -403,7 +403,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -429,7 +429,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'master';
@@ -438,7 +438,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch --all', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -446,7 +446,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -454,7 +454,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch upstream', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -462,7 +462,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git fetch -p upstream', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -471,7 +471,7 @@ class MergeDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git merge upstream/master', false, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -479,7 +479,7 @@ class MergeDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -490,13 +490,13 @@ class MergeDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            "git rev-parse --git-dir 2> /dev/null",
-            "git config --get gitlive.branch.master.name",
-            "git fetch --all",
-            "git fetch -p",
-            "git fetch upstream",
-            "git fetch -p upstream",
-            "git merge upstream/master",
+            'git rev-parse --git-dir 2> /dev/null',
+            'git config --get gitlive.branch.master.name',
+            'git fetch --all',
+            'git fetch -p',
+            'git fetch upstream',
+            'git fetch -p upstream',
+            'git merge upstream/master',
         ], data_get($spy, '*.0'));
     }
 }

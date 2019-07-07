@@ -59,7 +59,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->never()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -67,7 +67,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->once()
             //->with('git config --global gitlive.global_param_key "global_param_value"', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -75,7 +75,7 @@ class PullRequestDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -86,12 +86,12 @@ class PullRequestDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git fetch --all",
-            1 => "git fetch -p",
-            2 => "git fetch upstream",
-            3 => "git fetch -p upstream",
+            0 => 'git fetch --all',
+            1 => 'git fetch -p',
+            2 => 'git fetch upstream',
+            3 => 'git fetch -p upstream',
             4 => "git fetch upstream '+refs/pull/*:refs/remotes/pr/*'",
-            5 => "git checkout -b pullreq/24 remotes/pr/24/head",
+            5 => 'git checkout -b pullreq/24 remotes/pr/24/head',
         ], data_get($spy, '*.0'));
     }
 
@@ -108,7 +108,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->never()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -116,7 +116,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'refs/heads/pullreq/24';
@@ -124,7 +124,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->once()
             //->with('git config --global gitlive.global_param_key "global_param_value"', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -132,7 +132,7 @@ class PullRequestDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -143,13 +143,13 @@ class PullRequestDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git symbolic-ref HEAD 2>/dev/null",
-            1 => "git fetch --all",
-            2 => "git fetch -p",
-            3 => "git fetch upstream",
-            4 => "git fetch -p upstream",
+            0 => 'git symbolic-ref HEAD 2>/dev/null',
+            1 => 'git fetch --all',
+            2 => 'git fetch -p',
+            3 => 'git fetch upstream',
+            4 => 'git fetch -p upstream',
             5 => "git fetch upstream '+refs/pull/*:refs/remotes/pr/*'",
-            6 => "git pull upstream pull/24/head",
+            6 => 'git pull upstream pull/24/head',
         ], data_get($spy, '*.0'));
     }
 
@@ -166,7 +166,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->never()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -174,7 +174,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'refs/heads/feature/pullreq/24';
@@ -182,7 +182,7 @@ class PullRequestDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -193,7 +193,7 @@ class PullRequestDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git symbolic-ref HEAD 2>/dev/null",
+            0 => 'git symbolic-ref HEAD 2>/dev/null',
         ], data_get($spy, '*.0'));
     }
 
@@ -210,7 +210,7 @@ class PullRequestDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -219,7 +219,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -227,7 +227,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'featurePrefix/';
@@ -236,7 +236,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->once()
             //->with('git config --global gitlive.global_param_key "global_param_value"', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -244,7 +244,7 @@ class PullRequestDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -255,18 +255,18 @@ class PullRequestDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git fetch --all",
-            1 => "git fetch -p",
-            2 => "git fetch upstream",
-            3 => "git fetch -p upstream",
+            0 => 'git fetch --all',
+            1 => 'git fetch -p',
+            2 => 'git fetch upstream',
+            3 => 'git fetch -p upstream',
             4 => "git fetch upstream '+refs/pull/*:refs/remotes/pr/*'",
-            5 => "git rev-parse --git-dir 2> /dev/null",
-            6 => "git config --get gitlive.branch.feature.prefix.ignore",
-            7 => "git rev-parse --git-dir 2> /dev/null",
-            8 => "git config --get gitlive.branch.feature.prefix.name",
-            9 => "git branch -a",
-            10 => "git checkout remotes/pr/24/head",
-            11 => "git checkout -b featurePrefix/new_feature_name remotes/pr/24/head",
+            5 => 'git rev-parse --git-dir 2> /dev/null',
+            6 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            7 => 'git rev-parse --git-dir 2> /dev/null',
+            8 => 'git config --get gitlive.branch.feature.prefix.name',
+            9 => 'git branch -a',
+            10 => 'git checkout remotes/pr/24/head',
+            11 => 'git checkout -b featurePrefix/new_feature_name remotes/pr/24/head',
         ], data_get($spy, '*.0'));
     }
 
@@ -283,7 +283,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->never()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -291,7 +291,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->once()
             //->with('git config --global gitlive.global_param_key "global_param_value"', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -299,7 +299,7 @@ class PullRequestDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -310,12 +310,12 @@ class PullRequestDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git fetch --all",
-            1 => "git fetch -p",
-            2 => "git fetch upstream",
-            3 => "git fetch -p upstream",
+            0 => 'git fetch --all',
+            1 => 'git fetch -p',
+            2 => 'git fetch upstream',
+            3 => 'git fetch -p upstream',
             4 => "git fetch upstream '+refs/pull/*:refs/remotes/pr/*'",
-            5 => "git pull upstream pull/24/head",
+            5 => 'git pull upstream pull/24/head',
         ], data_get($spy, '*.0'));
     }
 
@@ -333,7 +333,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->never()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -341,7 +341,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'stage';
@@ -349,7 +349,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'refs/heads/feature/example_1';
@@ -358,7 +358,7 @@ class PullRequestDriverTest extends TestCase
         $mock->shouldReceive('exec')
             //->once()
             //->with('git config --global gitlive.global_param_key "global_param_value"', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -366,7 +366,7 @@ class PullRequestDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );

@@ -46,7 +46,7 @@ interface FileSystemInterface
 
     /**
      * @param string $url
-     * @return string
+     * @return false|string
      */
     public function getContentsWithProgress($url);
 

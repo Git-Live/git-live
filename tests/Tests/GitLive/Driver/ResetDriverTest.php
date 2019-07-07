@@ -62,7 +62,7 @@ class ResetDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->never()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -71,7 +71,7 @@ class ResetDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'feature/unit_testing';
@@ -80,7 +80,7 @@ class ResetDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git status', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'On branch master
@@ -90,7 +90,7 @@ nothing to commit, working tree clean';
         $mock->shouldReceive('exec')
             //->once()
             //->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -98,7 +98,7 @@ nothing to commit, working tree clean';
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -109,11 +109,11 @@ nothing to commit, working tree clean';
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git status",
-            1 => "git fetch upstream",
-            2 => "git fetch -p upstream",
-            3 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
-            4 => "git reset --hard upstream/feature/unit_testing",
+            0 => 'git status',
+            1 => 'git fetch upstream',
+            2 => 'git fetch -p upstream',
+            3 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            4 => 'git reset --hard upstream/feature/unit_testing',
         ], data_get($spy, '*.0'));
     }
 
@@ -130,7 +130,7 @@ nothing to commit, working tree clean';
         $mock->shouldReceive('exec')
             //->once()
             //->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -138,7 +138,7 @@ nothing to commit, working tree clean';
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -185,7 +185,7 @@ nothing to commit, working tree clean';
         $mock->shouldReceive('exec')
             //->once()
             //->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -193,7 +193,7 @@ nothing to commit, working tree clean';
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -240,7 +240,7 @@ nothing to commit, working tree clean';
         $mock->shouldReceive('exec')
             //->once()
             //->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -248,7 +248,7 @@ nothing to commit, working tree clean';
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -296,7 +296,7 @@ nothing to commit, working tree clean';
         $mock->shouldReceive('exec')
             //->once()
             //->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -304,7 +304,7 @@ nothing to commit, working tree clean';
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -351,7 +351,7 @@ nothing to commit, working tree clean';
         $mock->shouldReceive('exec')
             ->never()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -360,7 +360,7 @@ nothing to commit, working tree clean';
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'feature/unit_testing';
@@ -369,7 +369,7 @@ nothing to commit, working tree clean';
         $mock->shouldReceive('exec')
             ->once()
             ->with('git status', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'On branch master
@@ -379,7 +379,7 @@ nothing to commit, working tree clean';
         $mock->shouldReceive('exec')
             //->once()
             //->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -387,7 +387,7 @@ nothing to commit, working tree clean';
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -398,11 +398,11 @@ nothing to commit, working tree clean';
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git status",
-            1 => "git fetch origin",
-            2 => "git fetch -p origin",
-            3 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
-            4 => "git reset --hard origin/feature/unit_testing",
+            0 => 'git status',
+            1 => 'git fetch origin',
+            2 => 'git fetch -p origin',
+            3 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            4 => 'git reset --hard origin/feature/unit_testing',
         ], data_get($spy, '*.0'));
     }
 
@@ -418,7 +418,7 @@ nothing to commit, working tree clean';
 
         $mock->shouldReceive('exec')
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -427,7 +427,7 @@ nothing to commit, working tree clean';
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'feature/unit_testing';
@@ -436,7 +436,7 @@ nothing to commit, working tree clean';
         $mock->shouldReceive('exec')
             ->once()
             ->with('git status', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'On branch master
@@ -446,7 +446,7 @@ nothing to commit, working tree clean';
         $mock->shouldReceive('exec')
             //->once()
             //->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -454,7 +454,7 @@ nothing to commit, working tree clean';
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -465,13 +465,13 @@ nothing to commit, working tree clean';
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git status",
-            1 => "git rev-parse --git-dir 2> /dev/null",
-            2 => "git config --get gitlive.deploy.remote",
-            3 => "git fetch deploy",
-            4 => "git fetch -p deploy",
-            5 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
-            6 => "git reset --hard deploy/feature/unit_testing",
+            0 => 'git status',
+            1 => 'git rev-parse --git-dir 2> /dev/null',
+            2 => 'git config --get gitlive.deploy.remote',
+            3 => 'git fetch deploy',
+            4 => 'git fetch -p deploy',
+            5 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            6 => 'git reset --hard deploy/feature/unit_testing',
         ], data_get($spy, '*.0'));
     }
 }

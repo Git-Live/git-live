@@ -47,7 +47,7 @@ class Arr extends GitBase
      * @param  mixed  $value
      * @return bool
      */
-    public static function accessible($value)
+    public static function accessible($value): bool
     {
         return is_array($value) || $value instanceof ArrayAccess;
     }
@@ -59,7 +59,7 @@ class Arr extends GitBase
      * @param  mixed   $value
      * @return array
      */
-    public static function add($array, $key, $value)
+    public static function add($array, $key, $value): array
     {
         if (static::get($array, $key) === null) {
             static::set($array, $key, $value);
@@ -73,7 +73,7 @@ class Arr extends GitBase
      * @param  array  $array
      * @return array
      */
-    public static function collapse($array)
+    public static function collapse($array): array
     {
         $results = [];
         foreach ($array as $values) {
@@ -93,7 +93,7 @@ class Arr extends GitBase
      * @param  array  ...$arrays
      * @return array
      */
-    public static function crossJoin(...$arrays)
+    public static function crossJoin(...$arrays): array
     {
         $results = [[]];
         foreach ($arrays as $index => $array) {
@@ -115,7 +115,7 @@ class Arr extends GitBase
      * @param  array  $array
      * @return array
      */
-    public static function divide($array)
+    public static function divide($array): array
     {
         return [array_keys($array), array_values($array)];
     }
@@ -126,7 +126,7 @@ class Arr extends GitBase
      * @param  string  $prepend
      * @return array
      */
-    public static function dot($array, $prepend = '')
+    public static function dot($array, $prepend = ''): array
     {
         $results = [];
         foreach ($array as $key => $value) {
@@ -146,7 +146,7 @@ class Arr extends GitBase
      * @param  array|string  $keys
      * @return array
      */
-    public static function except($array, $keys)
+    public static function except($array, $keys): array
     {
         static::forget($array, $keys);
 
@@ -159,7 +159,7 @@ class Arr extends GitBase
      * @param  int|string  $key
      * @return bool
      */
-    public static function exists($array, $key)
+    public static function exists($array, $key): bool
     {
         if ($array instanceof ArrayAccess) {
             return $array->offsetExists($key);
@@ -216,7 +216,7 @@ class Arr extends GitBase
      * @param  int  $depth
      * @return array
      */
-    public static function flatten($array, $depth = INF)
+    public static function flatten($array, $depth = INF): array
     {
         $result = [];
         foreach ($array as $item) {
@@ -306,7 +306,7 @@ class Arr extends GitBase
      * @param  array|string  $keys
      * @return bool
      */
-    public static function has($array, $keys)
+    public static function has($array, $keys): bool
     {
         if ($keys === null) {
             return false;
@@ -342,7 +342,7 @@ class Arr extends GitBase
      * @param  array  $array
      * @return bool
      */
-    public static function isAssoc(array $array)
+    public static function isAssoc(array $array): bool
     {
         $keys = array_keys($array);
 
@@ -355,7 +355,7 @@ class Arr extends GitBase
      * @param  array|string  $keys
      * @return array
      */
-    public static function only($array, $keys)
+    public static function only($array, $keys): array
     {
         return array_intersect_key($array, array_flip((array) $keys));
     }
@@ -367,7 +367,7 @@ class Arr extends GitBase
      * @param  null|array|string  $key
      * @return array
      */
-    public static function pluck($array, $value, $key = null)
+    public static function pluck($array, $value, $key = null): array
     {
         $results = [];
         list($value, $key) = static::explodePluckParameters($value, $key);
@@ -397,7 +397,7 @@ class Arr extends GitBase
      * @param  mixed  $key
      * @return array
      */
-    public static function prepend($array, $value, $key = null)
+    public static function prepend($array, $value, $key = null): array
     {
         if ($key === null) {
             array_unshift($array, $value);
@@ -464,7 +464,7 @@ class Arr extends GitBase
      * @param  mixed   $value
      * @return array
      */
-    public static function set(&$array, $key, $value)
+    public static function set(&$array, $key, $value): array
     {
         if ($key === null) {
             return $array = $value;
@@ -491,7 +491,7 @@ class Arr extends GitBase
      * @param  null|int  $seed
      * @return array
      */
-    public static function shuffle($array, $seed = null)
+    public static function shuffle($array, $seed = null): array
     {
         if ($seed === null) {
             shuffle($array);
@@ -511,7 +511,7 @@ class Arr extends GitBase
      * @param  null|callable|string  $callback
      * @return array
      */
-    public static function sort($array, $callback = null)
+    public static function sort($array, $callback = null): array
     {
         return Collection::make($array)->sortBy($callback)->all();
     }
@@ -521,7 +521,7 @@ class Arr extends GitBase
      * @param  array  $array
      * @return array
      */
-    public static function sortRecursive($array)
+    public static function sortRecursive($array): array
     {
         foreach ($array as &$value) {
             if (is_array($value)) {
@@ -542,7 +542,7 @@ class Arr extends GitBase
      * @param  array  $array
      * @return string
      */
-    public static function query($array)
+    public static function query($array): string
     {
         return http_build_query($array, null, '&', PHP_QUERY_RFC3986);
     }
@@ -553,7 +553,7 @@ class Arr extends GitBase
      * @param  callable  $callback
      * @return array
      */
-    public static function where($array, callable $callback)
+    public static function where($array, callable $callback): array
     {
         return array_filter($array, $callback, ARRAY_FILTER_USE_BOTH);
     }
@@ -563,7 +563,7 @@ class Arr extends GitBase
      * @param  mixed  $value
      * @return array
      */
-    public static function wrap($value)
+    public static function wrap($value): array
     {
         if ($value === null) {
             return [];
@@ -578,7 +578,7 @@ class Arr extends GitBase
      * @param  null|array|string  $key
      * @return array
      */
-    protected static function explodePluckParameters($value, $key)
+    protected static function explodePluckParameters($value, $key): array
     {
         $value = is_string($value) ? explode('.', $value) : $value;
         $key = $key === null || is_array($key) ? $key : explode('.', $key);

@@ -58,7 +58,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -66,7 +66,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'test_config_data';
@@ -74,7 +74,7 @@ class ConfigDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -87,8 +87,8 @@ class ConfigDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.master.name",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.master.name',
         ], data_get($spy, '*.0'));
 
         $res = $ConfigDriver->master();
@@ -109,7 +109,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -117,7 +117,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --global gitlive.global_param_key "global_param_value"', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -125,7 +125,7 @@ class ConfigDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -138,7 +138,7 @@ class ConfigDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
             1 => 'git config --global gitlive.global_param_key "global_param_value"',
         ], data_get($spy, '*.0'));
     }
@@ -155,7 +155,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -163,7 +163,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.deploy.remote', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'deploy_remote_data';
@@ -171,7 +171,7 @@ class ConfigDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -184,8 +184,8 @@ class ConfigDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.deploy.remote",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.deploy.remote',
         ], data_get($spy, '*.0'));
 
         $res = $ConfigDriver->deployRemote();
@@ -206,7 +206,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -214,7 +214,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.release.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'release_prefix_data';
@@ -222,7 +222,7 @@ class ConfigDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -235,8 +235,8 @@ class ConfigDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.release.prefix.name",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.release.prefix.name',
         ], data_get($spy, '*.0'));
 
         $res = $ConfigDriver->releasePrefix();
@@ -258,7 +258,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -266,7 +266,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --local gitlive.local_param_key "local_param_value"', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -274,7 +274,7 @@ class ConfigDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -287,7 +287,7 @@ class ConfigDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
             1 => 'git config --local gitlive.local_param_key "local_param_value"',
         ], data_get($spy, '*.0'));
     }
@@ -304,7 +304,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -312,7 +312,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --system gitlive.system_param_key "system_param_value"', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -320,7 +320,7 @@ class ConfigDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -333,7 +333,7 @@ class ConfigDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
             1 => 'git config --system gitlive.system_param_key "system_param_value"',
         ], data_get($spy, '*.0'));
     }
@@ -350,7 +350,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -358,7 +358,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.master.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'config_data_value';
@@ -366,7 +366,7 @@ class ConfigDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -379,8 +379,8 @@ class ConfigDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.master.name",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.master.name',
         ], data_get($spy, '*.0'));
     }
 
@@ -396,7 +396,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->twice()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -404,7 +404,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
@@ -412,7 +412,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'config_data_value';
@@ -420,7 +420,7 @@ class ConfigDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -433,10 +433,10 @@ class ConfigDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.feature.prefix.ignore",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git config --get gitlive.branch.feature.prefix.name",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.feature.prefix.name',
         ], data_get($spy, '*.0'));
 
         $res = $ConfigDriver->featurePrefix();
@@ -457,7 +457,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -465,7 +465,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.feature.prefix.ignore', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'true';
@@ -473,7 +473,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->never()
             ->with('git config --get gitlive.branch.feature.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'config_data_value';
@@ -481,7 +481,7 @@ class ConfigDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -494,8 +494,8 @@ class ConfigDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.feature.prefix.ignore",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
         ], data_get($spy, '*.0'));
 
         $res = $ConfigDriver->featurePrefix();
@@ -516,7 +516,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -524,7 +524,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.hotfix.prefix.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'config_data_value';
@@ -532,7 +532,7 @@ class ConfigDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -545,8 +545,8 @@ class ConfigDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.hotfix.prefix.name",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.hotfix.prefix.name',
         ], data_get($spy, '*.0'));
 
         $res = $ConfigDriver->hotfixPrefix();
@@ -567,7 +567,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '.git';
@@ -575,7 +575,7 @@ class ConfigDriverTest extends TestCase
         $mock->shouldReceive('exec')
             ->once()
             ->with('git config --get gitlive.branch.develop.name', true, null)
-            ->andReturnUsing(function (...$val) use (&$spy) {
+            ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return 'config_data_value';
@@ -583,7 +583,7 @@ class ConfigDriverTest extends TestCase
 
         Container::bind(
             SystemCommandInterface::class,
-            function () use ($mock) {
+            static function () use ($mock) {
                 return $mock;
             }
         );
@@ -596,8 +596,8 @@ class ConfigDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git rev-parse --git-dir 2> /dev/null",
-            1 => "git config --get gitlive.branch.develop.name",
+            0 => 'git rev-parse --git-dir 2> /dev/null',
+            1 => 'git config --get gitlive.branch.develop.name',
         ], data_get($spy, '*.0'));
 
         $res = $ConfigDriver->develop();

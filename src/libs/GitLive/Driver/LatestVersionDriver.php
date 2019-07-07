@@ -86,7 +86,7 @@ class LatestVersionDriver extends DriverBase
         }
 
         $arr = json_decode($contents, true);
-        if (substr($arr['tag_name'], 0, 1) === 'v') {
+        if (strpos($arr['tag_name'], 'v') === 0) {
             $latest_version = substr($arr['tag_name'], 1);
         } else {
             $latest_version = $arr['tag_name'];

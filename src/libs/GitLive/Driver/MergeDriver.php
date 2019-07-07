@@ -46,7 +46,7 @@ class MergeDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function stateDevelop()
+    public function stateDevelop():string
     {
         $branch = 'upstream/' . $this->Driver(ConfigDriver::class)->develop();
 
@@ -60,7 +60,7 @@ class MergeDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function state($branch)
+    public function state($branch):string
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
@@ -75,7 +75,7 @@ class MergeDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function stateMaster()
+    public function stateMaster():string
     {
         $branch = 'upstream/' . $this->Driver(ConfigDriver::class)->master();
 
@@ -87,7 +87,7 @@ class MergeDriver extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @return string
+     * @return string|null
      */
     public function mergeDevelop()
     {
@@ -101,7 +101,7 @@ class MergeDriver extends DriverBase
      *
      * @param $branch
      * @throws Exception
-     * @return string
+     * @return string|null
      */
     public function merge($branch)
     {
@@ -116,7 +116,7 @@ class MergeDriver extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @return string
+     * @return string|null
      */
     public function mergeMaster()
     {

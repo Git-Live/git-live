@@ -22,7 +22,6 @@ namespace GitLive\Command;
 
 use App;
 use GitLive\Application\Container;
-use GitLive\Driver\FetchDriver;
 use GitLive\Driver\FireDriver;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

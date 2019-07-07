@@ -22,12 +22,25 @@ namespace GitLive\Command\Log;
 
 use App;
 use GitLive\Application\Container;
-use GitLive\Command\CommandBase;
 use GitLive\Driver\LogDriver;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class LogDevelopCommand
+ *
+ * @category   GitCommand
+ * @package    GitLive\Command
+ * @subpackage Core
+ * @author     akito<akito-artisan@five-foxes.com>
+ * @author     suzunone<suzunone.eleven@gmail.com>
+ * @copyright  Project Git Live
+ * @license    MIT
+ * @version    GIT: $Id$
+ * @link       https://github.com/Git-Live/git-live
+ * @see        https://github.com/Git-Live/git-live
+ * @since      2018/11/24
+ */
 class LogDevelopCommand extends BaseLogCommand
 {
     protected static $signature_name = 'log:develop';

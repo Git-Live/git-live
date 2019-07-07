@@ -20,6 +20,7 @@
 
 namespace GitLive\Driver;
 
+use GitLive\Support\Collection;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -45,7 +46,7 @@ class LogDriver extends DriverBase
      *  developとの差分をみる
      *
      * @access      public
-     * @param array $option
+     * @param array|Collection $option
      * @throws Exception
      * @return string
      */
@@ -58,7 +59,7 @@ class LogDriver extends DriverBase
      *  masterとの差分を見る
      *
      * @access      public
-     * @param array $option
+     * @param array|Collection $option
      * @throws Exception
      * @return string
      */
@@ -69,7 +70,7 @@ class LogDriver extends DriverBase
 
     /**
      * @param string $from_branch
-     * @param array  $option
+     * @param array|Collection $option
      * @throws Exception
      * @return string
      */

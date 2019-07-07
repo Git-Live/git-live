@@ -59,7 +59,7 @@ class ContainerTest extends TestCase
         $BindWith = new BindTestWithExample();
         Container::bindContext('$' . 'bindTest', $BindWith);
         Container::bindContext('$' . 'text', 'Suzunone');
-        Container::bindContext('$' . 'closure', function () {
+        Container::bindContext('$' . 'closure', static function () {
             return 'Eleven';
         });
 
@@ -90,22 +90,22 @@ class ContainerTest extends TestCase
     {
         $obj = new BindTestExample();
 
-        Container::bind(BindTestInterface::class, function () use ($obj) {
+        Container::bind(BindTestInterface::class, static function () use ($obj) {
             return $obj;
         });
 
         $Container = new Container();
-        $this->assertSame($obj, $Container->build(function () {
+        $this->assertSame($obj, $Container->build(static function () {
             return BindTestInterface::class;
         }));
 
-        $this->assertSame($obj, $Container->build(function () {
+        $this->assertSame($obj, $Container->build(static function () {
             return BindTestInterface::class;
         }));
-        $this->assertSame($obj, $Container->build(function () {
+        $this->assertSame($obj, $Container->build(static function () {
             return BindTestInterface::class;
         }));
-        $this->assertSame($obj, $Container->build(function () {
+        $this->assertSame($obj, $Container->build(static function () {
             return BindTestInterface::class;
         }));
     }
