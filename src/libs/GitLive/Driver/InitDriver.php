@@ -116,10 +116,11 @@ class InitDriver extends DriverBase
      *  諸々初期化します
      *
      * @access      public
+     * @param bool $without_remote_change
      * @throws Exception
      * @return void
      */
-    public function start()
+    public function start(bool $without_remote_change = true)
     {
         $this->GitCmdExecutor->stash(['-u']);
         $this->Driver(FetchDriver::class)->clean();
@@ -128,16 +129,26 @@ class InitDriver extends DriverBase
         $Config = $this->Driver(ConfigDriver::class);
 
         $this->GitCmdExecutor->checkout($Config->develop());
+
         $this->GitCmdExecutor->pull('upstream', $Config->develop());
-        $this->GitCmdExecutor->push('origin', $Config->develop());
+
+        if (!$without_remote_change) {
+            $this->GitCmdExecutor->push('origin', $Config->develop());
+        }
 
         $this->GitCmdExecutor->checkout($Config->master());
         $this->GitCmdExecutor->pull('upstream', $Config->master());
-        $this->GitCmdExecutor->push('origin', $Config->master());
+
+        if (!$without_remote_change) {
+            $this->GitCmdExecutor->push('origin', $Config->master());
+        }
 
         // tag
         $this->GitCmdExecutor->tagPull('upstream');
-        $this->GitCmdExecutor->tagPush('origin');
+
+        if (!$without_remote_change) {
+            $this->GitCmdExecutor->tagPush('origin');
+        }
     }
 
     /**

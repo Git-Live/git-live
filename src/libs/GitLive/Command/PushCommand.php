@@ -69,6 +69,11 @@ class PushCommand extends CommandBase
             $remote = 'upstream';
         }
 
-        App::make(GitCmdExecutor::class)->push($remote, $branch);
+        $option = [];
+
+        if ($input->hasOption('force')) {
+            $option[] = '-f';
+        }
+        App::make(GitCmdExecutor::class)->push($remote, $branch, $option);
     }
 }

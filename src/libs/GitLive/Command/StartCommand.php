@@ -24,6 +24,7 @@ use App;
 use GitLive\Application\Container;
 use GitLive\Driver\InitDriver;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -53,6 +54,12 @@ class StartCommand extends CommandBase
             ->setDescription(__('Refresh your branch.'))
             // the full command description shown when running the command with
             // the "--help" option
+            ->addOption(
+                'remote',
+                'r',
+                InputOption::VALUE_NONE,
+                __('with_remote_change')
+            )
             ->setHelp(__('Refresh your branch.'));
     }
 
@@ -67,6 +74,10 @@ class StartCommand extends CommandBase
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        APP::make(InitDriver::class)->start();
+        APP::make(InitDriver::class)->start(!$input->hasOption('remote'));
+
+        if (!$input->hasOption('remote')) {
+            $output->writeln('<info>' . __('If you also want to update the remote repository, use the -r option.') . '</info>');
+        }
     }
 }
