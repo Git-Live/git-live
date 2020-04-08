@@ -37,7 +37,7 @@
     "symfony/var-dumper": "^3.4",
     "symfony/polyfill-ctype": "^1.10",
     "symfony/polyfill-mbstring": "^1.10",
-    "japanese-date/japanese-date": "^4.0",
+    "japanese-date/japanese-date": "^5.0",
     "gettext/gettext": "4.6.1"
   },
   "require-dev": {
@@ -45,5 +45,8 @@
     "mockery/mockery": "1.2.0"
   },
   "config": {
+    "platform": {
+      "php": "7.2.0"
+    }
   }
 }

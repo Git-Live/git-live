@@ -3,9 +3,9 @@
 [![travis-ci](https://travis-ci.org/Git-Live/git-live.svg?branch=master)](https://travis-ci.org/)
 -->
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Git-Live/git-live/master/LICENSE)
-![php-version](https://img.shields.io/badge/php-7.0-blue.svg)
-![php-version](https://img.shields.io/badge/php-7.1-blue.svg)
 ![php-version](https://img.shields.io/badge/php-7.2-blue.svg)
+![php-version](https://img.shields.io/badge/php-7.3-blue.svg)
+![php-version](https://img.shields.io/badge/php-7.4-blue.svg)
 ## git-flow
 Although "[git-flow](http://nvie.com/posts/a-successful-git-branching-model/)" has the complexity as pointed out in "[github-flow](http://scottchacon.com/2011/08/31/github-flow.html)", it is familiar already as a standard workflow
 
@@ -55,5 +55,5 @@ $ sudo mv ./git-live /usr/local/bin/git-live
 ### Windows
 Please place the following files in the directory where the path passed.
 
- * https://raw.githubusercontent.com/Git-Live/git-live/v2.0/git-live.php
- * https://raw.githubusercontent.com/Git-Live/git-live/v2.0/bin/git-live.bat
+ * https://raw.githubusercontent.com/Git-Live/git-live/v3.0/git-live.php
+ * https://raw.githubusercontent.com/Git-Live/git-live/v3.0/bin/git-live.bat
