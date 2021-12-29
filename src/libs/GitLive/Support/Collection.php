@@ -1239,8 +1239,8 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
         $callback = func_num_args() === 1
             ? $this->valueRetriever($key)
             : $this->operatorForWhere(...func_get_args());
-        foreach ($this->items as $key => $item) {
-            $partitions[(int)!$callback($item, $key)][$key] = $item;
+        foreach ($this->items as $k => $item) {
+            $partitions[(int)!$callback($item, $k)][$k] = $item;
         }
 
         return new static($partitions);
@@ -1751,7 +1751,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return array_map(static function ($value) {
             /** @noinspection PhpUndefinedClassInspection */
@@ -1785,7 +1785,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      *
      * @return \ArrayIterator
      */
-    public function getIterator()
+    public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->items);
     }
@@ -1806,7 +1806,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->items);
     }
@@ -1827,7 +1827,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param  mixed $key
      * @return bool
      */
-    public function offsetExists($key)
+    public function offsetExists($key): bool
     {
         return array_key_exists($key, $this->items);
     }
@@ -1835,46 +1835,47 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Get an item at a given offset.
      *
-     * @param  mixed $key
+     * @param  mixed $offset
      * @return mixed
      */
-    public function offsetGet($key)
+    //[\ReturnTypeWillChange]
+    public function offsetGet($offset)
     {
-        return $this->items[$key];
+        return $this->items[$offset];
     }
 
     /**
      * Set the item at a given offset.
      *
-     * @param  mixed $key
+     * @param  mixed $offset
      * @param  mixed $value
      * @return void
      */
-    public function offsetSet($key, $value)
+    public function offsetSet($offset, $value): void
     {
-        if ($key === null) {
+        if ($offset === null) {
             $this->items[] = $value;
         } else {
-            $this->items[$key] = $value;
+            $this->items[$offset] = $value;
         }
     }
 
     /**
      * Unset the item at a given offset.
      *
-     * @param  string $key
+     * @param  string $offset
      * @return void
      */
-    public function offsetUnset($key)
+    public function offsetUnset($offset): void
     {
-        unset($this->items[$key]);
+        unset($this->items[$offset]);
     }
 
     /**
      * Get an operator checker callback.
      *
      * @param  string $key
-     * @param  string $operator
+     * @param  null|string $operator
      * @param  mixed $value
      * @return \Closure
      */
