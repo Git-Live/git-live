@@ -212,6 +212,10 @@ class FeatureDriver extends DriverBase
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
 
+        if ($Config->isUpstreamReadOnly()) {
+            return sprintf('Error:' . __('upstream remote repository is readonly.'));
+        }
+
         $feature_prefix = (string)$Config->featurePrefix();
 
         $Fetch->all();
@@ -337,7 +341,7 @@ class FeatureDriver extends DriverBase
      * @access      public
      * @param  null|string $repository OPTIONAL:NULL
      * @throws \Exception
-     * @return void
+     * @return string
      */
     public function featureClose($repository = null)
     {
@@ -348,17 +352,28 @@ class FeatureDriver extends DriverBase
 
         $Fetch->all();
         $Fetch->upstream();
-
+        $feature_branch = $this->getSelfBranch();
+        switch ($feature_branch) {
+            case 'refs/heads/' . $Config->develop():
+            case 'refs/heads/' . $Config->master():
+            case $Config->develop():
+            case $Config->master():
+            return sprintf('Error:' . __('%s branch is readonly.'), $this->getSelfBranch());
+        }
         if ($repository === null) {
             $repository = $this->getSelfBranch();
         } elseif ($feature_prefix !== '' && strpos($repository, $feature_prefix) !== 0) {
             $repository = $feature_prefix . $repository;
         }
+        if (!$Config->isUpstreamReadOnly()) {
+            $this->GitCmdExecutor->push('upstream', ':' . $repository);
+        }
 
-        $this->GitCmdExecutor->push('upstream', ':' . $repository);
         $this->GitCmdExecutor->push('origin', ':' . $repository);
         $this->GitCmdExecutor->checkout($Config->develop());
         $this->GitCmdExecutor->branch(['-D', $repository]);
+
+        return $feature_branch . ' was removed.';
     }
 
     /**

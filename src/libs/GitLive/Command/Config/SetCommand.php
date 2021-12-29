@@ -58,13 +58,16 @@ class SetCommand extends CommandBase
             // the "--help" option
             ->setHelp(
                 __('Write the setting for gitlive in the config file.') . "\n" .
-                'branch.feature.prefix.name -- feature prefix (DEFAULT:feature/)
+                '
+    branch.feature.prefix.name -- feature prefix (DEFAULT:feature/)
     branch.feature.prefix.ignore -- ignoring feature prefix (DEFAULT:false)
     branch.release.prefix.name -- release prefix (DEFAULT:release/)
     branch.hotfix.prefix.name -- hotfix prefix (DEFAULT:hotfix/)
     deploy.remote -- deploy remote branch name (DEFAULT:branch/)
     branch.develop.name -- develop branch name (DEFAULT:develop)
-    branch.master.name -- master branch name (DEFAULT:master)'
+    branch.master.name -- master branch name (DEFAULT:master)
+    remote.upstream.readonly -- remote upstream is readonly (DEFAULT:false)
+    remote.deploy.readonly -- remote release is readonly (DEFAULT:false)'
             )
             ->addArgument('name', InputArgument::REQUIRED, 'Setting items.')
             ->addArgument('value', InputArgument::REQUIRED, 'Setting Values.')
@@ -73,29 +76,29 @@ class SetCommand extends CommandBase
                 null,
                 InputOption::VALUE_NONE,
                 __('For writing options: write to global ~/.gitconfig file rather than the repository .git/config, write to $XDG_CONFIG_HOME/git/config file if this file exists and the ~/.gitconfig file does not.')
-                            . __('For reading options: read only from global ~/.gitconfig and from $XDG_CONFIG_HOME/git/config rather than from all available files.')
-                            . __('See also the section called "FILES".')
+                . __('For reading options: read only from global ~/.gitconfig and from $XDG_CONFIG_HOME/git/config rather than from all available files.')
+                . __('See also the section called "FILES".')
             )
             ->addOption(
                 'system',
                 null,
                 InputOption::VALUE_NONE,
                 __('For writing options: write to system-wide $(prefix)/etc/gitconfig rather than the repository .git/config.')
-                            . __('For reading options: read only from system-wide $(prefix)/etc/gitconfig rather than from all available files.')
-                            . __('See also the section called "FILES".')
+                . __('For reading options: read only from system-wide $(prefix)/etc/gitconfig rather than from all available files.')
+                . __('See also the section called "FILES".')
             )
             ->addOption(
                 'local',
                 null,
                 InputOption::VALUE_NONE,
                 __('For writing options: write to the repository .git/config file. This is the default behavior.')
-                            . __('For reading options: read only from the repository .git/config rather than from all available files.')
-                            . __('See also the section called "FILES".')
+                . __('For reading options: read only from the repository .git/config rather than from all available files.')
+                . __('See also the section called "FILES".')
             );
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      * @return null|int|string
      */
@@ -111,7 +114,7 @@ class SetCommand extends CommandBase
         if ($input->getOption('system')) {
             return $ConfigDriver->setSystemParameter($input->getArgument('name'), $input->getArgument('value'));
         }
-        
+
         return $ConfigDriver->setLocalParameter($input->getArgument('name'), $input->getArgument('value'));
     }
 }

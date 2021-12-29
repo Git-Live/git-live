@@ -21,6 +21,7 @@
 namespace GitLive\Command;
 
 use App;
+use Exception;
 use GitLive\Driver\LatestVersionDriver;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -62,7 +63,7 @@ abstract class CommandBase extends Command
             if (App::make(LatestVersionDriver::class)->ckNewVersion()) {
                 $output->writeln('Alert:' . __('An update to the Git Live is available. Run "git live self-update" to get the latest version.'));
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
         }
     }
 
@@ -82,11 +83,7 @@ abstract class CommandBase extends Command
     {
         return collect(collect($input->getOptions())
             ->filter(static function ($item) {
-                if ($item === false || $item === null) {
-                    return false;
-                }
-
-                return true;
+                return !($item === false || $item === null);
             })
             ->map(static function ($item, $key) {
                 if ($item === $key || $item === true) {

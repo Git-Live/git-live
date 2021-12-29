@@ -132,7 +132,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      *
      * @param  string $key
      * @throws \Exception
-     * @return mixed
+     * @return \GitLive\Support\HigherOrderCollectionProxy
      *
      */
     public function __get($key)
@@ -183,8 +183,8 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Create a new collection by invoking the callback a given amount of times.
      *
-     * @param  int $number
-     * @param  callable $callback
+     * @param int $number
+     * @param null|callable $callback
      * @return static
      */
     public static function times($number, callable $callback = null)
@@ -213,7 +213,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * Get the average value of a given key.
      *
      * @param  null|callable|string $callback
-     * @return mixed
+     * @return float|int
      */
     public function avg($callback = null)
     {
@@ -564,9 +564,9 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Apply the callback if the value is truthy.
      *
-     * @param  bool $value
-     * @param  callable $callback
-     * @param  callable $default
+     * @param bool $value
+     * @param callable $callback
+     * @param null|callable $default
      * @return mixed|static
      */
     public function when($value, callable $callback, callable $default = null)
@@ -584,8 +584,8 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Apply the callback if the collection is empty.
      *
-     * @param  callable $callback
-     * @param  callable $default
+     * @param callable $callback
+     * @param null|callable $default
      * @return mixed|static
      */
     public function whenEmpty(callable $callback, callable $default = null)
@@ -596,8 +596,8 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Apply the callback if the collection is not empty.
      *
-     * @param  callable $callback
-     * @param  callable $default
+     * @param callable $callback
+     * @param null|callable $default
      * @return mixed|static
      */
     public function whenNotEmpty(callable $callback, callable $default = null)
@@ -608,9 +608,9 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Apply the callback if the value is falsy.
      *
-     * @param  bool $value
-     * @param  callable $callback
-     * @param  callable $default
+     * @param bool $value
+     * @param callable $callback
+     * @param null|callable $default
      * @return mixed|static
      */
     public function unless($value, callable $callback, callable $default = null)
@@ -621,8 +621,8 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Apply the callback unless the collection is empty.
      *
-     * @param  callable $callback
-     * @param  callable $default
+     * @param callable $callback
+     * @param null|callable $default
      * @return mixed|static
      */
     public function unlessEmpty(callable $callback, callable $default = null)
@@ -633,8 +633,8 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Apply the callback unless the collection is not empty.
      *
-     * @param  callable $callback
-     * @param  callable $default
+     * @param callable $callback
+     * @param null|callable $default
      * @return mixed|static
      */
     public function unlessNotEmpty(callable $callback, callable $default = null)
@@ -1400,7 +1400,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      *
      * @param  mixed $value
      * @param  bool $strict
-     * @return mixed
+     * @return false|int|string
      */
     public function search($value, $strict = false)
     {

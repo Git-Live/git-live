@@ -63,7 +63,7 @@ class PullRequestMerge extends CommandBase
      * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

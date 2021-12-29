@@ -49,6 +49,8 @@ class ConfigDriver extends DriverBase
     const DEPLOY_REMOTE_KEY = 'deploy.remote';
     const DEVELOP_NAME_KEY = 'branch.develop.name';
     const MASTER_NAME_KEY = 'branch.master.name';
+    const UPSTREAM_READ_ONLY_KEY = 'remote.upstream.readonly';
+    const DEPLOY_READ_ONLY_KEY = 'remote.deploy.readonly';
 
     /**
      * @var array
@@ -163,6 +165,34 @@ class ConfigDriver extends DriverBase
         }
 
         return self::$cache[__METHOD__] = $this->getGitLiveParameter(self::HOTFIX_PREFIX_KEY) ?? GitLive::DEFAULT_HOTFIX_PREFIX;
+    }
+
+    /**
+     * upstream readonly flag
+     *
+     * @return bool
+     */
+    public function isUpstreamReadOnly()
+    {
+        if (isset(self::$cache[__METHOD__])) {
+            return self::$cache[__METHOD__];
+        }
+
+        return self::$cache[__METHOD__] = strtolower($this->getGitLiveParameter(self::UPSTREAM_READ_ONLY_KEY) ?? 'false') === 'true';
+    }
+
+    /**
+     * release readonly flag
+     *
+     * @return bool
+     */
+    public function isDeployReadOnly()
+    {
+        if (isset(self::$cache[__METHOD__])) {
+            return self::$cache[__METHOD__];
+        }
+
+        return self::$cache[__METHOD__] = strtolower($this->getGitLiveParameter(self::DEPLOY_READ_ONLY_KEY) ?? 'false') === 'true';
     }
 
     /**

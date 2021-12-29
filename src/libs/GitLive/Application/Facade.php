@@ -20,6 +20,8 @@
 
 namespace GitLive\Application;
 
+use ReflectionException;
+
 /**
  * Class Facade
  *
@@ -52,7 +54,7 @@ class Facade
 
         try {
             $res = $Container->build($concrete);
-        } catch (\ReflectionException $exception) {
+        } catch (ReflectionException $exception) {
         }
 
         return $res;
