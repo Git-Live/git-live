@@ -82,6 +82,7 @@ class Arr extends GitBase
             } elseif (! is_array($values)) {
                 continue;
             }
+            /** @noinspection SlowArrayOperationsInLoopInspection */
             $results = array_merge($results, $values);
         }
 
@@ -131,6 +132,7 @@ class Arr extends GitBase
         $results = [];
         foreach ($array as $key => $value) {
             if (is_array($value) && ! empty($value)) {
+                /** @noinspection SlowArrayOperationsInLoopInspection */
                 $results = array_merge($results, static::dot($value, $prepend . $key . '.'));
             } else {
                 $results[$prepend . $key] = $value;
@@ -225,8 +227,10 @@ class Arr extends GitBase
             if (! is_array($item)) {
                 $result[] = $item;
             } elseif ($depth === 1) {
+                /** @noinspection SlowArrayOperationsInLoopInspection */
                 $result = array_merge($result, array_values($item));
             } else {
+                /** @noinspection SlowArrayOperationsInLoopInspection */
                 $result = array_merge($result, static::flatten($item, $depth - 1));
             }
         }
