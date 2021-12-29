@@ -72,7 +72,7 @@ class Application extends ConsoleApplication
         $version = file_get_contents(RESOURCES_DIR . DIRECTORY_SEPARATOR . 'aa.txt');
         $version .= parent::getLongVersion();
         if (GitLive::VERSION_CODENAME) {
-            $version .= ' - <info>' . GitLive::VERSION_CODENAME . '</info> (@git-version@) ';
+            $version .= ' - <info>' . GitLive::VERSION_CODENAME . '</info> (@git-commit-short@) ';
         }
 
         $version .= ' by <comment>Akito</comment> and <comment>Suzunone</comment>';

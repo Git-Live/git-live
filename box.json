@@ -13,5 +13,6 @@
     "KevinGH\\Box\\Compactor\\Json"
   ],
   "datetime": "release-date",
-  "git-version": "git-version"
+  "git-version": "git-version",
+  "git-commit-short": "git-commit-short"
 }
