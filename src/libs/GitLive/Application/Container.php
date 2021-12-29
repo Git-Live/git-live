@@ -203,7 +203,7 @@ class Container
 
             $results[] = $dependency->getType() === null
                 ? $this->resolvePrimitive($dependency)
-                : $this->build((string) $dependency->getType());
+                : $this->build($dependency->getType()->getName());
         }
 
         return $results;
