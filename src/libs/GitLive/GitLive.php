@@ -65,7 +65,7 @@ class GitLive extends GitBase
     /**
      * @var string バージョンコード
      */
-    const VERSION_CODENAME = 'Baguette';
+    const VERSION_CODENAME = 'Anpan';
 
     /**
      *

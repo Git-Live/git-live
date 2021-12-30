@@ -5,6 +5,9 @@
   "files-bin": [
     "LICENSE"
   ],
+  "files": [
+    "vendor/nesbot/carbon/src/Carbon/Traits/Test.php"
+  ],
   "directories-bin": ["resources"],
 
   "compression": "GZ",
