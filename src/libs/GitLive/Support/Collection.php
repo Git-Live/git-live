@@ -43,9 +43,9 @@ use ArrayIterator;
 use CachingIterator;
 use Countable;
 use Exception;
+use GitLive\Helper\Arr;
 use IteratorAggregate;
-use /** @noinspection PhpUndefinedClassInspection */
-    JsonSerializable;
+use JsonSerializable;
 use stdClass;
 use Symfony\Component\VarDumper\VarDumper;
 use Traversable;
@@ -1825,6 +1825,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * Determine if an item exists at an offset.
      *
      * @param  mixed $key
+     * @param mixed $offset
      * @return bool
      */
     #[\ReturnTypeWillChange]

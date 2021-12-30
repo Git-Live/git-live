@@ -44,7 +44,7 @@ class Facade
      * @param array            $with
      * @return null|mixed
      */
-    public static function make($concrete, $with = [])
+    public static function make($concrete, array $with = [])
     {
         $Container = new Container();
 

@@ -18,7 +18,9 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-use GitLive\Support\Arr;
+use GitLive\Application\Facade;
+use GitLive\Helper\Arr;
+use GitLive\Helper\Resource;
 use GitLive\Support\Collection;
 use Symfony\Component\VarDumper\VarDumper;
 
@@ -56,6 +58,22 @@ if (!function_exists('collect')) {
     function collect($value)
     {
         return new Collection($value);
+    }
+}
+
+if (!function_exists('resource')) {
+    /**
+     * @param null|string $file_name
+     * @return \GitLive\Helper\Resource|string
+     */
+    function resource(?string $file_name)
+    {
+        $obj = Facade::make(Resource::class);
+        if ($file_name === null) {
+            return $obj;
+        }
+
+        return $obj->get($file_name);
     }
 }
 
