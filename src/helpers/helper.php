@@ -66,7 +66,7 @@ if (!function_exists('resource')) {
      * @param null|string $file_name
      * @return \GitLive\Helper\Resource|string
      */
-    function resource(?string $file_name)
+    function resource(?string $file_name = null)
     {
         $obj = Facade::make(Resource::class);
         if ($file_name === null) {

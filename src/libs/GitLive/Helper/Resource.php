@@ -52,12 +52,13 @@ class Resource extends GitBase
     }
 
     /**
-     * @param string $file
+     * @param string $signature_name
      * @param string $default
      * @return string
      */
-    public function help(string $file, string $default = ''): string
+    public function help(string $signature_name, string $default = ''): string
     {
+        $file = str_replace(':', DIRECTORY_SEPARATOR, $signature_name . '.md');
         $help_path = RESOURCES_DIR . DIRECTORY_SEPARATOR . 'help' . DIRECTORY_SEPARATOR . 'lang' . DIRECTORY_SEPARATOR;
         if (is_file($help_path . GIT_LIVE_LANG . DIRECTORY_SEPARATOR . $file)) {
             return file_get_contents($help_path . GIT_LIVE_LANG . DIRECTORY_SEPARATOR . $file);
