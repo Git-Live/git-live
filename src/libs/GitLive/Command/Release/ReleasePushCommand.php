@@ -39,7 +39,7 @@ class ReleasePushCommand extends CommandBase
             ->setDescription(__('Push upstream/release and deploy/release.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Push upstream/release and deploy/release.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

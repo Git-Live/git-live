@@ -40,7 +40,7 @@ class ReleaseStateCommand extends CommandBase
             ->setDescription(__('Check the status of release.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Check the status of release.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addOption('ck-only', 'd', InputOption::VALUE_NONE, __('Check only.'))
             ->addOption('with-merge-commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
     }

@@ -54,7 +54,7 @@ class StateMasterCommand extends CommandBase
             ->setDescription(__('Prior confirmation of merge master.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Prior confirmation of merge master.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

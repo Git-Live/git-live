@@ -44,7 +44,7 @@ class PullCommand extends CommandBase
             ->setDescription(__('Pull from the appropriate remote repository.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Pull from the appropriate remote repository.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addOption(
                 'force',
                 'f',

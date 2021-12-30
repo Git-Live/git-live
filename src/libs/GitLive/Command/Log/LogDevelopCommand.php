@@ -53,7 +53,7 @@ class LogDevelopCommand extends BaseLogCommand
             ->setDescription(__('Show diff upstream develop branch.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Show diff upstream develop branch.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
         ;
     }
 

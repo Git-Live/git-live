@@ -54,7 +54,7 @@ class HotfixPullCommand extends CommandBase
             ->setDescription(__("Pull upstream/hotfix and deploy'shotfix."))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__("Pull upstream/hotfix and deploy'shotfix."));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

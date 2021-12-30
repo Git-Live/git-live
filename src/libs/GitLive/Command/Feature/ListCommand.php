@@ -68,7 +68,7 @@ class ListCommand extends CommandBase
                 InputOption::VALUE_NONE,
                 'Not merged features only'
             )
-            ->setHelp(__('Lists existing features.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

@@ -55,10 +55,7 @@ class FeatureCloseCommand extends CommandBase
             ->setDescription(__('Finish feature.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(
-                printf(__('Remove feature branch, from %s and %s repository.'), 'origin', 'upstream')
-            . __('The default feature name is self.')
-            )
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name');
     }
 

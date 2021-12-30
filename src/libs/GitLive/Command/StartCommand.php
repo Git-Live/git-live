@@ -60,7 +60,7 @@ class StartCommand extends CommandBase
                 InputOption::VALUE_NONE,
                 __('with_remote_change')
             )
-            ->setHelp(__('Refresh your branch.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

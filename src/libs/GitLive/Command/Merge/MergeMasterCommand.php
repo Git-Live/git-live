@@ -54,7 +54,7 @@ class MergeMasterCommand extends CommandBase
             ->setDescription(__('Merge upstream master.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Merge upstream master.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

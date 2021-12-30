@@ -52,7 +52,7 @@ class HotfixCommand extends CommandBase
             ->setDescription(__('Alias to "hotfix: *" tasks.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Alias to "hotfix: *" tasks.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument(
                 'task',
                 InputArgument::REQUIRED,

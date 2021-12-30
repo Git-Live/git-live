@@ -54,7 +54,7 @@ class FireCommand extends CommandBase
             ->setDescription(__('Add all the changed files, commit to the new branch, push to origin, and protect the changes.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('It is executed at the time of disaster such as earthquake or fire. Add all the changed files, commit to the new branch, push to origin, and protect the changes.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument(
                 'message',
                 InputArgument::OPTIONAL,

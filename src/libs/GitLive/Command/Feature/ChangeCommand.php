@@ -41,7 +41,7 @@ class ChangeCommand extends CommandBase
             ->setDescription(__('Cheackout other feature branch.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Cheackout other feature branch.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('feature_name', InputArgument::REQUIRED, __('feature name'))
             ->addOption(
                 'force',

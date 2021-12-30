@@ -55,7 +55,7 @@ class MergeFeatureCommand extends CommandBase
             ->setDescription(__('Merge upstream feature.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Merge upstream feature.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
 
             ->addArgument('feature_name', InputArgument::REQUIRED, 'feature name');
     }

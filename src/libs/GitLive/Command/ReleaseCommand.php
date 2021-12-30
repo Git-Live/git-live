@@ -52,7 +52,7 @@ class ReleaseCommand extends CommandBase
             ->setDescription(__('Alias to "release: *" tasks.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Alias to "release: *" tasks.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument(
                 'task',
                 InputArgument::REQUIRED,

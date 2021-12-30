@@ -52,7 +52,7 @@ class LogCommand extends CommandBase
             ->setDescription(__('Alias to "log: *" tasks.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Alias to "log: *" tasks.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument(
                 'task',
                 InputArgument::REQUIRED,

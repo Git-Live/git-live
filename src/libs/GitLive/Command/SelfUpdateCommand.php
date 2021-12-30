@@ -40,7 +40,7 @@ class SelfUpdateCommand extends CommandBase
             ->setDescription(__('Update git-live command.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Update git-live command.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('save_path', InputArgument::OPTIONAL, __('Save path.'))
             ->addOption(
                 'no-cache',

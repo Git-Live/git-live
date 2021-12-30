@@ -46,7 +46,7 @@ class PushCommand extends CommandBase
                 'f',
                 InputOption::VALUE_NONE
             )
-            ->setHelp(__('Pull from the appropriate remote repository.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

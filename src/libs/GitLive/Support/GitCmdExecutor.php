@@ -179,7 +179,7 @@ class GitCmdExecutor extends GitBase
     {
         $cmd = 'git clean -df';
         if ($options) {
-            $cmd = $this->createCmd('clean',  array_merge(['-df'], $options));
+            $cmd = $this->createCmd('clean', array_merge(['-df'], $options));
         }
 
         return $this->exec($cmd, $verbosity, $output_verbosity);

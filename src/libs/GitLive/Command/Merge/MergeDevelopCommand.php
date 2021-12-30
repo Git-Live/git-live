@@ -54,7 +54,7 @@ class MergeDevelopCommand extends CommandBase
             ->setDescription(__('Merge upstream develop.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Merge upstream develop.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

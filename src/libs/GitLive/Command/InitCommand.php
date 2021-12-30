@@ -54,7 +54,7 @@ class InitCommand extends CommandBase
             ->setDescription(__('Initialize git live flow.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Initialize git live flow.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('clone_repository', InputArgument::OPTIONAL, 'Only your remote repository.')
             ->addArgument('upstream_repository', InputArgument::OPTIONAL, 'Common remote repository.')
             ->addArgument('deploy_repository', InputArgument::OPTIONAL, 'Deploy remote repository.')
