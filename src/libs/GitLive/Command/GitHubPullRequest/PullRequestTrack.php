@@ -55,7 +55,7 @@ class PullRequestTrack extends CommandBase
             ->setDescription(__('Checkout pull request locally.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Checkout pull request locally.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('pull_request_number', InputArgument::REQUIRED, 'Pull request id');
     }
 

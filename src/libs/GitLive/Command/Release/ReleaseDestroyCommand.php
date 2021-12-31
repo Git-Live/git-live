@@ -55,7 +55,7 @@ class ReleaseDestroyCommand extends CommandBase
             ->setDescription(__('Discard release. However, keep working in the local repository.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Discard release. However, keep working in the local repository.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addOption('remove-local', 'R', InputOption::VALUE_NONE, __('Destroy with local repository.'));
     }
 

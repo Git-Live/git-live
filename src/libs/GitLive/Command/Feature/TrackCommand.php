@@ -55,7 +55,7 @@ class TrackCommand extends CommandBase
             ->setDescription(sprintf(__('Start tracking feature {feature_name} that is shared on %s'), 'upstream'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(sprintf(__('Start tracking feature {feature_name} that is shared on %s'), 'upstream'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('feature_name', InputArgument::REQUIRED, 'feature name');
     }
 

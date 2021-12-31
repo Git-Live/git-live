@@ -52,7 +52,7 @@ class MergeCommand extends CommandBase
             ->setDescription(__('Alias to "merge: *" tasks.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Alias to "merge: *" tasks.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument(
                 'task',
                 InputArgument::REQUIRED,

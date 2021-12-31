@@ -56,7 +56,7 @@ class ReleaseCloseCommand extends CommandBase
             ->setDescription(__('Finish release {name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__("Finish up a release.Merges the release branch back into 'master'.Tags the release with its name.Back-merges the release into 'develop'.Removes the release branch."))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('name', InputArgument::OPTIONAL, 'release_name')
             ->addOption('force', 'f', InputOption::VALUE_NONE, __('Do not check develop repository.'));
     }

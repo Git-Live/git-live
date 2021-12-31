@@ -39,7 +39,7 @@ class HotfixPushCommand extends CommandBase
             ->setDescription(__('Push upstream/hotfix and deploy/hotfix.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Push upstream/hotfix and deploy/hotfix.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

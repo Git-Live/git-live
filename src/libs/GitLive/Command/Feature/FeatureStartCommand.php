@@ -55,7 +55,7 @@ class FeatureStartCommand extends CommandBase
             ->setDescription(__('Start new feature {feature_name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Start new feature {feature_name}.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('feature_name', InputArgument::REQUIRED, 'feature name');
     }
 

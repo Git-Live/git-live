@@ -56,19 +56,7 @@ class SetCommand extends CommandBase
             ->setDescription(__('Write the setting for gitlive in the config file.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(
-                __('Write the setting for gitlive in the config file.') . "\n" .
-                '
-    branch.feature.prefix.name -- feature prefix (DEFAULT:feature/)
-    branch.feature.prefix.ignore -- ignoring feature prefix (DEFAULT:false)
-    branch.release.prefix.name -- release prefix (DEFAULT:release/)
-    branch.hotfix.prefix.name -- hotfix prefix (DEFAULT:hotfix/)
-    deploy.remote -- deploy remote branch name (DEFAULT:branch/)
-    branch.develop.name -- develop branch name (DEFAULT:develop)
-    branch.master.name -- master branch name (DEFAULT:master)
-    remote.upstream.readonly -- remote upstream is readonly (DEFAULT:false)
-    remote.deploy.readonly -- remote release is readonly (DEFAULT:false)'
-            )
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('name', InputArgument::REQUIRED, 'Setting items.')
             ->addArgument('value', InputArgument::REQUIRED, 'Setting Values.')
             ->addOption(

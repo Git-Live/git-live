@@ -56,7 +56,7 @@ class PullRequestFeatureStart extends CommandBase
             ->setDescription(__('Feature start and merge pull request.'))
             // the full command description shown when running the command with
             // the "--help" Merge
-            ->setHelp(__('Feature start and merge pull request.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('pull_request_number', InputArgument::REQUIRED, 'Pull request id')
             ->addArgument('feature_name', InputArgument::REQUIRED, 'feature_name')
             ->addOption(

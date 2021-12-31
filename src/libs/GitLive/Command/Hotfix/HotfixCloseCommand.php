@@ -61,7 +61,7 @@ class HotfixCloseCommand extends CommandBase
             ->setDescription(__('Finish hotfix {name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__("Finish up a hotfix.Merges the hotfix branch back into 'master'.Tags the hotfix with its name.Back-merges the hotfix into 'develop'.Removes the hotfix branch."))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('name', InputArgument::OPTIONAL, 'hotfix_name')
             ->addOption('force', 'f', InputOption::VALUE_NONE, __('Do not check develop repository.'));
     }

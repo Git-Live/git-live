@@ -39,7 +39,7 @@ class ReleaseSyncCommand extends CommandBase
             ->setDescription(__('Run git live release pull and git live release push in succession.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Run git live release pull and git live release push in succession.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

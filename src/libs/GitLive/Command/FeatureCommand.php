@@ -52,7 +52,7 @@ class FeatureCommand extends CommandBase
             ->setDescription(__('Alias to "feature: *" tasks.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Alias to "feature: *" tasks.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument(
                 'task',
                 InputArgument::REQUIRED,

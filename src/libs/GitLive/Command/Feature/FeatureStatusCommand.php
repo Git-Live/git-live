@@ -55,7 +55,7 @@ class FeatureStatusCommand extends CommandBase
             ->setDescription(__('Show the feature status.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Show the feature status.') . __('The default feature name is self.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
 
             ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name')
         ;

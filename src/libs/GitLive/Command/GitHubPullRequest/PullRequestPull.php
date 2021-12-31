@@ -54,7 +54,7 @@ class PullRequestPull extends CommandBase
             ->setDescription(__('Pull pull request locally.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Pull pull request locally.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

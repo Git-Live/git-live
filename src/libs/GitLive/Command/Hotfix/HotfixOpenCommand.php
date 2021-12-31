@@ -55,9 +55,7 @@ class HotfixOpenCommand extends CommandBase
             ->setDescription(__('Start hotfix {name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Support preparation of a new production hotfix.')
-                . __('Allow for minor bug fixes and preparing meta-data for a hotfix.')
-                . __('The default feature name is PHP date format "YmdHis".'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('name', InputArgument::OPTIONAL, 'hotfix_name');
     }
 

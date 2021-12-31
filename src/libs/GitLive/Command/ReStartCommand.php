@@ -53,7 +53,7 @@ class ReStartCommand extends CommandBase
             ->setDescription(__('Re init this project.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Re init this project.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

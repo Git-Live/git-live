@@ -54,7 +54,7 @@ class ReleasePullCommand extends CommandBase
             ->setDescription(__('Pull upstream/release and deploy/release.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Pull upstream/release and deploy/release.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

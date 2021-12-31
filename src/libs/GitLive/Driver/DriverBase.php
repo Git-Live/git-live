@@ -81,9 +81,9 @@ abstract class DriverBase extends GitBase
      * 今のブランチを取得する
      *
      * @access      public
+     * @throws Exception
+     * @throws Exception
      * @return string
-     * @throws Exception
-     * @throws Exception
      */
     public function getSelfBranchRef(): string
     {
@@ -116,9 +116,9 @@ abstract class DriverBase extends GitBase
      * 今のブランチを取得する
      *
      * @access      public
+     * @throws Exception
+     * @throws Exception
      * @return string
-     * @throws Exception
-     * @throws Exception
      */
     public function getSelfBranch(): string
     {
@@ -135,9 +135,9 @@ abstract class DriverBase extends GitBase
      *
      * @access      public
      * @param string $driver_name
+     * @throws Exception
      * @return \GitLive\Driver\DriverBase
      * @codeCoverageIgnore
-     * @throws Exception
      */
     public function Driver($driver_name): DriverBase
     {
@@ -151,8 +151,8 @@ abstract class DriverBase extends GitBase
 
     /**
      * @param string $branch_name
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     public function isBranchExists($branch_name): bool
     {
@@ -181,8 +181,8 @@ abstract class DriverBase extends GitBase
     /**
      * @param null|string $repo
      * @param null|string $error_msg
-     * @return bool
      * @throws Exception
+     * @return bool
      */
     public function isCleanOrFail($repo = null, $error_msg = null): bool
     {
@@ -310,9 +310,9 @@ abstract class DriverBase extends GitBase
         return $res === '.git';
     }
 
-
     /**
      *
+     * @param null|mixed $path
      */
     public function clean($path = null)
     {

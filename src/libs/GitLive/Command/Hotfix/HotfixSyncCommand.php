@@ -54,7 +54,7 @@ class HotfixSyncCommand extends CommandBase
             ->setDescription(__('Run git live hotfix pull and git live hotfix push in succession.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Run git live hotfix pull and git live hotfix push in succession.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**

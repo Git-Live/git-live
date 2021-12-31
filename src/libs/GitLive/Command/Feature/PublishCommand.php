@@ -55,7 +55,7 @@ class PublishCommand extends CommandBase
             ->setDescription(__('Start sharing feature {feature_name} on upstream.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Start sharing feature {feature_name} on upstream.') . __('The default feature name is self.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name');
     }
 
