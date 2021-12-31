@@ -20,7 +20,7 @@
 
 namespace GitLive\Command;
 
-use GitLive\Application\Facade as App;
+use App;;
 use GitLive\Application\Container;
 use GitLive\Driver\ConfigDriver;
 use GitLive\Driver\FetchDriver;

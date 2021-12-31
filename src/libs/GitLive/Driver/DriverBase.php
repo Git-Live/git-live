@@ -20,7 +20,7 @@
 
 namespace GitLive\Driver;
 
-use GitLive\Application\Facade as App;
+use App;;
 use GitLive\GitBase;
 use GitLive\GitLive;
 use GitLive\Support\Collection;

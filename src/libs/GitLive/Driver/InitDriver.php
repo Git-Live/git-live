@@ -20,7 +20,7 @@
 
 namespace GitLive\Driver;
 
-use GitLive\Application\Facade as App;
+use App;;
 use GitLive\Support\InteractiveShellInterface;
 use Symfony\Component\Console\Input\InputInterface;
 

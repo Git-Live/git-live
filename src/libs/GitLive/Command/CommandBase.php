@@ -20,7 +20,7 @@
 
 namespace GitLive\Command;
 
-use GitLive\Application\Facade as App;
+use App;;
 use Exception;
 use GitLive\Driver\LatestVersionDriver;
 use GitLive\Support\Collection;
