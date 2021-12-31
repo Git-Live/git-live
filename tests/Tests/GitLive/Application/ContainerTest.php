@@ -169,42 +169,28 @@ class ContainerTest extends TestCase
         $this->assertInstanceOf(BindTestExample::class, $obj->bindTest);
     }
 
-    /**
-     * @covers \GitLive\Application\Container
-     */
-    public function testBuild()
+    public function buildDataProvider()
     {
-        $Container = new Container();
-
-        $GitLive = $Container->build(GitLive::class);
-
-        $this->assertInstanceOf(GitLive::class, $GitLive);
+        return [
+            GitLive::class =>  [GitLive::class],
+            FileSystem::class =>  [FileSystem::class],
+            ConfigDriver::class =>  [ConfigDriver::class],
+        ];
     }
 
     /**
      * @covers \GitLive\Application\Container
+     * @dataProvider buildDataProvider
      */
-    public function testBuildSupport()
+    public function testBuild($class_name)
     {
         $Container = new Container();
 
-        $fileSystem = $Container->build(FileSystem::class);
+        $obj  = $Container->build($class_name);
 
-        $this->assertInstanceOf(FileSystem::class, $fileSystem);
+        $this->assertInstanceOf($class_name, $obj);
     }
 
-
-    /**
-     * @covers \GitLive\Application\Container
-     */
-    public function testBuildDriver()
-    {
-        $Container = new Container();
-
-        $driver = $Container->build(ConfigDriver::class);
-
-        $this->assertInstanceOf(ConfigDriver::class, $driver);
-    }
 
     /**
      * @covers \GitLive\Application\Container
