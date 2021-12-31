@@ -48,7 +48,7 @@ class FileSystem extends GitBase implements FileSystemInterface
 
     /**
      * FileSystem constructor.
-     * @param null|OutputInterface $output
+     * @param OutputInterface|mixed|null $output
      */
     public function __construct($output = null)
     {

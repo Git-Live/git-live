@@ -53,10 +53,10 @@ class SystemCommand extends GitBase implements SystemCommandInterface
 
     /**
      * SystemCommand constructor.
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param InputInterface|mixed $input
+     * @param OutputInterface|mixed $output
      */
-    public function __construct(InputInterface $input, OutputInterface $output)
+    public function __construct($input, $output)
     {
         $this->input = $input;
         $this->output = $output;
