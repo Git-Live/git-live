@@ -26,6 +26,7 @@ use Example\BindTestExample;
 use Example\BindTestInterface;
 use Example\BindTestWithExample;
 use GitLive\Application\Container;
+use GitLive\Driver\ConfigDriver;
 use GitLive\GitLive;
 use GitLive\Support\FileSystem;
 use PHPUnit\Framework\TestCase;
@@ -183,13 +184,26 @@ class ContainerTest extends TestCase
     /**
      * @covers \GitLive\Application\Container
      */
-    public function testBuildDriver()
+    public function testBuildSupport()
     {
         $Container = new Container();
 
         $fileSystem = $Container->build(FileSystem::class);
 
         $this->assertInstanceOf(FileSystem::class, $fileSystem);
+    }
+
+
+    /**
+     * @covers \GitLive\Application\Container
+     */
+    public function testBuildDriver()
+    {
+        $Container = new Container();
+
+        $driver = $Container->build(ConfigDriver::class);
+
+        $this->assertInstanceOf(ConfigDriver::class, $driver);
     }
 
     /**
