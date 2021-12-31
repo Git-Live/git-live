@@ -1759,7 +1759,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
                 return $value->jsonSerialize();
             }
             if ($value instanceof Jsonable) {
-                return json_decode($value->toJson(), true);
+                $value =  json_decode($value->toJson(), true);
             }
             if ($value instanceof Arrayable) {
                 return $value->toArray();

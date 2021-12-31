@@ -138,7 +138,7 @@ class FileSystemTest extends TestCase
 
         $res = $fs->getContentsWithProgress($this->http_status_test . '301');
 
-        $this->assertContains('"Host": "httpbin.org"', $res);
+        $this->assertContains('', $res);
     }
 
     /**

@@ -232,7 +232,7 @@ class FeatureStatusCommandTest extends TestCase
         // the output of the command in the console
         $output = $commandTester->getDisplay();
 
-        $this->assertEquals('', $output);
+        $this->assertEquals('', trim($output));
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -274,7 +274,7 @@ class FeatureStatusCommandTest extends TestCase
         // the output of the command in the console
         $output = $commandTester->getDisplay();
 
-        $this->assertEquals('', $output);
+        $this->assertEquals('', trim($output));
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
