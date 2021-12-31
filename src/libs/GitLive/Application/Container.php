@@ -21,6 +21,7 @@
 namespace GitLive\Application;
 
 use Closure;
+use Exception;
 use GitLive\GitBase;
 use ReflectionClass;
 use ReflectionException;
@@ -145,7 +146,7 @@ class Container
 
         try {
             $boot = $reflector->getMethod('boot');
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $boot = null;
         }
 
@@ -201,9 +202,10 @@ class Container
             }
             */
 
-            $results[] = $dependency->getType() === null
+            $TypeHint = $dependency->getType();
+            $results[] = $TypeHint === null || $TypeHint->isBuiltin()
                 ? $this->resolvePrimitive($dependency)
-                : $this->build($dependency->getType()->getName());
+                : $this->build($TypeHint->getName());
         }
 
         return $results;
@@ -237,8 +239,7 @@ class Container
     /**
      * Resolve a non-class hinted primitive dependency.
      *
-     * @param  \ReflectionParameter $parameter
-     * @throws \ReflectionException
+     * @param \ReflectionParameter $parameter
      * @return mixed
      */
     protected function resolvePrimitive(ReflectionParameter $parameter)

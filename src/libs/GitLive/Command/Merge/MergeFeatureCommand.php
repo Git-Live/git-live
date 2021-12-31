@@ -20,7 +20,7 @@
 
 namespace GitLive\Command\Merge;
 
-use GitLive\Application\Facade as App;
+use App;
 use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\MergeDriver;

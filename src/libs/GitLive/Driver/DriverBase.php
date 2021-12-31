@@ -20,7 +20,7 @@
 
 namespace GitLive\Driver;
 
-use GitLive\Application\Facade as App;
+use App;
 use GitLive\GitBase;
 use GitLive\GitLive;
 use GitLive\Support\Collection;
@@ -70,7 +70,7 @@ abstract class DriverBase extends GitBase
      * @param SystemCommandInterface $command
      * @codeCoverageIgnore
      */
-    public function __construct(GitLive $GitLive, GitCmdExecutor $gitCmdExecutor, SystemCommandInterface $command)
+    public function __construct($GitLive, GitCmdExecutor $gitCmdExecutor, SystemCommandInterface $command)
     {
         $this->GitLive = $GitLive;
         $this->GitCmdExecutor = $gitCmdExecutor;
@@ -87,7 +87,7 @@ abstract class DriverBase extends GitBase
      */
     public function getSelfBranchRef(): string
     {
-        $self_blanch = $this->exec('git symbolic-ref HEAD 2>/dev/null');
+        $self_blanch = $this->exec('git symbolic-ref HEAD 2>/dev/null', true);
 
         if (!$self_blanch) {
             throw new Exception(__('Not a git repository.'));
@@ -105,9 +105,9 @@ abstract class DriverBase extends GitBase
      * @param string $cmd
      * @param bool $verbosity
      * @param null $output_verbosity
-     * @return string|null
+     * @return null|string
      */
-    public function exec(string $cmd, bool $verbosity = true, $output_verbosity = null)
+    public function exec($cmd, $verbosity = true, $output_verbosity = null)
     {
         return $this->command->exec($cmd, $verbosity, $output_verbosity);
     }
@@ -135,11 +135,11 @@ abstract class DriverBase extends GitBase
      *
      * @access      public
      * @param string $driver_name
+     * @throws Exception
      * @return \GitLive\Driver\DriverBase
      * @codeCoverageIgnore
-     *@throws Exception
      */
-    public function Driver(string $driver_name): DriverBase
+    public function Driver($driver_name): DriverBase
     {
         $res = App::make($driver_name);
         if ($res === null) {
@@ -151,19 +151,19 @@ abstract class DriverBase extends GitBase
 
     /**
      * @param string $branch_name
+     * @throws Exception
      * @return bool
-     *@throws Exception
      */
-    public function isBranchExists(string $branch_name): bool
+    public function isBranchExists($branch_name): bool
     {
         return $this->Driver(BranchDriver::class)->isBranchExistsSimple($branch_name);
     }
 
     /**
-     * @param string|null $repo
+     * @param null|string $repo
      * @return bool
      */
-    public function isClean(string $repo = null): bool
+    public function isClean($repo = null): bool
     {
         if ($repo === null) {
             $err = $this->GitCmdExecutor->status([], true);
@@ -179,12 +179,12 @@ abstract class DriverBase extends GitBase
     }
 
     /**
-     * @param string|null $repo
-     * @param string|null $error_msg
+     * @param null|string $repo
+     * @param null|string $error_msg
+     * @throws Exception
      * @return bool
-     *@throws Exception
      */
-    public function isCleanOrFail(string $repo = null, string $error_msg = null): bool
+    public function isCleanOrFail($repo = null, $error_msg = null): bool
     {
         if ($repo === null) {
             $err = $this->GitCmdExecutor->status([], true);
@@ -246,7 +246,7 @@ abstract class DriverBase extends GitBase
      * @param string $from
      * @return bool
      */
-    public function patchApplyCheck(string $from): bool
+    public function patchApplyCheck($from): bool
     {
         $res = $this->patchApplyDiff($from, OutputInterface::VERBOSITY_DEBUG);
 
@@ -260,7 +260,7 @@ abstract class DriverBase extends GitBase
      * @param bool $verbosity
      * @return string
      */
-    public function patchApplyDiff(string $from, bool $verbosity = false): string
+    public function patchApplyDiff($from, $verbosity = false): string
     {
         // 一度diffを取る
         $cmd = 'git format-patch `git rev-parse --abbrev-ref HEAD`..' . $from . ' --stdout';
@@ -279,7 +279,7 @@ abstract class DriverBase extends GitBase
     /**
      * @param string $dir
      */
-    public function chdir(string $dir)
+    public function chdir($dir)
     {
         $this->GitCmdExecutor->chdir($dir);
     }
@@ -364,7 +364,7 @@ abstract class DriverBase extends GitBase
             if ($sha === '') {
                 break;
             }
-            $cmd = 'git push --no-verify origin ' . $sha . ':refs/heads/' . $branch . '-stash-' . $sha;
+            $cmd = 'git push --no-verify origin ' . $sha . ':refs/heads/' . $branch . '-stash-' . $sha . '';
 
             $this->exec($cmd, $verbosity, $output_verbosity);
         }

@@ -20,10 +20,9 @@
 
 namespace GitLive\Command;
 
-use GitLive\Application\Facade as App;
+use App;
 use Exception;
 use GitLive\Driver\LatestVersionDriver;
-use GitLive\Support\Collection;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -80,7 +79,7 @@ abstract class CommandBase extends Command
      * @param InputInterface $input
      * @return \GitLive\Support\Collection
      */
-    protected function getOptions(InputInterface $input): Collection
+    protected function getOptions(InputInterface $input): \GitLive\Support\Collection
     {
         return collect(collect($input->getOptions())
             ->filter(static function ($item) {

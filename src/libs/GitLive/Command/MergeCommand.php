@@ -83,6 +83,8 @@ class MergeCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
             case 'master':
                 $command = $this->getApplication()->find('merge:master');
 
@@ -91,6 +93,8 @@ class MergeCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
             case 'feature':
                 $command = $this->getApplication()->find('merge:feature');
 
@@ -99,6 +103,8 @@ class MergeCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
             case 'state':
                 if ($input->getArgument('state_hint') === 'master') {
                     $command = $this->getApplication()->find('merge:state:master');
@@ -111,6 +117,8 @@ class MergeCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
         }
 
         return 0;

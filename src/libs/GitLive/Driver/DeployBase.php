@@ -20,7 +20,7 @@
 
 namespace GitLive\Driver;
 
-use GitLive\Application\Facade as App;
+use App;
 use GitLive\GitLive;
 use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\SystemCommandInterface;
@@ -46,7 +46,7 @@ abstract class DeployBase extends DriverBase
     /**
      * @var string
      */
-    public const MODE = '';
+    const MODE = '';
     /**
      * @var string
      */
@@ -246,10 +246,10 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param string $tag_name
      * @param null $release_rep
+     * @throws Exception
      * @return      string
-     *@throws Exception
      */
-    public function buildOpenWithReleaseTag(string $tag_name, $release_rep = null)
+    public function buildOpenWithReleaseTag($tag_name, $release_rep = null)
     {
         $Config = $this->Driver(ConfigDriver::class);
         if ($Config->isUpstreamReadOnly()) {
@@ -321,10 +321,10 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param string $repo
+     * @throws Exception
      * @return void
-     *@throws Exception
      */
-    public function deployTrack(string $repo)
+    public function deployTrack($repo)
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
 
@@ -362,7 +362,7 @@ abstract class DeployBase extends DriverBase
      * @param bool $with_merge_commit OPTIONAL:false
      * @return string
      */
-    public function buildState(bool $ck_only = false, bool $with_merge_commit = false): string
+    public function buildState($ck_only = false, $with_merge_commit = false): string
     {
         $res = '';
 
@@ -427,10 +427,10 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param bool $remove_local OPTIONAL:false
+     * @throws Exception
      * @return void
-     *@throws Exception
      */
-    public function buildDestroy(bool $remove_local = false)
+    public function buildDestroy($remove_local = false)
     {
         if (!$this->isBuildOpen()) {
             throw new Exception(sprintf(__('%s is not open.'), static::MODE));
@@ -446,10 +446,10 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param bool $force OPTIONAL:false
      * @param null $tag_name
+     * @throws Exception
      * @return void
-     *@throws Exception
      */
-    public function buildClose(bool $force = false, $tag_name = null)
+    public function buildClose($force = false, $tag_name = null)
     {
         if (!$this->isBuildOpen()) {
             throw new Exception(sprintf(__('%s is not open.'), static::MODE));
@@ -484,10 +484,10 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param string $repo
+     * @throws Exception
      * @return void
-     *@throws Exception
      */
-    protected function deploySync(string $repo)
+    protected function deploySync($repo)
     {
         $Config = $this->Driver(ConfigDriver::class);
         if ($Config->isUpstreamReadOnly()) {
@@ -516,10 +516,10 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param string $repo
+     * @throws Exception
      * @return void
-     *@throws Exception
      */
-    protected function upstreamPush(string $repo)
+    protected function upstreamPush($repo)
     {
         $Config = $this->Driver(ConfigDriver::class);
         if ($Config->isUpstreamReadOnly()) {
@@ -553,10 +553,10 @@ abstract class DeployBase extends DriverBase
      * @param string $repo
      * @param string $mode
      * @param bool $remove_local OPTIONAL:false
+     * @throws Exception
      * @return void
-     *@throws Exception
      */
-    protected function deployDestroy(string $repo, string $mode, bool $remove_local = false)
+    protected function deployDestroy($repo, $mode, $remove_local = false)
     {
         $Config = $this->Driver(ConfigDriver::class);
         if ($Config->isUpstreamReadOnly()) {
@@ -599,10 +599,10 @@ abstract class DeployBase extends DriverBase
      * @param string $mode
      * @param bool $force OPTIONAL:false
      * @param null $tag_name
+     * @throws Exception
      * @return void
-     *@throws Exception
      */
-    protected function deployEnd(string $release_name, string $mode, bool $force = false, $tag_name = null)
+    protected function deployEnd($release_name, $mode, $force = false, $tag_name = null)
     {
         $Config = $this->Driver(ConfigDriver::class);
         if ($Config->isUpstreamReadOnly()) {

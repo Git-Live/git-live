@@ -41,13 +41,13 @@ class PullRequestDriver extends DriverBase
      *  pr feature start
      *
      * @access      public
-     * @param string $pull_request_number
-     * @param string $branch
-     * @return void
-     *@throws \GitLive\Exception
+     * @param  string $pull_request_number
+     * @param  string $branch
      * @throws Exception
+     * @throws \GitLive\Exception
+     * @return void
      */
-    public function featureStart(string $pull_request_number, string $branch)
+    public function featureStart($pull_request_number, $branch)
     {
         $develop_branch = $this->Driver(ConfigDriver::class)->develop();
         $this->Driver(FetchDriver::class)->all();
@@ -79,13 +79,13 @@ class PullRequestDriver extends DriverBase
      *  pr feature start-soft
      *
      * @access      public
-     * @param string $pull_request_number
-     * @param string $branch
-     * @return void
-     *@throws \GitLive\Exception
+     * @param  string $pull_request_number
+     * @param  string $branch
      * @throws Exception
+     * @throws \GitLive\Exception
+     * @return void
      */
-    public function featureStartSoft(string $pull_request_number, string $branch)
+    public function featureStartSoft($pull_request_number, $branch)
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
@@ -108,11 +108,11 @@ class PullRequestDriver extends DriverBase
      *
      * @param string $pull_request_number
      *
+     * @throws Exception
      * @return void
      * @access      public
-     *@throws Exception
      */
-    public function prTrack(string $pull_request_number)
+    public function prTrack($pull_request_number)
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
@@ -152,11 +152,11 @@ class PullRequestDriver extends DriverBase
      *  pr merge
      *
      * @access      public
-     * @param string $pull_request_number
+     * @param  string $pull_request_number
+     * @throws Exception
      * @return void
-     *@throws Exception
      */
-    public function prMerge(string $pull_request_number)
+    public function prMerge($pull_request_number)
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();

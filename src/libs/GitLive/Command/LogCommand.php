@@ -80,6 +80,8 @@ class LogCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
             case 'master':
                 $command = $this->getApplication()->find('log:master');
 
@@ -91,6 +93,8 @@ class LogCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
         }
 
         return 0;

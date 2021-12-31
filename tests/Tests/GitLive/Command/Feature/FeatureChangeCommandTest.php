@@ -20,7 +20,7 @@
 
 namespace Tests\GitLive\Command\Feature;
 
-use GitLive\Application\Facade as App;
+use App;
 use GitLive\Application\Application;
 use Tests\GitLive\Tester\CommandTestCase as TestCase;
 use Tests\GitLive\Tester\CommandTester;

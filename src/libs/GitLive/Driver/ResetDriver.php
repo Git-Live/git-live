@@ -54,10 +54,16 @@ class ResetDriver extends DriverBase
         switch ($remote) {
             case 'upstream':
                 return $this->upstream();
+
+                break;
             case 'deploy':
                 return $this->deploy();
+
+                break;
             case 'origin':
                 return $this->origin();
+
+                break;
             default:
                 throw new Exception(__('Undefined remote option.') . ' : ' . $remote . ' You can use origin upstream deploy');
         }

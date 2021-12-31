@@ -23,7 +23,7 @@ if (!function_exists('\_')) {
      * @param string $text
      * @return string
      */
-    function _(string $text)
+    function _($text)
     {
         return $text;
     }

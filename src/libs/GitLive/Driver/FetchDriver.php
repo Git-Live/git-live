@@ -67,11 +67,11 @@ class FetchDriver extends DriverBase
      *  deploy からfetchする
      *
      * @access      public
-     * @param string|null $remote
+     * @param null|string $remote
+     * @throws Exception
      * @return void
-     *@throws Exception
      */
-    public function deploy(string $remote = null)
+    public function deploy($remote = null)
     {
         if ($remote === null) {
             $remote = $this->Driver(ConfigDriver::class)->deployRemote();

@@ -41,7 +41,7 @@ use GitLive\Support\SystemCommandInterface;
  */
 class ReleaseDriver extends DeployBase
 {
-    public const MODE = 'release';
+    const MODE = 'release';
 
     /**
      * ReleaseDriver constructor.

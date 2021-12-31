@@ -138,7 +138,7 @@ class FileSystem extends GitBase implements FileSystemInterface
 
     /**
      * @param string $message
-     * @param string|null $value
+     * @param null|string $value
      * @return void
      */
     public function output(string $message, ?string $value = null): void
@@ -159,7 +159,7 @@ class FileSystem extends GitBase implements FileSystemInterface
      * @param null $context
      * @return bool|int
      */
-    public function putContents($url, $content, int $flags = 0, $context = null)
+    public function putContents($url, $content, $flags = 0, $context = null)
     {
         return file_put_contents($url, $content, $flags, $context);
     }

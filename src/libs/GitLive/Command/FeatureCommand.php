@@ -82,6 +82,8 @@ class FeatureCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
             case 'status':
                 $command = $this->getApplication()->find('feature:status');
 
@@ -95,6 +97,8 @@ class FeatureCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
             case 'change':
                 $command = $this->getApplication()->find('feature:change');
 
@@ -108,6 +112,8 @@ class FeatureCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
             case 'close':
                 $command = $this->getApplication()->find('feature:close');
 
@@ -121,6 +127,8 @@ class FeatureCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
             case 'publish':
                 $command = $this->getApplication()->find('feature:publish');
 
@@ -134,6 +142,8 @@ class FeatureCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
             case 'pull':
                 $command = $this->getApplication()->find('feature:pull');
 
@@ -147,6 +157,8 @@ class FeatureCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
             case 'push':
                 $command = $this->getApplication()->find('feature:push');
 
@@ -160,6 +172,8 @@ class FeatureCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
             case 'start':
                 $command = $this->getApplication()->find('feature:start');
 
@@ -173,6 +187,8 @@ class FeatureCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
             case 'track':
                 $command = $this->getApplication()->find('feature:track');
 
@@ -185,6 +201,8 @@ class FeatureCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
+
+                break;
         }
 
         return 0;

@@ -21,13 +21,13 @@
 namespace GitLive;
 
 use GitLive\Application\Application;
+use GitLive\Application\Container;
 use GitLive\Support\FileSystem;
 use GitLive\Support\FileSystemInterface;
 use GitLive\Support\InteractiveShell;
 use GitLive\Support\InteractiveShellInterface;
 use GitLive\Support\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
-use GitLive\Application\Container;
 
 /**
  * Class GitLive
@@ -50,57 +50,60 @@ class GitLive extends GitBase
     /**
      * @var string バージョン情報取得API
      */
-    public const VERSION_API = 'https://api.github.com/repos/Git-Live/git-live/releases/latest';
+    const VERSION_API = 'https://api.github.com/repos/Git-Live/git-live/releases/latest';
 
     /**
      * @var int デフォルトのアップデートチェック期間
      */
-    public const DEFAULT_UPDATE_CK_SPAN = 86000;
+    const DEFAULT_UPDATE_CK_SPAN = 86000;
 
     /**
      * @var string バージョン
      */
-    public const VERSION = '3.2.0-RC01';
+    const VERSION = '3.2.0-RC01';
 
     /**
      * @var string バージョンコード
      */
-    public const VERSION_CODENAME = 'Baguette';
+    const VERSION_CODENAME = 'Baguette';
 
     /**
      *
      */
-    public const DEFAULT_DEPLOY_REMOTE_NAME = 'deploy';
+    const DEFAULT_DEPLOY_REMOTE_NAME = 'deploy';
 
     /**
      * @var string デフォルトの開発ブランチ
      */
-    public const DEFAULT_DEVELOP_BRANCH_NAME = 'develop';
+    const DEFAULT_DEVELOP_BRANCH_NAME = 'develop';
 
     /**
      * @var string デフォルトのマスターブランチ
      */
-    public const DEFAULT_MASTER_BRANCH_NAME = 'master';
+    const DEFAULT_MASTER_BRANCH_NAME = 'master';
 
     /**
      * @var string デフォルトのfeatureプレフィクス
      */
-    public const DEFAULT_FEATURE_PREFIX = 'feature/';
+    const DEFAULT_FEATURE_PREFIX = 'feature/';
 
     /**
      * @var string デフォルトのreleaseプレフィクス
      */
-    public const DEFAULT_RELEASE_PREFIX = 'release/';
+    const DEFAULT_RELEASE_PREFIX = 'release/';
 
     /**
      * @var string デフォルトのhotfixプレフィクス
      */
-    public const DEFAULT_HOTFIX_PREFIX = 'hotfix/';
+    const DEFAULT_HOTFIX_PREFIX = 'hotfix/';
 
     /**
-     * @var string デフォルトのfireプレフィクス
+     * 更新チェックの間隔
+     *
+     * @access      protected
+     * @var         int
      */
-    public const DEFAULT_FIRE_PREFIX = 'fire/';
+    protected $update_ck_span = 1200;
 
     /**
      * GitLive constructor.
@@ -128,7 +131,7 @@ class GitLive extends GitBase
     /**
      * @throws \Exception
      */
-    public function execute(): void
+    public function execute()
     {
         $application = new Application();
         $application->run();

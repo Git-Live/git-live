@@ -766,7 +766,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Get a flattened array of the items in the collection.
      *
-     * @param  int|float $depth
+     * @param  int $depth
      * @return static
      */
     public function flatten($depth = INF)
@@ -978,7 +978,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * Get the values of a given key.
      *
      * @param  array|string $value
-     * @param  string|null $key
+     * @param  null|string $key
      * @return static
      */
     public function pluck($value, $key = null)
@@ -1878,7 +1878,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * Get an operator checker callback.
      *
      * @param  string $key
-     * @param  string|null $operator
+     * @param  null|string $operator
      * @param  mixed $value
      * @return \Closure
      */

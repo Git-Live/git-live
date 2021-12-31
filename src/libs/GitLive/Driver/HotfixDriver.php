@@ -41,7 +41,7 @@ use GitLive\Support\SystemCommandInterface;
  */
 class HotfixDriver extends DeployBase
 {
-    public const MODE = 'hotfix';
+    const MODE = 'hotfix';
     /**
      * @var string
      */

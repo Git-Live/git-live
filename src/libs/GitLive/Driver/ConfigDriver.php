@@ -42,16 +42,15 @@ use GitLive\GitLive;
  */
 class ConfigDriver extends DriverBase
 {
-    public const FEATURE_PREFIX_NAME_KEY = 'branch.feature.prefix.name';
-    public const FEATURE_PREFIX_IGNORE_KEY = 'branch.feature.prefix.ignore';
-    public const RELEASE_PREFIX_KEY = 'branch.release.prefix.name';
-    public const HOTFIX_PREFIX_KEY = 'branch.hotfix.prefix.name';
-    public const FIRE_PREFIX_NAME_KEY = 'branch.fire.prefix.name';
-    public const DEPLOY_REMOTE_KEY = 'deploy.remote';
-    public const DEVELOP_NAME_KEY = 'branch.develop.name';
-    public const MASTER_NAME_KEY = 'branch.master.name';
-    public const UPSTREAM_READ_ONLY_KEY = 'remote.upstream.readonly';
-    public const DEPLOY_READ_ONLY_KEY = 'remote.deploy.readonly';
+    const FEATURE_PREFIX_NAME_KEY = 'branch.feature.prefix.name';
+    const FEATURE_PREFIX_IGNORE_KEY = 'branch.feature.prefix.ignore';
+    const RELEASE_PREFIX_KEY = 'branch.release.prefix.name';
+    const HOTFIX_PREFIX_KEY = 'branch.hotfix.prefix.name';
+    const DEPLOY_REMOTE_KEY = 'deploy.remote';
+    const DEVELOP_NAME_KEY = 'branch.develop.name';
+    const MASTER_NAME_KEY = 'branch.master.name';
+    const UPSTREAM_READ_ONLY_KEY = 'remote.upstream.readonly';
+    const DEPLOY_READ_ONLY_KEY = 'remote.deploy.readonly';
 
     /**
      * @var array
@@ -72,9 +71,9 @@ class ConfigDriver extends DriverBase
      *
      * @param string $key
      * @param string $value
-     * @return string|null
+     * @return null|string
      */
-    public function setGlobalParameter(string $key, string $value)
+    public function setGlobalParameter($key, $value)
     {
         if (!$this->isGitRepository()) {
             return null;
@@ -87,10 +86,10 @@ class ConfigDriver extends DriverBase
      * Set to local config.
      *
      * @param string $key
-     * @param string|null $value
-     * @return string|null
+     * @param string $value
+     * @return null|string
      */
-    public function setLocalParameter(string $key, ?string $value): ?string
+    public function setLocalParameter($key, $value)
     {
         if (!$this->isGitRepository()) {
             return null;
@@ -104,9 +103,9 @@ class ConfigDriver extends DriverBase
      *
      * @param string $key
      * @param string $value
-     * @return string|null
+     * @return null|string
      */
-    public function setSystemParameter(string $key, string $value)
+    public function setSystemParameter($key, $value)
     {
         if (!$this->isGitRepository()) {
             return null;
@@ -119,9 +118,9 @@ class ConfigDriver extends DriverBase
      * Get the setting of git-live.
      *
      * @param string $key
-     * @return string|null
+     * @return null|string
      */
-    public function getGitLiveParameter(string $key)
+    public function getGitLiveParameter($key)
     {
         if (!$this->isGitRepository()) {
             return null;
@@ -139,7 +138,7 @@ class ConfigDriver extends DriverBase
     /**
      * Get feature prefix.
      *
-     * @return string|null
+     * @return null|string
      */
     public function featurePrefix()
     {
@@ -155,26 +154,9 @@ class ConfigDriver extends DriverBase
     }
 
     /**
-     * Get feature prefix.
-     *
-     * @return string|null
-     */
-    public function firePrefix()
-    {
-        if (isset(self::$cache[__METHOD__])) {
-            return self::$cache[__METHOD__];
-        }
-
-
-        return self::$cache[__METHOD__] = $this->getGitLiveParameter(self::FIRE_PREFIX_NAME_KEY) ?? GitLive::DEFAULT_FIRE_PREFIX;
-    }
-
-
-
-    /**
      * Get hotfix prefix.
      *
-     * @return string|null
+     * @return null|string
      */
     public function hotfixPrefix()
     {
@@ -216,7 +198,7 @@ class ConfigDriver extends DriverBase
     /**
      * Get release prefix.
      *
-     * @return string|null
+     * @return null|string
      */
     public function releasePrefix()
     {
@@ -230,7 +212,7 @@ class ConfigDriver extends DriverBase
     /**
      * Get deploy remote name.
      *
-     * @return string|null
+     * @return null|string
      */
     public function deployRemote()
     {
@@ -244,7 +226,7 @@ class ConfigDriver extends DriverBase
     /**
      * Get development branch name.
      *
-     * @return string|null
+     * @return null|string
      */
     public function develop()
     {
@@ -258,7 +240,7 @@ class ConfigDriver extends DriverBase
     /**
      * Get master branch name.
      *
-     * @return string|null
+     * @return null|string
      */
     public function master()
     {
