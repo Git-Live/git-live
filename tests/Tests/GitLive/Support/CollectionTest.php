@@ -289,9 +289,9 @@ class CollectionTest extends TestCase
          * @var self $c
          */
         $c = $this->getMockBuilder(Collection::class)->setMethods(['jsonSerialize'])->getMock();
-        $c->expects($this->once())->method('jsonSerialize')->will($this->returnValue('foo'));
+        $c->expects($this->once())->method('jsonSerialize')->will($this->returnValue(['foo']));
         $results = $c->toJson();
-        $this->assertJsonStringEqualsJsonString(json_encode('foo'), $results);
+        $this->assertJsonStringEqualsJsonString(json_encode(['foo']), $results);
     }
 
     /**
@@ -302,9 +302,9 @@ class CollectionTest extends TestCase
         /**
          * @var self $c
          */
-        $c = $this->getMockBuilder(Collection::class)->setMethods(['jsonSerialize'])->getMock();
-        $c->expects($this->once())->method('jsonSerialize')->will($this->returnValue('foo'));
-        $this->assertJsonStringEqualsJsonString(json_encode('foo'), (string)$c);
+        $c = $this->getMockBuilder(Collection::class)->setMethods(['__toString'])->getMock();
+        $c->expects($this->once())->method('__toString')->will($this->returnValue(json_encode(['foo'])));
+        $this->assertJsonStringEqualsJsonString(json_encode(['foo']), (string)$c);
     }
 
     /**
