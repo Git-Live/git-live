@@ -20,7 +20,7 @@
 
 namespace GitLive\Command;
 
-use App;
+use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
 use GitLive\Driver\ConfigDriver;
 use GitLive\Driver\Exception;
@@ -50,7 +50,7 @@ class PullCommand extends CommandBase
                 'f',
                 InputOption::VALUE_NONE
             )
-            ->addArgument('remote', InputArgument::OPTIONAL, 'Remote name[origin upstream deploy]', null)
+            ->addArgument('remote', InputArgument::OPTIONAL, 'Remote name[origin upstream deploy]')
         ;
     }
 

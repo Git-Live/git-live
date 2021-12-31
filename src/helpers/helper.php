@@ -63,7 +63,7 @@ if (!function_exists('collect')) {
 
 if (!function_exists('resource')) {
     /**
-     * @param null|string $file_name
+     * @param string|null $file_name
      * @return \GitLive\Helper\Resource|string
      */
     function resource(?string $file_name = null)
@@ -80,7 +80,7 @@ if (!function_exists('resource')) {
 if (!function_exists('data_get')) {
     /**
      * @param      array|Collection $target
-     * @param      string $key
+     * @param string|array $key
      * @param null $default
      * @return array|mixed
      */
@@ -107,6 +107,7 @@ if (!function_exists('data_get')) {
             if (Arr::accessible($target) && Arr::exists($target, $segment)) {
                 $target = $target[$segment];
             } elseif (is_object($target) && isset($target->{$segment})) {
+                /** @noinspection CallableParameterUseCaseInTypeContextInspection */
                 $target = $target->{$segment};
             } else {
                 return value($default);

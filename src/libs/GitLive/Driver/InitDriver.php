@@ -20,7 +20,7 @@
 
 namespace GitLive\Driver;
 
-use App;
+use GitLive\Application\Facade as App;
 use GitLive\Support\InteractiveShellInterface;
 use Symfony\Component\Console\Input\InputInterface;
 
@@ -192,10 +192,10 @@ class InitDriver extends DriverBase
 
     /**
      * @param array|string $text
-     * @param bool   $using_default
+     * @param bool $using_default
      * @return string
      */
-    protected function interactiveShell($text, $using_default = false)
+    protected function interactiveShell($text, bool $using_default = false)
     {
         try {
             return App::make(InteractiveShellInterface::class)
