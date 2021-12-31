@@ -62,7 +62,7 @@ class HotfixIsCommand extends CommandBase
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return null|int|void
+     * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

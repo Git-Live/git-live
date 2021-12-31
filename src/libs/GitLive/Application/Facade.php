@@ -20,6 +20,8 @@
 
 namespace GitLive\Application;
 
+use ReflectionException;
+
 /**
  * Class Facade
  *
@@ -42,7 +44,7 @@ class Facade
      * @param array            $with
      * @return null|mixed
      */
-    public static function make($concrete, $with = [])
+    public static function make($concrete, array $with = [])
     {
         $Container = new Container();
 
@@ -52,7 +54,7 @@ class Facade
 
         try {
             $res = $Container->build($concrete);
-        } catch (\ReflectionException $exception) {
+        } catch (ReflectionException $exception) {
         }
 
         return $res;

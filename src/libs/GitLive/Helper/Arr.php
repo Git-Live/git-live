@@ -18,17 +18,45 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace GitLive\Support;
+namespace GitLive\Helper;
 
+use function array_filter;
+use function array_intersect_key;
+use function array_key_exists;
+use function array_keys;
+use function array_merge;
+use function array_rand;
+use function array_reverse;
+use function array_shift;
+use function array_unshift;
+use function array_values;
 use ArrayAccess;
+use function count;
+use function data_get;
+use function end;
+use function explode;
 use GitLive\GitBase;
+use GitLive\Support\Collection;
+use function http_build_query;
+use const INF;
 use InvalidArgumentException;
+use function is_array;
+use function is_object;
+use function is_string;
+use function ksort;
+use function method_exists;
+use function mt_srand;
+use function shuffle;
+use function sort;
+use function strpos;
+use function usort;
+use function value;
 
 /**
  * Class Arr
  *
  * @category   GitCommand
- * @package    GitLive\Support
+ * @package    GitLive\Hepler
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>

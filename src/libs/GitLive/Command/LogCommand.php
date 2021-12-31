@@ -61,9 +61,9 @@ class LogCommand extends CommandBase
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \Exception
+     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
      * @return null|int
      */
     protected function execute(InputInterface $input, OutputInterface $output)

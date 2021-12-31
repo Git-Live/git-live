@@ -23,6 +23,7 @@ namespace GitLive\Command;
 use App;
 use GitLive\Application\Container;
 use GitLive\Driver\FetchDriver;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -50,22 +51,24 @@ class CleanCommand extends CommandBase
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__('Will reset the branch before the last commit.'))
+            ->setDescription(__('Will reset all additions and changes to the current branch.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Will reset the branch before the last commit.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+
+            ->addArgument('path', InputArgument::OPTIONAL, 'path');
     }
 
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return null|int|void
+     * @return void
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
-        App::make(FetchDriver::class)->clean();
+        App::make(FetchDriver::class)->clean($input->getArgument('path'));
     }
 }

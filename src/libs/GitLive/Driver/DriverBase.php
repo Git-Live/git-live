@@ -65,7 +65,7 @@ abstract class DriverBase extends GitBase
      * コンストラクタ
      *
      * @access      public
-     * @param  GitLive $GitLive
+     * @param GitLive $GitLive
      * @param GitCmdExecutor $gitCmdExecutor
      * @param SystemCommandInterface $command
      * @codeCoverageIgnore
@@ -81,9 +81,9 @@ abstract class DriverBase extends GitBase
      * 今のブランチを取得する
      *
      * @access      public
-     * @throws Exception
-     * @throws Exception
      * @return string
+     * @throws Exception
+     * @throws Exception
      */
     public function getSelfBranchRef(): string
     {
@@ -102,7 +102,7 @@ abstract class DriverBase extends GitBase
      * 単体テストを楽にするために、処理を上書きして委譲する
      *
      * @access      public
-     * @param  string $cmd
+     * @param string $cmd
      * @param bool $verbosity
      * @param null $output_verbosity
      * @return null|string
@@ -116,11 +116,11 @@ abstract class DriverBase extends GitBase
      * 今のブランチを取得する
      *
      * @access      public
-     * @throws Exception
-     * @throws Exception
      * @return string
+     * @throws Exception
+     * @throws Exception
      */
-    public function getSelfBranch():string
+    public function getSelfBranch(): string
     {
         $self_blanch = (string)$this->exec('git rev-parse --abbrev-ref HEAD 2>/dev/null');
         if (!$self_blanch) {
@@ -134,12 +134,12 @@ abstract class DriverBase extends GitBase
      *
      *
      * @access      public
-     * @param  string $driver_name
-     * @throws Exception
+     * @param string $driver_name
      * @return \GitLive\Driver\DriverBase
      * @codeCoverageIgnore
+     * @throws Exception
      */
-    public function Driver($driver_name):DriverBase
+    public function Driver($driver_name): DriverBase
     {
         $res = App::make($driver_name);
         if ($res === null) {
@@ -151,10 +151,10 @@ abstract class DriverBase extends GitBase
 
     /**
      * @param string $branch_name
-     * @throws Exception
      * @return bool
+     * @throws Exception
      */
-    public function isBranchExists($branch_name):bool
+    public function isBranchExists($branch_name): bool
     {
         return $this->Driver(BranchDriver::class)->isBranchExistsSimple($branch_name);
     }
@@ -181,8 +181,8 @@ abstract class DriverBase extends GitBase
     /**
      * @param null|string $repo
      * @param null|string $error_msg
-     * @throws Exception
      * @return bool
+     * @throws Exception
      */
     public function isCleanOrFail($repo = null, $error_msg = null): bool
     {
@@ -243,7 +243,7 @@ abstract class DriverBase extends GitBase
      * コンフリクト確認
      *
      * @access      public
-     * @param  string $from
+     * @param string $from
      * @return bool
      */
     public function patchApplyCheck($from): bool
@@ -298,12 +298,38 @@ abstract class DriverBase extends GitBase
     }
 
     /**
+     * トップレベルディレクトリ上かどうか
+     *
+     * @access      public
+     * @return      bool
+     */
+    public function isToplevelDirectory()
+    {
+        $res = trim($this->exec('git rev-parse --git-dir 2> /dev/null', OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
+
+        return $res === '.git';
+    }
+
+
+    /**
      *
      */
-    public function clean()
+    public function clean($path = null)
     {
         $this->GitCmdExecutor->reset();
-        $this->GitCmdExecutor->clean();
+        /** @noinspection TypeUnsafeComparisonInspection */
+        if ($path != '') {
+            $this->GitCmdExecutor->clean([$path]);
+
+            return;
+        }
+        if ($this->isToplevelDirectory()) {
+            $this->GitCmdExecutor->clean();
+
+            return;
+        }
+
+        $this->GitCmdExecutor->clean([$this->GitCmdExecutor->topLevelDir()]);
     }
 
     /**

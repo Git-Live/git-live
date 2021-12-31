@@ -48,9 +48,9 @@ class FileSystem extends GitBase implements FileSystemInterface
 
     /**
      * FileSystem constructor.
-     * @param OutputInterface $output
+     * @param null|OutputInterface $output
      */
-    public function __construct($output = null)
+    public function __construct(?OutputInterface $output = null)
     {
         $this->output = $output;
     }
@@ -58,10 +58,10 @@ class FileSystem extends GitBase implements FileSystemInterface
     /**
      * @param string $url
      * @param bool $use_include_path
-     * @param null $context
+     * @param null|resource $context
      * @return false|string
      */
-    public function getContents($url, $use_include_path = false, $context = null)
+    public function getContents($url, bool $use_include_path = false, $context = null)
     {
         return file_get_contents($url, $use_include_path, $context);
     }
@@ -136,7 +136,12 @@ class FileSystem extends GitBase implements FileSystemInterface
         return $res;
     }
 
-    public function output($message, $value = null)
+    /**
+     * @param string $message
+     * @param null|string $value
+     * @return void
+     */
+    public function output(string $message, ?string $value = null): void
     {
         if (!$this->output) {
             echo $message . ($value ? ' : ' . $value : '') . "\n";

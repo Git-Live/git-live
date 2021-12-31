@@ -43,7 +43,8 @@ class LatestVersionDriver extends DriverBase
      * 最終Versionを取得
      *
      * @access      public
-     * @throws Exception
+     * @throws \GitLive\Driver\Exception
+     * @throws \JapaneseDate\Exceptions\Exception
      * @return string
      */
     public function getLatestVersion(): string

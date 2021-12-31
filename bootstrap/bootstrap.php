@@ -55,6 +55,10 @@ if (!function_exists('\textdomain')) {
     setlocale(LC_ALL, $locale);
 
     list($lang, $code_set) = explode('.', $locale);
+
+    define('GIT_LIVE_LANG', $lang);
+    define('GIT_LIVE_CODE_SET', $code_set);
+
     textdomain($domain);
     bind_textdomain_codeset($domain, 'UTF-8');
 
