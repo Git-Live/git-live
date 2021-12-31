@@ -20,7 +20,7 @@
 
 namespace GitLive\Command;
 
-use App;
+use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
 use GitLive\Driver\FetchDriver;
 use Symfony\Component\Console\Input\InputArgument;

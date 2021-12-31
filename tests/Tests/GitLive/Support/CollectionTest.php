@@ -2977,7 +2977,7 @@ class CollectionTest extends TestCase
     public function testPartition()
     {
         $collection = new Collection(range(1, 10));
-        list($firstPartition, $secondPartition) = $collection->partition(static function ($i) {
+        [$firstPartition, $secondPartition] = $collection->partition(static function ($i) {
             return $i <= 5;
         });
         $this->assertEquals([1, 2, 3, 4, 5], $firstPartition->values()->toArray());
@@ -2990,7 +2990,7 @@ class CollectionTest extends TestCase
     public function testPartitionCallbackWithKey()
     {
         $collection = new Collection(['zero', 'one', 'two', 'three']);
-        list($even, $odd) = $collection->partition(static function ($item, $index) {
+        [$even, $odd] = $collection->partition(static function ($item, $index) {
             return $index % 2 === 0;
         });
         $this->assertEquals(['zero', 'two'], $even->values()->toArray());
@@ -3005,7 +3005,7 @@ class CollectionTest extends TestCase
         $courses = new Collection([
             ['free' => true, 'title' => 'Basic'], ['free' => false, 'title' => 'Premium'],
         ]);
-        list($free, $premium) = $courses->partition('free');
+        [$free, $premium] = $courses->partition('free');
         $this->assertSame([['free' => true, 'title' => 'Basic']], $free->values()->toArray());
         $this->assertSame([['free' => false, 'title' => 'Premium']], $premium->values()->toArray());
     }
@@ -3021,7 +3021,7 @@ class CollectionTest extends TestCase
             ['name' => 'Kristina', 'age' => 33],
             ['name' => 'Tim', 'age' => 41],
         ]);
-        list($tims, $others) = $collection->partition('name', 'Tim');
+        [$tims, $others] = $collection->partition('name', 'Tim');
         $this->assertEquals($tims->values()->all(), [
             ['name' => 'Tim', 'age' => 17],
             ['name' => 'Tim', 'age' => 41],
@@ -3030,7 +3030,7 @@ class CollectionTest extends TestCase
             ['name' => 'Agatha', 'age' => 62],
             ['name' => 'Kristina', 'age' => 33],
         ]);
-        list($adults, $minors) = $collection->partition('age', '>=', 18);
+        [$adults, $minors] = $collection->partition('age', '>=', 18);
         $this->assertEquals($adults->values()->all(), [
             ['name' => 'Agatha', 'age' => 62],
             ['name' => 'Kristina', 'age' => 33],
@@ -3049,7 +3049,7 @@ class CollectionTest extends TestCase
         $courses = new Collection([
             'a' => ['free' => true], 'b' => ['free' => false], 'c' => ['free' => true],
         ]);
-        list($free, $premium) = $courses->partition('free');
+        [$free, $premium] = $courses->partition('free');
         $this->assertSame(['a' => ['free' => true], 'c' => ['free' => true]], $free->toArray());
         $this->assertSame(['b' => ['free' => false]], $premium->toArray());
     }
@@ -3073,7 +3073,7 @@ class CollectionTest extends TestCase
         $courses = new Collection([
             'a' => ['free' => true], 'b' => ['free' => false], 'c' => ['free' => true],
         ]);
-        list($free, $premium) = $courses->partition->free;
+        [$free, $premium] = $courses->partition->free;
         $this->assertSame(['a' => ['free' => true], 'c' => ['free' => true]], $free->toArray());
         $this->assertSame(['b' => ['free' => false]], $premium->toArray());
     }

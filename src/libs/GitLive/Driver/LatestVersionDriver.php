@@ -29,8 +29,10 @@ class LatestVersionDriver extends DriverBase
      *  新しいVersionが出ていないか確認する
      *
      * @access      public
-     * @throws Exception
      * @return bool
+     * @throws \GitLive\Driver\Exception
+     * @throws \JapaneseDate\Exceptions\Exception
+     * @throws \JapaneseDate\Exceptions\Exception
      */
     public function ckNewVersion(): bool
     {
@@ -81,9 +83,7 @@ class LatestVersionDriver extends DriverBase
         $context = stream_context_create($opts);
         $contents = file_get_contents(GitLive::VERSION_API, false, $context);
         if (!$contents) {
-            $latest_version = GitLive::VERSION;
-
-            return $latest_version;
+            return GitLive::VERSION;
         }
 
         $arr = json_decode($contents, true);

@@ -76,10 +76,10 @@ class HigherOrderCollectionProxy extends GitBase
      * Create a new proxy instance.
      *
      * @param  \GitLive\Support\Collection $collection
-     * @param  string                      $method
+     * @param string $method
      * @return void
      */
-    public function __construct(Collection $collection, $method)
+    public function __construct(Collection $collection, string $method)
     {
         $this->method = $method;
         $this->collection = $collection;
@@ -89,10 +89,10 @@ class HigherOrderCollectionProxy extends GitBase
     /**
      * Proxy accessing an attribute onto the collection items.
      *
-     * @param  string $key
+     * @param string $key
      * @return mixed
      */
-    public function __get($key)
+    public function __get(string $key)
     {
         return $this->collection->{$this->method}(static function ($value) use ($key) {
             return is_array($value) ? $value[$key] : $value->{$key};
@@ -102,11 +102,11 @@ class HigherOrderCollectionProxy extends GitBase
     /**
      * Proxy a method call onto the collection items.
      *
-     * @param  string $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array $parameters
      * @return mixed
      */
-    public function __call($method, $parameters)
+    public function __call(string $method, array $parameters)
     {
         return $this->collection->{$this->method}(static function ($value) use ($method, $parameters) {
             return $value->{$method}(...$parameters);

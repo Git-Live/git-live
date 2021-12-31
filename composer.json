@@ -42,6 +42,7 @@
     "gettext/gettext": "4.6.1"
   },
   "require-dev": {
+    "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "^7.5 || ^8.5",
     "mockery/mockery": "1.2.0"
   },

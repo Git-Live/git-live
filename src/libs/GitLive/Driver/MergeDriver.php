@@ -87,7 +87,7 @@ class MergeDriver extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @return null|string
+     * @return string|null
      */
     public function mergeDevelop()
     {
@@ -101,7 +101,7 @@ class MergeDriver extends DriverBase
      *
      * @param $branch
      * @throws Exception
-     * @return null|string
+     * @return string|null
      */
     public function merge($branch)
     {
@@ -115,7 +115,7 @@ class MergeDriver extends DriverBase
      *
      * @access      public
      * @throws Exception
-     * @return null|string
+     * @return string|null
      */
     public function mergeMaster()
     {
@@ -129,7 +129,7 @@ class MergeDriver extends DriverBase
      *
      * @param string $feature_name
      * @throws Exception
-     * @return null|string
+     * @return string|null
      */
     public function mergeFeature(string $feature_name)
     {
