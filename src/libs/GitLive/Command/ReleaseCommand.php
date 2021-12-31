@@ -86,8 +86,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'close':
                 $command = $this->getApplication()->find('release:close');
 
@@ -100,8 +98,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'close-force':
                 $command = $this->getApplication()->find('release:close');
 
@@ -116,8 +112,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'sync':
                 $command = $this->getApplication()->find('release:sync');
 
@@ -126,8 +120,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'pull':
                 $command = $this->getApplication()->find('release:pull');
 
@@ -136,8 +128,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'push':
                 $command = $this->getApplication()->find('release:push');
 
@@ -146,8 +136,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'track':
                 $command = $this->getApplication()->find('release:track');
 
@@ -156,8 +144,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'state':
                 $command = $this->getApplication()->find('release:state');
 
@@ -167,8 +153,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'state-all':
                 $command = $this->getApplication()->find('release:state');
 
@@ -179,8 +163,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'is':
                 $command = $this->getApplication()->find('release:is');
 
@@ -190,8 +172,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'destroy':
                 $command = $this->getApplication()->find('release:destroy');
 
@@ -200,8 +180,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'destroy-clean':
                 $command = $this->getApplication()->find('release:destroy');
 
@@ -212,8 +190,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
         }
 
         return 0;

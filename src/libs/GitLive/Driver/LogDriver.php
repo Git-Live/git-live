@@ -71,10 +71,10 @@ class LogDriver extends DriverBase
     /**
      * @param string $from_branch
      * @param array|Collection $option
-     * @throws Exception
      * @return string
+     *@throws Exception
      */
-    public function log($from_branch, $option = []): string
+    public function log(string $from_branch, $option = []): string
     {
         $this->Driver(FetchDriver::class)->all();
         $to_branch = $this->getSelfBranch();

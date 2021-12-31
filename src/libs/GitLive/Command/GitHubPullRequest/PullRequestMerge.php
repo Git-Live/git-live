@@ -20,7 +20,7 @@
 
 namespace GitLive\Command\GitHubPullRequest;
 
-use App;
+use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\PullRequestDriver;
