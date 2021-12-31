@@ -27,6 +27,7 @@ use Example\BindTestInterface;
 use Example\BindTestWithExample;
 use GitLive\Application\Container;
 use GitLive\GitLive;
+use GitLive\Support\FileSystem;
 use PHPUnit\Framework\TestCase;
 use Tests\GitLive\Tester\InvokeTrait;
 
@@ -177,6 +178,18 @@ class ContainerTest extends TestCase
         $GitLive = $Container->build(GitLive::class);
 
         $this->assertInstanceOf(GitLive::class, $GitLive);
+    }
+
+    /**
+     * @covers \GitLive\Application\Container
+     */
+    public function testBuildDriver()
+    {
+        $Container = new Container();
+
+        $fileSystem = $Container->build(FileSystem::class);
+
+        $this->assertInstanceOf(FileSystem::class, $fileSystem);
     }
 
     /**

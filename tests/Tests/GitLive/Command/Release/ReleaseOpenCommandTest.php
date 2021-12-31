@@ -260,7 +260,6 @@ class ReleaseOpenCommandTest extends TestCase
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\ReleaseDriver
      * @covers \GitLive\Service\CommandLineKernelService
-     * @expectedException Exception
      */
     public function testExecuteDuplicateHotfix()
     {

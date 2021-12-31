@@ -193,9 +193,10 @@ class ReleaseDestroyCommandTest extends TestCase
             21 => "git push deploy :release/unit_test_deploy",
             22 => "git push upstream :release/unit_test_deploy",
             23 => "git reset --hard HEAD",
-            24 => "git clean -df",
-            25 => "git checkout develop",
-            26 => "git branch -d release/unit_test_deploy",
+            24 => "git rev-parse --git-dir 2> /dev/null",
+            25 => "git clean -df",
+            26 => "git checkout develop",
+            27 => "git branch -d release/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
         $this->assertNotContains('release/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
