@@ -20,7 +20,7 @@
 
 namespace GitLive\Driver;
 
-use App;;
+use App;
 use GitLive\GitLive;
 use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\SystemCommandInterface;

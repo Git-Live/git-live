@@ -20,7 +20,7 @@
 
 namespace GitLive\Command\Log;
 
-use App;;
+use App;
 use GitLive\Application\Container;
 use GitLive\Driver\LogDriver;
 use Symfony\Component\Console\Input\InputInterface;

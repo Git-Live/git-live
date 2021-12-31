@@ -20,7 +20,7 @@
 
 namespace GitLive\Command\Feature;
 
-use App;;
+use App;
 use GitLive\Application\Container;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\FeatureDriver;
