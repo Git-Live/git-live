@@ -201,7 +201,8 @@ class Container
             }
             */
 
-            $results[] = $dependency->getType() === null
+            $typeHint = $dependency->getType();
+            $results[] = $typeHint === null || $typeHint->isBuiltin()
                 ? $this->resolvePrimitive($dependency)
                 : $this->build($dependency->getType()->getName());
         }
