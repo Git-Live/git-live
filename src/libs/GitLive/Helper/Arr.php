@@ -55,12 +55,12 @@ class Arr extends GitBase
     /**
      * Add an element to an array using "dot" notation if it doesn't exist.
      *
-     * @param  array   $array
-     * @param  string  $key
+     * @param  array||ArrayAccess   $array
+     * @param string $key
      * @param  mixed   $value
      * @return array
      */
-    public static function add($array, $key, $value): array
+    public static function add($array, string $key, $value): array
     {
         if (static::get($array, $key) === null) {
             static::set($array, $key, $value);
@@ -71,7 +71,7 @@ class Arr extends GitBase
     /**
      * Collapse an array of arrays into a single array.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @return array
      */
     public static function collapse($array): array
@@ -114,7 +114,7 @@ class Arr extends GitBase
     /**
      * Divide an array into two arrays. One with keys and the other with values.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @return array
      */
     public static function divide($array): array
@@ -124,11 +124,11 @@ class Arr extends GitBase
     /**
      * Flatten a multi-dimensional associative array with dots.
      *
-     * @param  array   $array
-     * @param  string  $prepend
+     * @param  array|ArrayAccess   $array
+     * @param string $prepend
      * @return array
      */
-    public static function dot($array, $prepend = ''): array
+    public static function dot($array, string $prepend = ''): array
     {
         $results = [];
         foreach ($array as $key => $value) {
@@ -145,7 +145,7 @@ class Arr extends GitBase
     /**
      * Get all of the given array except for a specified array of keys.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @param  array|string  $keys
      * @return array
      */
@@ -173,7 +173,7 @@ class Arr extends GitBase
     /**
      * Return the first element in an array passing a given truth test.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @param  null|callable  $callback
      * @param  mixed  $default
      * @return mixed
@@ -200,7 +200,7 @@ class Arr extends GitBase
     /**
      * Return the last element in an array passing a given truth test.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @param  null|callable  $callback
      * @param  mixed  $default
      * @return mixed
@@ -216,8 +216,8 @@ class Arr extends GitBase
     /**
      * Flatten a multi-dimensional array into a single level.
      *
-     * @param  array  $array
-     * @param  int  $depth
+     * @param  array|\ArrayAccess  $array
+     * @param  float|int  $depth
      * @return array
      */
     public static function flatten($array, $depth = INF): array
@@ -241,7 +241,7 @@ class Arr extends GitBase
     /**
      * Remove one or many array items from a given array using "dot" notation.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @param  array|string  $keys
      * @return void
      */
@@ -277,11 +277,11 @@ class Arr extends GitBase
      * Get an item from an array using "dot" notation.
      *
      * @param  array|\ArrayAccess  $array
-     * @param  string  $key
+     * @param null|string $key
      * @param  mixed   $default
      * @return mixed
      */
-    public static function get($array, $key, $default = null)
+    public static function get($array, ?string $key, $default = null)
     {
         if (! static::accessible($array)) {
             return value($default);
@@ -345,7 +345,7 @@ class Arr extends GitBase
      *
      * An array is "associative" if it doesn't have sequential numerical keys beginning with zero.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @return bool
      */
     public static function isAssoc(array $array): bool
@@ -357,7 +357,7 @@ class Arr extends GitBase
     /**
      * Get a subset of the items from the given array.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @param  array|string  $keys
      * @return array
      */
@@ -368,7 +368,7 @@ class Arr extends GitBase
     /**
      * Pluck an array of values from an array.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @param  array|string  $value
      * @param  null|array|string  $key
      * @return array
@@ -398,7 +398,7 @@ class Arr extends GitBase
     /**
      * Push an item onto the beginning of an array.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @param  mixed  $value
      * @param  mixed  $key
      * @return array
@@ -416,12 +416,12 @@ class Arr extends GitBase
     /**
      * Get a value from the array, and remove it.
      *
-     * @param  array   $array
-     * @param  string  $key
+     * @param  array|ArrayAccess   $array
+     * @param string $key
      * @param  mixed   $default
      * @return mixed
      */
-    public static function pull(&$array, $key, $default = null)
+    public static function pull(&$array, string $key, $default = null)
     {
         $value = static::get($array, $key, $default);
         static::forget($array, $key);
@@ -431,13 +431,13 @@ class Arr extends GitBase
     /**
      * Get one or a specified number of random values from an array.
      *
-     * @param  array  $array
-     * @param  null|int  $number
-     * @throws \InvalidArgumentException
+     * @param  array|\ArrayAccess  $array
+     * @param null|int $number
+     *@throws \InvalidArgumentException
      * @return mixed
      *
      */
-    public static function random($array, $number = null)
+    public static function random($array, int $number = null)
     {
         $requested = $number === null ? 1 : $number;
         $count = count($array);
@@ -465,12 +465,12 @@ class Arr extends GitBase
      *
      * If no key is given to the method, the entire array will be replaced.
      *
-     * @param  array   $array
-     * @param  string  $key
+     * @param  array|ArrayAccess   $array
+     * @param string $key
      * @param  mixed   $value
      * @return array
      */
-    public static function set(&$array, $key, $value): array
+    public static function set(&$array, string $key, $value): array
     {
         if ($key === null) {
             return $array = $value;
@@ -493,18 +493,17 @@ class Arr extends GitBase
     /**
      * Shuffle the given array and return the result.
      *
-     * @param  array  $array
-     * @param  null|int  $seed
+     * @param  array|\ArrayAccess  $array
+     * @param null|int $seed
      * @return array
      */
-    public static function shuffle($array, $seed = null): array
+    public static function shuffle($array, int $seed = null): array
     {
         if ($seed === null) {
             shuffle($array);
         } else {
             mt_srand($seed);
             usort($array, static function () {
-                /** @noinspection RandomApiMigrationInspection */
                 return mt_rand(-1, 1);
             });
         }
@@ -514,7 +513,7 @@ class Arr extends GitBase
     /**
      * Sort the array using the given callback or "dot" notation.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @param  null|callable|string  $callback
      * @return array
      */
@@ -525,7 +524,7 @@ class Arr extends GitBase
     /**
      * Recursively sort an array by keys and values.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @return array
      */
     public static function sortRecursive($array): array
@@ -547,7 +546,7 @@ class Arr extends GitBase
     /**
      * Convert the array into a query string.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @return string
      */
     public static function query($array): string
@@ -557,7 +556,7 @@ class Arr extends GitBase
     /**
      * Filter the array using the given callback.
      *
-     * @param  array  $array
+     * @param  array|\ArrayAccess  $array
      * @param  callable  $callback
      * @return array
      */
