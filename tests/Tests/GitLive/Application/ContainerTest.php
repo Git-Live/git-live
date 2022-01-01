@@ -29,6 +29,7 @@ use GitLive\Application\Container;
 use GitLive\Driver\ConfigDriver;
 use GitLive\GitLive;
 use GitLive\Support\FileSystem;
+use GitLive\Support\SystemCommand;
 use PHPUnit\Framework\TestCase;
 use Tests\GitLive\Tester\InvokeTrait;
 
@@ -175,6 +176,7 @@ class ContainerTest extends TestCase
             GitLive::class =>  [GitLive::class],
             FileSystem::class =>  [FileSystem::class],
             ConfigDriver::class =>  [ConfigDriver::class],
+            SystemCommand::class => [SystemCommand::class],
         ];
     }
 

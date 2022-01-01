@@ -18,7 +18,7 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-namespace ests\GitLive\Driver;
+namespace tests\GitLive\Driver;
 
 use App;
 use GitLive\Application\Container;
