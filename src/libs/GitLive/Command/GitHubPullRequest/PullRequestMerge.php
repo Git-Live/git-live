@@ -46,7 +46,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class PullRequestMerge extends CommandBase
 {
     protected static $signature_name = 'pr:merge';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -55,15 +60,17 @@ class PullRequestMerge extends CommandBase
             ->setDescription(__('Merge pull request locally.'))
             // the full command description shown when running the command with
             // the "--help" Merge
-            ->setHelp(__('Merge pull request locally.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('Merge', InputArgument::REQUIRED, 'Pull request id');
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

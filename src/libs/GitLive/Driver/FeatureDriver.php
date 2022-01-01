@@ -44,8 +44,8 @@ class FeatureDriver extends DriverBase
      * featureの一覧を取得する
      *
      * @access      public
-     * @throws Exception
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function featureList(): string
@@ -61,8 +61,8 @@ class FeatureDriver extends DriverBase
      * featureの一覧を取得する
      *
      * @access      public
-     * @throws Exception
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function mergedFeatureList(): string
@@ -78,8 +78,8 @@ class FeatureDriver extends DriverBase
      * featureの一覧を取得する
      *
      * @access      public
-     * @throws Exception
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function noMergedFeatureList(): string
@@ -95,14 +95,13 @@ class FeatureDriver extends DriverBase
      * featureを開始する
      *
      * @access      public
-     * @param  string $branch
-     * @throws Exception
-     * @throws Exception
-     * @throws Exception
+     * @param string $branch
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @throws \GitLive\Exception
      * @return void
      */
-    public function featureStart($branch)
+    public function featureStart(string $branch): void
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
@@ -125,10 +124,11 @@ class FeatureDriver extends DriverBase
 
     /**
      * @param null|string $branch
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return null|string
      */
-    public function featureStatus($branch = null)
+    public function featureStatus(string $branch = null): ?string
     {
         if ($branch === null) {
             $self_branch = $this->getSelfBranch();
@@ -136,14 +136,14 @@ class FeatureDriver extends DriverBase
                 $branch = $this->Driver(ConfigDriver::class)->develop();
             } elseif ($self_branch === $this->Driver(ConfigDriver::class)->develop()) {
                 $branch = $this->Driver(ConfigDriver::class)->master();
-            } elseif (strpos($this->Driver(ConfigDriver::class)->hotfixPrefix(), $self_branch) === 0 && $this->Driver(HotfixDriver::class)->isHotfixOpen()) {
+            } /** @noinspection NotOptimalIfConditionsInspection */ elseif (strpos($this->Driver(ConfigDriver::class)->hotfixPrefix(), $self_branch) === 0 && $this->Driver(HotfixDriver::class)->isHotfixOpen()) {
                 $branch = $this->Driver(ConfigDriver::class)->master();
-            } elseif (strpos($this->Driver(ConfigDriver::class)->releasePrefix(), $self_branch) === 0 && $this->Driver(ReleaseDriver::class)->isReleaseOpen()) {
+            } /** @noinspection NotOptimalIfConditionsInspection */ elseif (strpos($this->Driver(ConfigDriver::class)->releasePrefix(), $self_branch) === 0 && $this->Driver(ReleaseDriver::class)->isReleaseOpen()) {
                 $branch = $this->Driver(ConfigDriver::class)->develop();
             } else {
                 $branch = $this->Driver(ConfigDriver::class)->develop();
             }
-        } elseif (!strpos($branch, $this->Driver(ConfigDriver::class)->hotfixPrefix()) !== 0
+        } elseif (strpos($branch, $this->Driver(ConfigDriver::class)->hotfixPrefix()) !== 0
             && strpos($branch, $this->Driver(ConfigDriver::class)->releasePrefix()) !== 0
             && ((string)$this->Driver(ConfigDriver::class)->featurePrefix() !== ''
                 && strpos($branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0)
@@ -158,12 +158,13 @@ class FeatureDriver extends DriverBase
      * featureを変更する
      *
      * @access      public
-     * @param  string $branch
+     * @param string $branch
      * @param array|Collection $option
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return bool|string
      */
-    public function featureChange($branch, $option = [])
+    public function featureChange(string $branch, $option = [])
     {
         $Config = $this->Driver(ConfigDriver::class);
         $feature_prefix = (string)$Config->featurePrefix();
@@ -203,14 +204,18 @@ class FeatureDriver extends DriverBase
      * 共用Repositoryにfeatureを送信する
      *
      * @access      public
-     * @param  null|string $branch OPTIONAL:NULL
-     * @throws \Exception
+     * @param null|string $branch OPTIONAL:NULL
+     *@throws \Exception
      * @return string
      */
-    public function featurePublish($branch = null): string
+    public function featurePublish(string $branch = null): string
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
+
+        if ($Config->isUpstreamReadOnly()) {
+            return 'Error:' . __('upstream remote repository is readonly.');
+        }
 
         $feature_prefix = (string)$Config->featurePrefix();
 
@@ -230,11 +235,11 @@ class FeatureDriver extends DriverBase
      * 自分のリモートRepositoryにfeatureを送信する
      *
      * @access      public
-     * @param  null|string $branch OPTIONAL:NULL
-     * @throws \Exception
+     * @param null|string $branch OPTIONAL:NULL
+     *@throws \Exception
      * @return string
      */
-    public function featurePush($branch = null): string
+    public function featurePush(string $branch = null): string
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
@@ -257,11 +262,11 @@ class FeatureDriver extends DriverBase
      * 共用Repositoryから他人のfeatureを取得する
      *
      * @access      public
-     * @param  string $branch
-     * @throws \Exception
+     * @param string $branch
+     *@throws \Exception
      * @return string
      */
-    public function featureTrack($branch): string
+    public function featureTrack(string $branch): string
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
@@ -295,11 +300,11 @@ class FeatureDriver extends DriverBase
      * 共用Repositoryからpullする
      *
      * @access      public
-     * @param  null|string $branch OPTIONAL:NULL
-     * @throws \Exception
+     * @param null|string $branch OPTIONAL:NULL
+     *@throws \Exception
      * @return string
      */
-    public function featurePull($branch = null): string
+    public function featurePull(string $branch = null): string
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
@@ -335,11 +340,11 @@ class FeatureDriver extends DriverBase
      * featureを閉じる
      *
      * @access      public
-     * @param  null|string $repository OPTIONAL:NULL
-     * @throws \Exception
-     * @return void
+     * @param null|string $repository OPTIONAL:NULL
+     *@throws \Exception
+     * @return string
      */
-    public function featureClose($repository = null)
+    public function featureClose(string $repository = null): string
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
@@ -348,17 +353,28 @@ class FeatureDriver extends DriverBase
 
         $Fetch->all();
         $Fetch->upstream();
-
+        $feature_branch = $this->getSelfBranch();
+        switch ($feature_branch) {
+            case 'refs/heads/' . $Config->develop():
+            case 'refs/heads/' . $Config->master():
+            case $Config->develop():
+            case $Config->master():
+            return sprintf('Error:' . __('%s branch is readonly.'), $this->getSelfBranch());
+        }
         if ($repository === null) {
             $repository = $this->getSelfBranch();
         } elseif ($feature_prefix !== '' && strpos($repository, $feature_prefix) !== 0) {
             $repository = $feature_prefix . $repository;
         }
+        if (!$Config->isUpstreamReadOnly()) {
+            $this->GitCmdExecutor->push('upstream', ':' . $repository);
+        }
 
-        $this->GitCmdExecutor->push('upstream', ':' . $repository);
         $this->GitCmdExecutor->push('origin', ':' . $repository);
         $this->GitCmdExecutor->checkout($Config->develop());
         $this->GitCmdExecutor->branch(['-D', $repository]);
+
+        return $feature_branch . ' was removed.';
     }
 
     /**
@@ -367,7 +383,7 @@ class FeatureDriver extends DriverBase
      * @param array|Collection $option
      * @return bool|string
      */
-    protected function changeRemoteIf($branch_list, $feature_branch, $option = [])
+    protected function changeRemoteIf(Collection $branch_list, string $feature_branch, $option = [])
     {
         $remote_branch = 'remotes/origin/' . $feature_branch;
         $res = $this->changeIf($branch_list, $remote_branch, $feature_branch, $option);
@@ -391,7 +407,7 @@ class FeatureDriver extends DriverBase
      * @param array|Collection $option
      * @return bool|string
      */
-    protected function changeIf($branch_list, $remote_branch, $feature_branch, $option = [])
+    protected function changeIf(Collection $branch_list, string $remote_branch, string $feature_branch, $option = [])
     {
         $option = collect($option);
         if ($branch_list->search($remote_branch) !== false) {

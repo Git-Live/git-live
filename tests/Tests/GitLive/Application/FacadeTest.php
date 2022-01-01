@@ -50,7 +50,10 @@ use Tests\GitLive\Tester\InvokeTrait;
  */
 class FacadeTest extends TestCase
 {
-    protected function tearDown()
+    /**
+     * @return void
+     */
+    protected function tearDown(): void
     {
         parent::tearDown();
         Container::reset();
@@ -107,10 +110,9 @@ class FacadeTest extends TestCase
      */
     public function testMakeError()
     {
-        $obj = Facade::make(
+        $this->expectException(\ErrorException::class);
+        Facade::make(
             BindTestInterface::class
         );
-
-        $this->assertNull($obj);
     }
 }

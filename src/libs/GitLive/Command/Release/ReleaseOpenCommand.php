@@ -48,7 +48,10 @@ class ReleaseOpenCommand extends CommandBase
     protected static $signature_name = 'release:open';
 
     /**
-     *
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function configure()
     {
@@ -60,15 +63,17 @@ class ReleaseOpenCommand extends CommandBase
             ->setDescription(__('Start new release named {name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Support preparation of a new production release.') . __('Allow for minor bug fixes and preparing meta-data for a release.') . __('The default feature name is PHP date format "YmdHis".'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('name', InputArgument::OPTIONAL, 'release_name');
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

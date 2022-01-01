@@ -47,7 +47,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ReleaseCloseCommand extends CommandBase
 {
     protected static $signature_name = 'release:close';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -56,7 +61,7 @@ class ReleaseCloseCommand extends CommandBase
             ->setDescription(__('Finish release {name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__("Finish up a release.Merges the release branch back into 'master'.Tags the release with its name.Back-merges the release into 'develop'.Removes the release branch."))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('name', InputArgument::OPTIONAL, 'release_name')
             ->addOption('force', 'f', InputOption::VALUE_NONE, __('Do not check develop repository.'));
     }
@@ -64,8 +69,10 @@ class ReleaseCloseCommand extends CommandBase
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

@@ -41,7 +41,7 @@ use GitLive\Support\SystemCommandInterface;
  */
 class HotfixDriver extends DeployBase
 {
-    const MODE = 'hotfix';
+    public const MODE = 'hotfix';
     /**
      * @var string
      */
@@ -61,10 +61,11 @@ class HotfixDriver extends DeployBase
 
     /**
      * HotfixDriver constructor.
-     * @param GitLive                $GitLive
-     * @param GitCmdExecutor         $gitCmdExecutor
+     * @param GitLive $GitLive
+     * @param GitCmdExecutor $gitCmdExecutor
      * @param SystemCommandInterface $command
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      */
     public function __construct($GitLive, GitCmdExecutor $gitCmdExecutor, SystemCommandInterface $command)
     {
@@ -74,6 +75,7 @@ class HotfixDriver extends DeployBase
     }
 
     /**
+     * @throws \ErrorException
      * @return bool
      */
     public function isBuildOpen():bool
@@ -82,7 +84,8 @@ class HotfixDriver extends DeployBase
     }
 
     /**
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function getBuildRepository():string

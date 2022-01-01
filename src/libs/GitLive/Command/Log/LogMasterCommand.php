@@ -29,7 +29,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class LogMasterCommand extends BaseLogCommand
 {
     protected static $signature_name = 'log:master';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -38,14 +43,16 @@ class LogMasterCommand extends BaseLogCommand
             ->setDescription(__('Show diff upstream master branch.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Show diff upstream master branch.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

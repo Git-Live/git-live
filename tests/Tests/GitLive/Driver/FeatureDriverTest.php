@@ -487,6 +487,16 @@ class FeatureDriverTest extends TestCase
     {
         $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
+
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git config --get gitlive.remote.upstream.readonly', true, null)
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
+
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
@@ -577,6 +587,8 @@ class FeatureDriverTest extends TestCase
         //dd(data_get($spy, '*.0'));
         $this->assertSame([
             'git rev-parse --git-dir 2> /dev/null',
+            'git config --get gitlive.remote.upstream.readonly',
+            'git rev-parse --git-dir 2> /dev/null',
             'git config --get gitlive.branch.feature.prefix.ignore',
             'git rev-parse --git-dir 2> /dev/null',
             'git config --get gitlive.branch.feature.prefix.name',
@@ -598,6 +610,16 @@ class FeatureDriverTest extends TestCase
     {
         $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
+
+        $mock->shouldReceive('exec')
+            ->once()
+            ->with('git config --get gitlive.remote.upstream.readonly', true, null)
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '';
+            });
+
         $mock->shouldReceive('exec')
             //->once()
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
@@ -687,6 +709,8 @@ class FeatureDriverTest extends TestCase
 
         //dd(data_get($spy, '*.0'));
         $this->assertSame([
+            'git rev-parse --git-dir 2> /dev/null',
+            'git config --get gitlive.remote.upstream.readonly',
             'git rev-parse --git-dir 2> /dev/null',
             'git config --get gitlive.branch.feature.prefix.ignore',
             'git fetch --all',

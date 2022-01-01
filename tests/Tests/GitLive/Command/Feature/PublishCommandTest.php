@@ -36,7 +36,7 @@ class PublishCommandTest extends TestCase
     use CommandTestTrait;
     use MakeGitTestRepoTrait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -80,16 +80,18 @@ class PublishCommandTest extends TestCase
         dump(data_get($this->spy, '*.0'));
 
         $this->assertEquals([
-            0 => 'git rev-parse --git-dir 2> /dev/null',
-            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
-            2 => 'git rev-parse --git-dir 2> /dev/null',
-            3 => 'git config --get gitlive.branch.feature.prefix.name',
-            4 => 'git fetch --all',
-            5 => 'git fetch -p',
-            6 => 'git fetch upstream',
-            7 => 'git fetch -p upstream',
-            8 => 'git symbolic-ref HEAD 2>/dev/null',
-            9 => 'git push upstream refs/heads/feature/suzunone_branch',
+            0 => "git rev-parse --git-dir 2> /dev/null",
+            1 => "git config --get gitlive.remote.upstream.readonly",
+            2 => "git rev-parse --git-dir 2> /dev/null",
+            3 => "git config --get gitlive.branch.feature.prefix.ignore",
+            4 => "git rev-parse --git-dir 2> /dev/null",
+            5 => "git config --get gitlive.branch.feature.prefix.name",
+            6 => "git fetch --all",
+            7 => "git fetch -p",
+            8 => "git fetch upstream",
+            9 => "git fetch -p upstream",
+            10 => "git symbolic-ref HEAD 2>/dev/null",
+            11 => "git push upstream refs/heads/feature/suzunone_branch",
         ], data_get($this->spy, '*.0'));
 
         // ...
@@ -133,16 +135,18 @@ class PublishCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => 'git rev-parse --git-dir 2> /dev/null',
-            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
-            2 => 'git rev-parse --git-dir 2> /dev/null',
-            3 => 'git config --get gitlive.branch.feature.prefix.name',
-            4 => 'git fetch --all',
-            5 => 'git fetch -p',
-            6 => 'git fetch upstream',
-            7 => 'git fetch -p upstream',
-            8 => 'git symbolic-ref HEAD 2>/dev/null',
-            9 => 'git push upstream refs/heads/develop',
+            0 => "git rev-parse --git-dir 2> /dev/null",
+            1 => "git config --get gitlive.remote.upstream.readonly",
+            2 => "git rev-parse --git-dir 2> /dev/null",
+            3 => "git config --get gitlive.branch.feature.prefix.ignore",
+            4 => "git rev-parse --git-dir 2> /dev/null",
+            5 => "git config --get gitlive.branch.feature.prefix.name",
+            6 => "git fetch --all",
+            7 => "git fetch -p",
+            8 => "git fetch upstream",
+            9 => "git fetch -p upstream",
+            10 => "git symbolic-ref HEAD 2>/dev/null",
+            11 => "git push upstream refs/heads/develop",
         ], data_get($this->spy, '*.0'));
 
         // ...
@@ -186,16 +190,18 @@ class PublishCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => 'git rev-parse --git-dir 2> /dev/null',
-            1 => 'git config --get gitlive.branch.feature.prefix.ignore',
-            2 => 'git rev-parse --git-dir 2> /dev/null',
-            3 => 'git config --get gitlive.branch.feature.prefix.name',
-            4 => 'git fetch --all',
-            5 => 'git fetch -p',
-            6 => 'git fetch upstream',
-            7 => 'git fetch -p upstream',
-            8 => 'git symbolic-ref HEAD 2>/dev/null',
-            9 => 'git push upstream refs/heads/master',
+            0 => "git rev-parse --git-dir 2> /dev/null",
+            1 => "git config --get gitlive.remote.upstream.readonly",
+            2 => "git rev-parse --git-dir 2> /dev/null",
+            3 => "git config --get gitlive.branch.feature.prefix.ignore",
+            4 => "git rev-parse --git-dir 2> /dev/null",
+            5 => "git config --get gitlive.branch.feature.prefix.name",
+            6 => "git fetch --all",
+            7 => "git fetch -p",
+            8 => "git fetch upstream",
+            9 => "git fetch -p upstream",
+            10 => "git symbolic-ref HEAD 2>/dev/null",
+            11 => "git push upstream refs/heads/master",
         ], data_get($this->spy, '*.0'));
 
         // ...

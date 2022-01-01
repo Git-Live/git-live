@@ -41,13 +41,14 @@ class PullRequestDriver extends DriverBase
      *  pr feature start
      *
      * @access      public
-     * @param  string $pull_request_number
-     * @param  string $branch
-     * @throws Exception
+     * @param string $pull_request_number
+     * @param string $branch
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @throws \GitLive\Exception
      * @return void
      */
-    public function featureStart($pull_request_number, $branch)
+    public function featureStart(string $pull_request_number, string $branch): void
     {
         $develop_branch = $this->Driver(ConfigDriver::class)->develop();
         $this->Driver(FetchDriver::class)->all();
@@ -79,13 +80,14 @@ class PullRequestDriver extends DriverBase
      *  pr feature start-soft
      *
      * @access      public
-     * @param  string $pull_request_number
-     * @param  string $branch
-     * @throws Exception
+     * @param string $pull_request_number
+     * @param string $branch
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @throws \GitLive\Exception
      * @return void
      */
-    public function featureStartSoft($pull_request_number, $branch)
+    public function featureStartSoft(string $pull_request_number, string $branch): void
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
@@ -108,11 +110,12 @@ class PullRequestDriver extends DriverBase
      *
      * @param string $pull_request_number
      *
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      * @access      public
      */
-    public function prTrack($pull_request_number)
+    public function prTrack(string $pull_request_number): void
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
@@ -126,11 +129,12 @@ class PullRequestDriver extends DriverBase
     /**
      *  pr pull
      *
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      * @access      public
      */
-    public function prPull()
+    public function prPull(): void
     {
         $branch = $this->getSelfBranchRef();
         $match = null;
@@ -152,11 +156,12 @@ class PullRequestDriver extends DriverBase
      *  pr merge
      *
      * @access      public
-     * @param  string $pull_request_number
-     * @throws Exception
+     * @param string $pull_request_number
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    public function prMerge($pull_request_number)
+    public function prMerge(string $pull_request_number): void
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();

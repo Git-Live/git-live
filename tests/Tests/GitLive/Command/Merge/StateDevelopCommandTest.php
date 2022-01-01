@@ -37,7 +37,7 @@ class StateDevelopCommandTest extends TestCase
     use CommandTestTrait;
     use MakeGitTestRepoTrait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -49,9 +49,9 @@ class StateDevelopCommandTest extends TestCase
         $this->execCmdToLocalRepo('echo "\n\n * something text" >> README.md');
         $this->execCmdToLocalRepo('git add ./');
         $this->execCmdToLocalRepo('git commit -am "edit readme"');
-        $this->execCmdToLocalRepo('git checkout develop');
+        $this->execCmdToLocalRepo('git checkout staging');
         $this->execCmdToLocalRepo('git merge feature/suzunone_branch_2');
-        $this->execCmdToLocalRepo('git push upstream develop');
+        $this->execCmdToLocalRepo('git push upstream staging');
         $this->execCmdToLocalRepo('git checkout feature/suzunone_branch');
     }
 
@@ -103,8 +103,8 @@ class StateDevelopCommandTest extends TestCase
             3 => 'git fetch -p',
             4 => 'git fetch upstream',
             5 => 'git fetch -p upstream',
-            6 => 'git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/develop --stdout',
-            7 => 'git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/develop --stdout| git apply --check',
+            6 => 'git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/staging --stdout',
+            7 => 'git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/staging --stdout| git apply --check',
         ], data_get($this->spy, '*.0'));
     }
 
@@ -162,8 +162,8 @@ class StateDevelopCommandTest extends TestCase
             3 => 'git fetch -p',
             4 => 'git fetch upstream',
             5 => 'git fetch -p upstream',
-            6 => 'git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/develop --stdout',
-            7 => 'git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/develop --stdout| git apply --check',
+            6 => 'git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/staging --stdout',
+            7 => 'git format-patch `git rev-parse --abbrev-ref HEAD`..upstream/staging --stdout| git apply --check',
         ], data_get($this->spy, '*.0'));
     }
 }

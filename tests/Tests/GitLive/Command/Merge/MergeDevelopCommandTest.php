@@ -37,7 +37,7 @@ class MergeDevelopCommandTest extends TestCase
     use CommandTestTrait;
     use MakeGitTestRepoTrait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -49,9 +49,9 @@ class MergeDevelopCommandTest extends TestCase
         $this->execCmdToLocalRepo('echo "\n\n * something text" >> README.md');
         $this->execCmdToLocalRepo('git add ./');
         $this->execCmdToLocalRepo('git commit -am "edit readme"');
-        $this->execCmdToLocalRepo('git checkout develop');
+        $this->execCmdToLocalRepo('git checkout staging');
         $this->execCmdToLocalRepo('git merge feature/suzunone_branch_2');
-        $this->execCmdToLocalRepo('git push upstream develop');
+        $this->execCmdToLocalRepo('git push upstream staging');
         $this->execCmdToLocalRepo('git checkout feature/suzunone_branch');
     }
 
@@ -102,7 +102,7 @@ class MergeDevelopCommandTest extends TestCase
             3 => 'git fetch -p',
             4 => 'git fetch upstream',
             5 => 'git fetch -p upstream',
-            6 => 'git merge upstream/develop',
+            6 => 'git merge upstream/staging',
         ], data_get($this->spy, '*.0'));
     }
 }

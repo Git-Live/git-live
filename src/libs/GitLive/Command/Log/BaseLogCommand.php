@@ -25,6 +25,11 @@ use Symfony\Component\Console\Input\InputOption;
 
 abstract class BaseLogCommand extends CommandBase
 {
+    /**
+     * {@inheritdoc}
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();

@@ -46,7 +46,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ReleaseIsCommand extends CommandBase
 {
     protected static $signature_name = 'release:is';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -55,14 +60,16 @@ class ReleaseIsCommand extends CommandBase
             ->setDescription(__('Whether the release is open, or to see what is closed.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Whether the release is open, or to see what is closed.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addOption('with-merge-commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @return null|int|void
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

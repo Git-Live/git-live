@@ -51,6 +51,7 @@ class Application extends ConsoleApplication
 {
     /**
      * Application constructor.
+     * @throws \ErrorException
      */
     public function __construct()
     {
@@ -66,10 +67,13 @@ class Application extends ConsoleApplication
 
     /**
      * {@inheritdoc}
+     * @throws \ErrorException
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function getLongVersion()
     {
-        $version = file_get_contents(RESOURCES_DIR . DIRECTORY_SEPARATOR . 'aa.txt');
+        $version = resource('aa.txt');
         $version .= parent::getLongVersion();
         if (GitLive::VERSION_CODENAME) {
             $version .= ' - <info>' . GitLive::VERSION_CODENAME . '</info> (@git-commit-short@) ';

@@ -47,6 +47,12 @@ class FeaturePushCommand extends CommandBase
 {
     protected static $signature_name = 'feature:push';
 
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -55,15 +61,16 @@ class FeaturePushCommand extends CommandBase
             ->setDescription(__('Safe push to origin repository.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Safe push to origin repository.') . __('The default feature name is self.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name');
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

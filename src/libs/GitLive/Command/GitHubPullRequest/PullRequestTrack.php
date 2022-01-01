@@ -46,7 +46,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class PullRequestTrack extends CommandBase
 {
     protected static $signature_name = 'pr:track';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -55,15 +60,17 @@ class PullRequestTrack extends CommandBase
             ->setDescription(__('Checkout pull request locally.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Checkout pull request locally.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('pull_request_number', InputArgument::REQUIRED, 'Pull request id');
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

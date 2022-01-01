@@ -49,7 +49,10 @@ class HotfixCloseCommand extends CommandBase
     protected static $signature_name = 'hotfix:close';
 
     /**
-     *
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function configure()
     {
@@ -61,7 +64,7 @@ class HotfixCloseCommand extends CommandBase
             ->setDescription(__('Finish hotfix {name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__("Finish up a hotfix.Merges the hotfix branch back into 'master'.Tags the hotfix with its name.Back-merges the hotfix into 'develop'.Removes the hotfix branch."))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('name', InputArgument::OPTIONAL, 'hotfix_name')
             ->addOption('force', 'f', InputOption::VALUE_NONE, __('Do not check develop repository.'));
     }
@@ -69,8 +72,10 @@ class HotfixCloseCommand extends CommandBase
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

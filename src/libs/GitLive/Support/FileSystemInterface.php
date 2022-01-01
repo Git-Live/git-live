@@ -39,19 +39,19 @@ namespace GitLive\Support;
 interface FileSystemInterface
 {
     /**
-     * @param string $url
+     * @param mixed|string $url
      * @return bool|string
      */
     public function getContents($url);
 
     /**
-     * @param string $url
+     * @param mixed|string $url
      * @return false|string
      */
     public function getContentsWithProgress($url);
 
     /**
-     * @param string $url
+     * @param mixed|string $url
      * @param mixed  $content
      * @return bool|int
      */

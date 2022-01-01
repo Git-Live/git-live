@@ -37,7 +37,7 @@ class HotfixDestroyCommandTest extends TestCase
     use CommandTestTrait;
     use MakeGitTestRepoTrait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -97,25 +97,29 @@ class HotfixDestroyCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => 'git rev-parse --git-dir 2> /dev/null',
-            1 => 'git config --get gitlive.deploy.remote',
-            2 => 'git rev-parse --git-dir 2> /dev/null',
-            3 => 'git config --get gitlive.branch.develop.name',
-            4 => 'git rev-parse --git-dir 2> /dev/null',
-            5 => 'git config --get gitlive.branch.master.name',
-            6 => 'git rev-parse --git-dir 2> /dev/null',
-            7 => 'git config --get gitlive.branch.hotfix.prefix.name',
-            8 => 'git fetch --all',
-            9 => 'git fetch -p',
-            10 => 'git fetch upstream',
-            11 => 'git fetch -p upstream',
-            12 => 'git fetch deploy',
-            13 => 'git fetch -p deploy',
-            14 => 'git remote',
-            15 => 'git branch -a',
-            16 => 'git branch -a',
-            17 => 'git push deploy :hotfix/unit_test_deploy',
-            18 => 'git push upstream :hotfix/unit_test_deploy',
+            0 => "git rev-parse --git-dir 2> /dev/null",
+            1 => "git config --get gitlive.deploy.remote",
+            2 => "git rev-parse --git-dir 2> /dev/null",
+            3 => "git config --get gitlive.branch.develop.name",
+            4 => "git rev-parse --git-dir 2> /dev/null",
+            5 => "git config --get gitlive.branch.master.name",
+            6 => "git rev-parse --git-dir 2> /dev/null",
+            7 => "git config --get gitlive.branch.hotfix.prefix.name",
+            8 => "git fetch --all",
+            9 => "git fetch -p",
+            10 => "git fetch upstream",
+            11 => "git fetch -p upstream",
+            12 => "git fetch deploy",
+            13 => "git fetch -p deploy",
+            14 => "git remote",
+            15 => "git branch -a",
+            16 => "git branch -a",
+            17 => "git rev-parse --git-dir 2> /dev/null",
+            18 => "git config --get gitlive.remote.upstream.readonly",
+            19 => "git rev-parse --git-dir 2> /dev/null",
+            20 => "git config --get gitlive.remote.deploy.readonly",
+            21 => "git push deploy :hotfix/unit_test_deploy",
+            22 => "git push upstream :hotfix/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
         $this->assertContains('* hotfix/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
@@ -165,33 +169,38 @@ class HotfixDestroyCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => 'git rev-parse --git-dir 2> /dev/null',
-            1 => 'git config --get gitlive.deploy.remote',
-            2 => 'git rev-parse --git-dir 2> /dev/null',
-            3 => 'git config --get gitlive.branch.develop.name',
-            4 => 'git rev-parse --git-dir 2> /dev/null',
-            5 => 'git config --get gitlive.branch.master.name',
-            6 => 'git rev-parse --git-dir 2> /dev/null',
-            7 => 'git config --get gitlive.branch.hotfix.prefix.name',
-            8 => 'git fetch --all',
-            9 => 'git fetch -p',
-            10 => 'git fetch upstream',
-            11 => 'git fetch -p upstream',
-            12 => 'git fetch deploy',
-            13 => 'git fetch -p deploy',
-            14 => 'git remote',
-            15 => 'git branch -a',
-            16 => 'git branch -a',
-            17 => 'git push deploy :hotfix/unit_test_deploy',
-            18 => 'git push upstream :hotfix/unit_test_deploy',
-            19 => 'git reset --hard HEAD',
-            20 => 'git clean -df',
-            21 => 'git checkout develop',
-            22 => 'git branch -d hotfix/unit_test_deploy',
+            0 => "git rev-parse --git-dir 2> /dev/null",
+            1 => "git config --get gitlive.deploy.remote",
+            2 => "git rev-parse --git-dir 2> /dev/null",
+            3 => "git config --get gitlive.branch.develop.name",
+            4 => "git rev-parse --git-dir 2> /dev/null",
+            5 => "git config --get gitlive.branch.master.name",
+            6 => "git rev-parse --git-dir 2> /dev/null",
+            7 => "git config --get gitlive.branch.hotfix.prefix.name",
+            8 => "git fetch --all",
+            9 => "git fetch -p",
+            10 => "git fetch upstream",
+            11 => "git fetch -p upstream",
+            12 => "git fetch deploy",
+            13 => "git fetch -p deploy",
+            14 => "git remote",
+            15 => "git branch -a",
+            16 => "git branch -a",
+            17 => "git rev-parse --git-dir 2> /dev/null",
+            18 => "git config --get gitlive.remote.upstream.readonly",
+            19 => "git rev-parse --git-dir 2> /dev/null",
+            20 => "git config --get gitlive.remote.deploy.readonly",
+            21 => "git push deploy :hotfix/unit_test_deploy",
+            22 => "git push upstream :hotfix/unit_test_deploy",
+            23 => "git reset --hard HEAD",
+            24 => "git rev-parse --git-dir 2> /dev/null",
+            25 => "git clean -df",
+            26 => "git checkout staging",
+            27 => "git branch -d hotfix/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
         $this->assertNotContains('hotfix/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
-        $this->assertContains('* develop', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* staging', $this->execCmdToLocalRepo('git branch'));
         // ...
     }
 }

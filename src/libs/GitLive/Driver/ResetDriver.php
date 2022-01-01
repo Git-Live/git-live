@@ -44,26 +44,21 @@ class ResetDriver extends DriverBase
     /**
      * git live pull --force
      *
-     * @see PullCommand
      * @param $remote
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
+     * @see PullCommand
      */
-    public function forcePull($remote)
+    public function forcePull($remote): ?string
     {
         switch ($remote) {
             case 'upstream':
                 return $this->upstream();
-
-                break;
             case 'deploy':
                 return $this->deploy();
-
-                break;
             case 'origin':
                 return $this->origin();
-
-                break;
             default:
                 throw new Exception(__('Undefined remote option.') . ' : ' . $remote . ' You can use origin upstream deploy');
         }
@@ -73,7 +68,8 @@ class ResetDriver extends DriverBase
      *  fetch from upstream
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function upstream(): string
@@ -90,7 +86,8 @@ class ResetDriver extends DriverBase
      *  fetch from origin
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function origin(): string
@@ -107,7 +104,8 @@ class ResetDriver extends DriverBase
      *  fetch from deploy
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function deploy(): string

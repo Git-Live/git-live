@@ -47,7 +47,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class PullRequestFeatureStart extends CommandBase
 {
     protected static $signature_name = 'pr:feature:start';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -56,7 +61,7 @@ class PullRequestFeatureStart extends CommandBase
             ->setDescription(__('Feature start and merge pull request.'))
             // the full command description shown when running the command with
             // the "--help" Merge
-            ->setHelp(__('Feature start and merge pull request.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('pull_request_number', InputArgument::REQUIRED, 'Pull request id')
             ->addArgument('feature_name', InputArgument::REQUIRED, 'feature_name')
             ->addOption(
@@ -70,9 +75,12 @@ class PullRequestFeatureStart extends CommandBase
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
      * @throws \GitLive\Exception
      * @return null|int
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

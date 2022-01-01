@@ -37,7 +37,7 @@ class HotfixCloseCommandTest extends TestCase
     use CommandTestTrait;
     use MakeGitTestRepoTrait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -97,50 +97,54 @@ class HotfixCloseCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => 'git rev-parse --git-dir 2> /dev/null',
-            1 => 'git config --get gitlive.deploy.remote',
-            2 => 'git rev-parse --git-dir 2> /dev/null',
-            3 => 'git config --get gitlive.branch.develop.name',
-            4 => 'git rev-parse --git-dir 2> /dev/null',
-            5 => 'git config --get gitlive.branch.master.name',
-            6 => 'git rev-parse --git-dir 2> /dev/null',
-            7 => 'git config --get gitlive.branch.hotfix.prefix.name',
-            8 => 'git fetch --all',
-            9 => 'git fetch -p',
-            10 => 'git fetch upstream',
-            11 => 'git fetch -p upstream',
-            12 => 'git fetch deploy',
-            13 => 'git fetch -p deploy',
-            14 => 'git remote',
-            15 => 'git branch -a',
-            16 => 'git branch -a',
-            17 => 'git checkout deploy/master',
-            18 => 'git branch -D master',
-            19 => 'git checkout -b master',
-            20 => 'git symbolic-ref HEAD 2>/dev/null',
-            21 => 'git format-patch `git rev-parse --abbrev-ref HEAD`..deploy/hotfix/unit_test_deploy --stdout',
-            22 => 'git merge deploy/hotfix/unit_test_deploy',
-            23 => 'git diff deploy/hotfix/unit_test_deploy master',
-            24 => 'git push upstream master',
-            25 => 'git push deploy master',
-            26 => 'git checkout upstream/develop',
-            27 => 'git branch -D develop',
-            28 => 'git checkout -b develop',
-            29 => 'git symbolic-ref HEAD 2>/dev/null',
-            30 => 'git merge deploy/hotfix/unit_test_deploy',
-            31 => 'git push upstream develop',
-            32 => 'git push deploy :hotfix/unit_test_deploy',
-            33 => 'git push upstream :hotfix/unit_test_deploy',
-            34 => 'git branch -d hotfix/unit_test_deploy',
-            35 => 'git fetch upstream',
-            36 => 'git checkout upstream/master',
-            37 => 'git tag runit_test_deploy',
-            38 => 'git push upstream --tags',
-            39 => 'git checkout develop',
+            0 => "git rev-parse --git-dir 2> /dev/null",
+            1 => "git config --get gitlive.deploy.remote",
+            2 => "git rev-parse --git-dir 2> /dev/null",
+            3 => "git config --get gitlive.branch.develop.name",
+            4 => "git rev-parse --git-dir 2> /dev/null",
+            5 => "git config --get gitlive.branch.master.name",
+            6 => "git rev-parse --git-dir 2> /dev/null",
+            7 => "git config --get gitlive.branch.hotfix.prefix.name",
+            8 => "git fetch --all",
+            9 => "git fetch -p",
+            10 => "git fetch upstream",
+            11 => "git fetch -p upstream",
+            12 => "git fetch deploy",
+            13 => "git fetch -p deploy",
+            14 => "git remote",
+            15 => "git branch -a",
+            16 => "git branch -a",
+            17 => "git rev-parse --git-dir 2> /dev/null",
+            18 => "git config --get gitlive.remote.upstream.readonly",
+            19 => "git rev-parse --git-dir 2> /dev/null",
+            20 => "git config --get gitlive.remote.deploy.readonly",
+            21 => "git checkout deploy/master",
+            22 => "git branch -D master",
+            23 => "git checkout -b master",
+            24 => "git symbolic-ref HEAD 2>/dev/null",
+            25 => "git format-patch `git rev-parse --abbrev-ref HEAD`..deploy/hotfix/unit_test_deploy --stdout",
+            26 => "git merge deploy/hotfix/unit_test_deploy",
+            27 => "git diff deploy/hotfix/unit_test_deploy master",
+            28 => "git push upstream master",
+            29 => "git push deploy master",
+            30 => "git checkout upstream/staging",
+            31 => "git branch -D staging",
+            32 => "git checkout -b staging",
+            33 => "git symbolic-ref HEAD 2>/dev/null",
+            34 => "git merge deploy/hotfix/unit_test_deploy",
+            35 => "git push upstream staging",
+            36 => "git push deploy :hotfix/unit_test_deploy",
+            37 => "git push upstream :hotfix/unit_test_deploy",
+            38 => "git branch -d hotfix/unit_test_deploy",
+            39 => "git fetch upstream",
+            40 => "git checkout upstream/master",
+            41 => "git tag runit_test_deploy",
+            42 => "git push upstream --tags",
+            43 => "git checkout staging",
         ], data_get($this->spy, '*.0'));
 
         $this->assertNotContains('hotfix/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
-        $this->assertContains('* develop', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* staging', $this->execCmdToLocalRepo('git branch'));
         // ...
     }
 }

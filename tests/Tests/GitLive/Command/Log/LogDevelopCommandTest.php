@@ -37,7 +37,7 @@ class LogDevelopCommandTest extends TestCase
     use CommandTestTrait;
     use MakeGitTestRepoTrait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -102,7 +102,7 @@ class LogDevelopCommandTest extends TestCase
             2 => 'git fetch --all',
             3 => 'git fetch -p',
             4 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
-            5 => 'git log --left-right upstream/develop..feature/suzunone_branch',
+            5 => 'git log --left-right upstream/staging..feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
         // ...
@@ -160,7 +160,7 @@ class LogDevelopCommandTest extends TestCase
             2 => 'git fetch --all',
             3 => 'git fetch -p',
             4 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
-            5 => 'git log --pretty=fuller --name-status --left-right upstream/develop..feature/suzunone_branch',
+            5 => 'git log --pretty=fuller --name-status --left-right upstream/staging..feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
         // ...

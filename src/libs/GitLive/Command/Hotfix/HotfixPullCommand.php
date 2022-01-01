@@ -45,23 +45,30 @@ use Symfony\Component\Console\Output\OutputInterface;
 class HotfixPullCommand extends CommandBase
 {
     protected static $signature_name = 'hotfix:pull';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
         $this
             // the short description shown while running "php bin/console list"
-            ->setDescription(__("Pull upstream/hotfix and deploy'shotfix."))
+            ->setDescription(__("Pull upstream/hotfix and deploy's hotfix."))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__("Pull upstream/hotfix and deploy'shotfix."));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

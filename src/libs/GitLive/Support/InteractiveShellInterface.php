@@ -23,10 +23,10 @@ namespace GitLive\Support;
 interface InteractiveShellInterface
 {
     /**
-     * @param string $text
+     * @param mixed|string $text
      * @return void
      */
-    public function echo($text);
+    public function echo($text): void;
 
     /**
      * @access      public

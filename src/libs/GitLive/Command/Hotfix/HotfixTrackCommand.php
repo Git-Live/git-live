@@ -45,7 +45,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class HotfixTrackCommand extends CommandBase
 {
     protected static $signature_name = 'hotfix:track';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -54,14 +59,16 @@ class HotfixTrackCommand extends CommandBase
             ->setDescription(__('Support preparation of a new production hotfix/.') . __('Allow for minor bug fixes and preparing meta-data for a hotfix'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Support preparation of a new production hotfix/.') . __('Allow for minor bug fixes and preparing meta-data for a hotfix'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

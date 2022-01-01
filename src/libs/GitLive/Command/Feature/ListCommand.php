@@ -46,7 +46,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ListCommand extends CommandBase
 {
     protected static $signature_name = 'feature:list';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -68,14 +73,15 @@ class ListCommand extends CommandBase
                 InputOption::VALUE_NONE,
                 'Not merged features only'
             )
-            ->setHelp(__('Lists existing features.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

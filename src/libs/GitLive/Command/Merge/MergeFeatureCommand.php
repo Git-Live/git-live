@@ -46,7 +46,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class MergeFeatureCommand extends CommandBase
 {
     protected static $signature_name = 'merge:feature';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -55,7 +60,7 @@ class MergeFeatureCommand extends CommandBase
             ->setDescription(__('Merge upstream feature.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Merge upstream feature.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
 
             ->addArgument('feature_name', InputArgument::REQUIRED, 'feature name');
     }
@@ -63,8 +68,11 @@ class MergeFeatureCommand extends CommandBase
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
      * @return null|int
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

@@ -45,7 +45,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class StateMasterCommand extends CommandBase
 {
     protected static $signature_name = 'merge:state:master';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -54,14 +59,17 @@ class StateMasterCommand extends CommandBase
             ->setDescription(__('Prior confirmation of merge master.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Prior confirmation of merge master.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
      * @return null|int
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

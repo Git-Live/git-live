@@ -68,7 +68,6 @@ class InteractiveShell extends GitBase implements InteractiveShellInterface
             $shell_message = implode("\n", $shell_message);
         }
 
-        $res = '';
         $shell_message .= "\n";
         while (true) {
             $this->echo($shell_message);
@@ -90,7 +89,7 @@ class InteractiveShell extends GitBase implements InteractiveShellInterface
     /**
      * @param string $text
      */
-    public function echo($text)
+    public function echo($text): void
     {
         if ($this->envelopment->isWin()) {
             $text = mb_convert_encoding($text, 'SJIS-win', 'utf8');

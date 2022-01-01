@@ -44,6 +44,12 @@ class HotfixCommand extends CommandBase
 {
     protected static $signature_name = 'hotfix';
 
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -52,7 +58,7 @@ class HotfixCommand extends CommandBase
             ->setDescription(__('Alias to "hotfix: *" tasks.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Alias to "hotfix: *" tasks.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument(
                 'task',
                 InputArgument::REQUIRED,
@@ -66,10 +72,12 @@ class HotfixCommand extends CommandBase
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \Exception
+     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
      * @return null|int
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -86,8 +94,6 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'close':
                 $command = $this->getApplication()->find('hotfix:close');
 
@@ -100,8 +106,6 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'close-force':
                 $command = $this->getApplication()->find('hotfix:close');
 
@@ -116,8 +120,6 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'sync':
                 $command = $this->getApplication()->find('hotfix:sync');
 
@@ -126,8 +128,6 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'pull':
                 $command = $this->getApplication()->find('hotfix:pull');
 
@@ -136,8 +136,6 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'push':
                 $command = $this->getApplication()->find('hotfix:push');
 
@@ -146,8 +144,6 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'track':
                 $command = $this->getApplication()->find('hotfix:track');
 
@@ -156,8 +152,6 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'state':
                 $command = $this->getApplication()->find('hotfix:state');
 
@@ -167,8 +161,6 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'state-all':
                 $command = $this->getApplication()->find('hotfix:state');
 
@@ -179,8 +171,6 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'is':
                 $command = $this->getApplication()->find('hotfix:is');
 
@@ -190,8 +180,6 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'destroy':
                 $command = $this->getApplication()->find('hotfix:destroy');
 
@@ -200,8 +188,6 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'destroy-clean':
                 $command = $this->getApplication()->find('hotfix:destroy');
 
@@ -212,8 +198,6 @@ class HotfixCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
         }
 
         return 0;

@@ -110,7 +110,7 @@ class InitDriverTest extends TestCase
         $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
-            ->between(3, 3)
+            ->between(4, 4)
             ->with('git rev-parse --git-dir 2> /dev/null', 256, 256)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
@@ -352,30 +352,31 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            'git remote -v',
-            'git rev-parse --git-dir 2> /dev/null',
-            'git config --get gitlive.deploy.remote',
-            'git reset --hard HEAD',
-            'git clean -df',
-            'git fetch --all',
-            'git fetch -p',
-            'git checkout -b temp',
-            'git rev-parse --git-dir 2> /dev/null',
-            'git config --get gitlive.branch.develop.name',
-            'git branch -d staging',
-            'git rev-parse --git-dir 2> /dev/null',
-            'git config --get gitlive.branch.master.name',
-            'git branch -d v2.0',
-            'git push origin :staging',
-            'git push origin :v2.0',
-            'git checkout remotes/upstream/staging',
-            'git checkout -b staging',
-            'git push origin staging',
-            'git checkout remotes/upstream/v2.0',
-            'git checkout -b v2.0',
-            'git push origin v2.0',
-            'git fetch --all',
-            'git fetch -p',
+            0 => "git remote -v",
+            1 => "git rev-parse --git-dir 2> /dev/null",
+            2 => "git config --get gitlive.deploy.remote",
+            3 => "git reset --hard HEAD",
+            4 => "git rev-parse --git-dir 2> /dev/null",
+            5 => "git clean -df",
+            6 => "git fetch --all",
+            7 => "git fetch -p",
+            8 => "git checkout -b temp",
+            9 => "git rev-parse --git-dir 2> /dev/null",
+            10 => "git config --get gitlive.branch.develop.name",
+            11 => "git branch -d staging",
+            12 => "git rev-parse --git-dir 2> /dev/null",
+            13 => "git config --get gitlive.branch.master.name",
+            14 => "git branch -d v2.0",
+            15 => "git push origin :staging",
+            16 => "git push origin :v2.0",
+            17 => "git checkout remotes/upstream/staging",
+            18 => "git checkout -b staging",
+            19 => "git push origin staging",
+            20 => "git checkout remotes/upstream/v2.0",
+            21 => "git checkout -b v2.0",
+            22 => "git push origin v2.0",
+            23 => "git fetch --all",
+            24 => "git fetch -p",
         ], data_get($spy, '*.0'));
     }
 
@@ -461,23 +462,24 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => 'git stash -u',
-            1 => 'git reset --hard HEAD',
-            2 => 'git clean -df',
-            3 => 'git fetch --all',
-            4 => 'git fetch -p',
-            5 => 'git rev-parse --git-dir 2> /dev/null',
-            6 => 'git config --get gitlive.branch.develop.name',
-            7 => 'git checkout develop',
-            8 => 'git pull upstream develop',
-            9 => 'git push origin develop',
-            10 => 'git rev-parse --git-dir 2> /dev/null',
-            11 => 'git config --get gitlive.branch.master.name',
-            12 => 'git checkout master',
-            13 => 'git pull upstream master',
-            14 => 'git push origin master',
-            15 => 'git pull upstream --tags',
-            16 => 'git push origin --tags',
+            0 => "git stash -u",
+            1 => "git reset --hard HEAD",
+            2 => "git rev-parse --git-dir 2> /dev/null",
+            3 => "git clean -df",
+            4 => "git fetch --all",
+            5 => "git fetch -p",
+            6 => "git rev-parse --git-dir 2> /dev/null",
+            7 => "git config --get gitlive.branch.develop.name",
+            8 => "git checkout develop",
+            9 => "git pull upstream develop",
+            10 => "git push origin develop",
+            11 => "git rev-parse --git-dir 2> /dev/null",
+            12 => "git config --get gitlive.branch.master.name",
+            13 => "git checkout master",
+            14 => "git pull upstream master",
+            15 => "git push origin master",
+            16 => "git pull upstream --tags",
+            17 => "git push origin --tags",
         ], data_get($spy, '*.0'));
     }
 
@@ -526,20 +528,21 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
         $this->assertFalse(in_array('git push deploy develop', data_get($spy, '*.0'), true));
 
         $this->assertSame([
-            0 => 'git stash -u',
-            1 => 'git reset --hard HEAD',
-            2 => 'git clean -df',
-            3 => 'git fetch --all',
-            4 => 'git fetch -p',
-            5 => 'git rev-parse --git-dir 2> /dev/null',
-            6 => 'git config --get gitlive.branch.develop.name',
-            7 => 'git checkout develop',
-            8 => 'git pull upstream develop',
-            9 => 'git rev-parse --git-dir 2> /dev/null',
-            10 => 'git config --get gitlive.branch.master.name',
-            11 => 'git checkout master',
-            12 => 'git pull upstream master',
-            13 => 'git pull upstream --tags',
+            0 => "git stash -u",
+            1 => "git reset --hard HEAD",
+            2 => "git rev-parse --git-dir 2> /dev/null",
+            3 => "git clean -df",
+            4 => "git fetch --all",
+            5 => "git fetch -p",
+            6 => "git rev-parse --git-dir 2> /dev/null",
+            7 => "git config --get gitlive.branch.develop.name",
+            8 => "git checkout develop",
+            9 => "git pull upstream develop",
+            10 => "git rev-parse --git-dir 2> /dev/null",
+            11 => "git config --get gitlive.branch.master.name",
+            12 => "git checkout master",
+            13 => "git pull upstream master",
+            14 => "git pull upstream --tags",
         ], data_get($spy, '*.0'));
     }
 }

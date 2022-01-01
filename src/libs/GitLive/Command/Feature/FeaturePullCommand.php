@@ -47,6 +47,12 @@ class FeaturePullCommand extends CommandBase
 {
     protected static $signature_name = 'feature:pull';
 
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -55,7 +61,7 @@ class FeaturePullCommand extends CommandBase
             ->setDescription(__('Safe pull to upstream repository.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Safe pull to origin repository.') . __('The default feature name is self.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name');
     }
 
@@ -63,6 +69,7 @@ class FeaturePullCommand extends CommandBase
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @throws \Exception
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

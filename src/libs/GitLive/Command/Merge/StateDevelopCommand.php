@@ -45,7 +45,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class StateDevelopCommand extends CommandBase
 {
     protected static $signature_name = 'merge:state:develop';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -54,14 +59,17 @@ class StateDevelopCommand extends CommandBase
             ->setDescription(__('Prior confirmation of merge develop.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Prior confirmation of merge develop.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
      * @return null|int
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

@@ -42,7 +42,7 @@ class FireDriver extends DriverBase
     /**
      * リポジトリのルートに移動する
      */
-    public function cdRoot()
+    public function cdRoot(): void
     {
         $root = $this->GitCmdExecutor->topLevelDir() . DIRECTORY_SEPARATOR;
 
@@ -59,7 +59,7 @@ class FireDriver extends DriverBase
         $res = trim($this->GitCmdExecutor->config(['--get', 'user.name']));
 
         if ($res === '') {
-            $res = (string)trim($this->GitCmdExecutor->config(['--get', 'user.email']));
+            $res = trim($this->GitCmdExecutor->config(['--get', 'user.email']));
         }
 
         if ($res === '' && function_exists('get_current_user')) {
@@ -74,19 +74,25 @@ class FireDriver extends DriverBase
     }
 
     /**
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function makeFireBranchName(): string
     {
-        return 'fire/' . $this->getSnakeUserName() . '/' . date('YmdHis') . '/' . $this->getSelfBranch();
+        $Config = $this->Driver(ConfigDriver::class);
+
+        $fire_prefix = $Config->firePrefix();
+
+        return $fire_prefix . $this->getSnakeUserName() . '/' . date('YmdHis') . '/' . $this->getSelfBranch();
     }
 
     /**
      *
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      */
-    public function chNewBranch()
+    public function chNewBranch(): void
     {
         $this->GitCmdExecutor->checkout($this->makeFireBranchName(), ['-b']);
     }
@@ -94,7 +100,7 @@ class FireDriver extends DriverBase
     /**
      * @param $message
      */
-    public function commit($message)
+    public function commit($message): void
     {
         $this->GitCmdExecutor->add(['-A']);
         $this->GitCmdExecutor->commit($message);
@@ -102,9 +108,10 @@ class FireDriver extends DriverBase
 
     /**
      * @param $message
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      */
-    public function fire($message)
+    public function fire($message): void
     {
         $message = trim($message);
         $self_branch = $this->getSelfBranch();
