@@ -105,7 +105,7 @@ abstract class DriverBase extends GitBase
      * @param string $cmd
      * @param bool $verbosity
      * @param null $output_verbosity
-     * @return string|null
+     * @return null|string
      */
     public function exec(string $cmd, bool $verbosity = true, $output_verbosity = null)
     {
@@ -135,9 +135,9 @@ abstract class DriverBase extends GitBase
      *
      * @access      public
      * @param string $driver_name
+     *@throws Exception
      * @return \GitLive\Driver\DriverBase
      * @codeCoverageIgnore
-     *@throws Exception
      */
     public function Driver(string $driver_name): DriverBase
     {
@@ -151,8 +151,8 @@ abstract class DriverBase extends GitBase
 
     /**
      * @param string $branch_name
-     * @return bool
      *@throws Exception
+     * @return bool
      */
     public function isBranchExists(string $branch_name): bool
     {
@@ -160,7 +160,7 @@ abstract class DriverBase extends GitBase
     }
 
     /**
-     * @param string|null $repo
+     * @param null|string $repo
      * @return bool
      */
     public function isClean(string $repo = null): bool
@@ -179,10 +179,10 @@ abstract class DriverBase extends GitBase
     }
 
     /**
-     * @param string|null $repo
-     * @param string|null $error_msg
-     * @return bool
+     * @param null|string $repo
+     * @param null|string $error_msg
      *@throws Exception
+     * @return bool
      */
     public function isCleanOrFail(string $repo = null, string $error_msg = null): bool
     {

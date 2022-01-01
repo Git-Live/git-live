@@ -63,7 +63,7 @@ if (!function_exists('collect')) {
 
 if (!function_exists('resource')) {
     /**
-     * @param string|null $file_name
+     * @param null|string $file_name
      * @return \GitLive\Helper\Resource|string
      */
     function resource(?string $file_name = null)
@@ -80,7 +80,7 @@ if (!function_exists('resource')) {
 if (!function_exists('data_get')) {
     /**
      * @param      array|Collection $target
-     * @param string|array $key
+     * @param array|string $key
      * @param null $default
      * @return array|mixed
      */

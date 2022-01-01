@@ -21,13 +21,13 @@
 namespace GitLive;
 
 use GitLive\Application\Application;
+use GitLive\Application\Container;
 use GitLive\Support\FileSystem;
 use GitLive\Support\FileSystemInterface;
 use GitLive\Support\InteractiveShell;
 use GitLive\Support\InteractiveShellInterface;
 use GitLive\Support\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
-use GitLive\Application\Container;
 
 /**
  * Class GitLive

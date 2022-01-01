@@ -96,11 +96,11 @@ class FeatureDriver extends DriverBase
      *
      * @access      public
      * @param string $branch
-     * @return void
      *@throws Exception
      * @throws Exception
      * @throws \GitLive\Exception
      * @throws Exception
+     * @return void
      */
     public function featureStart(string $branch)
     {
@@ -124,9 +124,9 @@ class FeatureDriver extends DriverBase
     }
 
     /**
-     * @param string|null $branch
-     * @return string|null
+     * @param null|string $branch
      *@throws Exception
+     * @return null|string
      */
     public function featureStatus(string $branch = null)
     {
@@ -160,8 +160,8 @@ class FeatureDriver extends DriverBase
      * @access      public
      * @param string $branch
      * @param array|Collection $option
-     * @return bool|string
      *@throws Exception
+     * @return bool|string
      */
     public function featureChange(string $branch, $option = [])
     {
@@ -203,9 +203,9 @@ class FeatureDriver extends DriverBase
      * 共用Repositoryにfeatureを送信する
      *
      * @access      public
-     * @param string|null $branch OPTIONAL:NULL
-     * @return string
+     * @param null|string $branch OPTIONAL:NULL
      *@throws \Exception
+     * @return string
      */
     public function featurePublish(string $branch = null): string
     {
@@ -234,9 +234,9 @@ class FeatureDriver extends DriverBase
      * 自分のリモートRepositoryにfeatureを送信する
      *
      * @access      public
-     * @param string|null $branch OPTIONAL:NULL
-     * @return string
+     * @param null|string $branch OPTIONAL:NULL
      *@throws \Exception
+     * @return string
      */
     public function featurePush(string $branch = null): string
     {
@@ -262,8 +262,8 @@ class FeatureDriver extends DriverBase
      *
      * @access      public
      * @param string $branch
-     * @return string
      *@throws \Exception
+     * @return string
      */
     public function featureTrack(string $branch): string
     {
@@ -299,9 +299,9 @@ class FeatureDriver extends DriverBase
      * 共用Repositoryからpullする
      *
      * @access      public
-     * @param string|null $branch OPTIONAL:NULL
-     * @return string
+     * @param null|string $branch OPTIONAL:NULL
      *@throws \Exception
+     * @return string
      */
     public function featurePull(string $branch = null): string
     {
@@ -339,9 +339,9 @@ class FeatureDriver extends DriverBase
      * featureを閉じる
      *
      * @access      public
-     * @param string|null $repository OPTIONAL:NULL
-     * @return string
+     * @param null|string $repository OPTIONAL:NULL
      *@throws \Exception
+     * @return string
      */
     public function featureClose(string $repository = null)
     {

@@ -82,6 +82,7 @@ class FireDriver extends DriverBase
         $Config = $this->Driver(ConfigDriver::class);
 
         $fire_prefix = $Config->firePrefix();
+
         return $fire_prefix . $this->getSnakeUserName() . '/' . date('YmdHis') . '/' . $this->getSelfBranch();
     }
 

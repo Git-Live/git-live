@@ -183,6 +183,7 @@ class ContainerTest extends TestCase
     /**
      * @covers \GitLive\Application\Container
      * @dataProvider buildDataProvider
+     * @param mixed $class_name
      */
     public function testBuild($class_name)
     {
@@ -192,7 +193,6 @@ class ContainerTest extends TestCase
 
         $this->assertInstanceOf($class_name, $obj);
     }
-
 
     /**
      * @covers \GitLive\Application\Container

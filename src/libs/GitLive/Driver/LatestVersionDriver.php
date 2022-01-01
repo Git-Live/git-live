@@ -29,10 +29,10 @@ class LatestVersionDriver extends DriverBase
      *  新しいVersionが出ていないか確認する
      *
      * @access      public
-     * @return bool
      * @throws \GitLive\Driver\Exception
      * @throws \JapaneseDate\Exceptions\Exception
      * @throws \JapaneseDate\Exceptions\Exception
+     * @return bool
      */
     public function ckNewVersion(): bool
     {

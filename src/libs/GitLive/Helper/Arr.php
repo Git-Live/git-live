@@ -20,43 +20,16 @@
 
 namespace GitLive\Helper;
 
-use function array_filter;
-use function array_intersect_key;
-use function array_key_exists;
-use function array_keys;
-use function array_merge;
-use function array_rand;
-use function array_reverse;
-use function array_shift;
-use function array_unshift;
-use function array_values;
 use ArrayAccess;
-use function count;
-use function data_get;
-use function end;
-use function explode;
 use GitLive\GitBase;
 use GitLive\Support\Collection;
-use function http_build_query;
-use const INF;
 use InvalidArgumentException;
-use function is_array;
-use function is_object;
-use function is_string;
-use function ksort;
-use function method_exists;
-use function mt_srand;
-use function shuffle;
-use function sort;
-use function strpos;
-use function usort;
-use function value;
 
 /**
  * Class Arr
  *
  * @category   GitCommand
- * @package    GitLive\Hepler
+ * @package    GitLive\Support
  * @subpackage Core
  * @author     akito<akito-artisan@five-foxes.com>
  * @author     suzunone<suzunone.eleven@gmail.com>
@@ -72,20 +45,19 @@ class Arr extends GitBase
     /**
      * Determine whether the given value is array accessible.
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return bool
      */
     public static function accessible($value): bool
     {
         return is_array($value) || $value instanceof ArrayAccess;
     }
-
     /**
      * Add an element to an array using "dot" notation if it doesn't exist.
      *
-     * @param array|ArrayAccess $array
-     * @param string $key
-     * @param mixed $value
+     * @param  array   $array
+     * @param  string  $key
+     * @param  mixed   $value
      * @return array
      */
     public static function add($array, $key, $value): array
@@ -96,11 +68,10 @@ class Arr extends GitBase
 
         return $array;
     }
-
     /**
      * Collapse an array of arrays into a single array.
      *
-     * @param array|ArrayAccess $array
+     * @param  array  $array
      * @return array
      */
     public static function collapse($array): array
@@ -109,7 +80,7 @@ class Arr extends GitBase
         foreach ($array as $values) {
             if ($values instanceof Collection) {
                 $values = $values->all();
-            } elseif (!is_array($values)) {
+            } elseif (! is_array($values)) {
                 continue;
             }
             /** @noinspection SlowArrayOperationsInLoopInspection */
@@ -118,11 +89,10 @@ class Arr extends GitBase
 
         return $results;
     }
-
     /**
      * Cross join the given arrays, returning all possible permutations.
      *
-     * @param array|ArrayAccess ...$arrays
+     * @param  array  ...$arrays
      * @return array
      */
     public static function crossJoin(...$arrays): array
@@ -141,30 +111,28 @@ class Arr extends GitBase
 
         return $results;
     }
-
     /**
      * Divide an array into two arrays. One with keys and the other with values.
      *
-     * @param array|ArrayAccess $array
+     * @param  array  $array
      * @return array
      */
     public static function divide($array): array
     {
         return [array_keys($array), array_values($array)];
     }
-
     /**
      * Flatten a multi-dimensional associative array with dots.
      *
-     * @param array|ArrayAccess $array
-     * @param string $prepend
+     * @param  array   $array
+     * @param  string  $prepend
      * @return array
      */
     public static function dot($array, $prepend = ''): array
     {
         $results = [];
         foreach ($array as $key => $value) {
-            if (is_array($value) && !empty($value)) {
+            if (is_array($value) && ! empty($value)) {
                 /** @noinspection SlowArrayOperationsInLoopInspection */
                 $results = array_merge($results, static::dot($value, $prepend . $key . '.'));
             } else {
@@ -174,12 +142,11 @@ class Arr extends GitBase
 
         return $results;
     }
-
     /**
      * Get all of the given array except for a specified array of keys.
      *
-     * @param array|ArrayAccess $array
-     * @param array|string $keys
+     * @param  array  $array
+     * @param  array|string  $keys
      * @return array
      */
     public static function except($array, $keys): array
@@ -188,12 +155,11 @@ class Arr extends GitBase
 
         return $array;
     }
-
     /**
      * Determine if the given key exists in the provided array.
      *
-     * @param array|\ArrayAccess $array
-     * @param int|string $key
+     * @param  array|\ArrayAccess  $array
+     * @param  int|string  $key
      * @return bool
      */
     public static function exists($array, $key): bool
@@ -204,13 +170,12 @@ class Arr extends GitBase
 
         return array_key_exists($key, $array);
     }
-
     /**
      * Return the first element in an array passing a given truth test.
      *
-     * @param array|ArrayAccess $array
-     * @param null|callable $callback
-     * @param mixed $default
+     * @param  array  $array
+     * @param  null|callable  $callback
+     * @param  mixed  $default
      * @return mixed
      */
     public static function first($array, callable $callback = null, $default = null)
@@ -232,13 +197,12 @@ class Arr extends GitBase
 
         return value($default);
     }
-
     /**
      * Return the last element in an array passing a given truth test.
      *
-     * @param array|ArrayAccess $array
-     * @param null|callable $callback
-     * @param mixed $default
+     * @param  array  $array
+     * @param  null|callable  $callback
+     * @param  mixed  $default
      * @return mixed
      */
     public static function last($array, callable $callback = null, $default = null)
@@ -249,12 +213,11 @@ class Arr extends GitBase
 
         return static::first(array_reverse($array, true), $callback, $default);
     }
-
     /**
      * Flatten a multi-dimensional array into a single level.
      *
-     * @param array|ArrayAccess $array
-     * @param int|float $depth
+     * @param  array  $array
+     * @param  int  $depth
      * @return array
      */
     public static function flatten($array, $depth = INF): array
@@ -262,7 +225,7 @@ class Arr extends GitBase
         $result = [];
         foreach ($array as $item) {
             $item = $item instanceof Collection ? $item->all() : $item;
-            if (!is_array($item)) {
+            if (! is_array($item)) {
                 $result[] = $item;
             } elseif ($depth === 1) {
                 /** @noinspection SlowArrayOperationsInLoopInspection */
@@ -275,18 +238,17 @@ class Arr extends GitBase
 
         return $result;
     }
-
     /**
      * Remove one or many array items from a given array using "dot" notation.
      *
-     * @param array|ArrayAccess $array
-     * @param array|string $keys
+     * @param  array  $array
+     * @param  array|string  $keys
      * @return void
      */
     public static function forget(&$array, $keys)
     {
         $original = &$array;
-        $keys = (array)$keys;
+        $keys = (array) $keys;
         if (count($keys) === 0) {
             return;
         }
@@ -311,18 +273,17 @@ class Arr extends GitBase
             unset($array[array_shift($parts)]);
         }
     }
-
     /**
      * Get an item from an array using "dot" notation.
      *
-     * @param array|\ArrayAccess $array
-     * @param string|null $key
-     * @param mixed $default
+     * @param  array|\ArrayAccess  $array
+     * @param  string  $key
+     * @param  mixed   $default
      * @return mixed
      */
-    public static function get($array, ?string $key, $default = null)
+    public static function get($array, $key, $default = null)
     {
-        if (!static::accessible($array)) {
+        if (! static::accessible($array)) {
             return value($default);
         }
         if ($key === null) {
@@ -344,12 +305,11 @@ class Arr extends GitBase
 
         return $array;
     }
-
     /**
      * Check if an item or items exist in an array using "dot" notation.
      *
-     * @param array|\ArrayAccess $array
-     * @param array|string $keys
+     * @param  array|\ArrayAccess  $array
+     * @param  array|string  $keys
      * @return bool
      */
     public static function has($array, $keys): bool
@@ -357,8 +317,8 @@ class Arr extends GitBase
         if ($keys === null) {
             return false;
         }
-        $keys = (array)$keys;
-        if (!$array) {
+        $keys = (array) $keys;
+        if (! $array) {
             return false;
         }
         if ($keys === []) {
@@ -380,13 +340,12 @@ class Arr extends GitBase
 
         return true;
     }
-
     /**
      * Determines if an array is associative.
      *
      * An array is "associative" if it doesn't have sequential numerical keys beginning with zero.
      *
-     * @param array|ArrayAccess $array
+     * @param  array  $array
      * @return bool
      */
     public static function isAssoc(array $array): bool
@@ -395,31 +354,29 @@ class Arr extends GitBase
 
         return array_keys($keys) !== $keys;
     }
-
     /**
      * Get a subset of the items from the given array.
      *
-     * @param array|ArrayAccess $array
-     * @param array|string $keys
+     * @param  array  $array
+     * @param  array|string  $keys
      * @return array
      */
     public static function only($array, $keys): array
     {
-        return array_intersect_key($array, array_flip((array)$keys));
+        return array_intersect_key($array, array_flip((array) $keys));
     }
-
     /**
      * Pluck an array of values from an array.
      *
-     * @param array|ArrayAccess $array
-     * @param array|string $value
-     * @param null|array|string $key
+     * @param  array  $array
+     * @param  array|string  $value
+     * @param  null|array|string  $key
      * @return array
      */
     public static function pluck($array, $value, $key = null): array
     {
         $results = [];
-        [$value, $key] = static::explodePluckParameters($value, $key);
+        list($value, $key) = static::explodePluckParameters($value, $key);
         foreach ($array as $item) {
             $itemValue = data_get($item, $value);
             // If the key is "null", we will just append the value to the array and keep
@@ -430,7 +387,7 @@ class Arr extends GitBase
             } else {
                 $itemKey = data_get($item, $key);
                 if (is_object($itemKey) && method_exists($itemKey, '__toString')) {
-                    $itemKey = (string)$itemKey;
+                    $itemKey = (string) $itemKey;
                 }
                 $results[$itemKey] = $itemValue;
             }
@@ -438,13 +395,12 @@ class Arr extends GitBase
 
         return $results;
     }
-
     /**
      * Push an item onto the beginning of an array.
      *
-     * @param array|ArrayAccess $array
-     * @param mixed $value
-     * @param mixed $key
+     * @param  array  $array
+     * @param  mixed  $value
+     * @param  mixed  $key
      * @return array
      */
     public static function prepend($array, $value, $key = null): array
@@ -457,13 +413,12 @@ class Arr extends GitBase
 
         return $array;
     }
-
     /**
      * Get a value from the array, and remove it.
      *
-     * @param array|ArrayAccess $array
-     * @param string $key
-     * @param mixed $default
+     * @param  array   $array
+     * @param  string  $key
+     * @param  mixed   $default
      * @return mixed
      */
     public static function pull(&$array, $key, $default = null)
@@ -473,15 +428,14 @@ class Arr extends GitBase
 
         return $value;
     }
-
     /**
      * Get one or a specified number of random values from an array.
      *
-     * @param array|ArrayAccess $array
-     * @param null|int $number
+     * @param  array  $array
+     * @param  null|int  $number
+     * @throws \InvalidArgumentException
      * @return mixed
      *
-     * @throws \InvalidArgumentException
      */
     public static function random($array, $number = null)
     {
@@ -495,26 +449,25 @@ class Arr extends GitBase
         if ($number === null) {
             return $array[array_rand($array)];
         }
-        if ((int)$number === 0) {
+        if ((int) $number === 0) {
             return [];
         }
         $keys = array_rand($array, $number);
         $results = [];
-        foreach ((array)$keys as $key) {
+        foreach ((array) $keys as $key) {
             $results[] = $array[$key];
         }
 
         return $results;
     }
-
     /**
      * Set an array item to a given value using "dot" notation.
      *
      * If no key is given to the method, the entire array will be replaced.
      *
-     * @param array|ArrayAccess $array
-     * @param string $key
-     * @param mixed $value
+     * @param  array   $array
+     * @param  string  $key
+     * @param  mixed   $value
      * @return array
      */
     public static function set(&$array, $key, $value): array
@@ -528,7 +481,7 @@ class Arr extends GitBase
             // If the key doesn't exist at this depth, we will just create an empty array
             // to hold the next value, allowing us to create the arrays to hold final
             // values at the correct depth. Then we'll keep digging into the array.
-            if (!isset($array[$key]) || !is_array($array[$key])) {
+            if (! isset($array[$key]) || ! is_array($array[$key])) {
                 $array[$key] = [];
             }
             $array = &$array[$key];
@@ -537,12 +490,11 @@ class Arr extends GitBase
 
         return $array;
     }
-
     /**
      * Shuffle the given array and return the result.
      *
-     * @param array|ArrayAccess $array
-     * @param null|int $seed
+     * @param  array  $array
+     * @param  null|int  $seed
      * @return array
      */
     public static function shuffle($array, $seed = null): array
@@ -552,29 +504,28 @@ class Arr extends GitBase
         } else {
             mt_srand($seed);
             usort($array, static function () {
+                /** @noinspection RandomApiMigrationInspection */
                 return mt_rand(-1, 1);
             });
         }
 
         return $array;
     }
-
     /**
      * Sort the array using the given callback or "dot" notation.
      *
-     * @param array|ArrayAccess $array
-     * @param null|callable|string $callback
+     * @param  array  $array
+     * @param  null|callable|string  $callback
      * @return array
      */
     public static function sort($array, $callback = null): array
     {
         return Collection::make($array)->sortBy($callback)->all();
     }
-
     /**
      * Recursively sort an array by keys and values.
      *
-     * @param array|ArrayAccess $array
+     * @param  array  $array
      * @return array
      */
     public static function sortRecursive($array): array
@@ -593,34 +544,31 @@ class Arr extends GitBase
 
         return $array;
     }
-
     /**
      * Convert the array into a query string.
      *
-     * @param array|ArrayAccess $array
+     * @param  array  $array
      * @return string
      */
     public static function query($array): string
     {
         return http_build_query($array, null, '&', PHP_QUERY_RFC3986);
     }
-
     /**
      * Filter the array using the given callback.
      *
-     * @param array|ArrayAccess $array
-     * @param callable $callback
+     * @param  array  $array
+     * @param  callable  $callback
      * @return array
      */
     public static function where($array, callable $callback): array
     {
         return array_filter($array, $callback, ARRAY_FILTER_USE_BOTH);
     }
-
     /**
      * If the given value is not an array and not null, wrap it in one.
      *
-     * @param mixed $value
+     * @param  mixed  $value
      * @return array
      */
     public static function wrap($value): array
@@ -631,12 +579,11 @@ class Arr extends GitBase
 
         return is_array($value) ? $value : [$value];
     }
-
     /**
      * Explode the "value" and "key" arguments passed to "pluck".
      *
-     * @param array|string $value
-     * @param null|array|string $key
+     * @param  array|string  $value
+     * @param  null|array|string  $key
      * @return array
      */
     protected static function explodePluckParameters($value, $key): array

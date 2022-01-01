@@ -48,7 +48,7 @@ class FileSystem extends GitBase implements FileSystemInterface
 
     /**
      * FileSystem constructor.
-     * @param OutputInterface|mixed|null $output
+     * @param null|mixed|OutputInterface $output
      */
     public function __construct($output = null)
     {
@@ -138,7 +138,7 @@ class FileSystem extends GitBase implements FileSystemInterface
 
     /**
      * @param string $message
-     * @param string|null $value
+     * @param null|string $value
      * @return void
      */
     public function output(string $message, ?string $value = null): void

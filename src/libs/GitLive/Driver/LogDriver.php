@@ -71,8 +71,8 @@ class LogDriver extends DriverBase
     /**
      * @param string $from_branch
      * @param array|Collection $option
-     * @return string
      *@throws Exception
+     * @return string
      */
     public function log(string $from_branch, $option = []): string
     {

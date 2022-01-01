@@ -21,11 +21,12 @@
 namespace GitLive\Application;
 
 use App;
+use Container;
 use GitLive\GitLive;
 use GitLive\Service\CommandLineKernelService;
 use Symfony\Component\Console\Application as ConsoleApplication;
 use Symfony\Component\Console\CommandLoader\FactoryCommandLoader;
-use Container;
+
 /**
  * Class Application
  *

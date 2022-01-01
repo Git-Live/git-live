@@ -72,7 +72,7 @@ class ConfigDriver extends DriverBase
      *
      * @param string $key
      * @param string $value
-     * @return string|null
+     * @return null|string
      */
     public function setGlobalParameter(string $key, string $value)
     {
@@ -87,8 +87,8 @@ class ConfigDriver extends DriverBase
      * Set to local config.
      *
      * @param string $key
-     * @param string|null $value
-     * @return string|null
+     * @param null|string $value
+     * @return null|string
      */
     public function setLocalParameter(string $key, ?string $value): ?string
     {
@@ -104,7 +104,7 @@ class ConfigDriver extends DriverBase
      *
      * @param string $key
      * @param string $value
-     * @return string|null
+     * @return null|string
      */
     public function setSystemParameter(string $key, string $value)
     {
@@ -119,7 +119,7 @@ class ConfigDriver extends DriverBase
      * Get the setting of git-live.
      *
      * @param string $key
-     * @return string|null
+     * @return null|string
      */
     public function getGitLiveParameter(string $key)
     {
@@ -139,7 +139,7 @@ class ConfigDriver extends DriverBase
     /**
      * Get feature prefix.
      *
-     * @return string|null
+     * @return null|string
      */
     public function featurePrefix()
     {
@@ -157,7 +157,7 @@ class ConfigDriver extends DriverBase
     /**
      * Get feature prefix.
      *
-     * @return string|null
+     * @return null|string
      */
     public function firePrefix()
     {
@@ -165,16 +165,13 @@ class ConfigDriver extends DriverBase
             return self::$cache[__METHOD__];
         }
 
-
         return self::$cache[__METHOD__] = $this->getGitLiveParameter(self::FIRE_PREFIX_NAME_KEY) ?? GitLive::DEFAULT_FIRE_PREFIX;
     }
-
-
 
     /**
      * Get hotfix prefix.
      *
-     * @return string|null
+     * @return null|string
      */
     public function hotfixPrefix()
     {
@@ -216,7 +213,7 @@ class ConfigDriver extends DriverBase
     /**
      * Get release prefix.
      *
-     * @return string|null
+     * @return null|string
      */
     public function releasePrefix()
     {
@@ -230,7 +227,7 @@ class ConfigDriver extends DriverBase
     /**
      * Get deploy remote name.
      *
-     * @return string|null
+     * @return null|string
      */
     public function deployRemote()
     {
@@ -244,7 +241,7 @@ class ConfigDriver extends DriverBase
     /**
      * Get development branch name.
      *
-     * @return string|null
+     * @return null|string
      */
     public function develop()
     {
@@ -258,7 +255,7 @@ class ConfigDriver extends DriverBase
     /**
      * Get master branch name.
      *
-     * @return string|null
+     * @return null|string
      */
     public function master()
     {

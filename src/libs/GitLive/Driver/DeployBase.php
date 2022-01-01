@@ -246,8 +246,8 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param string $tag_name
      * @param null $release_rep
-     * @return      string
      *@throws Exception
+     * @return      string
      */
     public function buildOpenWithReleaseTag(string $tag_name, $release_rep = null)
     {
@@ -321,8 +321,8 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param string $repo
-     * @return void
      *@throws Exception
+     * @return void
      */
     public function deployTrack(string $repo)
     {
@@ -427,8 +427,8 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param bool $remove_local OPTIONAL:false
-     * @return void
      *@throws Exception
+     * @return void
      */
     public function buildDestroy(bool $remove_local = false)
     {
@@ -446,8 +446,8 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param bool $force OPTIONAL:false
      * @param null $tag_name
-     * @return void
      *@throws Exception
+     * @return void
      */
     public function buildClose(bool $force = false, $tag_name = null)
     {
@@ -484,8 +484,8 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param string $repo
-     * @return void
      *@throws Exception
+     * @return void
      */
     protected function deploySync(string $repo)
     {
@@ -516,8 +516,8 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param string $repo
-     * @return void
      *@throws Exception
+     * @return void
      */
     protected function upstreamPush(string $repo)
     {
@@ -553,8 +553,8 @@ abstract class DeployBase extends DriverBase
      * @param string $repo
      * @param string $mode
      * @param bool $remove_local OPTIONAL:false
-     * @return void
      *@throws Exception
+     * @return void
      */
     protected function deployDestroy(string $repo, string $mode, bool $remove_local = false)
     {
@@ -599,8 +599,8 @@ abstract class DeployBase extends DriverBase
      * @param string $mode
      * @param bool $force OPTIONAL:false
      * @param null $tag_name
-     * @return void
      *@throws Exception
+     * @return void
      */
     protected function deployEnd(string $release_name, string $mode, bool $force = false, $tag_name = null)
     {
