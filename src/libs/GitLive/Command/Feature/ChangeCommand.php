@@ -33,6 +33,12 @@ class ChangeCommand extends CommandBase
 {
     protected static $signature_name = 'feature:change';
 
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -41,7 +47,7 @@ class ChangeCommand extends CommandBase
             ->setDescription(__('Cheackout other feature branch.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Cheackout other feature branch.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('feature_name', InputArgument::REQUIRED, __('feature name'))
             ->addOption(
                 'force',
@@ -59,7 +65,8 @@ class ChangeCommand extends CommandBase
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @throws \Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

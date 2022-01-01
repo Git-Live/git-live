@@ -49,7 +49,7 @@ class FeatureStatusCommandTest extends TestCase
     use CommandTestTrait;
     use MakeGitTestRepoTrait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -102,7 +102,7 @@ class FeatureStatusCommandTest extends TestCase
             6 => 'git config --get gitlive.branch.hotfix.prefix.name',
             7 => 'git rev-parse --git-dir 2> /dev/null',
             8 => 'git config --get gitlive.branch.release.prefix.name',
-            9 => 'git diff develop --name-status',
+            9 => 'git diff staging --name-status',
         ], data_get($this->spy, '*.0'));
     }
 
@@ -244,7 +244,7 @@ class FeatureStatusCommandTest extends TestCase
             2 => 'git config --get gitlive.branch.master.name',
             3 => 'git rev-parse --git-dir 2> /dev/null',
             4 => 'git config --get gitlive.branch.develop.name',
-            5 => 'git diff develop --name-status',
+            5 => 'git diff staging --name-status',
         ], data_get($this->spy, '*.0'));
     }
 
@@ -281,12 +281,16 @@ class FeatureStatusCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
-            1 => 'git rev-parse --git-dir 2> /dev/null',
-            2 => 'git config --get gitlive.branch.master.name',
-            3 => 'git rev-parse --git-dir 2> /dev/null',
-            4 => 'git config --get gitlive.branch.develop.name',
-            5 => 'git diff master --name-status',
+            0 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
+            1 => "git rev-parse --git-dir 2> /dev/null",
+            2 => "git config --get gitlive.branch.master.name",
+            3 => "git rev-parse --git-dir 2> /dev/null",
+            4 => "git config --get gitlive.branch.develop.name",
+            5 => "git rev-parse --git-dir 2> /dev/null",
+            6 => "git config --get gitlive.branch.hotfix.prefix.name",
+            7 => "git rev-parse --git-dir 2> /dev/null",
+            8 => "git config --get gitlive.branch.release.prefix.name",
+            9 => "git diff staging --name-status",
         ], data_get($this->spy, '*.0'));
     }
 }

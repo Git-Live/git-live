@@ -49,7 +49,7 @@ class InitDriver extends DriverBase
      * @throws Exception
      * @return void
      */
-    public function init(InputInterface $input)
+    public function init(InputInterface $input): void
     {
         $auto_clone_dir = null;
         $is_auto_clone_dir = false;
@@ -59,7 +59,7 @@ class InitDriver extends DriverBase
             $deploy_repository = $this->interactiveShell([
                 __('Please enter deploying dedicated remote-repository.'),
                 __('If you return in the blank, it becomes the default setting.'),
-                "default:{$upstream_repository}",
+                "default:" . $upstream_repository,
             ], $upstream_repository);
 
             $match = null;
@@ -71,7 +71,7 @@ class InitDriver extends DriverBase
             $clone_dir = $this->interactiveShell([
                 __('Please enter work directory path.'),
                 __('If you return in the blank, it becomes the default setting.'),
-                "default:{$auto_clone_dir}",
+                "default:" . $auto_clone_dir,
             ], $auto_clone_dir);
         } else {
             $clone_repository = $input->getArgument('clone_repository');
@@ -117,10 +117,11 @@ class InitDriver extends DriverBase
      *
      * @access      public
      * @param bool $without_remote_change
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    public function start(bool $without_remote_change = true)
+    public function start(bool $without_remote_change = true): void
     {
         $this->GitCmdExecutor->stash(['-u']);
         $this->Driver(FetchDriver::class)->clean();
@@ -155,10 +156,11 @@ class InitDriver extends DriverBase
      *  諸々リセットして初期化します
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    public function restart()
+    public function restart(): void
     {
         $is_yes = $this->interactiveShell(__('Rebuild? yes/no'));
 
@@ -192,10 +194,10 @@ class InitDriver extends DriverBase
 
     /**
      * @param array|string $text
-     * @param bool   $using_default
+     * @param bool $using_default
      * @return string
      */
-    protected function interactiveShell($text, $using_default = false)
+    protected function interactiveShell($text, bool $using_default = false): ?string
     {
         try {
             return App::make(InteractiveShellInterface::class)

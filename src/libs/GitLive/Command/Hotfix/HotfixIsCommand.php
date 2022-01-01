@@ -47,6 +47,12 @@ class HotfixIsCommand extends CommandBase
 {
     protected static $signature_name = 'hotfix:is';
 
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -55,14 +61,16 @@ class HotfixIsCommand extends CommandBase
             ->setDescription(__('Whether the hotfix is open, or to see what is closed.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Whether the hotfix is open, or to see what is closed.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addOption('with-merge-commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @return null|int|void
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

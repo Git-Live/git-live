@@ -45,7 +45,7 @@ class InteractiveShell implements InteractiveShellInterface
      * @return void
      * @codeCoverageIgnore
      */
-    public function echo($text)
+    public function echo($text): void
     {
         // TODO: Implement echo() method.
     }

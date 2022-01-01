@@ -30,7 +30,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ReleaseTrackCommand extends CommandBase
 {
     protected static $signature_name = 'release:track';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -39,14 +44,16 @@ class ReleaseTrackCommand extends CommandBase
             ->setDescription(__('Support preparation of a new production release/.') . __('Allow for minor bug fixes and preparing meta-data for a release'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Support preparation of a new production release/.') . __('Allow for minor bug fixes and preparing meta-data for a release'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

@@ -224,8 +224,8 @@ msgstr "適当なリモートリポジトリからpullします。"
 msgid "Push from the appropriate remote repository."
 msgstr "適当なリモートリポジトリにpushします。"
 
-msgid "Will reset the branch before the last commit."
-msgstr "ブランチを最後のコミットの状態にします。"
+msgid "Will reset all additions and changes to the current branch."
+msgstr "現在のブランチへの追加や変更をすべてリセットします。"
 
 msgid "Update git-live."
 msgstr "git-liveコマンドを更新します。"

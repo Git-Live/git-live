@@ -20,6 +20,9 @@
 
 namespace GitLive\Application;
 
+use ErrorException;
+use ReflectionException;
+
 /**
  * Class Facade
  *
@@ -38,11 +41,12 @@ namespace GitLive\Application;
 class Facade
 {
     /**
-     * @param  \Closure|string $concrete
-     * @param array            $with
-     * @return null|mixed
+     * @param \Closure|string $concrete
+     * @param array $with
+     * @throws \ErrorException
+     * @return mixed
      */
-    public static function make($concrete, $with = [])
+    public static function make($concrete, array $with = [])
     {
         $Container = new Container();
 
@@ -52,7 +56,11 @@ class Facade
 
         try {
             $res = $Container->build($concrete);
-        } catch (\ReflectionException $exception) {
+        } catch (ReflectionException $exception) {
+        }
+
+        if ($res === null) {
+            throw new ErrorException($concrete . 'is undefined concrete.');
         }
 
         return $res;

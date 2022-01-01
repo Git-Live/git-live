@@ -247,9 +247,9 @@ Language:
       array (
         0 => '適当なリモートリポジトリにpushします。',
       ),
-      'Will reset the branch before the last commit.' => 
+      'Will reset all additions and changes to the current branch.' => 
       array (
-        0 => 'ブランチを最後のコミットの状態にします。',
+        0 => '現在のブランチへの追加や変更をすべてリセットします。',
       ),
       'Update git-live.' => 
       array (

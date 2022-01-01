@@ -30,7 +30,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ReleasePushCommand extends CommandBase
 {
     protected static $signature_name = 'release:push';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -39,14 +44,16 @@ class ReleasePushCommand extends CommandBase
             ->setDescription(__('Push upstream/release and deploy/release.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Push upstream/release and deploy/release.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

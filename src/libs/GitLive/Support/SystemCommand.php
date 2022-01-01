@@ -53,8 +53,8 @@ class SystemCommand extends GitBase implements SystemCommandInterface
 
     /**
      * SystemCommand constructor.
-     * @param InputInterface $input
-     * @param OutputInterface $output
+     * @param InputInterface|mixed $input
+     * @param mixed|OutputInterface $output
      */
     public function __construct($input, $output)
     {
@@ -67,6 +67,8 @@ class SystemCommand extends GitBase implements SystemCommandInterface
      * @param bool|int $verbosity
      * @param null     $output_verbosity
      * @return null|string
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function exec(string $cmd, $verbosity = 0, $output_verbosity = null)
     {

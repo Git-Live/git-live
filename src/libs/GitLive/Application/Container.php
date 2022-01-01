@@ -21,6 +21,7 @@
 namespace GitLive\Application;
 
 use Closure;
+use Exception;
 use GitLive\GitBase;
 use ReflectionClass;
 use ReflectionException;
@@ -53,7 +54,7 @@ class Container
     /**
      * @return void
      */
-    public static function reset()
+    public static function reset(): void
     {
         static::$container = [];
         static::$contextContainer = [];
@@ -79,7 +80,7 @@ class Container
      * @param string $concrete
      * @param mixed  $class
      */
-    public static function bindContext(string $concrete, $class)
+    public static function bindContext(string $concrete, $class): void
     {
         static::$contextContainer[$concrete] = $class;
     }
@@ -88,7 +89,7 @@ class Container
      * @param string $interface
      * @param mixed  $class
      */
-    public static function bind(string $interface, $class)
+    public static function bind(string $interface, $class): void
     {
         static::$container[$interface] = $class;
     }
@@ -96,7 +97,7 @@ class Container
     /**
      * @param array $with
      */
-    public function setWith(array $with)
+    public function setWith(array $with): void
     {
         $this->with = $with;
     }
@@ -145,7 +146,7 @@ class Container
 
         try {
             $boot = $reflector->getMethod('boot');
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $boot = null;
         }
 
@@ -201,9 +202,10 @@ class Container
             }
             */
 
-            $results[] = $dependency->getType() === null || $dependency->getType()->isBuiltin()
+            $typeHint = $dependency->getType();
+            $results[] = $typeHint === null || $typeHint->isBuiltin()
                 ? $this->resolvePrimitive($dependency)
-                : $this->build($dependency->getType()->getName());
+                : $this->build($typeHint->getName());
         }
 
         return $results;
@@ -212,10 +214,10 @@ class Container
     /**
      * Determine if the given dependency has a parameter override.
      *
-     * @param  \ReflectionParameter $dependency
+     * @param \ReflectionParameter $dependency
      * @return bool
      */
-    protected function hasParameterOverride($dependency): bool
+    protected function hasParameterOverride(ReflectionParameter $dependency): bool
     {
         return array_key_exists(
             $dependency->name,
@@ -226,10 +228,10 @@ class Container
     /**
      * Get a parameter override for a dependency.
      *
-     * @param  \ReflectionParameter $dependency
+     * @param \ReflectionParameter $dependency
      * @return mixed
      */
-    protected function getParameterOverride($dependency)
+    protected function getParameterOverride(ReflectionParameter $dependency)
     {
         return $this->with[$dependency->name];
     }
@@ -237,8 +239,7 @@ class Container
     /**
      * Resolve a non-class hinted primitive dependency.
      *
-     * @param  \ReflectionParameter $parameter
-     * @throws \ReflectionException
+     * @param \ReflectionParameter $parameter
      * @return mixed
      */
     protected function resolvePrimitive(ReflectionParameter $parameter)
@@ -258,7 +259,7 @@ class Container
      * @param string $concrete
      * @return null|mixed
      */
-    protected function getContextualConcrete($concrete)
+    protected function getContextualConcrete(string $concrete)
     {
         return static::$contextContainer[$concrete] ?? null;
     }

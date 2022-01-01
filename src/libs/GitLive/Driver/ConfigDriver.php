@@ -42,13 +42,16 @@ use GitLive\GitLive;
  */
 class ConfigDriver extends DriverBase
 {
-    const FEATURE_PREFIX_NAME_KEY = 'branch.feature.prefix.name';
-    const FEATURE_PREFIX_IGNORE_KEY = 'branch.feature.prefix.ignore';
-    const RELEASE_PREFIX_KEY = 'branch.release.prefix.name';
-    const HOTFIX_PREFIX_KEY = 'branch.hotfix.prefix.name';
-    const DEPLOY_REMOTE_KEY = 'deploy.remote';
-    const DEVELOP_NAME_KEY = 'branch.develop.name';
-    const MASTER_NAME_KEY = 'branch.master.name';
+    public const FEATURE_PREFIX_NAME_KEY = 'branch.feature.prefix.name';
+    public const FEATURE_PREFIX_IGNORE_KEY = 'branch.feature.prefix.ignore';
+    public const RELEASE_PREFIX_KEY = 'branch.release.prefix.name';
+    public const HOTFIX_PREFIX_KEY = 'branch.hotfix.prefix.name';
+    public const FIRE_PREFIX_NAME_KEY = 'branch.fire.prefix.name';
+    public const DEPLOY_REMOTE_KEY = 'deploy.remote';
+    public const DEVELOP_NAME_KEY = 'branch.develop.name';
+    public const MASTER_NAME_KEY = 'branch.master.name';
+    public const UPSTREAM_READ_ONLY_KEY = 'remote.upstream.readonly';
+    public const DEPLOY_READ_ONLY_KEY = 'remote.deploy.readonly';
 
     /**
      * @var array
@@ -59,7 +62,7 @@ class ConfigDriver extends DriverBase
      * Clear the local cache for testing
      * @codeCoverageIgnore
      */
-    public static function reset()
+    public static function reset(): void
     {
         self::$cache = [];
     }
@@ -71,7 +74,7 @@ class ConfigDriver extends DriverBase
      * @param string $value
      * @return null|string
      */
-    public function setGlobalParameter($key, $value)
+    public function setGlobalParameter(string $key, string $value): ?string
     {
         if (!$this->isGitRepository()) {
             return null;
@@ -84,10 +87,10 @@ class ConfigDriver extends DriverBase
      * Set to local config.
      *
      * @param string $key
-     * @param string $value
+     * @param null|string $value
      * @return null|string
      */
-    public function setLocalParameter($key, $value)
+    public function setLocalParameter(string $key, ?string $value): ?string
     {
         if (!$this->isGitRepository()) {
             return null;
@@ -103,7 +106,7 @@ class ConfigDriver extends DriverBase
      * @param string $value
      * @return null|string
      */
-    public function setSystemParameter($key, $value)
+    public function setSystemParameter(string $key, string $value): ?string
     {
         if (!$this->isGitRepository()) {
             return null;
@@ -118,7 +121,7 @@ class ConfigDriver extends DriverBase
      * @param string $key
      * @return null|string
      */
-    public function getGitLiveParameter($key)
+    public function getGitLiveParameter(string $key): ?string
     {
         if (!$this->isGitRepository()) {
             return null;
@@ -138,7 +141,7 @@ class ConfigDriver extends DriverBase
      *
      * @return null|string
      */
-    public function featurePrefix()
+    public function featurePrefix(): ?string
     {
         if (isset(self::$cache[__METHOD__])) {
             return self::$cache[__METHOD__];
@@ -152,17 +155,43 @@ class ConfigDriver extends DriverBase
     }
 
     /**
+     * Get feature prefix.
+     *
+     * @return null|string
+     */
+    public function firePrefix(): ?string
+    {
+        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = $this->getGitLiveParameter(self::FIRE_PREFIX_NAME_KEY) ?? GitLive::DEFAULT_FIRE_PREFIX);
+    }
+
+    /**
      * Get hotfix prefix.
      *
      * @return null|string
      */
-    public function hotfixPrefix()
+    public function hotfixPrefix(): ?string
     {
-        if (isset(self::$cache[__METHOD__])) {
-            return self::$cache[__METHOD__];
-        }
+        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = $this->getGitLiveParameter(self::HOTFIX_PREFIX_KEY) ?? GitLive::DEFAULT_HOTFIX_PREFIX);
+    }
 
-        return self::$cache[__METHOD__] = $this->getGitLiveParameter(self::HOTFIX_PREFIX_KEY) ?? GitLive::DEFAULT_HOTFIX_PREFIX;
+    /**
+     * upstream readonly flag
+     *
+     * @return bool
+     */
+    public function isUpstreamReadOnly(): bool
+    {
+        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = strtolower($this->getGitLiveParameter(self::UPSTREAM_READ_ONLY_KEY) ?? 'false') === 'true');
+    }
+
+    /**
+     * release readonly flag
+     *
+     * @return bool
+     */
+    public function isDeployReadOnly(): bool
+    {
+        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = strtolower($this->getGitLiveParameter(self::DEPLOY_READ_ONLY_KEY) ?? 'false') === 'true');
     }
 
     /**
@@ -170,13 +199,9 @@ class ConfigDriver extends DriverBase
      *
      * @return null|string
      */
-    public function releasePrefix()
+    public function releasePrefix(): ?string
     {
-        if (isset(self::$cache[__METHOD__])) {
-            return self::$cache[__METHOD__];
-        }
-
-        return self::$cache[__METHOD__] = $this->getGitLiveParameter(self::RELEASE_PREFIX_KEY) ?? GitLive::DEFAULT_RELEASE_PREFIX;
+        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = $this->getGitLiveParameter(self::RELEASE_PREFIX_KEY) ?? GitLive::DEFAULT_RELEASE_PREFIX);
     }
 
     /**
@@ -184,13 +209,9 @@ class ConfigDriver extends DriverBase
      *
      * @return null|string
      */
-    public function deployRemote()
+    public function deployRemote(): ?string
     {
-        if (isset(self::$cache[__METHOD__])) {
-            return self::$cache[__METHOD__];
-        }
-
-        return self::$cache[__METHOD__] = $this->getGitLiveParameter(self::DEPLOY_REMOTE_KEY) ?? GitLive::DEFAULT_DEPLOY_REMOTE_NAME;
+        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = $this->getGitLiveParameter(self::DEPLOY_REMOTE_KEY) ?? GitLive::DEFAULT_DEPLOY_REMOTE_NAME);
     }
 
     /**
@@ -198,13 +219,9 @@ class ConfigDriver extends DriverBase
      *
      * @return null|string
      */
-    public function develop()
+    public function develop(): ?string
     {
-        if (isset(self::$cache[__METHOD__])) {
-            return self::$cache[__METHOD__];
-        }
-
-        return self::$cache[__METHOD__] = $this->getGitLiveParameter(self::DEVELOP_NAME_KEY) ?? GitLive::DEFAULT_DEVELOP_BRANCH_NAME;
+        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = $this->getGitLiveParameter(self::DEVELOP_NAME_KEY) ?? GitLive::DEFAULT_DEVELOP_BRANCH_NAME);
     }
 
     /**
@@ -212,12 +229,8 @@ class ConfigDriver extends DriverBase
      *
      * @return null|string
      */
-    public function master()
+    public function master(): ?string
     {
-        if (isset(self::$cache[__METHOD__])) {
-            return self::$cache[__METHOD__];
-        }
-
-        return self::$cache[__METHOD__] = $this->getGitLiveParameter(self::MASTER_NAME_KEY) ?? GitLive::DEFAULT_MASTER_BRANCH_NAME;
+        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = $this->getGitLiveParameter(self::MASTER_NAME_KEY) ?? GitLive::DEFAULT_MASTER_BRANCH_NAME);
     }
 }

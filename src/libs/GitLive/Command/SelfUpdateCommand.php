@@ -31,7 +31,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class SelfUpdateCommand extends CommandBase
 {
     protected static $signature_name = 'self-update';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -40,7 +45,7 @@ class SelfUpdateCommand extends CommandBase
             ->setDescription(__('Update git-live command.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Update git-live command.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('save_path', InputArgument::OPTIONAL, __('Save path.'))
             ->addOption(
                 'no-cache',
@@ -51,9 +56,12 @@ class SelfUpdateCommand extends CommandBase
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @return null|int
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

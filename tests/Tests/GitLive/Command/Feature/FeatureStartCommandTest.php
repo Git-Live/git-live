@@ -95,7 +95,7 @@ class FeatureStartCommandTest extends TestCase
             8 => 'git branch -a',
             9 => 'git rev-parse --git-dir 2> /dev/null',
             10 => 'git config --get gitlive.branch.develop.name',
-            11 => 'git checkout upstream/develop',
+            11 => 'git checkout upstream/staging',
             12 => 'git checkout -b feature/suzunone_branch_new',
         ], data_get($this->spy, '*.0'));
 

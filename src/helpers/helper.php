@@ -18,12 +18,14 @@
  * @see        https://github.com/Git-Live/git-live
  */
 
-use GitLive\Support\Arr;
+use GitLive\Application\Facade;
+use GitLive\Helper\Arr;
+use GitLive\Helper\Resource;
 use GitLive\Support\Collection;
 use Symfony\Component\VarDumper\VarDumper;
 
 if (!function_exists('__')) {
-    function __($message)
+    function __(string $message): string
     {
         return _($message);
     }
@@ -53,16 +55,33 @@ if (!function_exists('value')) {
 }
 
 if (!function_exists('collect')) {
-    function collect($value)
+    function collect($value): Collection
     {
         return new Collection($value);
+    }
+}
+
+if (!function_exists('resource')) {
+    /**
+     * @param null|string $file_name
+     * @throws \ErrorException
+     * @return \GitLive\Helper\Resource|string
+     */
+    function resource(?string $file_name = null)
+    {
+        $obj = Facade::make(Resource::class);
+        if ($file_name === null) {
+            return $obj;
+        }
+
+        return $obj->get($file_name);
     }
 }
 
 if (!function_exists('data_get')) {
     /**
      * @param      array|Collection $target
-     * @param      string $key
+     * @param array|string $key
      * @param null $default
      * @return array|mixed
      */
@@ -89,6 +108,7 @@ if (!function_exists('data_get')) {
             if (Arr::accessible($target) && Arr::exists($target, $segment)) {
                 $target = $target[$segment];
             } elseif (is_object($target) && isset($target->{$segment})) {
+                /** @noinspection CallableParameterUseCaseInTypeContextInspection */
                 $target = $target->{$segment};
             } else {
                 return value($default);

@@ -43,7 +43,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class MergeCommand extends CommandBase
 {
     protected static $signature_name = 'merge';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -52,7 +57,7 @@ class MergeCommand extends CommandBase
             ->setDescription(__('Alias to "merge: *" tasks.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Alias to "merge: *" tasks.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument(
                 'task',
                 InputArgument::REQUIRED,
@@ -66,10 +71,12 @@ class MergeCommand extends CommandBase
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \Exception
+     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
      * @return null|int
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -83,8 +90,6 @@ class MergeCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'master':
                 $command = $this->getApplication()->find('merge:master');
 
@@ -93,8 +98,6 @@ class MergeCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'feature':
                 $command = $this->getApplication()->find('merge:feature');
 
@@ -103,8 +106,6 @@ class MergeCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'state':
                 if ($input->getArgument('state_hint') === 'master') {
                     $command = $this->getApplication()->find('merge:state:master');
@@ -117,8 +118,6 @@ class MergeCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
         }
 
         return 0;

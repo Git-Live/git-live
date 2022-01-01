@@ -21,7 +21,10 @@
 namespace GitLive\Command;
 
 use App;
+use Exception;
 use GitLive\Driver\LatestVersionDriver;
+use GitLive\Support\Collection;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -48,24 +51,41 @@ abstract class CommandBase extends Command
      */
     protected static $signature_name = '';
 
+    /**
+     * @return string
+     */
     public static function getSignature(): string
     {
         return static::$signature_name;
     }
 
     /**
+     * @return \Symfony\Component\Console\Application
+     * @noinspection PhpMissingReturnTypeInspection
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
+    public function getApplication()
+    {
+        return parent::getApplication() ?? new Application;
+    }
+
+    /**
      * @param OutputInterface $output
      */
-    public function updateChecker(OutputInterface $output)
+    public function updateChecker(OutputInterface $output): void
     {
         try {
             if (App::make(LatestVersionDriver::class)->ckNewVersion()) {
                 $output->writeln('Alert:' . __('An update to the Git Live is available. Run "git live self-update" to get the latest version.'));
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
         }
     }
 
+    /**
+     * {@inheritdoc}
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -78,15 +98,11 @@ abstract class CommandBase extends Command
      * @param InputInterface $input
      * @return \GitLive\Support\Collection
      */
-    protected function getOptions(InputInterface $input): \GitLive\Support\Collection
+    protected function getOptions(InputInterface $input): Collection
     {
         return collect(collect($input->getOptions())
             ->filter(static function ($item) {
-                if ($item === false || $item === null) {
-                    return false;
-                }
-
-                return true;
+                return !($item === false || $item === null);
             })
             ->map(static function ($item, $key) {
                 if ($item === $key || $item === true) {

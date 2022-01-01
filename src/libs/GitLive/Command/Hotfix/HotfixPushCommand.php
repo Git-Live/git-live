@@ -30,7 +30,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class HotfixPushCommand extends CommandBase
 {
     protected static $signature_name = 'hotfix:push';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -39,14 +44,16 @@ class HotfixPushCommand extends CommandBase
             ->setDescription(__('Push upstream/hotfix and deploy/hotfix.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Push upstream/hotfix and deploy/hotfix.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

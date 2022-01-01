@@ -41,14 +41,15 @@ use GitLive\Support\SystemCommandInterface;
  */
 class ReleaseDriver extends DeployBase
 {
-    const MODE = 'release';
+    public const MODE = 'release';
 
     /**
      * ReleaseDriver constructor.
-     * @param GitLive                $GitLive
-     * @param GitCmdExecutor         $gitCmdExecutor
+     * @param GitLive $GitLive
+     * @param GitCmdExecutor $gitCmdExecutor
      * @param SystemCommandInterface $command
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      */
     public function __construct($GitLive, GitCmdExecutor $gitCmdExecutor, SystemCommandInterface $command)
     {
@@ -58,6 +59,7 @@ class ReleaseDriver extends DeployBase
     }
 
     /**
+     * @throws \ErrorException
      * @return bool
      */
     public function isBuildOpen():bool
@@ -66,7 +68,8 @@ class ReleaseDriver extends DeployBase
     }
 
     /**
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function getBuildRepository():string

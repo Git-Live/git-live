@@ -47,7 +47,7 @@ use Tests\GitLive\Tester\TestCase;
 class GitCmdExecutorTest extends TestCase
 {
     protected $spy;
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -97,6 +97,12 @@ class GitCmdExecutorTest extends TestCase
      */
     public function testChdir()
     {
+        $obj = App::make(GitCmdExecutor::class);
+        $cwd =  getcwd();
+        $obj->chdir(__DIR__);
+        $this->assertEquals(__DIR__, getcwd());
+        $obj->chdir($cwd);
+        $this->assertEquals($cwd, getcwd());
     }
 
     /**

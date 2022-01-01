@@ -46,7 +46,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class TrackCommand extends CommandBase
 {
     protected static $signature_name = 'feature:track';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -55,7 +60,7 @@ class TrackCommand extends CommandBase
             ->setDescription(sprintf(__('Start tracking feature {feature_name} that is shared on %s'), 'upstream'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(sprintf(__('Start tracking feature {feature_name} that is shared on %s'), 'upstream'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('feature_name', InputArgument::REQUIRED, 'feature name');
     }
 
@@ -63,7 +68,8 @@ class TrackCommand extends CommandBase
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @throws \Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

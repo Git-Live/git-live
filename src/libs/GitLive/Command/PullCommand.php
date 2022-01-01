@@ -35,7 +35,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class PullCommand extends CommandBase
 {
     protected static $signature_name = 'pull';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -44,21 +49,23 @@ class PullCommand extends CommandBase
             ->setDescription(__('Pull from the appropriate remote repository.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Pull from the appropriate remote repository.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addOption(
                 'force',
                 'f',
                 InputOption::VALUE_NONE
             )
-            ->addArgument('remote', InputArgument::OPTIONAL, 'Remote name[origin upstream deploy]', null)
+            ->addArgument('remote', InputArgument::OPTIONAL, 'Remote name[origin upstream deploy]')
         ;
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws Exception
-     * @return null|int|void
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -93,16 +100,13 @@ class PullCommand extends CommandBase
             App::make(ResetDriver::class)->forcePull($remote);
         } else {
             switch ($remote) {
+                case 'origin':
                 case 'upstream':
                     App::make(GitCmdExecutor::class)->pull($remote, $branch);
 
                     break;
                 case 'deploy':
                     App::make(GitCmdExecutor::class)->pull($ConfigDriver->deployRemote(), $branch);
-
-                    break;
-                case 'origin':
-                    App::make(GitCmdExecutor::class)->pull($remote, $branch);
 
                     break;
                 default:

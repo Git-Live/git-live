@@ -60,7 +60,7 @@ $config = PhpCsFixer\Config::create()
             'separate' => 'both',
         ],
         'heredoc_to_nowdoc' => true,
-        'list_syntax' => ['syntax' => 'long'],
+        'list_syntax' => ['syntax' => 'short'],
         'logical_operators' => true,
         'method_argument_space' => ['on_multiline' => 'ensure_fully_multiline'],
         'method_chaining_indentation' => true,

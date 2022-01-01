@@ -68,7 +68,7 @@ class Envelopment extends GitBase
      * @param        $default_value
      * @return null|array|string
      */
-    public function getEnv($key, $default_value = null)
+    public function getEnv(string $key, $default_value = null)
     {
         $res = getenv($key);
 
@@ -80,7 +80,7 @@ class Envelopment extends GitBase
      * @param string $value
      * @return bool
      */
-    public function putEnv($key, $value): bool
+    public function putEnv(string $key, string $value): bool
     {
         return putenv($key . '=' . $value);
     }

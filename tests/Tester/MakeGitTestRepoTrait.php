@@ -107,6 +107,8 @@ trait MakeGitTestRepoTrait
         shell_exec('git push origin master');
         shell_exec('git checkout -b develop');
         shell_exec('git push origin develop');
+        shell_exec('git checkout -b staging');
+        shell_exec('git push origin staging');
 
         shell_exec("git clone {$remote_upstream} {$remote_origin}");
         shell_exec("git init --bare --shared=true {$remote_origin}");
@@ -125,6 +127,11 @@ trait MakeGitTestRepoTrait
         shell_exec('git checkout -b develop');
         shell_exec('git push origin develop');
         shell_exec('git push deploy develop');
+
+        shell_exec('git checkout -b staging');
+        shell_exec('git push origin staging');
+        shell_exec('git push deploy staging');
+
         shell_exec('git checkout master');
 
         // 変数定義

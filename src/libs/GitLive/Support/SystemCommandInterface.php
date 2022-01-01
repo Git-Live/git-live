@@ -43,6 +43,8 @@ interface SystemCommandInterface
      * @param bool|int $verbosity
      * @param null     $output_verbosity
      * @return null|string
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     public function exec(string $cmd, $verbosity = 0, $output_verbosity = null);
 }

@@ -47,6 +47,12 @@ class FeatureStatusCommand extends CommandBase
 {
     protected static $signature_name = 'feature:status';
 
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -55,17 +61,16 @@ class FeatureStatusCommand extends CommandBase
             ->setDescription(__('Show the feature status.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Show the feature status.') . __('The default feature name is self.'))
-
-            ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name')
-        ;
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name');
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

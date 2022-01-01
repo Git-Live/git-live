@@ -52,7 +52,7 @@ abstract class TestCase extends TestCaseBase
     /**
      * @throws \ReflectionException
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -81,7 +81,7 @@ abstract class TestCase extends TestCaseBase
     /**
      * @return void
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
 

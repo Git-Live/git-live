@@ -45,7 +45,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class StartCommand extends CommandBase
 {
     protected static $signature_name = 'start';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -60,14 +65,16 @@ class StartCommand extends CommandBase
                 InputOption::VALUE_NONE,
                 __('with_remote_change')
             )
-            ->setHelp(__('Refresh your branch.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

@@ -47,6 +47,12 @@ class FeatureStartCommand extends CommandBase
 {
     protected static $signature_name = 'feature:start';
 
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -55,15 +61,16 @@ class FeatureStartCommand extends CommandBase
             ->setDescription(__('Start new feature {feature_name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Start new feature {feature_name}.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument('feature_name', InputArgument::REQUIRED, 'feature name');
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

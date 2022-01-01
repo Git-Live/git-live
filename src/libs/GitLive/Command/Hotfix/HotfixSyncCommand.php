@@ -45,7 +45,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class HotfixSyncCommand extends CommandBase
 {
     protected static $signature_name = 'hotfix:sync';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -54,14 +59,16 @@ class HotfixSyncCommand extends CommandBase
             ->setDescription(__('Run git live hotfix pull and git live hotfix push in succession.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Run git live hotfix pull and git live hotfix push in succession.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

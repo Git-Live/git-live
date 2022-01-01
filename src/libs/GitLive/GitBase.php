@@ -38,7 +38,10 @@ namespace GitLive;
  */
 abstract class GitBase
 {
-    public function boot()
+    /**
+     * @return void
+     */
+    public function boot(): void
     {
     }
 }

@@ -43,7 +43,8 @@ class MergeDriver extends DriverBase
      *  Prior confirmation for develop merging
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function stateDevelop():string
@@ -57,7 +58,8 @@ class MergeDriver extends DriverBase
      *  Prior confirmation for $branch merging
      *
      * @param $branch
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function state($branch):string
@@ -72,7 +74,8 @@ class MergeDriver extends DriverBase
      *  Prior confirmation for master merging
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function stateMaster():string
@@ -86,10 +89,11 @@ class MergeDriver extends DriverBase
      *  Merge a develop branch.
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return null|string
      */
-    public function mergeDevelop()
+    public function mergeDevelop(): ?string
     {
         $branch = 'upstream/' . $this->Driver(ConfigDriver::class)->develop();
 
@@ -100,10 +104,11 @@ class MergeDriver extends DriverBase
      * fetch and merge.
      *
      * @param $branch
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return null|string
      */
-    public function merge($branch)
+    public function merge($branch): ?string
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
@@ -114,10 +119,11 @@ class MergeDriver extends DriverBase
     /**
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return null|string
      */
-    public function mergeMaster()
+    public function mergeMaster(): ?string
     {
         $branch = 'upstream/' . $this->Driver(ConfigDriver::class)->master();
 
@@ -128,10 +134,11 @@ class MergeDriver extends DriverBase
      *  Merge a other feature  branch.
      *
      * @param string $feature_name
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return null|string
      */
-    public function mergeFeature(string $feature_name)
+    public function mergeFeature(string $feature_name): ?string
     {
         $Config = $this->Driver(ConfigDriver::class);
         $feature_prefix = (string)$Config->featurePrefix();

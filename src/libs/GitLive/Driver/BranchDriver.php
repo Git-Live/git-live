@@ -71,7 +71,7 @@ class BranchDriver extends DriverBase
      * @param string $branch
      * @return bool
      */
-    public function isBranchExistsAll($branch): bool
+    public function isBranchExistsAll(string $branch): bool
     {
         $branches = $this->branchListAll();
         if ($branches->search('remotes/origin/' . $branch) !== false) {
@@ -95,11 +95,7 @@ class BranchDriver extends DriverBase
     {
         $branches = $this->branchList();
 
-        if ($branches->search($branch) !== false) {
-            return true;
-        }
-
-        return false;
+        return $branches->search($branch) !== false;
     }
 
     /**
@@ -110,13 +106,13 @@ class BranchDriver extends DriverBase
      */
     private function makeArray(string $branch): Collection
     {
-        $branch = explode("\n", rtrim($branch));
+        $branch_list = explode("\n", rtrim($branch));
 
-        array_walk($branch, static function (&$item) {
+        array_walk($branch_list, static function (&$item) {
             $pos = strpos($item, ' -> ') ?: null;
             $item = trim(mb_substr($item, 1, $pos));
         });
 
-        return collect($branch);
+        return collect($branch_list);
     }
 }

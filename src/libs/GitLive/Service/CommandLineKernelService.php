@@ -23,7 +23,7 @@ namespace GitLive\Service;
 use GitLive\Command\CleanCommand;
 use GitLive\Command\Config\SetCommand;
 use GitLive\Command\Feature\ChangeCommand;
-use GitLive\Command\Feature\FeatureCloseCommand as FeatureCloseCommand;
+use GitLive\Command\Feature\FeatureCloseCommand;
 use GitLive\Command\Feature\FeaturePullCommand;
 use GitLive\Command\Feature\FeaturePushCommand;
 use GitLive\Command\Feature\FeatureStartCommand;

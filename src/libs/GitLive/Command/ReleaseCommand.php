@@ -43,7 +43,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ReleaseCommand extends CommandBase
 {
     protected static $signature_name = 'release';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -52,7 +57,7 @@ class ReleaseCommand extends CommandBase
             ->setDescription(__('Alias to "release: *" tasks.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Alias to "release: *" tasks.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument(
                 'task',
                 InputArgument::REQUIRED,
@@ -66,10 +71,12 @@ class ReleaseCommand extends CommandBase
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \Exception
+     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
      * @return null|int
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -86,8 +93,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'close':
                 $command = $this->getApplication()->find('release:close');
 
@@ -100,8 +105,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'close-force':
                 $command = $this->getApplication()->find('release:close');
 
@@ -116,8 +119,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'sync':
                 $command = $this->getApplication()->find('release:sync');
 
@@ -126,8 +127,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'pull':
                 $command = $this->getApplication()->find('release:pull');
 
@@ -136,8 +135,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'push':
                 $command = $this->getApplication()->find('release:push');
 
@@ -146,8 +143,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'track':
                 $command = $this->getApplication()->find('release:track');
 
@@ -156,8 +151,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'state':
                 $command = $this->getApplication()->find('release:state');
 
@@ -167,8 +160,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'state-all':
                 $command = $this->getApplication()->find('release:state');
 
@@ -179,8 +170,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'is':
                 $command = $this->getApplication()->find('release:is');
 
@@ -190,8 +179,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'destroy':
                 $command = $this->getApplication()->find('release:destroy');
 
@@ -200,8 +187,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'destroy-clean':
                 $command = $this->getApplication()->find('release:destroy');
 
@@ -212,8 +197,6 @@ class ReleaseCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
         }
 
         return 0;

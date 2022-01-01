@@ -46,7 +46,7 @@ abstract class DeployBase extends DriverBase
     /**
      * @var string
      */
-    const MODE = '';
+    public const MODE = '';
     /**
      * @var string
      */
@@ -66,9 +66,10 @@ abstract class DeployBase extends DriverBase
 
     /**
      * DeployBase constructor.
-     * @param GitLive                $GitLive
-     * @param GitCmdExecutor         $gitCmdExecutor
+     * @param GitLive $GitLive
+     * @param GitCmdExecutor $gitCmdExecutor
      * @param SystemCommandInterface $command
+     * @throws \ErrorException
      */
     public function __construct(GitLive $GitLive, GitCmdExecutor $gitCmdExecutor, SystemCommandInterface $command)
     {
@@ -80,9 +81,10 @@ abstract class DeployBase extends DriverBase
     }
 
     /**
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      */
-    public function boot()
+    public function boot(): void
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
@@ -96,7 +98,8 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param null $release_rep
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function buildOpen($release_rep = null): string
@@ -106,6 +109,15 @@ abstract class DeployBase extends DriverBase
         }
         if ($this->isHotfixOpen()) {
             throw new Exception(sprintf(__('Already %s opened.'), HotfixDriver::MODE));
+        }
+
+        $Config = $this->Driver(ConfigDriver::class);
+        if ($Config->isUpstreamReadOnly()) {
+            throw new Exception('Error:' . __('upstream remote repository is readonly.'));
+        }
+
+        if ($Config->isDeployReadOnly()) {
+            throw new Exception('Error:' . __('deploy remote repository is readonly.'));
         }
 
         $repository = $this->GitCmdExecutor->branch(['-a']);
@@ -137,6 +149,7 @@ abstract class DeployBase extends DriverBase
      *  Whether the release is open or not
      *
      * @access      public
+     * @throws \ErrorException
      * @return bool
      * @codeCoverageIgnore
      */
@@ -155,7 +168,8 @@ abstract class DeployBase extends DriverBase
      *  Get a current release branch
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function getReleaseRepository(): string
@@ -186,6 +200,7 @@ abstract class DeployBase extends DriverBase
      *  Whether the hotfix is open or not
      *
      * @access      public
+     * @throws \ErrorException
      * @return bool
      * @codeCoverageIgnore
      */
@@ -204,7 +219,8 @@ abstract class DeployBase extends DriverBase
      *  Get a current hot-fix branch
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return string
      */
     public function getHotfixRepository(): string
@@ -235,13 +251,23 @@ abstract class DeployBase extends DriverBase
      *  Open a build branch specify the tag
      *
      * @access      public
-     * @param       string $tag_name
-     * @param null         $release_rep
-     * @throws Exception
-     * @return      void
+     * @param string $tag_name
+     * @param null $release_rep
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
+     * @return      string
      */
-    public function buildOpenWithReleaseTag($tag_name, $release_rep = null)
+    public function buildOpenWithReleaseTag(string $tag_name, $release_rep = null): string
     {
+        $Config = $this->Driver(ConfigDriver::class);
+        if ($Config->isUpstreamReadOnly()) {
+            return 'Error:' . __('upstream remote repository is readonly.');
+        }
+
+        if ($Config->isDeployReadOnly()) {
+            return 'Error:' . __('deploy remote repository is readonly.');
+        }
+
         if ($this->isReleaseOpen()) {
             throw new Exception(sprintf(__('Already %s opened.'), ReleaseDriver::MODE));
         }
@@ -264,16 +290,19 @@ abstract class DeployBase extends DriverBase
 
         $this->GitCmdExecutor->push('upstream', $release_rep);
         $this->GitCmdExecutor->push($this->deploy_repository_name, $release_rep);
+
+        return 'build opened.';
     }
 
     /**
      *  Track an all build branch.
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    public function buildTrack()
+    public function buildTrack(): void
     {
         if (!$this->isBuildOpen()) {
             throw new Exception(sprintf(__('%s is not open.'), static::MODE));
@@ -289,22 +318,23 @@ abstract class DeployBase extends DriverBase
     /**
      * @return bool
      */
-    abstract public function isBuildOpen():bool ;
+    abstract public function isBuildOpen(): bool;
 
     /**
      * @return string
      */
-    abstract public function getBuildRepository():string ;
+    abstract public function getBuildRepository(): string;
 
     /**
      *  Track a deploy branch.
      *
      * @access      public
-     * @param  string $repo
-     * @throws Exception
+     * @param string $repo
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    public function deployTrack($repo)
+    public function deployTrack(string $repo): void
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
 
@@ -323,7 +353,7 @@ abstract class DeployBase extends DriverBase
      * @throws Exception
      * @return void
      */
-    public function buildPull()
+    public function buildPull(): void
     {
         if (!$this->isBuildOpen()) {
             throw new Exception(sprintf(__('%s is not open.'), static::MODE));
@@ -338,11 +368,11 @@ abstract class DeployBase extends DriverBase
      * Check the state of build.
      *
      * @access      public
-     * @param       bool $ck_only           OPTIONAL:false
-     * @param       bool $with_merge_commit OPTIONAL:false
+     * @param bool $ck_only           OPTIONAL:false
+     * @param bool $with_merge_commit OPTIONAL:false
      * @return string
      */
-    public function buildState($ck_only = false, $with_merge_commit = false): string
+    public function buildState(bool $ck_only = false, bool $with_merge_commit = false): string
     {
         $res = '';
 
@@ -370,10 +400,11 @@ abstract class DeployBase extends DriverBase
      *  Sync a build branch to upstream and deploy.
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    public function buildSync()
+    public function buildSync(): void
     {
         if (!$this->isBuildOpen()) {
             throw new Exception(sprintf(__('%s is not open.'), static::MODE));
@@ -388,10 +419,11 @@ abstract class DeployBase extends DriverBase
      *  push a deploy branch to upstream.
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    public function buildPush()
+    public function buildPush(): void
     {
         if (!$this->isBuildOpen()) {
             throw new Exception(sprintf(__('%s is not open.'), static::MODE));
@@ -407,10 +439,11 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param bool $remove_local OPTIONAL:false
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    public function buildDestroy($remove_local = false)
+    public function buildDestroy(bool $remove_local = false): void
     {
         if (!$this->isBuildOpen()) {
             throw new Exception(sprintf(__('%s is not open.'), static::MODE));
@@ -426,10 +459,11 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param bool $force OPTIONAL:false
      * @param null $tag_name
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    public function buildClose($force = false, $tag_name = null)
+    public function buildClose(bool $force = false, $tag_name = null): void
     {
         if (!$this->isBuildOpen()) {
             throw new Exception(sprintf(__('%s is not open.'), static::MODE));
@@ -443,10 +477,11 @@ abstract class DeployBase extends DriverBase
      *  Whether release command, hotfix command is available
      *
      * @access      public
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    public function enableRelease()
+    public function enableRelease(): void
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $remote = $this->GitCmdExecutor->remote([], true);
@@ -463,12 +498,22 @@ abstract class DeployBase extends DriverBase
      *  Sync a build branch to deploy.
      *
      * @access      public
-     * @param  string $repo
-     * @throws Exception
+     * @param string $repo
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    protected function deploySync($repo)
+    protected function deploySync(string $repo): void
     {
+        $Config = $this->Driver(ConfigDriver::class);
+        if ($Config->isUpstreamReadOnly()) {
+            throw new Exception('Error:' . __('upstream remote repository is readonly.'));
+        }
+
+        if ($Config->isDeployReadOnly()) {
+            throw new Exception('Error:' . __('deploy remote repository is readonly.'));
+        }
+
         $this->isCleanOrFail($repo);
 
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
@@ -486,12 +531,22 @@ abstract class DeployBase extends DriverBase
      *  push a deploy branch to upstream.
      *
      * @access      public
-     * @param  string $repo
-     * @throws Exception
+     * @param string $repo
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    protected function upstreamPush($repo)
+    protected function upstreamPush(string $repo): void
     {
+        $Config = $this->Driver(ConfigDriver::class);
+        if ($Config->isUpstreamReadOnly()) {
+            throw new Exception('Error:' . __('upstream remote repository is readonly.'));
+        }
+
+        if ($Config->isDeployReadOnly()) {
+            throw new Exception('Error:' . __('deploy remote repository is readonly.'));
+        }
+
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
 
         if (!$this->isBranchExists($repo)) {
@@ -512,14 +567,24 @@ abstract class DeployBase extends DriverBase
      *  Delete a build branch.
      *
      * @access      public
-     * @param  string $repo
-     * @param  string $mode
-     * @param bool    $remove_local OPTIONAL:false
-     * @throws Exception
+     * @param string $repo
+     * @param string $mode
+     * @param bool $remove_local OPTIONAL:false
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    protected function deployDestroy($repo, $mode, $remove_local = false)
+    protected function deployDestroy(string $repo, string $mode, bool $remove_local = false): void
     {
+        $Config = $this->Driver(ConfigDriver::class);
+        if ($Config->isUpstreamReadOnly()) {
+            throw new Exception('Error:' . __('upstream remote repository is readonly.'));
+        }
+
+        if ($Config->isDeployReadOnly()) {
+            throw new Exception('Error:' . __('deploy remote repository is readonly.'));
+        }
+
         // Repositoryの掃除
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
 
@@ -548,15 +613,25 @@ abstract class DeployBase extends DriverBase
      *  Finish a build task.
      *
      * @access      public
-     * @param  string $release_name
-     * @param  string $mode
-     * @param bool    $force OPTIONAL:false
-     * @param null    $tag_name
-     * @throws Exception
+     * @param string $release_name
+     * @param string $mode
+     * @param bool $force OPTIONAL:false
+     * @param null $tag_name
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    protected function deployEnd($release_name, $mode, $force = false, $tag_name = null)
+    protected function deployEnd(string $release_name, string $mode, bool $force = false, $tag_name = null): void
     {
+        $Config = $this->Driver(ConfigDriver::class);
+        if ($Config->isUpstreamReadOnly()) {
+            throw new Exception('Error:' . __('upstream remote repository is readonly.'));
+        }
+
+        if ($Config->isDeployReadOnly()) {
+            throw new Exception('Error:' . __('deploy remote repository is readonly.'));
+        }
+
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $master_branch = App::make(ConfigDriver::class)->master();
         $develop_branch = App::make(ConfigDriver::class)->develop();

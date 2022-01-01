@@ -45,7 +45,7 @@ class FetchDriver extends DriverBase
      * @access      public
      * @return void
      */
-    public function upstream()
+    public function upstream(): void
     {
         $this->GitCmdExecutor->fetch(['upstream']);
         $this->GitCmdExecutor->fetch(['-p', 'upstream']);
@@ -57,7 +57,7 @@ class FetchDriver extends DriverBase
      * @access      public
      * @return void
      */
-    public function origin()
+    public function origin(): void
     {
         $this->GitCmdExecutor->fetch(['origin']);
         $this->GitCmdExecutor->fetch(['-p', 'origin']);
@@ -68,10 +68,11 @@ class FetchDriver extends DriverBase
      *
      * @access      public
      * @param null|string $remote
-     * @throws Exception
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
-    public function deploy($remote = null)
+    public function deploy(string $remote = null): void
     {
         if ($remote === null) {
             $remote = $this->Driver(ConfigDriver::class)->deployRemote();
@@ -87,7 +88,7 @@ class FetchDriver extends DriverBase
      * @access      public
      * @return void
      */
-    public function all()
+    public function all(): void
     {
         $this->GitCmdExecutor->fetch(['--all']);
         $this->GitCmdExecutor->fetch(['-p']);

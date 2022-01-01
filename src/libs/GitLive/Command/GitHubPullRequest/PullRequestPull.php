@@ -45,7 +45,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class PullRequestPull extends CommandBase
 {
     protected static $signature_name = 'pr:pull';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -54,14 +59,16 @@ class PullRequestPull extends CommandBase
             ->setDescription(__('Pull pull request locally.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Pull pull request locally.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

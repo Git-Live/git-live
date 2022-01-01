@@ -30,7 +30,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ReleaseSyncCommand extends CommandBase
 {
     protected static $signature_name = 'release:sync';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -39,14 +44,16 @@ class ReleaseSyncCommand extends CommandBase
             ->setDescription(__('Run git live release pull and git live release push in succession.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Run git live release pull and git live release push in succession.'));
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int|void
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

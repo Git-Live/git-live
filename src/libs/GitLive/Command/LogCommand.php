@@ -43,7 +43,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class LogCommand extends CommandBase
 {
     protected static $signature_name = 'log';
-
+    /**
+     * {@inheritdoc}
+     * @throws \ErrorException
+     * @return void
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     */
     protected function configure()
     {
         parent::configure();
@@ -52,7 +57,7 @@ class LogCommand extends CommandBase
             ->setDescription(__('Alias to "log: *" tasks.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(__('Alias to "log: *" tasks.'))
+            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
             ->addArgument(
                 'task',
                 InputArgument::REQUIRED,
@@ -61,10 +66,12 @@ class LogCommand extends CommandBase
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \Exception
+     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
      * @return null|int
+     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @noinspection PhpMissingReturnTypeInspection
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -80,8 +87,6 @@ class LogCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
             case 'master':
                 $command = $this->getApplication()->find('log:master');
 
@@ -93,8 +98,6 @@ class LogCommand extends CommandBase
                 $greetInput = new ArrayInput($arguments);
 
                 return $command->run($greetInput, $output);
-
-                break;
         }
 
         return 0;

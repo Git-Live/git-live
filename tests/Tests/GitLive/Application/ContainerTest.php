@@ -26,7 +26,10 @@ use Example\BindTestExample;
 use Example\BindTestInterface;
 use Example\BindTestWithExample;
 use GitLive\Application\Container;
+use GitLive\Driver\ConfigDriver;
 use GitLive\GitLive;
+use GitLive\Support\FileSystem;
+use GitLive\Support\SystemCommand;
 use PHPUnit\Framework\TestCase;
 use Tests\GitLive\Tester\InvokeTrait;
 
@@ -167,16 +170,28 @@ class ContainerTest extends TestCase
         $this->assertInstanceOf(BindTestExample::class, $obj->bindTest);
     }
 
+    public function buildDataProvider()
+    {
+        return [
+            GitLive::class =>  [GitLive::class],
+            FileSystem::class =>  [FileSystem::class],
+            ConfigDriver::class =>  [ConfigDriver::class],
+            SystemCommand::class => [SystemCommand::class],
+        ];
+    }
+
     /**
      * @covers \GitLive\Application\Container
+     * @dataProvider buildDataProvider
+     * @param mixed $class_name
      */
-    public function testBuild()
+    public function testBuild($class_name)
     {
         $Container = new Container();
 
-        $GitLive = $Container->build(GitLive::class);
+        $obj  = $Container->build($class_name);
 
-        $this->assertInstanceOf(GitLive::class, $GitLive);
+        $this->assertInstanceOf($class_name, $obj);
     }
 
     /**
