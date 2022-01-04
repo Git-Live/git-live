@@ -26,6 +26,7 @@ use GitLive\GitLive;
 use GitLive\Support\Collection;
 use GitLive\Support\FileSystem;
 use GitLive\Support\GitCmdExecutor;
+use GitLive\Support\InteractiveShellInterface;
 use GitLive\Support\SystemCommandInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -367,6 +368,21 @@ abstract class DriverBase extends GitBase
             $cmd = 'git push --no-verify origin ' . $sha . ':refs/heads/' . $branch . '-stash-' . $sha;
 
             $this->exec($cmd, $verbosity, $output_verbosity);
+        }
+    }
+
+    /**
+     * @param array|string $text
+     * @param bool $using_default
+     * @return string
+     */
+    protected function interactiveShell($text, bool $using_default = false): ?string
+    {
+        try {
+            return App::make(InteractiveShellInterface::class)
+                ->interactiveShell($text, $using_default);
+        } catch (\Exception $exception) {
+            return '';
         }
     }
 }

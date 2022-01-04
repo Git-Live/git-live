@@ -63,14 +63,9 @@ class SystemCommand extends GitBase implements SystemCommandInterface
     }
 
     /**
-     * @param string   $cmd
-     * @param bool|int $verbosity
-     * @param null     $output_verbosity
-     * @return null|string
-     * @noinspection ReturnTypeCanBeDeclaredInspection
-     * @noinspection PhpMissingReturnTypeInspection
+     * @inheritdoc
      */
-    public function exec(string $cmd, $verbosity = 0, $output_verbosity = null)
+    public function exec(string $cmd, $verbosity = 0, $output_verbosity = null): ?string
     {
         if ($verbosity === true) {
             $this->output->writeln('<fg=cyan;options=bold>' . $cmd . '</>', OutputInterface::VERBOSITY_VERY_VERBOSE);
@@ -85,7 +80,7 @@ class SystemCommand extends GitBase implements SystemCommandInterface
         $this->output->writeln('<fg=yellow>' . $execute_cmd . '</>', OutputInterface::VERBOSITY_DEBUG);
         $res = shell_exec($execute_cmd);
 
-        $output_verbosity = $output_verbosity??$verbosity;
+        $output_verbosity = $output_verbosity ?? $verbosity;
 
         if ($output_verbosity === false) {
             $output_verbosity = OutputInterface::VERBOSITY_NORMAL;
@@ -96,5 +91,39 @@ class SystemCommand extends GitBase implements SystemCommandInterface
         $this->output->writeln($res, $output_verbosity);
 
         return (string)$res;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function isError(string $cmd, $verbosity = 0, $output_verbosity = null): bool
+    {
+        if ($verbosity === true) {
+            $this->output->writeln('<fg=cyan;options=bold>' . $cmd . '</>', OutputInterface::VERBOSITY_VERY_VERBOSE);
+        } elseif ($verbosity === false) {
+            $this->output->writeln('<fg=cyan;options=bold>' . $cmd . '</>');
+        } else {
+            $this->output->writeln('<fg=cyan;options=bold>' . $cmd . '</>', $verbosity);
+        }
+
+        $execute_cmd = $cmd . ' 2>&1';
+
+        $this->output->writeln('<fg=yellow>' . $execute_cmd . '</>', OutputInterface::VERBOSITY_DEBUG);
+
+        $result_code = null;
+        $res = system($execute_cmd, $result_code);
+
+        $output_verbosity = $output_verbosity ?? $verbosity;
+
+        if ($output_verbosity === false) {
+            $output_verbosity = OutputInterface::VERBOSITY_NORMAL;
+        } elseif ($output_verbosity === true) {
+            $output_verbosity = OutputInterface::VERBOSITY_DEBUG;
+        }
+
+        $this->output->writeln($res, $output_verbosity);
+        $this->output->writeln($result_code, $output_verbosity);
+
+        return $result_code === 0;
     }
 }

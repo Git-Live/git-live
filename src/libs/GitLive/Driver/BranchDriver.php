@@ -42,13 +42,37 @@ use GitLive\Support\Collection;
 class BranchDriver extends DriverBase
 {
     /**
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
+     * @return bool
+     */
+    public function hasMasterBranch(): bool
+    {
+        $Config = $this->Driver(ConfigDriver::class);
+
+        return $this->isBranchExistsSimple($Config->master());
+    }
+
+    /**
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
+     * @return bool
+     */
+    public function hasDevelopBranch(): bool
+    {
+        $Config = $this->Driver(ConfigDriver::class);
+
+        return $this->isBranchExistsSimple($Config->develop());
+    }
+
+    /**
      * Get local branch collection.
      *
      * @return Collection
      */
     public function branchList(): Collection
     {
-        $branch = $this->GitCmdExecutor->branch([], true);
+        $branch = $this->GitCmdExecutor->branch(['--no-color'], true);
 
         return $this->makeArray($branch);
     }
@@ -60,7 +84,39 @@ class BranchDriver extends DriverBase
      */
     public function branchListAll(): Collection
     {
-        $branch = $this->GitCmdExecutor->branch(['-a'], true);
+        $branch = $this->GitCmdExecutor->branch(['-a', '--no-color'], true);
+
+        return $this->makeArray($branch);
+    }
+
+    /**
+     * @return bool
+     */
+    public function localBranchExist(): bool
+    {
+        $res = $this->branchList();
+
+        return count($res) !== 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function remoteBranchExist(): bool
+    {
+        $res = $this->remoteBranchList();
+
+        return count($res) !== 0;
+    }
+
+    /**
+     * Get all branch collection.
+     *
+     * @return Collection
+     */
+    public function remoteBranchList(): Collection
+    {
+        $branch = $this->GitCmdExecutor->branch(['-r', '--no-color'], true);
 
         return $this->makeArray($branch);
     }
@@ -95,7 +151,18 @@ class BranchDriver extends DriverBase
     {
         $branches = $this->branchList();
 
-        return $branches->search($branch) !== false;
+        return $branches->has($branch);
+    }
+
+    /**
+     * @param $branch
+     * @return bool
+     */
+    public function isRemoteBranchExistsSimple($branch): bool
+    {
+        $branches = $this->remoteBranchList();
+
+        return $branches->has($branch);
     }
 
     /**

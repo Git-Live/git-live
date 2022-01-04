@@ -31,6 +31,7 @@ use GitLive\GitLive;
 use GitLive\Support\FileSystem;
 use GitLive\Support\SystemCommand;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 use Tests\GitLive\Tester\InvokeTrait;
 
 /**
@@ -197,8 +198,13 @@ class ContainerTest extends TestCase
     /**
      * @covers \GitLive\Application\Container
      */
-    public function testNotInstantiable()
+    public function testNotInstantiableNoClass()
     {
+        $this->expectException(ReflectionException::class);
+        $Container = new Container();
+
+        /** @noinspection PhpUndefinedClassInspection */
+        $Container->notInstantiable(NotInstance::class);
         $this->assertTrue(true);
     }
 }

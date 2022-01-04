@@ -64,6 +64,31 @@ class GitCmdExecutor extends GitBase
     }
 
     /**
+     * @return bool
+     */
+    public function isGitInit(): bool
+    {
+        return $this->command->isError('git rev-parse --git-dir  2>&1');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCleanWorkingTree(): bool
+    {
+        return $this->command->isError('git diff --no-ext-diff --ignore-submodules --quiet --exit-code') &&
+            $this->command->isError('git diff-index --cached --quiet --ignore-submodules HEAD --');
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHeadless(): bool
+    {
+        return !$this->command->isError('git rev-parse --quiet --verify HEAD  2>&1');
+    }
+
+    /**
      * @param array|Collection $options
      * @param bool $verbosity
      * @param null|bool $output_verbosity
@@ -288,8 +313,8 @@ class GitCmdExecutor extends GitBase
     }
 
     /**
-     * @param           string $left
-     * @param           string $right
+     * @param string $left
+     * @param string $right
      * @param array|Collection $option
      * @param bool $without_common_commit
      * @param null|bool $verbosity
@@ -327,6 +352,19 @@ class GitCmdExecutor extends GitBase
     public function add($options = [], bool $verbosity = false, bool $output_verbosity = null): ?string
     {
         $cmd = $this->createCmd('add', $options);
+
+        return $this->exec($cmd, $verbosity, $output_verbosity);
+    }
+
+    /**
+     * @param array|Collection $options
+     * @param bool $verbosity
+     * @param null|bool $output_verbosity
+     * @return null|string
+     */
+    public function init($options = [], bool $verbosity = false, bool $output_verbosity = null): ?string
+    {
+        $cmd = $this->createCmd('init', $options);
 
         return $this->exec($cmd, $verbosity, $output_verbosity);
     }

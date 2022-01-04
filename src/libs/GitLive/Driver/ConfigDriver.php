@@ -27,17 +27,17 @@ use GitLive\GitLive;
  *
  * Operations like git config command
  *
- * @category   GitCommand
- * @package    GitLive\Driver
- * @subpackage Core
- * @author     akito<akito-artisan@five-foxes.com>
- * @author     suzunone<suzunone.eleven@gmail.com>
- * @copyright  Project Git Live
- * @license    MIT
- * @version    GIT: $Id$
- * @link       https://github.com/Git-Live/git-live
- * @see        https://github.com/Git-Live/git-live
- * @since      2018-12-08
+ * @category               GitCommand
+ * @package                GitLive\Driver
+ * @subpackage             Core
+ * @author                 akito<akito-artisan@five-foxes.com>
+ * @author                 suzunone<suzunone.eleven@gmail.com>
+ * @copyright              Project Git Live
+ * @license                MIT
+ * @version                GIT: $Id$
+ * @link                   https://github.com/Git-Live/git-live
+ * @see                    https://github.com/Git-Live/git-live
+ * @since                  2018-12-08
  * @backupStaticAttributes enabled
  */
 class ConfigDriver extends DriverBase
@@ -232,5 +232,101 @@ class ConfigDriver extends DriverBase
     public function master(): ?string
     {
         return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = $this->getGitLiveParameter(self::MASTER_NAME_KEY) ?? GitLive::DEFAULT_MASTER_BRANCH_NAME);
+    }
+
+    /**
+     * @return void
+     */
+    public function interactiveConfigurations()
+    {
+        $this->interactiveConfiguration(self::MASTER_NAME_KEY);
+        $this->interactiveConfiguration(self::DEVELOP_NAME_KEY);
+
+        if ($this->interactiveConfiguration(self::FEATURE_PREFIX_IGNORE_KEY) !== 'true') {
+            $this->interactiveConfiguration(self::FEATURE_PREFIX_NAME_KEY);
+        }
+
+        $this->interactiveConfiguration(self::RELEASE_PREFIX_KEY);
+        $this->interactiveConfiguration(self::HOTFIX_PREFIX_KEY);
+        $this->interactiveConfiguration(self::FIRE_PREFIX_NAME_KEY);
+        $this->interactiveConfiguration(self::DEPLOY_REMOTE_KEY);
+        $this->interactiveConfiguration(self::UPSTREAM_READ_ONLY_KEY);
+        $this->interactiveConfiguration(self::DEPLOY_READ_ONLY_KEY);
+    }
+
+    /**
+     * @param string $config_key
+     * @throws \GitLive\Driver\Exception
+     * @return string
+     */
+    public function interactiveConfiguration(string $config_key): string
+    {
+        switch ($config_key) {
+            case self::FEATURE_PREFIX_NAME_KEY:
+                $default = GitLive::DEFAULT_FEATURE_PREFIX;
+                $message = __('Specify feature branch prefix.') . __('default:' . $default);
+
+                break;
+            case self::FEATURE_PREFIX_IGNORE_KEY:
+                $default = 'false';
+                $message = __('If `true` is specified, feature branch prefix will be disabled.') . __('default:' . $default);
+
+                break;
+            case self::RELEASE_PREFIX_KEY:
+                $default = GitLive::DEFAULT_RELEASE_PREFIX;
+                $message = __('Specify release branch prefix.') . __('default:' . $default);
+
+                break;
+            case self::HOTFIX_PREFIX_KEY:
+                $default = GitLive::DEFAULT_HOTFIX_PREFIX;
+                $message = __('Specify hotfix branch prefix.') . __('default:' . $default);
+
+                break;
+            case self::FIRE_PREFIX_NAME_KEY:
+                $default = GitLive::DEFAULT_FIRE_PREFIX;
+                $message = __('Specify fire branch prefix.') . __('default:' . $default);
+
+                break;
+            case self::DEPLOY_REMOTE_KEY:
+                $default = GitLive::DEFAULT_DEPLOY_REMOTE_NAME;
+                $message = __('Specify the remote name for deployment.') . __('default:' . $default);
+
+                break;
+            case self::DEVELOP_NAME_KEY:
+                $default = GitLive::DEFAULT_DEVELOP_BRANCH_NAME;
+                $message = __('Specify the branch name for development.') . __('default:' . $default);
+
+                break;
+            case self::MASTER_NAME_KEY:
+                $default = GitLive::DEFAULT_MASTER_BRANCH_NAME;
+                $message = __('Specify the branch name for main(master).') . __('default:' . $default);
+
+                break;
+            case self::UPSTREAM_READ_ONLY_KEY:
+                $default = 'false';
+                $message = __('If `true` is specified, set upstream to read only.') . __('default:' . $default);
+
+                break;
+            case self::DEPLOY_READ_ONLY_KEY:
+                $default = 'false';
+                $message = __('If `true` is specified, set deploy to read only.') . __('default:' . $default);
+
+                break;
+            default:
+                throw new Exception(__('fatal: unknown config key : ' . $config_key));
+        }
+
+        $value = $this->interactiveShell($message, $default);
+
+        if ($default === 'false') {
+            $value = strtolower($value);
+            if ($value !== 'true') {
+                $value = $default;
+            }
+        }
+
+        $this->setLocalParameter($config_key, $value);
+
+        return (string)$value;
     }
 }
