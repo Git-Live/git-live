@@ -24,6 +24,7 @@ use App;
 use GitLive\GitBase;
 use GitLive\GitLive;
 use GitLive\Support\Collection;
+use GitLive\Support\Envelopment;
 use GitLive\Support\FileSystem;
 use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\InteractiveShellInterface;
@@ -88,7 +89,7 @@ abstract class DriverBase extends GitBase
      */
     public function getSelfBranchRef(): string
     {
-        $self_blanch = $this->exec('git symbolic-ref HEAD 2>/dev/null');
+        $self_blanch = $this->exec('git symbolic-ref HEAD 2> ' . App::make(Envelopment::class)->devNull());
 
         if (!$self_blanch) {
             throw new Exception(__('Not a git repository.'));
@@ -123,7 +124,7 @@ abstract class DriverBase extends GitBase
      */
     public function getSelfBranch(): string
     {
-        $self_blanch = (string)$this->exec('git rev-parse --abbrev-ref HEAD 2>/dev/null');
+        $self_blanch = (string)$this->exec('git rev-parse --abbrev-ref HEAD 2> ' . App::make(Envelopment::class)->devNull());
         if (!$self_blanch) {
             throw new Exception(__('Not a git repository.'));
         }
@@ -136,8 +137,8 @@ abstract class DriverBase extends GitBase
      *
      * @access      public
      * @param string $driver_name
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return \GitLive\Driver\DriverBase
      * @codeCoverageIgnore
      */
@@ -153,8 +154,8 @@ abstract class DriverBase extends GitBase
 
     /**
      * @param string $branch_name
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return bool
      */
     public function isBranchExists(string $branch_name): bool
@@ -180,7 +181,7 @@ abstract class DriverBase extends GitBase
     /**
      * @param null|string $repo
      * @param null|string $error_msg
-     *@throws Exception
+     * @throws Exception
      * @return bool
      */
     public function isCleanOrFail(string $repo = null, string $error_msg = null): bool
@@ -292,7 +293,7 @@ abstract class DriverBase extends GitBase
      */
     public function isGitRepository(): bool
     {
-        $res = trim($this->exec('git rev-parse --git-dir 2> /dev/null', OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
+        $res = trim($this->exec('git rev-parse --git-dir 2> ' . App::make(Envelopment::class)->devNull(), OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
 
         return !empty($res);
     }
@@ -305,7 +306,7 @@ abstract class DriverBase extends GitBase
      */
     public function isToplevelDirectory(): bool
     {
-        $res = trim($this->exec('git rev-parse --git-dir 2> /dev/null', OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
+        $res = trim($this->exec('git rev-parse --git-dir 2> ' . App::make(Envelopment::class)->devNull(), OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
 
         return $res === '.git';
     }

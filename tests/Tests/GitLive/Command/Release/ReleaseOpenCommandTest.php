@@ -112,22 +112,22 @@ class ReleaseOpenCommandTest extends TestCase
             12 => "git fetch deploy",
             13 => "git fetch -p deploy",
             14 => "git remote",
-            15 => "git branch -a",
+            15 => "git branch -a --no-color",
             16 => "git rev-parse --git-dir 2> /dev/null",
             17 => "git config --get gitlive.branch.hotfix.prefix.name",
-            18 => "git branch -a",
+            18 => "git branch -a --no-color",
             19 => "git rev-parse --git-dir 2> /dev/null",
             20 => "git config --get gitlive.remote.upstream.readonly",
             21 => "git rev-parse --git-dir 2> /dev/null",
             22 => "git config --get gitlive.remote.deploy.readonly",
-            23 => "git branch -a",
+            23 => "git branch -a --no-color",
             24 => "git checkout upstream/staging",
             25 => "git checkout -b release/20181201223345",
             26 => "git push upstream release/20181201223345",
             27 => "git push deploy release/20181201223345",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* release/20181201223345', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* release/20181201223345', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 
@@ -187,22 +187,22 @@ class ReleaseOpenCommandTest extends TestCase
             12 => "git fetch deploy",
             13 => "git fetch -p deploy",
             14 => "git remote",
-            15 => "git branch -a",
+            15 => "git branch -a --no-color",
             16 => "git rev-parse --git-dir 2> /dev/null",
             17 => "git config --get gitlive.branch.hotfix.prefix.name",
-            18 => "git branch -a",
+            18 => "git branch -a --no-color",
             19 => "git rev-parse --git-dir 2> /dev/null",
             20 => "git config --get gitlive.remote.upstream.readonly",
             21 => "git rev-parse --git-dir 2> /dev/null",
             22 => "git config --get gitlive.remote.deploy.readonly",
-            23 => "git branch -a",
+            23 => "git branch -a --no-color",
             24 => "git checkout upstream/staging",
             25 => "git checkout -b release/ut_release",
             26 => "git push upstream release/ut_release",
             27 => "git push deploy release/ut_release",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* release/ut_release', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* release/ut_release', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 

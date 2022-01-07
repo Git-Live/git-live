@@ -91,7 +91,7 @@ class LogDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true, null)
+            ->with('git rev-parse --abbrev-ref HEAD 2> /dev/null', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -126,7 +126,7 @@ class LogDriverTest extends TestCase
             'git config --get gitlive.branch.develop.name',
             'git fetch --all',
             'git fetch -p',
-            'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            'git rev-parse --abbrev-ref HEAD 2> /dev/null',
             'git log --left-right upstream/stage..refs/heads/feature/example_1',
         ], data_get($spy, '*.0'));
     }
@@ -176,7 +176,7 @@ class LogDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true, null)
+            ->with('git rev-parse --abbrev-ref HEAD 2> /dev/null', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -211,7 +211,7 @@ class LogDriverTest extends TestCase
             'git config --get gitlive.branch.master.name',
             'git fetch --all',
             'git fetch -p',
-            'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            'git rev-parse --abbrev-ref HEAD 2> /dev/null',
             'git log --left-right upstream/master..refs/heads/feature/example_1',
         ], data_get($spy, '*.0'));
     }

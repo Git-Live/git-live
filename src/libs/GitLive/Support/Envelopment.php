@@ -84,4 +84,12 @@ class Envelopment extends GitBase
     {
         return putenv($key . '=' . $value);
     }
+
+    /**
+     * @return string
+     */
+    public function devNull()
+    {
+        return $this->isWin() ? 'nul' : '/dev/null';
+    }
 }

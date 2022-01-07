@@ -118,7 +118,7 @@ class ReleaseDriverTest extends TestCase
                 $mock->shouldReceive('exec')
                     ->once()
 
-                    ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
+                    ->with('git symbolic-ref HEAD 2> /dev/null', true, null)
                     ->andReturnUsing(function(...$val) use (&$spy) {
                 $spy[] = $val;
                 return 'refs/heads/feature/example_1';
@@ -174,7 +174,7 @@ class ReleaseDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -210,7 +210,7 @@ class ReleaseDriverTest extends TestCase
             11 => 'git fetch unit_deploy',
             12 => 'git fetch -p unit_deploy',
             13 => 'git remote',
-            14 => 'git branch -a',
+            14 => 'git branch -a --no-color',
         ], data_get($spy, '*.0'));
     }
 
@@ -287,7 +287,7 @@ class ReleaseDriverTest extends TestCase
                 $mock->shouldReceive('exec')
                     ->once()
 
-                    ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
+                    ->with('git symbolic-ref HEAD 2> /dev/null', true, null)
                     ->andReturnUsing(function(...$val) use (&$spy) {
                 $spy[] = $val;
                 return 'refs/heads/feature/example_1';
@@ -347,7 +347,7 @@ class ReleaseDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -384,7 +384,7 @@ class ReleaseDriverTest extends TestCase
             12 => 'git fetch unit_deploy',
             13 => 'git fetch -p unit_deploy',
             14 => 'git remote',
-            15 => 'git branch -a',
+            15 => 'git branch -a --no-color',
         ], data_get($spy, '*.0'));
     }
 }

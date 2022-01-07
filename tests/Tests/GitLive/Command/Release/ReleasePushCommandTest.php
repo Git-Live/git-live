@@ -112,13 +112,13 @@ class ReleasePushCommandTest extends TestCase
             12 => "git fetch deploy",
             13 => "git fetch -p deploy",
             14 => "git remote",
-            15 => "git branch -a",
-            16 => "git branch -a",
+            15 => "git branch -a --no-color",
+            16 => "git branch -a --no-color",
             17 => "git rev-parse --git-dir 2> /dev/null",
             18 => "git config --get gitlive.remote.upstream.readonly",
             19 => "git rev-parse --git-dir 2> /dev/null",
             20 => "git config --get gitlive.remote.deploy.readonly",
-            21 => "git branch",
+            21 => "git branch --no-color",
             22 => "git checkout release/unit_test_deploy",
             23 => "git pull upstream release/unit_test_deploy",
             24 => "git pull deploy release/unit_test_deploy",
@@ -126,7 +126,7 @@ class ReleasePushCommandTest extends TestCase
             26 => "git push upstream release/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* release/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* release/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 }

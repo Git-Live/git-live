@@ -112,14 +112,14 @@ class HotfixSyncCommandTest extends TestCase
             12 => "git fetch deploy",
             13 => "git fetch -p deploy",
             14 => "git remote",
-            15 => "git branch -a",
-            16 => "git branch -a",
+            15 => "git branch -a --no-color",
+            16 => "git branch -a --no-color",
             17 => "git rev-parse --git-dir 2> /dev/null",
             18 => "git config --get gitlive.remote.upstream.readonly",
             19 => "git rev-parse --git-dir 2> /dev/null",
             20 => "git config --get gitlive.remote.deploy.readonly",
             21 => "git status hotfix/unit_test_deploy",
-            22 => "git branch",
+            22 => "git branch --no-color",
             23 => "git checkout hotfix/unit_test_deploy",
             24 => "git pull deploy hotfix/unit_test_deploy",
             25 => "git pull upstream hotfix/unit_test_deploy",
@@ -127,7 +127,7 @@ class HotfixSyncCommandTest extends TestCase
             27 => "git push deploy hotfix/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* hotfix/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* hotfix/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 }

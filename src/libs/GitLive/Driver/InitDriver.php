@@ -124,8 +124,12 @@ class InitDriver extends DriverBase
     public function start(bool $without_remote_change = true): void
     {
         $this->GitCmdExecutor->stash(['-u']);
-        if (!$this->GitCmdExecutor->isGitInit() || !$this->isLocalInitialized()) {
+        if (!$this->GitCmdExecutor->isGitInit()) {
             throw new Exception(__('fatal: Not initialized.') . __('use: `git live branch-init`'));
+        }
+
+        if (!$this->isLocalInitialized()) {
+            throw new Exception(__('fatal: Not local initialized.') . __('use: `git live branch-init`'));
         }
 
         $this->Driver(FetchDriver::class)->clean();

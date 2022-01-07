@@ -68,7 +68,7 @@ class GitCmdExecutor extends GitBase
      */
     public function isGitInit(): bool
     {
-        return $this->command->isError('git rev-parse --git-dir  2>&1');
+        return !$this->command->isError('git rev-parse --git-dir 2>&1');
     }
 
     /**
@@ -76,8 +76,8 @@ class GitCmdExecutor extends GitBase
      */
     public function isCleanWorkingTree(): bool
     {
-        return $this->command->isError('git diff --no-ext-diff --ignore-submodules --quiet --exit-code') &&
-            $this->command->isError('git diff-index --cached --quiet --ignore-submodules HEAD --');
+        return !$this->command->isError('git diff --no-ext-diff --ignore-submodules --quiet --exit-code') &&
+            !$this->command->isError('git diff-index --cached --quiet --ignore-submodules HEAD --');
     }
 
     /**
@@ -85,7 +85,7 @@ class GitCmdExecutor extends GitBase
      */
     public function isHeadless(): bool
     {
-        return !$this->command->isError('git rev-parse --quiet --verify HEAD  2>&1');
+        return $this->command->isError('git rev-parse --quiet --verify HEAD  2>&1');
     }
 
     /**

@@ -58,7 +58,7 @@ class BranchDriverTest extends TestCase
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git branch', true, null)
+            ->with('git branch --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -108,7 +108,7 @@ class BranchDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            'git branch',
+            'git branch --no-color',
         ], data_get($spy, '*.0'));
     }
 
@@ -122,7 +122,7 @@ class BranchDriverTest extends TestCase
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -209,7 +209,7 @@ class BranchDriverTest extends TestCase
         );
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            'git branch -a',
+            'git branch -a --no-color',
         ], data_get($spy, '*.0'));
     }
 
@@ -222,7 +222,7 @@ class BranchDriverTest extends TestCase
         $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -284,7 +284,7 @@ class BranchDriverTest extends TestCase
         $this->assertTrue($res);
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            'git branch -a',
+            'git branch -a --no-color',
         ], data_get($spy, '*.0'));
 
         $res = $BranchDriver->isBranchExistsAll('upstream_only');
@@ -309,7 +309,7 @@ class BranchDriverTest extends TestCase
         $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
-            ->with('git branch', true, null)
+            ->with('git branch --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -341,7 +341,7 @@ class BranchDriverTest extends TestCase
         $this->assertTrue($res);
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            'git branch',
+            'git branch --no-color',
         ], data_get($spy, '*.0'));
 
         $res = $BranchDriver->isBranchExistsSimple('upstream_only');

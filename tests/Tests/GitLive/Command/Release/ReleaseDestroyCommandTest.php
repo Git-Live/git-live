@@ -112,8 +112,8 @@ class ReleaseDestroyCommandTest extends TestCase
             12 => "git fetch deploy",
             13 => "git fetch -p deploy",
             14 => "git remote",
-            15 => "git branch -a",
-            16 => "git branch -a",
+            15 => "git branch -a --no-color",
+            16 => "git branch -a --no-color",
             17 => "git rev-parse --git-dir 2> /dev/null",
             18 => "git config --get gitlive.remote.upstream.readonly",
             19 => "git rev-parse --git-dir 2> /dev/null",
@@ -122,8 +122,8 @@ class ReleaseDestroyCommandTest extends TestCase
             22 => "git push upstream :release/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* release/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
-        $this->assertContains('develop', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* release/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertContains('develop', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 
@@ -184,8 +184,8 @@ class ReleaseDestroyCommandTest extends TestCase
             12 => "git fetch deploy",
             13 => "git fetch -p deploy",
             14 => "git remote",
-            15 => "git branch -a",
-            16 => "git branch -a",
+            15 => "git branch -a --no-color",
+            16 => "git branch -a --no-color",
             17 => "git rev-parse --git-dir 2> /dev/null",
             18 => "git config --get gitlive.remote.upstream.readonly",
             19 => "git rev-parse --git-dir 2> /dev/null",
@@ -199,8 +199,8 @@ class ReleaseDestroyCommandTest extends TestCase
             27 => "git branch -d release/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertNotContains('release/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
-        $this->assertContains('* staging', $this->execCmdToLocalRepo('git branch'));
+        $this->assertNotContains('release/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertContains('* staging', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 }

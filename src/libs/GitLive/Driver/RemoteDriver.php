@@ -28,7 +28,7 @@ class RemoteDriver extends DriverBase
      */
     public function remoteExists(string $remote_name): bool
     {
-        return $this->command->isError('git remote get-url ' . $remote_name);
+        return !$this->command->isError('git remote get-url ' . $remote_name);
     }
 
     /**

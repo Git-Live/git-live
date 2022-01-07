@@ -115,7 +115,7 @@ class PullRequestDriverTest extends TestCase
             });
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
+            ->with('git symbolic-ref HEAD 2> /dev/null', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -143,7 +143,7 @@ class PullRequestDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => 'git symbolic-ref HEAD 2>/dev/null',
+            0 => 'git symbolic-ref HEAD 2> /dev/null',
             1 => 'git fetch --all',
             2 => 'git fetch -p',
             3 => 'git fetch upstream',
@@ -173,7 +173,7 @@ class PullRequestDriverTest extends TestCase
             });
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
+            ->with('git symbolic-ref HEAD 2> /dev/null', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -193,7 +193,7 @@ class PullRequestDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => 'git symbolic-ref HEAD 2>/dev/null',
+            0 => 'git symbolic-ref HEAD 2> /dev/null',
         ], data_get($spy, '*.0'));
     }
 
@@ -264,7 +264,7 @@ class PullRequestDriverTest extends TestCase
             6 => 'git config --get gitlive.branch.feature.prefix.ignore',
             7 => 'git rev-parse --git-dir 2> /dev/null',
             8 => 'git config --get gitlive.branch.feature.prefix.name',
-            9 => 'git branch -a',
+            9 => 'git branch -a --no-color',
             10 => 'git checkout remotes/pr/24/head',
             11 => 'git checkout -b featurePrefix/new_feature_name remotes/pr/24/head',
         ], data_get($spy, '*.0'));
@@ -348,7 +348,7 @@ class PullRequestDriverTest extends TestCase
             });
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
+            ->with('git symbolic-ref HEAD 2> /dev/null', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -388,10 +388,10 @@ class PullRequestDriverTest extends TestCase
             8 => 'git config --get gitlive.branch.feature.prefix.ignore',
             9 => 'git rev-parse --git-dir 2> /dev/null',
             10 => 'git config --get gitlive.branch.feature.prefix.name',
-            11 => 'git branch -a',
+            11 => 'git branch -a --no-color',
             12 => 'git checkout upstream/stage',
             13 => 'git checkout -b feature/new_feature_name',
-            14 => 'git symbolic-ref HEAD 2>/dev/null',
+            14 => 'git symbolic-ref HEAD 2> /dev/null',
             15 => 'git pull upstream pull/24/head',
         ], data_get($spy, '*.0'));
     }

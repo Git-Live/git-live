@@ -89,7 +89,7 @@ class PushCommandTest extends TestCase
             5 => 'git fetch -p',
             6 => 'git fetch upstream',
             7 => 'git fetch -p upstream',
-            8 => 'git symbolic-ref HEAD 2>/dev/null',
+            8 => 'git symbolic-ref HEAD 2> /dev/null',
             9 => 'git push origin refs/heads/feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
@@ -142,7 +142,7 @@ class PushCommandTest extends TestCase
             5 => 'git fetch -p',
             6 => 'git fetch upstream',
             7 => 'git fetch -p upstream',
-            8 => 'git symbolic-ref HEAD 2>/dev/null',
+            8 => 'git symbolic-ref HEAD 2> /dev/null',
             9 => 'git push origin refs/heads/develop',
         ], data_get($this->spy, '*.0'));
 
@@ -195,7 +195,7 @@ class PushCommandTest extends TestCase
             5 => 'git fetch -p',
             6 => 'git fetch upstream',
             7 => 'git fetch -p upstream',
-            8 => 'git symbolic-ref HEAD 2>/dev/null',
+            8 => 'git symbolic-ref HEAD 2> /dev/null',
             9 => 'git push origin refs/heads/master',
         ], data_get($this->spy, '*.0'));
 

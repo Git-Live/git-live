@@ -441,12 +441,69 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
 
                 return '.git';
             });
+
+        $mock->shouldReceive('exec')
+            ->with('git stash -u', false, null)
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return true;
+            });
+
+        $mock->shouldReceive('exec')
+            ->with('git config --get gitlive.branch.master.name', true, null)
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'master';
+            });
+
+        $mock->shouldReceive('exec')
+            ->with('git config --get gitlive.branch.develop.name', true, null)
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'develop';
+            });
+
+        $mock->shouldReceive('exec')
+            ->with('git branch --no-color', true, null)
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '  develop
+  feature/v.1.0.0
+  feature/v1
+  feature/v2.0.0
+  hotfix/20181202175520-rc3
+  hotfix/r20181204221944
+  local_only
+  master
+  staging
+  v1.0
+* v2.0
+  v2.0.0
+  ';
+            });
+
         $mock->shouldReceive('exec')
             //->never()
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
+                if ($val[1] ?? false) {
+                    dd($val);
+                }
+
                 return '';
+            });
+
+        $mock->shouldReceive('isError')
+            ->with('git rev-parse --git-dir 2>&1')
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return false;
             });
 
         Container::bind(
@@ -462,24 +519,27 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            0 => "git stash -u",
-            1 => "git reset --hard HEAD",
-            2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git clean -df",
-            4 => "git fetch --all",
-            5 => "git fetch -p",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.develop.name",
-            8 => "git checkout develop",
-            9 => "git pull upstream develop",
-            10 => "git push origin develop",
-            11 => "git rev-parse --git-dir 2> /dev/null",
-            12 => "git config --get gitlive.branch.master.name",
-            13 => "git checkout master",
-            14 => "git pull upstream master",
-            15 => "git push origin master",
-            16 => "git pull upstream --tags",
-            17 => "git push origin --tags",
+            0 => 'git stash -u',
+            1 => 'git rev-parse --git-dir 2>&1',
+            2 => 'git rev-parse --git-dir 2> /dev/null',
+            3 => 'git config --get gitlive.branch.master.name',
+            4 => 'git branch --no-color',
+            5 => 'git rev-parse --git-dir 2> /dev/null',
+            6 => 'git config --get gitlive.branch.develop.name',
+            7 => 'git branch --no-color',
+            8 => 'git reset --hard HEAD',
+            9 => 'git rev-parse --git-dir 2> /dev/null',
+            10 => 'git clean -df',
+            11 => 'git fetch --all',
+            12 => 'git fetch -p',
+            13 => 'git checkout develop',
+            14 => 'git pull upstream develop',
+            15 => 'git push origin develop',
+            16 => 'git checkout master',
+            17 => 'git pull upstream master',
+            18 => 'git push origin master',
+            19 => 'git pull upstream --tags',
+            20 => 'git push origin --tags',
         ], data_get($spy, '*.0'));
     }
 
@@ -494,12 +554,57 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
 
                 return '.git';
             });
+
+        $mock->shouldReceive('exec')
+            ->with('git config --get gitlive.branch.master.name', true, null)
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'master';
+            });
+
+        $mock->shouldReceive('exec')
+            ->with('git config --get gitlive.branch.develop.name', true, null)
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return 'staging';
+            });
+
+        $mock->shouldReceive('exec')
+            ->with('git branch --no-color', true, null)
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '  develop
+  feature/v.1.0.0
+  feature/v1
+  feature/v2.0.0
+  hotfix/20181202175520-rc3
+  hotfix/r20181204221944
+  local_only
+  master
+  staging
+  v1.0
+* v2.0
+  v2.0.0
+  ';
+            });
+
         $mock->shouldReceive('exec')
             //->never()
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
                 return '';
+            });
+
+        $mock->shouldReceive('isError')
+            ->with('git rev-parse --git-dir 2>&1')
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return false;
             });
 
         Container::bind(
@@ -529,20 +634,23 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
 
         $this->assertSame([
             0 => "git stash -u",
-            1 => "git reset --hard HEAD",
+            1 => "git rev-parse --git-dir 2>&1",
             2 => "git rev-parse --git-dir 2> /dev/null",
-            3 => "git clean -df",
-            4 => "git fetch --all",
-            5 => "git fetch -p",
-            6 => "git rev-parse --git-dir 2> /dev/null",
-            7 => "git config --get gitlive.branch.develop.name",
-            8 => "git checkout develop",
-            9 => "git pull upstream develop",
-            10 => "git rev-parse --git-dir 2> /dev/null",
-            11 => "git config --get gitlive.branch.master.name",
-            12 => "git checkout master",
-            13 => "git pull upstream master",
-            14 => "git pull upstream --tags",
+            3 => "git config --get gitlive.branch.master.name",
+            4 => "git branch --no-color",
+            5 => "git rev-parse --git-dir 2> /dev/null",
+            6 => "git config --get gitlive.branch.develop.name",
+            7 => "git branch --no-color",
+            8 => "git reset --hard HEAD",
+            9 => "git rev-parse --git-dir 2> /dev/null",
+            10 => "git clean -df",
+            11 => "git fetch --all",
+            12 => "git fetch -p",
+            13 => "git checkout staging",
+            14 => "git pull upstream staging",
+            15 => "git checkout master",
+            16 => "git pull upstream master",
+            17 => "git pull upstream --tags",
         ], data_get($spy, '*.0'));
     }
 }

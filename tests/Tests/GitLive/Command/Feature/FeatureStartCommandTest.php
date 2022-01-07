@@ -92,7 +92,7 @@ class FeatureStartCommandTest extends TestCase
             5 => 'git fetch -p',
             6 => 'git fetch upstream',
             7 => 'git fetch -p upstream',
-            8 => 'git branch -a',
+            8 => 'git branch -a --no-color',
             9 => 'git rev-parse --git-dir 2> /dev/null',
             10 => 'git config --get gitlive.branch.develop.name',
             11 => 'git checkout upstream/staging',

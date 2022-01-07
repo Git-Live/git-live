@@ -124,6 +124,6 @@ class SystemCommand extends GitBase implements SystemCommandInterface
         $this->output->writeln($res, $output_verbosity);
         $this->output->writeln($result_code, $output_verbosity);
 
-        return $result_code === 0;
+        return $result_code !== 0;
     }
 }

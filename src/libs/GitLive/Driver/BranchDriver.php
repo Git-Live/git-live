@@ -149,9 +149,7 @@ class BranchDriver extends DriverBase
      */
     public function isBranchExistsSimple($branch): bool
     {
-        $branches = $this->branchList();
-
-        return $branches->has($branch);
+        return $this->branchList()->search($branch) !== false;
     }
 
     /**
@@ -160,9 +158,7 @@ class BranchDriver extends DriverBase
      */
     public function isRemoteBranchExistsSimple($branch): bool
     {
-        $branches = $this->remoteBranchList();
-
-        return $branches->has($branch);
+        return $this->remoteBranchList()->search($branch) !== false;
     }
 
     /**

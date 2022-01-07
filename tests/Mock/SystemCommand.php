@@ -64,6 +64,6 @@ class SystemCommand implements SystemCommandInterface
 
         static::$cmd_cue[] = $cmd;
 
-        return true;
+        return false;
     }
 }
