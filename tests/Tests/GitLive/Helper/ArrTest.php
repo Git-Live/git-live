@@ -480,26 +480,26 @@ class ArrTest extends TestCase
         $random = Arr::random(['foo', 'bar', 'baz']);
         $this->assertContains($random, ['foo', 'bar', 'baz']);
         $random = Arr::random(['foo', 'bar', 'baz'], 0);
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(0, $random);
         $random = Arr::random(['foo', 'bar', 'baz'], 1);
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(1, $random);
         $this->assertContains($random[0], ['foo', 'bar', 'baz']);
         $random = Arr::random(['foo', 'bar', 'baz'], 2);
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(2, $random);
         $this->assertContains($random[0], ['foo', 'bar', 'baz']);
         $this->assertContains($random[1], ['foo', 'bar', 'baz']);
         $random = Arr::random(['foo', 'bar', 'baz'], '0');
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(0, $random);
         $random = Arr::random(['foo', 'bar', 'baz'], '1');
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(1, $random);
         $this->assertContains($random[0], ['foo', 'bar', 'baz']);
         $random = Arr::random(['foo', 'bar', 'baz'], '2');
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(2, $random);
         $this->assertContains($random[0], ['foo', 'bar', 'baz']);
         $this->assertContains($random[1], ['foo', 'bar', 'baz']);
@@ -510,10 +510,10 @@ class ArrTest extends TestCase
     public function testRandomOnEmptyArray()
     {
         $random = Arr::random([], 0);
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(0, $random);
         $random = Arr::random([], '0');
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(0, $random);
     }
     /**

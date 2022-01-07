@@ -53,10 +53,10 @@ class InitDriverTest extends TestCase
      * @throws Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\InitDriver
-     * @expectedException Exception
      */
     public function testRestartError()
     {
+        $this->expectException(Exception::class);
         $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
 

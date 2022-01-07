@@ -1364,10 +1364,10 @@ class DeployBaseTest extends TestCase
      * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
-     * @expectedException Exception
      */
     public function testEnableReleaseError()
     {
+        $this->expectException(Exception::class);
         $GitLive = App::make(GitLive::class);
 
         $spy = [];

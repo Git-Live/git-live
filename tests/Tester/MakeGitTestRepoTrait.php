@@ -100,6 +100,7 @@ trait MakeGitTestRepoTrait
         shell_exec('git init');
         shell_exec("git remote add origin {$remote_upstream}");
         shell_exec('git remote -v');
+        shell_exec('git config --local gitlive.branch.develop.name "staging"');
         file_put_contents($init_working . $ds . 'README.md', '# unit testing Read me');
         file_put_contents($init_working . $ds . 'LICENSE.md', '# unit testing License');
         shell_exec('git add ./');

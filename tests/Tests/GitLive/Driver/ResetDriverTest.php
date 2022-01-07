@@ -286,10 +286,10 @@ nothing to commit, working tree clean';
      * @throws Exception
      * @covers \GitLive\Driver\DriverBase
      * @covers \GitLive\Driver\ResetDriver
-     * @expectedException Exception
      */
     public function testForcePullError()
     {
+        $this->expectException(Exception::class);
         $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
 

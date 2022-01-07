@@ -100,6 +100,15 @@ trait CommandTestTrait
 
         $mock->shouldReceive('exec')
             //->once()
+            ->with('git config --get gitlive.branch.develop.name', true, null)
+            ->andReturnUsing(function (...$val) use (&$spy) {
+                $this->spy[] = $val;
+
+                return 'staging';
+            });
+
+        $mock->shouldReceive('exec')
+            //->once()
             ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
             ->andReturnUsing(function (...$val) use (&$spy) {
                 $this->spy[] = $val;
@@ -109,7 +118,7 @@ trait CommandTestTrait
 
         $mock->shouldReceive('exec')
             //->once()
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(function (...$val) use (&$spy) {
                 $this->spy[] = $val;
 
