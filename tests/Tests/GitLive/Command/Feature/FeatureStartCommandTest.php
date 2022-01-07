@@ -111,10 +111,11 @@ class FeatureStartCommandTest extends TestCase
      * @covers \GitLive\Command\Feature\FeatureStartCommand
      * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
-     * @expectedException Exception
+     *
      */
     public function testExecuteError()
     {
+        $this->expectException(Exception::class);
         $application = App::make(Application::class);
 
         $command = $application->find('feature:start');

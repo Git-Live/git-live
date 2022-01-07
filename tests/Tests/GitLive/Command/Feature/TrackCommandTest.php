@@ -22,7 +22,6 @@ namespace Tests\GitLive\Command\Feature;
 
 use App;
 use GitLive\Application\Application;
-use GitLive\Exception;
 use Tests\GitLive\Tester\CommandTestCase as TestCase;
 use Tests\GitLive\Tester\CommandTester;
 use Tests\GitLive\Tester\CommandTestTrait;
@@ -255,10 +254,11 @@ class TrackCommandTest extends TestCase
      * @covers \GitLive\Command\Feature\TrackCommand
      * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
-     * @expectedException Exception
+     *
      */
     public function testExecuteError()
     {
+        $this->expectException(\GitLive\Driver\Exception::class);
         $application = App::make(Application::class);
 
         $command = $application->find('feature:track');

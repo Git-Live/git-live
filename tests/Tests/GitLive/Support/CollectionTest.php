@@ -2615,11 +2615,12 @@ class CollectionTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     *
      * @covers \GitLive\Support\Collection
      */
     public function testRandomThrowsAnExceptionUsingAmountBiggerThanCollectionSize()
     {
+        $this->expectException(\InvalidArgumentException::class);
         $data = new Collection([1, 2, 3]);
         $data->random(4);
     }

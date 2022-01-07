@@ -214,10 +214,11 @@ class ReleaseOpenCommandTest extends TestCase
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\ReleaseDriver
      * @covers \GitLive\Service\CommandLineKernelService
-     * @expectedException Exception
+     *
      */
     public function testExecuteDuplicateRelease()
     {
+        $this->expectException(\GitLive\Driver\Exception::class);
         $this->execCmdToLocalRepo($this->git_live . ' release open');
 
         $application = App::make(Application::class);
