@@ -37,22 +37,22 @@ In order to use git-live, PHP 7.0 or higher is necessary.
 
 ### Unix/Linux/MacOS
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-$ wget https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar -O git-live
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ .sh
+wget https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar -O git-live
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 OR
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-$ curl https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar -o git-live
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ .sh
+curl https://raw.githubusercontent.com/Git-Live/git-live/master/bin/git-live.phar -o git-live
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 after that,
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-$ chmod 0777 ./git-live
-$ sudo mv ./git-live /usr/local/bin/git-live
-
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ .sh
+chmod 0777 ./git-live
+sudo mv ./git-live /usr/local/bin/git-live
+git live self-update
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Windows
