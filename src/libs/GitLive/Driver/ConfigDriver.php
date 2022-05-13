@@ -298,7 +298,7 @@ class ConfigDriver extends DriverBase
 
                 break;
             case self::MASTER_NAME_KEY:
-                $default = GitLive::DEFAULT_MASTER_BRANCH_NAME;
+                $default = trim($this->GitCmdExecutor->config(['--get', 'init.defaultBranch'])) ?: GitLive::DEFAULT_MASTER_BRANCH_NAME;
                 $message = __('Specify the branch name for main(master).') . __('default:' . $default);
 
                 break;
