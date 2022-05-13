@@ -48,7 +48,8 @@ use Tests\GitLive\Tester\TestCase;
 class BranchDriverTest extends TestCase
 {
     /**
-     * @covers \GitLive\Driver\BranchDriver
+     * @covers \GitLive\Driver\BranchDriver::branchList
+     * @covers \GitLive\Driver\BranchDriver::makeArray
      * @covers \GitLive\Driver\DriverBase
      */
     public function testBranchList()
@@ -57,7 +58,7 @@ class BranchDriverTest extends TestCase
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git branch', true, null)
+            ->with('git branch --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -107,12 +108,12 @@ class BranchDriverTest extends TestCase
 
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            'git branch',
+            'git branch --no-color',
         ], data_get($spy, '*.0'));
     }
 
     /**
-     * @covers \GitLive\Driver\BranchDriver
+     * @covers \GitLive\Driver\BranchDriver::branchListAll
      * @covers \GitLive\Driver\DriverBase
      */
     public function testBranchListAll()
@@ -121,7 +122,7 @@ class BranchDriverTest extends TestCase
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -208,12 +209,12 @@ class BranchDriverTest extends TestCase
         );
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            'git branch -a',
+            'git branch -a --no-color',
         ], data_get($spy, '*.0'));
     }
 
     /**
-     * @covers \GitLive\Driver\BranchDriver
+     * @covers \GitLive\Driver\BranchDriver::isBranchExistsAll
      * @covers \GitLive\Driver\DriverBase
      */
     public function testIsBranchExistsAll()
@@ -221,7 +222,7 @@ class BranchDriverTest extends TestCase
         $spy = [];
         $mock = \Mockery::mock(SystemCommand::class);
         $mock->shouldReceive('exec')
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -283,7 +284,7 @@ class BranchDriverTest extends TestCase
         $this->assertTrue($res);
         dump(data_get($spy, '*.0'));
         $this->assertSame([
-            'git branch -a',
+            'git branch -a --no-color',
         ], data_get($spy, '*.0'));
 
         $res = $BranchDriver->isBranchExistsAll('upstream_only');
@@ -295,6 +296,63 @@ class BranchDriverTest extends TestCase
         $this->assertTrue($res);
 
         $res = $BranchDriver->isBranchExistsAll('feature/nothing');
+
+        $this->assertFalse($res);
+    }
+
+    /**
+     * @covers \GitLive\Driver\BranchDriver::isBranchExistsSimple
+     * @covers \GitLive\Driver\DriverBase
+     */
+    public function testIsBranchExistsSimple()
+    {
+        $spy = [];
+        $mock = \Mockery::mock(SystemCommand::class);
+        $mock->shouldReceive('exec')
+            ->with('git branch --no-color', true, null)
+            ->andReturnUsing(static function (...$val) use (&$spy) {
+                $spy[] = $val;
+
+                return '  develop
+  feature/v.1.0.0
+  feature/v1
+  feature/v2.0.0
+  hotfix/20181202175520-rc3
+  hotfix/r20181204221944
+  local_only
+  master
+  v1.0
+* v2.0
+  v2.0.0
+  ';
+            });
+
+        Container::bind(
+            SystemCommandInterface::class,
+            static function () use ($mock) {
+                return $mock;
+            }
+        );
+
+        $BranchDriver = App::make(BranchDriver::class);
+
+        $res = $BranchDriver->isBranchExistsSimple('local_only');
+
+        $this->assertTrue($res);
+        dump(data_get($spy, '*.0'));
+        $this->assertSame([
+            'git branch --no-color',
+        ], data_get($spy, '*.0'));
+
+        $res = $BranchDriver->isBranchExistsSimple('upstream_only');
+
+        $this->assertFalse($res);
+
+        $res = $BranchDriver->isBranchExistsSimple('origin_only');
+
+        $this->assertFalse($res);
+
+        $res = $BranchDriver->isBranchExistsSimple('feature/nothing');
 
         $this->assertFalse($res);
     }

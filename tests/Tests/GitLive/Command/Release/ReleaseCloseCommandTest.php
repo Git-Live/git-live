@@ -112,8 +112,8 @@ class ReleaseCloseCommandTest extends TestCase
             12 => "git fetch deploy",
             13 => "git fetch -p deploy",
             14 => "git remote",
-            15 => "git branch -a",
-            16 => "git branch -a",
+            15 => "git branch -a --no-color",
+            16 => "git branch -a --no-color",
             17 => "git rev-parse --git-dir 2> /dev/null",
             18 => "git config --get gitlive.remote.upstream.readonly",
             19 => "git rev-parse --git-dir 2> /dev/null",
@@ -121,7 +121,7 @@ class ReleaseCloseCommandTest extends TestCase
             21 => "git checkout deploy/master",
             22 => "git branch -D master",
             23 => "git checkout -b master",
-            24 => "git symbolic-ref HEAD 2>/dev/null",
+            24 => "git symbolic-ref HEAD 2> /dev/null",
             25 => "git format-patch `git rev-parse --abbrev-ref HEAD`..deploy/release/unit_test_deploy --stdout",
             26 => "git merge deploy/release/unit_test_deploy",
             27 => "git diff deploy/release/unit_test_deploy master",
@@ -130,7 +130,7 @@ class ReleaseCloseCommandTest extends TestCase
             30 => "git checkout upstream/staging",
             31 => "git branch -D staging",
             32 => "git checkout -b staging",
-            33 => "git symbolic-ref HEAD 2>/dev/null",
+            33 => "git symbolic-ref HEAD 2> /dev/null",
             34 => "git merge deploy/release/unit_test_deploy",
             35 => "git diff deploy/release/unit_test_deploy staging",
             36 => "git push upstream staging",
@@ -144,8 +144,8 @@ class ReleaseCloseCommandTest extends TestCase
             44 => "git checkout staging",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertNotContains('release/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
-        $this->assertContains('* staging', $this->execCmdToLocalRepo('git branch'));
+        $this->assertNotContains('release/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertContains('* staging', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 }

@@ -20,6 +20,7 @@
 
 namespace GitLive\Service;
 
+use GitLive\Command\Branch\InitCommand as BranchInit;
 use GitLive\Command\CleanCommand;
 use GitLive\Command\Config\SetCommand;
 use GitLive\Command\Feature\ChangeCommand;
@@ -123,6 +124,7 @@ class CommandLineKernelService
             HotfixTrackCommand::class,
             HotfixCommand::class,
             InitCommand::class,
+            BranchInit::class,
             LogCommand::class,
             MergeCommand::class,
             PullCommand::class,

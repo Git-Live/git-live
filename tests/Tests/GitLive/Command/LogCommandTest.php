@@ -99,7 +99,7 @@ class LogCommandTest extends TestCase
             1 => 'git config --get gitlive.branch.develop.name',
             2 => 'git fetch --all',
             3 => 'git fetch -p',
-            4 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            4 => 'git rev-parse --abbrev-ref HEAD 2> /dev/null',
             5 => 'git log --pretty=fuller --name-status --left-right upstream/staging..feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
@@ -142,7 +142,7 @@ class LogCommandTest extends TestCase
             1 => 'git config --get gitlive.branch.master.name',
             2 => 'git fetch --all',
             3 => 'git fetch -p',
-            4 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            4 => 'git rev-parse --abbrev-ref HEAD 2> /dev/null',
             5 => 'git log --pretty=fuller --name-status --left-right upstream/master..feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 

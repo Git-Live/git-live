@@ -114,13 +114,13 @@ class HotfixOpenCommandTest extends TestCase
             14 => "git remote",
             15 => "git rev-parse --git-dir 2> /dev/null",
             16 => "git config --get gitlive.branch.release.prefix.name",
-            17 => "git branch -a",
-            18 => "git branch -a",
+            17 => "git branch -a --no-color",
+            18 => "git branch -a --no-color",
             19 => "git rev-parse --git-dir 2> /dev/null",
             20 => "git config --get gitlive.remote.upstream.readonly",
             21 => "git rev-parse --git-dir 2> /dev/null",
             22 => "git config --get gitlive.remote.deploy.readonly",
-            23 => "git branch -a",
+            23 => "git branch -a --no-color",
             24 => "git checkout upstream/master",
             25 => "git checkout -b hotfix/20181201223345",
             26 => "git push upstream hotfix/20181201223345",
@@ -188,13 +188,13 @@ class HotfixOpenCommandTest extends TestCase
             14 => "git remote",
             15 => "git rev-parse --git-dir 2> /dev/null",
             16 => "git config --get gitlive.branch.release.prefix.name",
-            17 => "git branch -a",
-            18 => "git branch -a",
+            17 => "git branch -a --no-color",
+            18 => "git branch -a --no-color",
             19 => "git rev-parse --git-dir 2> /dev/null",
             20 => "git config --get gitlive.remote.upstream.readonly",
             21 => "git rev-parse --git-dir 2> /dev/null",
             22 => "git config --get gitlive.remote.deploy.readonly",
-            23 => "git branch -a",
+            23 => "git branch -a --no-color",
             24 => "git checkout upstream/master",
             25 => "git checkout -b hotfix/ut_release",
             26 => "git push upstream hotfix/ut_release",
@@ -212,10 +212,11 @@ class HotfixOpenCommandTest extends TestCase
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\HotfixDriver
      * @covers \GitLive\Service\CommandLineKernelService
-     * @expectedException Exception
+     *
      */
     public function testExecuteDuplicateRelease()
     {
+        $this->expectException(\GitLive\Driver\Exception::class);
         $this->execCmdToLocalRepo($this->git_live . ' release open');
 
         $application = App::make(Application::class);
@@ -258,10 +259,11 @@ class HotfixOpenCommandTest extends TestCase
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\HotfixDriver
      * @covers \GitLive\Service\CommandLineKernelService
-     * @expectedException Exception
+     *
      */
     public function testExecuteDuplicateHotfix()
     {
+        $this->expectException(\GitLive\Driver\Exception::class);
         $this->execCmdToLocalRepo($this->git_live . ' hotfix open');
 
         $application = App::make(Application::class);

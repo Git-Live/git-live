@@ -90,7 +90,7 @@ class PublishCommandTest extends TestCase
             7 => "git fetch -p",
             8 => "git fetch upstream",
             9 => "git fetch -p upstream",
-            10 => "git symbolic-ref HEAD 2>/dev/null",
+            10 => "git symbolic-ref HEAD 2> /dev/null",
             11 => "git push upstream refs/heads/feature/suzunone_branch",
         ], data_get($this->spy, '*.0'));
 
@@ -145,7 +145,7 @@ class PublishCommandTest extends TestCase
             7 => "git fetch -p",
             8 => "git fetch upstream",
             9 => "git fetch -p upstream",
-            10 => "git symbolic-ref HEAD 2>/dev/null",
+            10 => "git symbolic-ref HEAD 2> /dev/null",
             11 => "git push upstream refs/heads/develop",
         ], data_get($this->spy, '*.0'));
 
@@ -200,7 +200,7 @@ class PublishCommandTest extends TestCase
             7 => "git fetch -p",
             8 => "git fetch upstream",
             9 => "git fetch -p upstream",
-            10 => "git symbolic-ref HEAD 2>/dev/null",
+            10 => "git symbolic-ref HEAD 2> /dev/null",
             11 => "git push upstream refs/heads/master",
         ], data_get($this->spy, '*.0'));
 

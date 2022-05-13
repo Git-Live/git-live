@@ -22,7 +22,6 @@ namespace Tests\GitLive\Command\Feature;
 
 use App;
 use GitLive\Application\Application;
-use GitLive\Exception;
 use Tests\GitLive\Tester\CommandTestCase as TestCase;
 use Tests\GitLive\Tester\CommandTester;
 use Tests\GitLive\Tester\CommandTestTrait;
@@ -102,14 +101,14 @@ class TrackCommandTest extends TestCase
             5 => 'git fetch -p',
             6 => 'git fetch upstream',
             7 => 'git fetch -p upstream',
-            8 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
-            9 => 'git branch -a',
+            8 => 'git rev-parse --abbrev-ref HEAD 2> /dev/null',
+            9 => 'git branch -a --no-color',
             10 => 'git checkout upstream/feature/suzunone_branch',
             11 => 'git checkout -b feature/suzunone_branch',
             12 => 'git pull upstream feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch --no-color'));
         $this->assertCount(3, explode("\n", trim($this->execCmdToLocalRepo('git log --oneline'))));
 
         // 余計なブランチを更新していないかどうか
@@ -168,12 +167,12 @@ class TrackCommandTest extends TestCase
             5 => 'git fetch -p',
             6 => 'git fetch upstream',
             7 => 'git fetch -p upstream',
-            8 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
-            9 => 'git branch -a',
+            8 => 'git rev-parse --abbrev-ref HEAD 2> /dev/null',
+            9 => 'git branch -a --no-color',
             10 => 'git pull upstream feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch --no-color'));
         $this->assertCount(3, explode("\n", trim($this->execCmdToLocalRepo('git log --oneline'))));
 
         // 余計なブランチを更新していないかどうか
@@ -231,14 +230,14 @@ class TrackCommandTest extends TestCase
             5 => 'git fetch -p',
             6 => 'git fetch upstream',
             7 => 'git fetch -p upstream',
-            8 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            8 => 'git rev-parse --abbrev-ref HEAD 2> /dev/null',
             9 => 'git checkout upstream/feature/suzunone_branch',
-            9 => 'git branch -a',
+            9 => 'git branch -a --no-color',
             10 => 'git checkout feature/suzunone_branch',
             11 => 'git pull upstream feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch --no-color'));
         $this->assertCount(3, explode("\n", trim($this->execCmdToLocalRepo('git log --oneline'))));
 
         // 余計なブランチを更新していないかどうか
@@ -255,10 +254,11 @@ class TrackCommandTest extends TestCase
      * @covers \GitLive\Command\Feature\TrackCommand
      * @covers \GitLive\Driver\FeatureDriver
      * @covers \GitLive\Service\CommandLineKernelService
-     * @expectedException Exception
+     *
      */
     public function testExecuteError()
     {
+        $this->expectException(\GitLive\Driver\Exception::class);
         $application = App::make(Application::class);
 
         $command = $application->find('feature:track');
@@ -297,14 +297,14 @@ class TrackCommandTest extends TestCase
             5 => 'git fetch -p',
             6 => 'git fetch upstream',
             7 => 'git fetch -p upstream',
-            8 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            8 => 'git rev-parse --abbrev-ref HEAD 2> /dev/null',
             9 => 'git checkout upstream/feature/suzunone_branch',
-            9 => 'git branch -a',
+            9 => 'git branch -a --no-color',
             10 => 'git checkout feature/suzunone_branch',
             11 => 'git pull upstream feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch --no-color'));
         $this->assertCount(3, explode("\n", trim($this->execCmdToLocalRepo('git log --oneline'))));
 
         // 余計なブランチを更新していないかどうか

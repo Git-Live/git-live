@@ -102,7 +102,7 @@ class FeatureChangeCommandTest extends TestCase
             3 => 'git config --get gitlive.branch.feature.prefix.name',
             4 => 'git fetch --all',
             5 => 'git fetch -p',
-            6 => 'git branch -a',
+            6 => 'git branch -a --no-color',
             7 => 'git rev-parse --git-dir 2> /dev/null',
             8 => 'git config --get gitlive.branch.master.name',
             9 => 'git rev-parse --git-dir 2> /dev/null',
@@ -153,7 +153,7 @@ class FeatureChangeCommandTest extends TestCase
             3 => 'git config --get gitlive.branch.feature.prefix.name',
             4 => 'git fetch --all',
             5 => 'git fetch -p',
-            6 => 'git branch -a',
+            6 => 'git branch -a --no-color',
             7 => 'git rev-parse --git-dir 2> /dev/null',
             8 => 'git config --get gitlive.branch.master.name',
             9 => 'git rev-parse --git-dir 2> /dev/null',
@@ -203,7 +203,7 @@ class FeatureChangeCommandTest extends TestCase
             3 => 'git config --get gitlive.branch.feature.prefix.name',
             4 => 'git fetch --all',
             5 => 'git fetch -p',
-            6 => 'git branch -a',
+            6 => 'git branch -a --no-color',
             7 => 'git checkout --force feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 

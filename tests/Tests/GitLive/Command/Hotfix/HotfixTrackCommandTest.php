@@ -112,15 +112,15 @@ class HotfixTrackCommandTest extends TestCase
             12 => 'git fetch deploy',
             13 => 'git fetch -p deploy',
             14 => 'git remote',
-            15 => 'git branch -a',
-            16 => 'git branch -a',
-            17 => 'git branch',
+            15 => 'git branch -a --no-color',
+            16 => 'git branch -a --no-color',
+            17 => 'git branch --no-color',
             18 => 'git checkout hotfix/unit_test_deploy',
             19 => 'git pull upstream hotfix/unit_test_deploy',
             20 => 'git pull deploy hotfix/unit_test_deploy',
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* hotfix/unit_test_deploy', $this->execCmdToLocalRepo('git branch'));
+        $this->assertContains('* hotfix/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 }

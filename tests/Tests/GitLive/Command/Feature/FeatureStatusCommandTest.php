@@ -93,7 +93,7 @@ class FeatureStatusCommandTest extends TestCase
 
         dump(data_get($this->spy, '*.0'));
         $this->assertEquals([
-            0 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            0 => 'git rev-parse --abbrev-ref HEAD 2> /dev/null',
             1 => 'git rev-parse --git-dir 2> /dev/null',
             2 => 'git config --get gitlive.branch.master.name',
             3 => 'git rev-parse --git-dir 2> /dev/null',
@@ -239,7 +239,7 @@ class FeatureStatusCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => 'git rev-parse --abbrev-ref HEAD 2>/dev/null',
+            0 => 'git rev-parse --abbrev-ref HEAD 2> /dev/null',
             1 => 'git rev-parse --git-dir 2> /dev/null',
             2 => 'git config --get gitlive.branch.master.name',
             3 => 'git rev-parse --git-dir 2> /dev/null',
@@ -281,7 +281,7 @@ class FeatureStatusCommandTest extends TestCase
         dump($output);
 
         $this->assertEquals([
-            0 => "git rev-parse --abbrev-ref HEAD 2>/dev/null",
+            0 => "git rev-parse --abbrev-ref HEAD 2> /dev/null",
             1 => "git rev-parse --git-dir 2> /dev/null",
             2 => "git config --get gitlive.branch.master.name",
             3 => "git rev-parse --git-dir 2> /dev/null",

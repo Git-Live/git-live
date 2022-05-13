@@ -98,6 +98,7 @@ trait MakeGitTestRepoTrait
         mkdir($init_working);
         chdir($init_working);
         shell_exec('git init');
+        shell_exec('git config --local gitlive.branch.develop.name "staging"');
         shell_exec("git remote add origin {$remote_upstream}");
         shell_exec('git remote -v');
         file_put_contents($init_working . $ds . 'README.md', '# unit testing Read me');
@@ -124,6 +125,9 @@ trait MakeGitTestRepoTrait
 
         chdir($local_test);
         shell_exec('git checkout upstream/develop');
+
+        shell_exec('git config --local gitlive.branch.develop.name "staging"');
+
         shell_exec('git checkout -b develop');
         shell_exec('git push origin develop');
         shell_exec('git push deploy develop');

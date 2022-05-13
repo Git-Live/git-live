@@ -120,7 +120,7 @@ abstract class DeployBase extends DriverBase
             throw new Exception('Error:' . __('deploy remote repository is readonly.'));
         }
 
-        $repository = $this->GitCmdExecutor->branch(['-a']);
+        $repository = $this->GitCmdExecutor->branch(['-a', '--no-color']);
         $repository = explode("\n", trim($repository));
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/' . $this->deploy_repository_name . '/' . $this->prefix) !== false) {

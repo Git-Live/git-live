@@ -110,7 +110,7 @@ class HotfixIsCommandTest extends TestCase
             12 => 'git fetch deploy',
             13 => 'git fetch -p deploy',
             14 => 'git remote',
-            15 => 'git branch -a',
+            15 => 'git branch -a --no-color',
         ], data_get($this->spy, '*.0'));
 
         // ...
@@ -172,7 +172,7 @@ class HotfixIsCommandTest extends TestCase
             12 => 'git fetch deploy',
             13 => 'git fetch -p deploy',
             14 => 'git remote',
-            15 => 'git branch -a',
+            15 => 'git branch -a --no-color',
         ], data_get($this->spy, '*.0'));
 
         // ...
@@ -234,7 +234,7 @@ class HotfixIsCommandTest extends TestCase
             12 => 'git fetch deploy',
             13 => 'git fetch -p deploy',
             14 => 'git remote',
-            15 => 'git branch -a',
+            15 => 'git branch -a --no-color',
         ], data_get($this->spy, '*.0'));
 
         // ...

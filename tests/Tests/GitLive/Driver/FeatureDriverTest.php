@@ -119,7 +119,7 @@ class FeatureDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true, null)
+            ->with('git rev-parse --abbrev-ref HEAD 2> /dev/null', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -153,7 +153,7 @@ class FeatureDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -183,8 +183,8 @@ class FeatureDriverTest extends TestCase
                 'git fetch -p',
                 'git fetch upstream',
                 'git fetch -p upstream',
-                'git rev-parse --abbrev-ref HEAD 2>/dev/null',
-                'git branch -a',
+                'git rev-parse --abbrev-ref HEAD 2> /dev/null',
+                'git branch -a --no-color',
                 'git pull upstream feature/unit_testing',
             ],
             data_get($spy, '*.0')
@@ -262,7 +262,7 @@ class FeatureDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true, null)
+            ->with('git rev-parse --abbrev-ref HEAD 2> /dev/null', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -296,7 +296,7 @@ class FeatureDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -326,8 +326,8 @@ class FeatureDriverTest extends TestCase
             'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
-            'git rev-parse --abbrev-ref HEAD 2>/dev/null',
-            'git branch -a',
+            'git rev-parse --abbrev-ref HEAD 2> /dev/null',
+            'git branch -a --no-color',
             'git checkout upstream/feature/unit_testing',
             'git checkout -b feature/unit_testing',
             'git pull upstream feature/unit_testing',
@@ -415,7 +415,7 @@ class FeatureDriverTest extends TestCase
         /*
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
+            ->with('git symbolic-ref HEAD 2> /dev/null', true, null)
             ->andReturnUsing(function(...$val) use (&$spy) {
                 $spy[] = $val;
                 return 'refs/heads/feature/example_1';
@@ -440,7 +440,7 @@ class FeatureDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -470,7 +470,7 @@ class FeatureDriverTest extends TestCase
             5 => 'git fetch -p',
             6 => 'git fetch upstream',
             7 => 'git fetch -p upstream',
-            8 => 'git branch -a',
+            8 => 'git branch -a --no-color',
             9 => 'git rev-parse --git-dir 2> /dev/null',
             10 => 'git config --get gitlive.branch.develop.name',
             11 => 'git checkout upstream/staging',
@@ -558,7 +558,7 @@ class FeatureDriverTest extends TestCase
             });
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
+            ->with('git symbolic-ref HEAD 2> /dev/null', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -596,7 +596,7 @@ class FeatureDriverTest extends TestCase
             'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
-            'git symbolic-ref HEAD 2>/dev/null',
+            'git symbolic-ref HEAD 2> /dev/null',
             'git push upstream refs/heads/feature/example_1',
         ], data_get($spy, '*.0'));
     }
@@ -681,7 +681,7 @@ class FeatureDriverTest extends TestCase
             });
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
+            ->with('git symbolic-ref HEAD 2> /dev/null', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -717,7 +717,7 @@ class FeatureDriverTest extends TestCase
             'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
-            'git symbolic-ref HEAD 2>/dev/null',
+            'git symbolic-ref HEAD 2> /dev/null',
             'git push upstream refs/heads/example_1',
         ], data_get($spy, '*.0'));
     }
@@ -792,7 +792,7 @@ class FeatureDriverTest extends TestCase
             });
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git symbolic-ref HEAD 2>/dev/null', true, null)
+            ->with('git symbolic-ref HEAD 2> /dev/null', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -828,7 +828,7 @@ class FeatureDriverTest extends TestCase
             'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
-            'git symbolic-ref HEAD 2>/dev/null',
+            'git symbolic-ref HEAD 2> /dev/null',
             'git push origin refs/heads/feature/example_1',
         ], data_get($spy, '*.0'));
     }
@@ -1282,7 +1282,7 @@ class FeatureDriverTest extends TestCase
 
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -1308,7 +1308,7 @@ class FeatureDriverTest extends TestCase
             'git config --get gitlive.branch.feature.prefix.name',
             'git fetch --all',
             'git fetch -p',
-            'git branch -a',
+            'git branch -a --no-color',
             'git rev-parse --git-dir 2> /dev/null',
             'git config --get gitlive.branch.master.name',
             'git rev-parse --git-dir 2> /dev/null',
@@ -1386,7 +1386,7 @@ class FeatureDriverTest extends TestCase
             });
         $mock->shouldReceive('exec')
             ->once()
-            ->with('git rev-parse --abbrev-ref HEAD 2>/dev/null', true, null)
+            ->with('git rev-parse --abbrev-ref HEAD 2> /dev/null', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -1410,7 +1410,7 @@ class FeatureDriverTest extends TestCase
             });
         $mock->shouldReceive('exec')
             // ->once()
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -1440,8 +1440,8 @@ class FeatureDriverTest extends TestCase
             'git fetch -p',
             'git fetch upstream',
             'git fetch -p upstream',
-            'git rev-parse --abbrev-ref HEAD 2>/dev/null',
-            'git branch -a',
+            'git rev-parse --abbrev-ref HEAD 2> /dev/null',
+            'git branch -a --no-color',
             'git pull upstream feature/example_1',
             'git pull origin feature/example_1',
         ], data_get($spy, '*.0'));

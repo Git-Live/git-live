@@ -73,7 +73,7 @@ class FileSystemTest extends TestCase
 
         dump($res);
 
-        $this->assertContains('"Host": "httpbin.org"', $res);
+        $this->assertStringContainsString('"Host": "httpbin.org"', $res);
     }
 
     /**
@@ -87,7 +87,7 @@ class FileSystemTest extends TestCase
         $output = ob_get_contents();
         ob_end_clean();
 
-        $this->assertContains('test : message', $output);
+        $this->assertStringContainsString('test : message', $output);
     }
     /**
      * @covers \GitLive\Support\FileSystem
@@ -109,7 +109,7 @@ class FileSystemTest extends TestCase
         rewind($output->getStream());
         $display = stream_get_contents($output->getStream());
 
-        $this->assertContains('test : message', $display);
+        $this->assertStringContainsString('test : message', $display);
     }
     /**
      * @covers \GitLive\Support\FileSystem
@@ -123,7 +123,7 @@ class FileSystemTest extends TestCase
 
         $res = $fs->getContentsWithProgress($this->http_test);
 
-        $this->assertContains('"Host": "httpbin.org"', $res);
+        $this->assertStringContainsString('"Host": "httpbin.org"', $res);
     }
 
     /**
@@ -138,7 +138,7 @@ class FileSystemTest extends TestCase
 
         $res = $fs->getContentsWithProgress($this->http_status_test . '301');
 
-        $this->assertContains('', $res);
+        $this->assertStringContainsString('', $res);
     }
 
     /**
@@ -157,6 +157,6 @@ class FileSystemTest extends TestCase
 
         rewind($output->getStream());
         $display = stream_get_contents($output->getStream());
-        $this->assertContains('404', $display);
+        $this->assertStringContainsString('404', $display);
     }
 }

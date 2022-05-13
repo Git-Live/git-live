@@ -184,6 +184,18 @@ class ArrTest extends TestCase
     /**
      * @covers \GitLive\Helper\Arr
      */
+    public function testFirstIsEmpty()
+    {
+        $array = [];
+        $value = Arr::first($array, static function ($value) {
+            return $value >= 150;
+        });
+        $this->assertEquals(null, $value);
+        $this->assertEquals(null, Arr::first($array));
+    }
+    /**
+     * @covers \GitLive\Helper\Arr
+     */
     public function testLast()
     {
         $array = [100, 200, 300];
@@ -468,26 +480,26 @@ class ArrTest extends TestCase
         $random = Arr::random(['foo', 'bar', 'baz']);
         $this->assertContains($random, ['foo', 'bar', 'baz']);
         $random = Arr::random(['foo', 'bar', 'baz'], 0);
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(0, $random);
         $random = Arr::random(['foo', 'bar', 'baz'], 1);
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(1, $random);
         $this->assertContains($random[0], ['foo', 'bar', 'baz']);
         $random = Arr::random(['foo', 'bar', 'baz'], 2);
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(2, $random);
         $this->assertContains($random[0], ['foo', 'bar', 'baz']);
         $this->assertContains($random[1], ['foo', 'bar', 'baz']);
         $random = Arr::random(['foo', 'bar', 'baz'], '0');
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(0, $random);
         $random = Arr::random(['foo', 'bar', 'baz'], '1');
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(1, $random);
         $this->assertContains($random[0], ['foo', 'bar', 'baz']);
         $random = Arr::random(['foo', 'bar', 'baz'], '2');
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(2, $random);
         $this->assertContains($random[0], ['foo', 'bar', 'baz']);
         $this->assertContains($random[1], ['foo', 'bar', 'baz']);
@@ -498,10 +510,10 @@ class ArrTest extends TestCase
     public function testRandomOnEmptyArray()
     {
         $random = Arr::random([], 0);
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(0, $random);
         $random = Arr::random([], '0');
-        $this->assertInternalType('array', $random);
+        $this->assertIsArray($random);
         $this->assertCount(0, $random);
     }
     /**
@@ -530,15 +542,52 @@ class ArrTest extends TestCase
         }
         $this->assertSame(3, $exceptions);
     }
+
+    public function setDataProvider()
+    {
+        return [
+            'Key is null' => [
+                'array' => ['products' => ['desk' => ['price' => 100]]],
+                'key' => null,
+                'value' =>  [200],
+                'expected' =>  [200]
+            ],
+            'override' => [
+                'array' => ['products' => ['desk' => ['price' => 100]]],
+                'key' => 'products.desk.price',
+                'value' =>  200,
+                'expected' =>  ['products' => ['desk' => ['price' => 200]]],
+            ],
+            'add key' => [
+                'array' => ['products_1' => ['desk' => ['price' => 100]]],
+                'key' => 'products_2',
+                'value' =>  ['desk' => ['price' => 200]],
+                'expected' =>  ['products_1' => ['desk' => ['price' => 100]], 'products_2' => ['desk' => ['price' => 200]]],
+            ],
+
+            'add key 2' => [
+                'array' => ['products_1' => ['desk' => ['price' => 100]]],
+                'key' => 'products_2.desk',
+                'value' =>  ['price' => 200],
+                'expected' =>  ['products_1' => ['desk' => ['price' => 100]], 'products_2' => ['desk' => ['price' => 200]]],
+            ],
+        ];
+    }
+
     /**
      * @covers \GitLive\Helper\Arr
+     * @dataProvider setDataProvider
+     * @param mixed $array
+     * @param mixed $key
+     * @param mixed $value
+     * @param mixed $expected
      */
-    public function testSet()
+    public function testSet($array, $key, $value, $expected)
     {
-        $array = ['products' => ['desk' => ['price' => 100]]];
-        Arr::set($array, 'products.desk.price', 200);
-        $this->assertEquals(['products' => ['desk' => ['price' => 200]]], $array);
+        Arr::set($array, $key, $value);
+        $this->assertEquals($expected, $array);
     }
+
     /**
      * @covers \GitLive\Helper\Arr
      */
@@ -547,6 +596,16 @@ class ArrTest extends TestCase
         $this->assertEquals(
             Arr::shuffle(range(0, 100, 10), 1234),
             Arr::shuffle(range(0, 100, 10), 1234)
+        );
+    }
+    /**
+     * @covers \GitLive\Helper\Arr
+     */
+    public function testShuffleWithOutSeed()
+    {
+        $this->assertNotEquals(
+            Arr::shuffle(range(0, 100, 10)),
+            Arr::shuffle(range(0, 100, 10))
         );
     }
     /**

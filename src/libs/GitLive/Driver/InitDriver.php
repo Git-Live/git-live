@@ -117,13 +117,21 @@ class InitDriver extends DriverBase
      *
      * @access      public
      * @param bool $without_remote_change
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function start(bool $without_remote_change = true): void
     {
         $this->GitCmdExecutor->stash(['-u']);
+        if (!$this->GitCmdExecutor->isGitInit()) {
+            throw new Exception(__('fatal: Not initialized.') . __('use: `git live branch-init`'));
+        }
+
+        if (!$this->isLocalInitialized()) {
+            throw new Exception(__('fatal: Not local initialized.') . __('use: `git live branch-init`'));
+        }
+
         $this->Driver(FetchDriver::class)->clean();
         $this->Driver(FetchDriver::class)->all();
 
@@ -156,8 +164,8 @@ class InitDriver extends DriverBase
      *  諸々リセットして初期化します
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function restart(): void
@@ -193,17 +201,82 @@ class InitDriver extends DriverBase
     }
 
     /**
-     * @param array|string $text
-     * @param bool $using_default
-     * @return string
+     * @param bool $is_default
+     * @param bool $is_force
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
+     * @return void
      */
-    protected function interactiveShell($text, bool $using_default = false): ?string
+    public function branchInit(bool $is_default = false, bool $is_force = false)
     {
-        try {
-            return App::make(InteractiveShellInterface::class)
-                ->interactiveShell($text, $using_default);
-        } catch (\Exception $exception) {
-            return '';
+        $Config = $this->Driver(ConfigDriver::class);
+        $Branch = $this->Driver(BranchDriver::class);
+        $Remote = $this->Driver(RemoteDriver::class);
+        if (!$this->GitCmdExecutor->isGitInit()) {
+            $this->GitCmdExecutor->init();
         }
+
+        if (!$this->GitCmdExecutor->isHeadless() && !$this->GitCmdExecutor->isCleanWorkingTree()) {
+            throw new Exception(__('fatal: Working tree is not clean.'));
+        }
+
+        // configのセット
+        if (!$is_default) {
+            $Config->interactiveConfigurations();
+        }
+
+        // リモートブランチのセット
+        if (!$is_force) {
+            $is_yes = $this->interactiveShell(__('Do you want to configure Remote settings? yes/no'));
+
+            if ($is_yes === 'yes') {
+                $Remote->interactiveRemoteAdd();
+            }
+        }
+
+        if ($this->isLocalInitialized()) {
+            if ($is_force) {
+                $this->start();
+
+                return;
+            }
+
+            throw new Exception(__('Already initialized for git-live.') .
+                __('To force reinitialization, use: `git live branch:init -f`.'));
+        }
+
+        $this->Driver(FetchDriver::class)->all();
+
+        // Creation of master
+        if (!$Branch->hasMasterBranch()) {
+            if ($Branch->isRemoteBranchExistsSimple('remotes/origin/' . $Config->master())) {
+                $this->GitCmdExecutor->branch([$Config->master(), 'remotes/origin/' . $Config->master()]);
+            } else {
+                throw new Exception(__('fatal: Local branch "' . $Config->master() . '" does not exist.'));
+            }
+        }
+
+        // Creation of develop
+        if (!$Branch->hasDevelopBranch()) {
+            if ($Branch->isRemoteBranchExistsSimple('remotes/origin/' . $Config->develop())) {
+                $this->GitCmdExecutor->branch([$Config->develop(), 'remotes/origin/' . $Config->develop()]);
+            } elseif ($Branch->isRemoteBranchExistsSimple('remotes/origin/' . $Config->master())) {
+                $this->GitCmdExecutor->branch([$Config->develop(), 'remotes/origin/' . $Config->master()]);
+            } else {
+                $this->GitCmdExecutor->branch(['--no-track', $Config->develop(), $Config->master()]);
+            }
+        }
+    }
+
+    /**
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
+     * @return bool
+     */
+    public function isLocalInitialized()
+    {
+        $Branch = $this->Driver(BranchDriver::class);
+
+        return $Branch->hasMasterBranch() && $Branch->hasDevelopBranch();
     }
 }

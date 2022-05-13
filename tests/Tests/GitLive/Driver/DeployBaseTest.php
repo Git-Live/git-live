@@ -361,7 +361,7 @@ class DeployBaseTest extends TestCase
             });
 
         $systemCommand->shouldReceive('exec')
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -472,7 +472,7 @@ class DeployBaseTest extends TestCase
             5 => 'git config --get gitlive.branch.master.name',
             6 => 'git rev-parse --git-dir 2> /dev/null',
             7 => 'git config --get gitlive.branch.hotfix.prefix.name',
-            8 => 'git branch -a',
+            8 => 'git branch -a --no-color',
         ], data_get($spy, '*.0'));
     }
 
@@ -593,7 +593,7 @@ class DeployBaseTest extends TestCase
             5 => 'git config --get gitlive.branch.master.name',
             6 => 'git rev-parse --git-dir 2> /dev/null',
             7 => 'git config --get gitlive.branch.hotfix.prefix.name',
-            8 => 'git branch -a',
+            8 => 'git branch -a --no-color',
         ], data_get($spy, '*.0'));
     }
 
@@ -850,7 +850,7 @@ class DeployBaseTest extends TestCase
             9 => "git config --get gitlive.remote.upstream.readonly",
             10 => "git rev-parse --git-dir 2> /dev/null",
             11 => "git config --get gitlive.remote.deploy.readonly",
-            12 => "git branch -a",
+            12 => "git branch -a --no-color",
             13 => "git checkout upstream/stage",
             14 => "git checkout -b unit_release/20181209031124",
             15 => "git push upstream unit_release/20181209031124",
@@ -988,7 +988,7 @@ class DeployBaseTest extends TestCase
             9 => "git config --get gitlive.remote.upstream.readonly",
             10 => "git rev-parse --git-dir 2> /dev/null",
             11 => "git config --get gitlive.remote.deploy.readonly",
-            12 => "git branch -a",
+            12 => "git branch -a --no-color",
             13 => "git checkout upstream/stage",
             14 => "git checkout -b unit_release/20181209032006 refs/tags/unit_test_release_tag ",
             15 => "git push upstream unit_release/20181209032006",
@@ -1364,10 +1364,10 @@ class DeployBaseTest extends TestCase
      * @throws Exception
      * @covers \GitLive\Driver\DeployBase
      * @covers \GitLive\Driver\DriverBase
-     * @expectedException Exception
      */
     public function testEnableReleaseError()
     {
+        $this->expectException(Exception::class);
         $GitLive = App::make(GitLive::class);
 
         $spy = [];
@@ -1539,7 +1539,7 @@ class DeployBaseTest extends TestCase
             });
         $systemCommand->shouldReceive('exec')
             ->once()
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -1605,7 +1605,7 @@ class DeployBaseTest extends TestCase
             5 => 'git config --get gitlive.branch.master.name',
             6 => 'git rev-parse --git-dir 2> /dev/null',
             7 => 'git config --get gitlive.branch.release.prefix.name',
-            8 => 'git branch -a',
+            8 => 'git branch -a --no-color',
         ], data_get($spy, '*.0'));
     }
 
@@ -1663,7 +1663,7 @@ class DeployBaseTest extends TestCase
             });
 
         $systemCommand->shouldReceive('exec')
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -1771,7 +1771,7 @@ class DeployBaseTest extends TestCase
             5 => 'git config --get gitlive.branch.master.name',
             6 => 'git rev-parse --git-dir 2> /dev/null',
             7 => 'git config --get gitlive.branch.release.prefix.name',
-            8 => 'git branch -a',
+            8 => 'git branch -a --no-color',
         ], data_get($spy, '*.0'));
     }
 
@@ -2074,7 +2074,7 @@ class DeployBaseTest extends TestCase
             });
 
         $systemCommand->shouldReceive('exec')
-            ->with('git branch -a', true, null)
+            ->with('git branch -a --no-color', true, null)
             ->andReturnUsing(static function (...$val) use (&$spy) {
                 $spy[] = $val;
 
@@ -2182,7 +2182,7 @@ class DeployBaseTest extends TestCase
             5 => 'git config --get gitlive.branch.master.name',
             6 => 'git rev-parse --git-dir 2> /dev/null',
             7 => 'git config --get gitlive.branch.release.prefix.name',
-            8 => 'git branch -a',
+            8 => 'git branch -a --no-color',
         ], data_get($spy, '*.0'));
     }
 
