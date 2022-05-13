@@ -374,10 +374,10 @@ abstract class DriverBase extends GitBase
 
     /**
      * @param array|string $text
-     * @param bool $using_default
+     * @param bool|string $using_default
      * @return string
      */
-    protected function interactiveShell($text, bool $using_default = false): ?string
+    protected function interactiveShell($text, $using_default = false): ?string
     {
         try {
             return App::make(InteractiveShellInterface::class)
