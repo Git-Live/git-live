@@ -93,7 +93,7 @@ class CommandLineKernelService
     /**
      * @return array
      */
-    public function app():array
+    public function app(): array
     {
         $app = [
             CleanCommand::class,
@@ -154,7 +154,7 @@ class CommandLineKernelService
             ->mapWithKeys(static function (string $item) {
                 /** @noinspection PhpUndefinedMethodInspection */
                 return [$item::getSignature() => static function () use ($item) {
-                    return new $item;
+                    return new $item();
                 }];
             })
             ->toArray();

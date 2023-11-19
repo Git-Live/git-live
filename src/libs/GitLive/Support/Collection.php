@@ -45,7 +45,7 @@ use Countable;
 use Exception;
 use IteratorAggregate;
 use /** @noinspection PhpUndefinedClassInspection */
-    JsonSerializable;
+JsonSerializable;
 use stdClass;
 use Symfony\Component\VarDumper\VarDumper;
 use Traversable;
@@ -190,7 +190,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     public static function times($number, callable $callback = null)
     {
         if ($number < 1) {
-            return new static;
+            return new static();
         }
         if ($callback === null) {
             return new static(range(1, $number));
@@ -279,7 +279,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
             return null;
         }
         $collection = isset($key) ? $this->pluck($key) : $this;
-        $counts = new self;
+        $counts = new self();
         $collection->each(static function ($value) use ($counts) {
             $counts[$value] = isset($counts[$value]) ? $counts[$value] + 1 : 1;
         });
@@ -327,7 +327,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     {
         if (func_num_args() === 1) {
             if ($this->useAsCallable($key)) {
-                $placeholder = new stdClass;
+                $placeholder = new stdClass();
 
                 return $this->first($key, $placeholder) !== $placeholder;
             }
@@ -838,7 +838,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
             foreach ($groupKeys as $groupKey) {
                 $groupKey = is_bool($groupKey) ? (int)$groupKey : $groupKey;
                 if (!array_key_exists($groupKey, $results)) {
-                    $results[$groupKey] = new static;
+                    $results[$groupKey] = new static();
                 }
                 $results[$groupKey]->offsetSet($preserveKeys ? $key : null, $value);
             }
@@ -1235,7 +1235,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      */
     public function partition($key, $operator = null, $value = null)
     {
-        $partitions = [new static, new static];
+        $partitions = [new static(), new static()];
         $callback = func_num_args() === 1
             ? $this->valueRetriever($key)
             : $this->operatorForWhere(...func_get_args());
@@ -1458,9 +1458,9 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     public function split($numberOfGroups)
     {
         if ($this->isEmpty()) {
-            return new static;
+            return new static();
         }
-        $groups = new static;
+        $groups = new static();
         $groupSize = floor($this->count() / $numberOfGroups);
         $remain = $this->count() % $numberOfGroups;
         $start = 0;
@@ -1487,7 +1487,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     public function chunk($size)
     {
         if ($size <= 0) {
-            return new static;
+            return new static();
         }
         $chunks = [];
         foreach (array_chunk($this->items, $size, true) as $chunk) {

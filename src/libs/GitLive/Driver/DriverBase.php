@@ -93,7 +93,7 @@ abstract class DriverBase extends GitBase
             throw new Exception(__('Not a git repository.'));
         }
 
-        return trim($self_blanch);
+        return trim((string)$self_blanch);
     }
 
     /**
@@ -120,14 +120,14 @@ abstract class DriverBase extends GitBase
      * @throws Exception
      * @return string
      */
-    public function getSelfBranch():string
+    public function getSelfBranch(): string
     {
         $self_blanch = (string)$this->exec('git rev-parse --abbrev-ref HEAD 2>/dev/null');
         if (!$self_blanch) {
             throw new Exception(__('Not a git repository.'));
         }
 
-        return trim($self_blanch);
+        return trim((string)$self_blanch);
     }
 
     /**
@@ -139,7 +139,7 @@ abstract class DriverBase extends GitBase
      * @return \GitLive\Driver\DriverBase
      * @codeCoverageIgnore
      */
-    public function Driver($driver_name):DriverBase
+    public function Driver($driver_name): DriverBase
     {
         $res = App::make($driver_name);
         if ($res === null) {
@@ -154,7 +154,7 @@ abstract class DriverBase extends GitBase
      * @throws Exception
      * @return bool
      */
-    public function isBranchExists($branch_name):bool
+    public function isBranchExists($branch_name): bool
     {
         return $this->Driver(BranchDriver::class)->isBranchExistsSimple($branch_name);
     }
@@ -171,7 +171,7 @@ abstract class DriverBase extends GitBase
             $err = $this->GitCmdExecutor->status([$repo], true);
         }
 
-        if (strpos(trim($err), 'nothing to commit') === false) {
+        if (strpos((string)trim((string)$err), 'nothing to commit') === false) {
             return false;
         }
 
@@ -192,7 +192,7 @@ abstract class DriverBase extends GitBase
             $err = $this->GitCmdExecutor->status([$repo], true);
         }
 
-        if (strpos(trim($err), 'nothing to commit') === false) {
+        if (strpos((string)trim((string)$err), 'nothing to commit') === false) {
             throw new Exception(($error_msg ?? __('Please clean or commit.')) . "\n" . $err);
         }
 
@@ -264,7 +264,7 @@ abstract class DriverBase extends GitBase
     {
         // 一度diffを取る
         $cmd = 'git format-patch `git rev-parse --abbrev-ref HEAD`..' . $from . ' --stdout';
-        $ck = (string)trim($this->exec($cmd, OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
+        $ck = (string)trim((string)$this->exec($cmd, OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
 
         if ($ck === '') {
             return '';
@@ -273,7 +273,7 @@ abstract class DriverBase extends GitBase
         $cmd = 'git format-patch `git rev-parse --abbrev-ref HEAD`..' . $from . ' --stdout| git apply --check';
         $res = $this->exec($cmd, $verbosity, OutputInterface::VERBOSITY_DEBUG);
 
-        return (string)trim($res);
+        return (string)trim((string)$res);
     }
 
     /**
@@ -292,7 +292,7 @@ abstract class DriverBase extends GitBase
      */
     public function isGitRepository(): bool
     {
-        $res = trim($this->exec('git rev-parse --git-dir 2> /dev/null', OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
+        $res = trim((string)$this->exec('git rev-parse --git-dir 2> /dev/null', OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
 
         return !empty($res);
     }
@@ -328,12 +328,12 @@ abstract class DriverBase extends GitBase
 
     public function stashPush(string $branch, $verbosity = false, $output_verbosity = null)
     {
-        $stash = trim($this->exec('git stash list'));
+        $stash = trim((string)$this->exec('git stash list'));
         if ($stash === '') {
             return;
         }
 
-        $sha_hashes = Collection::make(explode("\n", trim($this->exec('git rev-list -g stash'))));
+        $sha_hashes = Collection::make(explode("\n", trim((string)$this->exec('git rev-list -g stash'))));
         foreach ($sha_hashes as $sha) {
             if ($sha === '') {
                 break;

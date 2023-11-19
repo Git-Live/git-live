@@ -41,7 +41,7 @@ use GitLive\Support\SystemCommandInterface;
  */
 class HotfixDriver extends DeployBase
 {
-    const MODE = 'hotfix';
+    public const MODE = 'hotfix';
     /**
      * @var string
      */
@@ -76,7 +76,7 @@ class HotfixDriver extends DeployBase
     /**
      * @return bool
      */
-    public function isBuildOpen():bool
+    public function isBuildOpen(): bool
     {
         return $this->isHotfixOpen();
     }
@@ -85,7 +85,7 @@ class HotfixDriver extends DeployBase
      * @throws Exception
      * @return string
      */
-    public function getBuildRepository():string
+    public function getBuildRepository(): string
     {
         return $this->getHotfixRepository();
     }

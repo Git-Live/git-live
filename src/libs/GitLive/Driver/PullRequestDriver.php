@@ -55,7 +55,7 @@ class PullRequestDriver extends DriverBase
 
         $this->GitCmdExecutor->fetchPullRequest();
 
-        if (strpos($branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0) {
+        if (strpos((string)$branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0) {
             $branch = $this->Driver(ConfigDriver::class)->featurePrefix() . $branch;
         }
 
@@ -91,7 +91,7 @@ class PullRequestDriver extends DriverBase
         $this->Driver(FetchDriver::class)->upstream();
         $this->GitCmdExecutor->fetchPullRequest();
 
-        if (strpos($branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0) {
+        if (strpos((string)$branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0) {
             $branch = $this->Driver(ConfigDriver::class)->featurePrefix() . $branch;
         }
         if ($this->Driver(BranchDriver::class)->isBranchExistsAll($branch)) {

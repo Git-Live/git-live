@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-23 23:10+0900\n"
+"POT-Creation-Date: 2023-11-19 15:39+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,24 +17,25 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: src//libs/GitLive/Driver/MergeDriver.php:160
+#: src//libs/GitLive/Driver/FeatureDriver.php:199
+#, php-format
+msgid "Feature name %s not found"
+msgstr ""
+
 #: src//libs/GitLive/Driver/ResetDriver.php:68
 #: src//libs/GitLive/Command/PullCommand.php:109
 msgid "Undefined remote option."
 msgstr ""
 
-#: src//libs/GitLive/Driver/FeatureDriver.php:85
+#: src//libs/GitLive/Driver/FeatureDriver.php:119
 #: src//libs/GitLive/Driver/PullRequestDriver.php:63
 #: src//libs/GitLive/Driver/PullRequestDriver.php:98
 #, php-format
 msgid "%s branch is duplicate."
 msgstr ""
 
-#: src//libs/GitLive/Driver/FeatureDriver.php:165
-#, php-format
-msgid "Feature name %s not found"
-msgstr ""
-
-#: src//libs/GitLive/Driver/FeatureDriver.php:248
+#: src//libs/GitLive/Driver/FeatureDriver.php:282
 #, php-format
 msgid "%s could not read from remote repository."
 msgstr ""
@@ -68,11 +69,11 @@ msgstr ""
 msgid "Could not automatically get the local directory."
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:152
+#: src//libs/GitLive/Driver/InitDriver.php:163
 msgid "Rebuild? yes/no"
 msgstr ""
 
-#: src//libs/GitLive/Driver/InitDriver.php:159
+#: src//libs/GitLive/Driver/InitDriver.php:170
 msgid "It is very risky project."
 msgstr ""
 
@@ -143,24 +144,24 @@ msgstr ""
 msgid "%s branch has a commit that is not on the %2$s branch"
 msgstr ""
 
-#: src//libs/GitLive/Driver/DriverBase.php:92
-#: src//libs/GitLive/Driver/DriverBase.php:126
+#: src//libs/GitLive/Driver/DriverBase.php:93
+#: src//libs/GitLive/Driver/DriverBase.php:127
 msgid "Not a git repository."
 msgstr ""
 
-#: src//libs/GitLive/Driver/DriverBase.php:195
+#: src//libs/GitLive/Driver/DriverBase.php:196
 msgid "Please clean or commit."
 msgstr ""
 
-#: src//libs/GitLive/Support/FileSystem.php:95
+#: src//libs/GitLive/Support/FileSystem.php:94
 msgid "Being redirected to"
 msgstr ""
 
-#: src//libs/GitLive/Support/FileSystem.php:99
+#: src//libs/GitLive/Support/FileSystem.php:98
 msgid "Connected..."
 msgstr ""
 
-#: src//libs/GitLive/Support/FileSystem.php:103
+#: src//libs/GitLive/Support/FileSystem.php:102
 msgid "Got the file size"
 msgstr ""
 
@@ -170,6 +171,19 @@ msgstr ""
 
 #: src//libs/GitLive/Support/FileSystem.php:118
 msgid "Made some progress, downloaded"
+msgstr ""
+
+#: src//libs/GitLive/Command/FireCommand.php:54
+msgid ""
+"Add all the changed files, commit to the new branch, push to origin, and "
+"protect the changes."
+msgstr ""
+
+#: src//libs/GitLive/Command/FireCommand.php:57
+msgid ""
+"It is executed at the time of disaster such as earthquake or fire. Add all "
+"the changed files, commit to the new branch, push to origin, and protect the "
+"changes."
 msgstr ""
 
 #: src//libs/GitLive/Command/Hotfix/HotfixSyncCommand.php:54
@@ -272,6 +286,11 @@ msgstr ""
 msgid "Prior confirmation of merge master."
 msgstr ""
 
+#: src//libs/GitLive/Command/Merge/MergeFeatureCommand.php:55
+#: src//libs/GitLive/Command/Merge/MergeFeatureCommand.php:58
+msgid "Merge upstream feature."
+msgstr ""
+
 #: src//libs/GitLive/Command/Merge/MergeDevelopCommand.php:54
 #: src//libs/GitLive/Command/Merge/MergeDevelopCommand.php:57
 msgid "Merge upstream develop."
@@ -355,22 +374,30 @@ msgid ""
 "from all available files."
 msgstr ""
 
-#: src//libs/GitLive/Command/StartCommand.php:53
-#: src//libs/GitLive/Command/StartCommand.php:56
+#: src//libs/GitLive/Command/StartCommand.php:54
+#: src//libs/GitLive/Command/StartCommand.php:63
 msgid "Refresh your branch."
 msgstr ""
 
-#: src//libs/GitLive/Command/PushCommand.php:40
+#: src//libs/GitLive/Command/StartCommand.php:61
+msgid "with_remote_change"
+msgstr ""
+
+#: src//libs/GitLive/Command/StartCommand.php:80
+msgid "If you also want to update the remote repository, use the -r option."
+msgstr ""
+
+#: src//libs/GitLive/Command/PushCommand.php:41
 msgid "Push from the appropriate remote repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/PushCommand.php:43
+#: src//libs/GitLive/Command/PushCommand.php:49
 #: src//libs/GitLive/Command/PullCommand.php:44
 #: src//libs/GitLive/Command/PullCommand.php:47
 msgid "Pull from the appropriate remote repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/CommandBase.php:62
+#: src//libs/GitLive/Command/CommandBase.php:63
 msgid ""
 "An update to the Git Live is available. Run \"git live self-update\" to get "
 "the latest version."
@@ -459,8 +486,8 @@ msgstr ""
 msgid "Alias to \"merge: *\" tasks."
 msgstr ""
 
-#: src//libs/GitLive/Command/Log/LogDevelopCommand.php:40
-#: src//libs/GitLive/Command/Log/LogDevelopCommand.php:43
+#: src//libs/GitLive/Command/Log/LogDevelopCommand.php:53
+#: src//libs/GitLive/Command/Log/LogDevelopCommand.php:56
 msgid "Show diff upstream develop branch."
 msgstr ""
 
@@ -753,8 +780,8 @@ msgstr ""
 msgid "Safe pull to origin repository."
 msgstr ""
 
-#: src//libs/GitLive/Command/Feature/ListCommand.php:54
-#: src//libs/GitLive/Command/Feature/ListCommand.php:57
+#: src//libs/GitLive/Command/Feature/ListCommand.php:55
+#: src//libs/GitLive/Command/Feature/ListCommand.php:71
 msgid "Lists existing features."
 msgstr ""
 

@@ -91,7 +91,7 @@ class CollectionTest extends TestCase
      */
     public function testFirstWithDefaultAndWithoutCallback()
     {
-        $data = new Collection;
+        $data = new Collection();
         $result = $data->first(null, 'default');
         $this->assertEquals('default', $result);
     }
@@ -153,7 +153,7 @@ class CollectionTest extends TestCase
      */
     public function testLastWithDefaultAndWithoutCallback()
     {
-        $data = new Collection;
+        $data = new Collection();
         $result = $data->last(null, 'default');
         $this->assertEquals('default', $result);
     }
@@ -183,7 +183,7 @@ class CollectionTest extends TestCase
      */
     public function testEmptyCollectionIsEmpty()
     {
-        $c = new Collection;
+        $c = new Collection();
         $this->assertTrue($c->isEmpty());
     }
 
@@ -210,7 +210,7 @@ class CollectionTest extends TestCase
         $this->assertSame([false], $collection->all());
         $collection = new Collection(null);
         $this->assertEmpty($collection->all());
-        $collection = new Collection;
+        $collection = new Collection();
         $this->assertEmpty($collection->all());
     }
 
@@ -231,17 +231,17 @@ class CollectionTest extends TestCase
      */
     public function testGetArrayableItems()
     {
-        $collection = new Collection;
+        $collection = new Collection();
         $class = new ReflectionClass($collection);
         $method = $class->getMethod('getArrayableItems');
         $method->setAccessible(true);
-        $items = new TestArrayableObject;
+        $items = new TestArrayableObject();
         $array = $method->invokeArgs($collection, [$items]);
         $this->assertSame(['foo' => 'bar'], $array);
-        $items = new TestJsonableObject;
+        $items = new TestJsonableObject();
         $array = $method->invokeArgs($collection, [$items]);
         $this->assertSame(['foo' => 'bar'], $array);
-        $items = new TestJsonSerializeObject;
+        $items = new TestJsonSerializeObject();
         $array = $method->invokeArgs($collection, [$items]);
         $this->assertSame(['foo' => 'bar'], $array);
         $items = new Collection(['foo' => 'bar']);
@@ -471,7 +471,7 @@ class CollectionTest extends TestCase
     public function testHigherOrderFilter()
     {
         $c = new Collection([
-            new class {
+            new class () {
                 public $name = 'Alex';
 
                 /**
@@ -482,7 +482,7 @@ class CollectionTest extends TestCase
                     return true;
                 }
             },
-            new class {
+            new class () {
                 public $name = 'John';
 
                 /**
@@ -621,7 +621,7 @@ class CollectionTest extends TestCase
      */
     public function testWhereInstanceOf()
     {
-        $c = new Collection([new stdClass, new stdClass, new Collection, new stdClass]);
+        $c = new Collection([new stdClass(), new stdClass(), new Collection(), new stdClass()]);
         $this->assertCount(3, $c->whereInstanceOf(stdClass::class));
     }
 
@@ -1039,7 +1039,7 @@ class CollectionTest extends TestCase
      */
     public function testCollapse()
     {
-        $data = new Collection([[$object1 = new stdClass], [$object2 = new stdClass]]);
+        $data = new Collection([[$object1 = new stdClass()], [$object2 = new stdClass()]]);
         $this->assertEquals([$object1, $object2], $data->collapse()->all());
     }
 
@@ -1101,11 +1101,7 @@ class CollectionTest extends TestCase
     public function testSortWithCallback()
     {
         $data = (new Collection([5, 3, 1, 2, 4]))->sort(static function ($a, $b) {
-            if ($a === $b) {
-                return 0;
-            }
-
-            return ($a < $b) ? -1 : 1;
+            return $a <=> $b;
         });
         $this->assertEquals(range(1, 5), array_values($data->all()));
     }
@@ -1398,7 +1394,7 @@ class CollectionTest extends TestCase
      */
     public function testRandomOnEmptyCollection()
     {
-        $data = new Collection;
+        $data = new Collection();
         $random = $data->random(0);
         $this->assertInstanceOf(Collection::class, $random);
         $this->assertCount(0, $random);
@@ -1479,7 +1475,7 @@ class CollectionTest extends TestCase
      */
     public function testWrapWithArrayable()
     {
-        $collection = Collection::wrap($o = new TestArrayableObject);
+        $collection = Collection::wrap($o = new TestArrayableObject());
         $this->assertEquals([$o], $collection->all());
     }
 
@@ -1488,7 +1484,7 @@ class CollectionTest extends TestCase
      */
     public function testWrapWithJsonable()
     {
-        $collection = Collection::wrap($o = new TestJsonableObject);
+        $collection = Collection::wrap($o = new TestJsonableObject());
         $this->assertEquals([$o], $collection->all());
     }
 
@@ -1497,7 +1493,7 @@ class CollectionTest extends TestCase
      */
     public function testWrapWithJsonSerialize()
     {
-        $collection = Collection::wrap($o = new TestJsonSerializeObject);
+        $collection = Collection::wrap($o = new TestJsonSerializeObject());
         $this->assertEquals([$o], $collection->all());
     }
 
@@ -1572,7 +1568,7 @@ class CollectionTest extends TestCase
      */
     public function testConstructMakeFromObject()
     {
-        $object = new stdClass;
+        $object = new stdClass();
         $object->foo = 'bar';
         $collection = Collection::make($object);
         $this->assertEquals(['foo' => 'bar'], $collection->all());
@@ -1594,7 +1590,7 @@ class CollectionTest extends TestCase
     {
         $collection = new Collection(null);
         $this->assertEquals([], $collection->all());
-        $collection = new Collection;
+        $collection = new Collection();
         $this->assertEquals([], $collection->all());
     }
 
@@ -1622,7 +1618,7 @@ class CollectionTest extends TestCase
      */
     public function testConstructMethodFromObject()
     {
-        $object = new stdClass;
+        $object = new stdClass();
         $object->foo = 'bar';
         $collection = new Collection($object);
         $this->assertEquals(['foo' => 'bar'], $collection->all());
@@ -2235,7 +2231,7 @@ class CollectionTest extends TestCase
      */
     public function testGettingSumFromEmptyCollection()
     {
-        $c = new Collection;
+        $c = new Collection();
         $this->assertEquals(0, $c->sum('foo'));
     }
 
@@ -2427,7 +2423,7 @@ class CollectionTest extends TestCase
         $this->assertEquals(20, $c->max->foo);
         $c = new Collection([1, 2, 3, 4, 5]);
         $this->assertEquals(5, $c->max());
-        $c = new Collection;
+        $c = new Collection();
         $this->assertNull($c->max());
     }
 
@@ -2454,7 +2450,7 @@ class CollectionTest extends TestCase
         $this->assertEquals(1, $c->min());
         $c = new Collection([0, 1, 2, 3, 4]);
         $this->assertEquals(0, $c->min());
-        $c = new Collection;
+        $c = new Collection();
         $this->assertNull($c->min());
     }
 
@@ -2495,7 +2491,7 @@ class CollectionTest extends TestCase
         $this->assertEquals(15, $c->avg->foo);
         $c = new Collection([1, 2, 3, 4, 5]);
         $this->assertEquals(3, $c->avg());
-        $c = new Collection;
+        $c = new Collection();
         $this->assertEquals(0, $c->avg());
     }
 
@@ -2505,9 +2501,9 @@ class CollectionTest extends TestCase
     public function testJsonSerialize()
     {
         $c = new Collection([
-            new TestArrayableObject,
-            new TestJsonableObject,
-            new TestJsonSerializeObject,
+            new TestArrayableObject(),
+            new TestJsonableObject(),
+            new TestJsonSerializeObject(),
             'baz',
         ]);
         $this->assertSame([
@@ -2702,7 +2698,7 @@ class CollectionTest extends TestCase
      */
     public function testMedianOnEmptyCollectionReturnsNull()
     {
-        $collection = new Collection;
+        $collection = new Collection();
         $this->assertNull($collection->median());
     }
 
@@ -2711,7 +2707,7 @@ class CollectionTest extends TestCase
      */
     public function testModeOnNullCollection()
     {
-        $collection = new Collection;
+        $collection = new Collection();
         $this->assertNull($collection->mode());
     }
 
@@ -2915,7 +2911,7 @@ class CollectionTest extends TestCase
      */
     public function testSplitEmptyCollection()
     {
-        $collection = new Collection;
+        $collection = new Collection();
         $this->assertEquals(
             [],
             $collection->split(2)->map(static function (Collection $chunk) {
@@ -2930,7 +2926,7 @@ class CollectionTest extends TestCase
     public function testHigherOrderCollectionGroupBy()
     {
         $collection = collect([
-            new TestSupportCollectionHigherOrderItem,
+            new TestSupportCollectionHigherOrderItem(),
             new TestSupportCollectionHigherOrderItem('SUZUNONE'),
             new TestSupportCollectionHigherOrderItem('foo'),
         ]);
@@ -2954,7 +2950,7 @@ class CollectionTest extends TestCase
         $person2 = (object)['name' => 'Yaz'];
         $collection = collect([$person1, $person2]);
         $this->assertEquals(['suzunone', 'Yaz'], $collection->map->name->toArray());
-        $collection = collect([new TestSupportCollectionHigherOrderItem, new TestSupportCollectionHigherOrderItem]);
+        $collection = collect([new TestSupportCollectionHigherOrderItem(), new TestSupportCollectionHigherOrderItem()]);
         $this->assertEquals(['SUZUNONE', 'SUZUNONE'], $collection->each->uppercase()->map->name->toArray());
     }
 
@@ -2967,7 +2963,7 @@ class CollectionTest extends TestCase
         $person2 = ['name' => 'Yaz'];
         $collection = collect([$person1, $person2]);
         $this->assertEquals(['suzunone', 'Yaz'], $collection->map->name->toArray());
-        $collection = collect([new TestSupportCollectionHigherOrderItem, new TestSupportCollectionHigherOrderItem]);
+        $collection = collect([new TestSupportCollectionHigherOrderItem(), new TestSupportCollectionHigherOrderItem()]);
         $this->assertEquals(['SUZUNONE', 'SUZUNONE'], $collection->each->uppercase()->map->name->toArray());
     }
 
@@ -2977,7 +2973,7 @@ class CollectionTest extends TestCase
     public function testPartition()
     {
         $collection = new Collection(range(1, 10));
-        list($firstPartition, $secondPartition) = $collection->partition(static function ($i) {
+        [$firstPartition, $secondPartition] = $collection->partition(static function ($i) {
             return $i <= 5;
         });
         $this->assertEquals([1, 2, 3, 4, 5], $firstPartition->values()->toArray());
@@ -2990,7 +2986,7 @@ class CollectionTest extends TestCase
     public function testPartitionCallbackWithKey()
     {
         $collection = new Collection(['zero', 'one', 'two', 'three']);
-        list($even, $odd) = $collection->partition(static function ($item, $index) {
+        [$even, $odd] = $collection->partition(static function ($item, $index) {
             return $index % 2 === 0;
         });
         $this->assertEquals(['zero', 'two'], $even->values()->toArray());
@@ -3005,7 +3001,7 @@ class CollectionTest extends TestCase
         $courses = new Collection([
             ['free' => true, 'title' => 'Basic'], ['free' => false, 'title' => 'Premium'],
         ]);
-        list($free, $premium) = $courses->partition('free');
+        [$free, $premium] = $courses->partition('free');
         $this->assertSame([['free' => true, 'title' => 'Basic']], $free->values()->toArray());
         $this->assertSame([['free' => false, 'title' => 'Premium']], $premium->values()->toArray());
     }
@@ -3021,7 +3017,7 @@ class CollectionTest extends TestCase
             ['name' => 'Kristina', 'age' => 33],
             ['name' => 'Tim', 'age' => 41],
         ]);
-        list($tims, $others) = $collection->partition('name', 'Tim');
+        [$tims, $others] = $collection->partition('name', 'Tim');
         $this->assertEquals($tims->values()->all(), [
             ['name' => 'Tim', 'age' => 17],
             ['name' => 'Tim', 'age' => 41],
@@ -3030,7 +3026,7 @@ class CollectionTest extends TestCase
             ['name' => 'Agatha', 'age' => 62],
             ['name' => 'Kristina', 'age' => 33],
         ]);
-        list($adults, $minors) = $collection->partition('age', '>=', 18);
+        [$adults, $minors] = $collection->partition('age', '>=', 18);
         $this->assertEquals($adults->values()->all(), [
             ['name' => 'Agatha', 'age' => 62],
             ['name' => 'Kristina', 'age' => 33],
@@ -3049,7 +3045,7 @@ class CollectionTest extends TestCase
         $courses = new Collection([
             'a' => ['free' => true], 'b' => ['free' => false], 'c' => ['free' => true],
         ]);
-        list($free, $premium) = $courses->partition('free');
+        [$free, $premium] = $courses->partition('free');
         $this->assertSame(['a' => ['free' => true], 'c' => ['free' => true]], $free->toArray());
         $this->assertSame(['b' => ['free' => false]], $premium->toArray());
     }
@@ -3059,7 +3055,7 @@ class CollectionTest extends TestCase
      */
     public function testPartitionEmptyCollection()
     {
-        $collection = new Collection;
+        $collection = new Collection();
         $this->assertCount(2, $collection->partition(static function () {
             return true;
         }));
@@ -3073,7 +3069,7 @@ class CollectionTest extends TestCase
         $courses = new Collection([
             'a' => ['free' => true], 'b' => ['free' => false], 'c' => ['free' => true],
         ]);
-        list($free, $premium) = $courses->partition->free;
+        [$free, $premium] = $courses->partition->free;
         $this->assertSame(['a' => ['free' => true], 'c' => ['free' => true]], $free->toArray());
         $this->assertSame(['b' => ['free' => false]], $premium->toArray());
     }
@@ -3133,7 +3129,7 @@ class CollectionTest extends TestCase
             return $collection->push('adam');
         });
         $this->assertSame(['michael', 'tom'], $collection->toArray());
-        $collection = new Collection;
+        $collection = new Collection();
         $collection->whenEmpty(static function ($collection) {
             return $collection->push('adam');
         });
@@ -3164,7 +3160,7 @@ class CollectionTest extends TestCase
             return $collection->push('adam');
         });
         $this->assertSame(['michael', 'tom', 'adam'], $collection->toArray());
-        $collection = new Collection;
+        $collection = new Collection();
         $collection->whenNotEmpty(static function ($collection) {
             return $collection->push('adam');
         });
@@ -3226,7 +3222,7 @@ class CollectionTest extends TestCase
             return $collection->push('adam');
         });
         $this->assertSame(['michael', 'tom', 'adam'], $collection->toArray());
-        $collection = new Collection;
+        $collection = new Collection();
         $collection->unlessEmpty(static function ($collection) {
             return $collection->push('adam');
         });
@@ -3257,7 +3253,7 @@ class CollectionTest extends TestCase
             return $collection->push('adam');
         });
         $this->assertSame(['michael', 'tom'], $collection->toArray());
-        $collection = new Collection;
+        $collection = new Collection();
         $collection->unlessNotEmpty(static function ($collection) {
             return $collection->push('adam');
         });
@@ -3295,7 +3291,7 @@ class CollectionTest extends TestCase
      */
     public function testPutAddsItemToCollection()
     {
-        $collection = new Collection;
+        $collection = new Collection();
         $this->assertSame([], $collection->toArray());
         $collection->put('foo', 1);
         $this->assertSame(['foo' => 1], $collection->toArray());
@@ -3310,7 +3306,7 @@ class CollectionTest extends TestCase
      */
     public function testItThrowsExceptionWhenTryingToAccessNoProxyProperty()
     {
-        $collection = new Collection;
+        $collection = new Collection();
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Property [foo] does not exist on this collection instance.');
         $collection->foo;
