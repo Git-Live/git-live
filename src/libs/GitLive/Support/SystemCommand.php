@@ -68,7 +68,7 @@ class SystemCommand extends GitBase implements SystemCommandInterface
      * @param null     $output_verbosity
      * @return null|string
      */
-    public function exec(string $cmd, $verbosity = 0, $output_verbosity = null)
+    public function exec(string $cmd, $verbosity = 0, $output_verbosity = null): ?string
     {
         if ($verbosity === true) {
             $this->output->writeln('<fg=cyan;options=bold>' . $cmd . '</>', OutputInterface::VERBOSITY_VERY_VERBOSE);
@@ -83,7 +83,7 @@ class SystemCommand extends GitBase implements SystemCommandInterface
         $this->output->writeln('<fg=yellow>' . $execute_cmd . '</>', OutputInterface::VERBOSITY_DEBUG);
         $res = shell_exec($execute_cmd);
 
-        $output_verbosity = $output_verbosity??$verbosity;
+        $output_verbosity = $output_verbosity ?? $verbosity;
 
         if ($output_verbosity === false) {
             $output_verbosity = OutputInterface::VERBOSITY_NORMAL;

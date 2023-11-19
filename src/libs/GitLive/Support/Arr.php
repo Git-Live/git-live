@@ -51,6 +51,7 @@ class Arr extends GitBase
     {
         return is_array($value) || $value instanceof ArrayAccess;
     }
+
     /**
      * Add an element to an array using "dot" notation if it doesn't exist.
      *
@@ -67,6 +68,7 @@ class Arr extends GitBase
 
         return $array;
     }
+
     /**
      * Collapse an array of arrays into a single array.
      *
@@ -79,7 +81,7 @@ class Arr extends GitBase
         foreach ($array as $values) {
             if ($values instanceof Collection) {
                 $values = $values->all();
-            } elseif (! is_array($values)) {
+            } elseif (!is_array($values)) {
                 continue;
             }
             /** @noinspection SlowArrayOperationsInLoopInspection */
@@ -88,6 +90,7 @@ class Arr extends GitBase
 
         return $results;
     }
+
     /**
      * Cross join the given arrays, returning all possible permutations.
      *
@@ -110,6 +113,7 @@ class Arr extends GitBase
 
         return $results;
     }
+
     /**
      * Divide an array into two arrays. One with keys and the other with values.
      *
@@ -120,6 +124,7 @@ class Arr extends GitBase
     {
         return [array_keys($array), array_values($array)];
     }
+
     /**
      * Flatten a multi-dimensional associative array with dots.
      *
@@ -131,7 +136,7 @@ class Arr extends GitBase
     {
         $results = [];
         foreach ($array as $key => $value) {
-            if (is_array($value) && ! empty($value)) {
+            if (is_array($value) && !empty($value)) {
                 /** @noinspection SlowArrayOperationsInLoopInspection */
                 $results = array_merge($results, static::dot($value, $prepend . $key . '.'));
             } else {
@@ -141,6 +146,7 @@ class Arr extends GitBase
 
         return $results;
     }
+
     /**
      * Get all of the given array except for a specified array of keys.
      *
@@ -154,6 +160,7 @@ class Arr extends GitBase
 
         return $array;
     }
+
     /**
      * Determine if the given key exists in the provided array.
      *
@@ -169,6 +176,7 @@ class Arr extends GitBase
 
         return array_key_exists($key, $array);
     }
+
     /**
      * Return the first element in an array passing a given truth test.
      *
@@ -196,6 +204,7 @@ class Arr extends GitBase
 
         return value($default);
     }
+
     /**
      * Return the last element in an array passing a given truth test.
      *
@@ -212,6 +221,7 @@ class Arr extends GitBase
 
         return static::first(array_reverse($array, true), $callback, $default);
     }
+
     /**
      * Flatten a multi-dimensional array into a single level.
      *
@@ -224,7 +234,7 @@ class Arr extends GitBase
         $result = [];
         foreach ($array as $item) {
             $item = $item instanceof Collection ? $item->all() : $item;
-            if (! is_array($item)) {
+            if (!is_array($item)) {
                 $result[] = $item;
             } elseif ($depth === 1) {
                 /** @noinspection SlowArrayOperationsInLoopInspection */
@@ -237,6 +247,7 @@ class Arr extends GitBase
 
         return $result;
     }
+
     /**
      * Remove one or many array items from a given array using "dot" notation.
      *
@@ -272,6 +283,7 @@ class Arr extends GitBase
             unset($array[array_shift($parts)]);
         }
     }
+
     /**
      * Get an item from an array using "dot" notation.
      *
@@ -282,7 +294,7 @@ class Arr extends GitBase
      */
     public static function get($array, $key, $default = null)
     {
-        if (! static::accessible($array)) {
+        if (!static::accessible($array)) {
             return value($default);
         }
         if ($key === null) {
@@ -291,7 +303,7 @@ class Arr extends GitBase
         if (static::exists($array, $key)) {
             return $array[$key];
         }
-        if (strpos($key, '.') === false) {
+        if (strpos((string)$key, '.') === false) {
             return $array[$key] ?? value($default);
         }
         foreach (explode('.', $key) as $segment) {
@@ -304,6 +316,7 @@ class Arr extends GitBase
 
         return $array;
     }
+
     /**
      * Check if an item or items exist in an array using "dot" notation.
      *
@@ -317,7 +330,7 @@ class Arr extends GitBase
             return false;
         }
         $keys = (array) $keys;
-        if (! $array) {
+        if (!$array) {
             return false;
         }
         if ($keys === []) {
@@ -339,6 +352,7 @@ class Arr extends GitBase
 
         return true;
     }
+
     /**
      * Determines if an array is associative.
      *
@@ -353,6 +367,7 @@ class Arr extends GitBase
 
         return array_keys($keys) !== $keys;
     }
+
     /**
      * Get a subset of the items from the given array.
      *
@@ -364,6 +379,7 @@ class Arr extends GitBase
     {
         return array_intersect_key($array, array_flip((array) $keys));
     }
+
     /**
      * Pluck an array of values from an array.
      *
@@ -375,7 +391,7 @@ class Arr extends GitBase
     public static function pluck($array, $value, $key = null): array
     {
         $results = [];
-        list($value, $key) = static::explodePluckParameters($value, $key);
+        [$value, $key] = static::explodePluckParameters($value, $key);
         foreach ($array as $item) {
             $itemValue = data_get($item, $value);
             // If the key is "null", we will just append the value to the array and keep
@@ -394,6 +410,7 @@ class Arr extends GitBase
 
         return $results;
     }
+
     /**
      * Push an item onto the beginning of an array.
      *
@@ -412,6 +429,7 @@ class Arr extends GitBase
 
         return $array;
     }
+
     /**
      * Get a value from the array, and remove it.
      *
@@ -427,6 +445,7 @@ class Arr extends GitBase
 
         return $value;
     }
+
     /**
      * Get one or a specified number of random values from an array.
      *
@@ -438,7 +457,7 @@ class Arr extends GitBase
      */
     public static function random($array, $number = null)
     {
-        $requested = $number === null ? 1 : $number;
+        $requested = $number ?? 1;
         $count = count($array);
         if ($requested > $count) {
             throw new InvalidArgumentException(
@@ -459,6 +478,7 @@ class Arr extends GitBase
 
         return $results;
     }
+
     /**
      * Set an array item to a given value using "dot" notation.
      *
@@ -480,7 +500,7 @@ class Arr extends GitBase
             // If the key doesn't exist at this depth, we will just create an empty array
             // to hold the next value, allowing us to create the arrays to hold final
             // values at the correct depth. Then we'll keep digging into the array.
-            if (! isset($array[$key]) || ! is_array($array[$key])) {
+            if (!isset($array[$key]) || !is_array($array[$key])) {
                 $array[$key] = [];
             }
             $array = &$array[$key];
@@ -489,6 +509,7 @@ class Arr extends GitBase
 
         return $array;
     }
+
     /**
      * Shuffle the given array and return the result.
      *
@@ -504,12 +525,13 @@ class Arr extends GitBase
             mt_srand($seed);
             usort($array, static function () {
                 /** @noinspection RandomApiMigrationInspection */
-                return mt_rand(-1, 1);
+                return random_int(-1, 1);
             });
         }
 
         return $array;
     }
+
     /**
      * Sort the array using the given callback or "dot" notation.
      *
@@ -521,6 +543,7 @@ class Arr extends GitBase
     {
         return Collection::make($array)->sortBy($callback)->all();
     }
+
     /**
      * Recursively sort an array by keys and values.
      *
@@ -543,6 +566,7 @@ class Arr extends GitBase
 
         return $array;
     }
+
     /**
      * Convert the array into a query string.
      *
@@ -553,6 +577,7 @@ class Arr extends GitBase
     {
         return http_build_query($array, null, '&', PHP_QUERY_RFC3986);
     }
+
     /**
      * Filter the array using the given callback.
      *
@@ -564,6 +589,7 @@ class Arr extends GitBase
     {
         return array_filter($array, $callback, ARRAY_FILTER_USE_BOTH);
     }
+
     /**
      * If the given value is not an array and not null, wrap it in one.
      *
@@ -578,6 +604,7 @@ class Arr extends GitBase
 
         return is_array($value) ? $value : [$value];
     }
+
     /**
      * Explode the "value" and "key" arguments passed to "pluck".
      *

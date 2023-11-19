@@ -111,7 +111,7 @@ class SetCommand extends CommandBase
         if ($input->getOption('system')) {
             return $ConfigDriver->setSystemParameter($input->getArgument('name'), $input->getArgument('value'));
         }
-        
+
         return $ConfigDriver->setLocalParameter($input->getArgument('name'), $input->getArgument('value'));
     }
 }

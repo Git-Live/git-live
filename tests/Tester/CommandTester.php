@@ -96,13 +96,14 @@ class CommandTester
             $this->input->setInteractive($options['interactive']);
         }
         $this->output = new StreamOutput(fopen('php://memory', 'w', false));
-        $this->output->setDecorated(isset($options['decorated']) ? $options['decorated'] : false);
+        $this->output->setDecorated($options['decorated'] ?? false);
         if (isset($options['verbosity'])) {
             $this->output->setVerbosity($options['verbosity']);
         }
 
         return $this->statusCode = $this->command->run($this->input, $this->output);
     }
+
     /**
      * Gets the display returned by the last execution of the command.
      *
@@ -121,6 +122,7 @@ class CommandTester
 
         return $display;
     }
+
     /**
      * Gets the input instance used by the last execution of the command.
      *
@@ -130,6 +132,7 @@ class CommandTester
     {
         return $this->input;
     }
+
     /**
      * Gets the output instance used by the last execution of the command.
      *
@@ -139,6 +142,7 @@ class CommandTester
     {
         return $this->output;
     }
+
     /**
      * Gets the status code returned by the last execution of the application.
      *
@@ -148,6 +152,7 @@ class CommandTester
     {
         return $this->statusCode;
     }
+
     /**
      * Sets the user inputs.
      *
@@ -162,6 +167,7 @@ class CommandTester
 
         return $this;
     }
+
     private static function createStream(array $inputs)
     {
         $stream = fopen('php://memory', 'r+', false);

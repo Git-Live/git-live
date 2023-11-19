@@ -44,5 +44,5 @@ interface SystemCommandInterface
      * @param null     $output_verbosity
      * @return null|string
      */
-    public function exec(string $cmd, $verbosity = 0, $output_verbosity = null);
+    public function exec(string $cmd, $verbosity = 0, $output_verbosity = null): ?string;
 }

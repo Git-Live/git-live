@@ -46,7 +46,7 @@ abstract class DeployBase extends DriverBase
     /**
      * @var string
      */
-    const MODE = '';
+    public const MODE = '';
     /**
      * @var string
      */
@@ -109,9 +109,9 @@ abstract class DeployBase extends DriverBase
         }
 
         $repository = $this->GitCmdExecutor->branch(['-a']);
-        $repository = explode("\n", trim($repository));
+        $repository = explode("\n", trim((string)$repository));
         foreach ($repository as $value) {
-            if (strpos($value, 'remotes/' . $this->deploy_repository_name . '/' . $this->prefix) !== false) {
+            if (strpos((string)$value, 'remotes/' . $this->deploy_repository_name . '/' . $this->prefix) !== false) {
                 throw new Exception(sprintf(__('Already %s opened.'), static::MODE) . "\n" . $value);
             }
         }
@@ -179,7 +179,7 @@ abstract class DeployBase extends DriverBase
             throw new Exception('Release is not open.');
         }
 
-        return trim($release_branch);
+        return trim((string)$release_branch);
     }
 
     /**
@@ -228,7 +228,7 @@ abstract class DeployBase extends DriverBase
             throw new Exception('Hotfix is not open.');
         }
 
-        return trim($release_branch);
+        return trim((string)$release_branch);
     }
 
     /**
@@ -252,7 +252,7 @@ abstract class DeployBase extends DriverBase
         $branches = $this->Driver(BranchDriver::class)->branchListAll();
 
         foreach ($branches as $value) {
-            if (strpos($value, 'remotes/' . $this->deploy_repository_name . '/release/') !== false) {
+            if (strpos((string)$value, 'remotes/' . $this->deploy_repository_name . '/release/') !== false) {
                 throw new Exception(sprintf(__('Already %s opened.'), ReleaseDriver::MODE) . "\n" . $value);
             }
         }
@@ -289,12 +289,12 @@ abstract class DeployBase extends DriverBase
     /**
      * @return bool
      */
-    abstract public function isBuildOpen():bool ;
+    abstract public function isBuildOpen(): bool ;
 
     /**
      * @return string
      */
-    abstract public function getBuildRepository():string ;
+    abstract public function getBuildRepository(): string ;
 
     /**
      *  Track a deploy branch.
@@ -450,7 +450,7 @@ abstract class DeployBase extends DriverBase
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $remote = $this->GitCmdExecutor->remote([], true);
-        $remote = explode("\n", trim($remote));
+        $remote = explode("\n", trim((string)$remote));
         $res = in_array($deploy_repository_name, $remote, true);
         if ($res === false) {
             throw new Exception(
@@ -526,10 +526,10 @@ abstract class DeployBase extends DriverBase
         $this->GitCmdExecutor->push($deploy_repository_name, ':' . $repo);
         $this->GitCmdExecutor->push('upstream', ':' . $repo);
 
-        if ($mode === HotfixDriver::MODE && strpos($repo, $this->Driver(ConfigDriver::class)->hotfixPrefix()) === false) {
+        if ($mode === HotfixDriver::MODE && strpos((string)$repo, $this->Driver(ConfigDriver::class)->hotfixPrefix()) === false) {
             throw new Exception(sprintf(__('%s is not hotfix branch.'), $repo));
         }
-        if ($mode === ReleaseDriver::MODE && strpos($repo, $this->Driver(ConfigDriver::class)->releasePrefix()) === false) {
+        if ($mode === ReleaseDriver::MODE && strpos((string)$repo, $this->Driver(ConfigDriver::class)->releasePrefix()) === false) {
             throw new Exception(sprintf(__('%s is not release branch.'), $repo));
         }
         if ($mode !== HotfixDriver::MODE && $mode !== ReleaseDriver::MODE) {
@@ -633,8 +633,8 @@ abstract class DeployBase extends DriverBase
 
         if (empty($tag_name)) {
             $tag_name = 'r' . $release_name;
-            if (strpos($release_name, $deploy_prefix) === 0) {
-                $tag_name = mb_substr($release_name, strlen($deploy_prefix));
+            if (strpos((string)$release_name, $deploy_prefix) === 0) {
+                $tag_name = mb_substr((string)$release_name, strlen((string)$deploy_prefix));
                 $tag_name = 'r' . $tag_name;
             }
         }

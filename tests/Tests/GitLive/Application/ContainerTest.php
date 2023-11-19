@@ -134,7 +134,7 @@ class ContainerTest extends TestCase
         Container::bind(BindTestInterface::class, BindTestExample::class);
 
         $this->assertSame([
-            'Example\BindTestInterface' => 'Example\BindTestExample',
+            \Example\BindTestInterface::class => \Example\BindTestExample::class,
         ], Container::getContainers());
 
         $Container = new Container();

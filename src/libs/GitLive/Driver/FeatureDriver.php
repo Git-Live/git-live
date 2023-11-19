@@ -111,7 +111,7 @@ class FeatureDriver extends DriverBase
 
         $Fetch->all();
         $Fetch->upstream();
-        if ($feature_prefix !== '' && strpos($branch, $feature_prefix) !== 0) {
+        if ($feature_prefix !== '' && strpos((string)$branch, $feature_prefix) !== 0) {
             $branch = $feature_prefix . $branch;
         }
 
@@ -136,17 +136,17 @@ class FeatureDriver extends DriverBase
                 $branch = $this->Driver(ConfigDriver::class)->develop();
             } elseif ($self_branch === $this->Driver(ConfigDriver::class)->develop()) {
                 $branch = $this->Driver(ConfigDriver::class)->master();
-            } elseif (strpos($this->Driver(ConfigDriver::class)->hotfixPrefix(), $self_branch) === 0 && $this->Driver(HotfixDriver::class)->isHotfixOpen()) {
+            } elseif (strpos((string)$this->Driver(ConfigDriver::class)->hotfixPrefix(), $self_branch) === 0 && $this->Driver(HotfixDriver::class)->isHotfixOpen()) {
                 $branch = $this->Driver(ConfigDriver::class)->master();
-            } elseif (strpos($this->Driver(ConfigDriver::class)->releasePrefix(), $self_branch) === 0 && $this->Driver(ReleaseDriver::class)->isReleaseOpen()) {
+            } elseif (strpos((string)$this->Driver(ConfigDriver::class)->releasePrefix(), $self_branch) === 0 && $this->Driver(ReleaseDriver::class)->isReleaseOpen()) {
                 $branch = $this->Driver(ConfigDriver::class)->develop();
             } else {
                 $branch = $this->Driver(ConfigDriver::class)->develop();
             }
-        } elseif (!strpos($branch, $this->Driver(ConfigDriver::class)->hotfixPrefix()) !== 0
-            && strpos($branch, $this->Driver(ConfigDriver::class)->releasePrefix()) !== 0
+        } elseif (!strpos((string)$branch, $this->Driver(ConfigDriver::class)->hotfixPrefix()) !== 0
+            && strpos((string)$branch, $this->Driver(ConfigDriver::class)->releasePrefix()) !== 0
             && ((string)$this->Driver(ConfigDriver::class)->featurePrefix() !== ''
-                && strpos($branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0)
+                && strpos((string)$branch, $this->Driver(ConfigDriver::class)->featurePrefix()) !== 0)
         ) {
             $branch = $this->Driver(ConfigDriver::class)->featurePrefix() . $branch;
         }
@@ -169,7 +169,7 @@ class FeatureDriver extends DriverBase
         $feature_prefix = (string)$Config->featurePrefix();
 
         $feature_branch = $branch;
-        if ($feature_prefix !== '' && strpos($branch, $feature_prefix) !== 0) {
+        if ($feature_prefix !== '' && strpos((string)$branch, $feature_prefix) !== 0) {
             $feature_branch = $feature_prefix . $branch;
         }
 
@@ -219,7 +219,7 @@ class FeatureDriver extends DriverBase
 
         if ($branch === null) {
             $branch = $this->getSelfBranchRef();
-        } elseif ($feature_prefix !== '' && strpos($branch, $feature_prefix) !== 0) {
+        } elseif ($feature_prefix !== '' && strpos((string)$branch, $feature_prefix) !== 0) {
             $branch = $feature_prefix . $branch;
         }
 
@@ -246,7 +246,7 @@ class FeatureDriver extends DriverBase
 
         if ($branch === null) {
             $branch = $this->getSelfBranchRef();
-        } elseif ($feature_prefix !== '' && strpos($branch, $feature_prefix) !== 0) {
+        } elseif ($feature_prefix !== '' && strpos((string)$branch, $feature_prefix) !== 0) {
             $branch = $feature_prefix . $branch;
         }
 
@@ -271,7 +271,7 @@ class FeatureDriver extends DriverBase
         $Fetch->all();
         $Fetch->upstream();
 
-        if ($feature_prefix !== '' && strpos($branch, $feature_prefix) !== 0) {
+        if ($feature_prefix !== '' && strpos((string)$branch, $feature_prefix) !== 0) {
             $branch = $feature_prefix . $branch;
         }
 
@@ -311,7 +311,7 @@ class FeatureDriver extends DriverBase
 
         if ($branch === null) {
             $branch = $this->getSelfBranch();
-        } elseif (strpos($branch, $feature_prefix) !== 0) {
+        } elseif (strpos((string)$branch, $feature_prefix) !== 0) {
             $branch = $feature_prefix . $branch;
         }
 
@@ -351,7 +351,7 @@ class FeatureDriver extends DriverBase
 
         if ($repository === null) {
             $repository = $this->getSelfBranch();
-        } elseif ($feature_prefix !== '' && strpos($repository, $feature_prefix) !== 0) {
+        } elseif ($feature_prefix !== '' && strpos((string)$repository, $feature_prefix) !== 0) {
             $repository = $feature_prefix . $repository;
         }
 

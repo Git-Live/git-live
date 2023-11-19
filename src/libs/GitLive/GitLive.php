@@ -50,52 +50,52 @@ class GitLive extends GitBase
     /**
      * @var string バージョン情報取得API
      */
-    const VERSION_API = 'https://api.github.com/repos/Git-Live/git-live/releases/latest';
+    public const VERSION_API = 'https://api.github.com/repos/Git-Live/git-live/releases/latest';
 
     /**
      * @var int デフォルトのアップデートチェック期間
      */
-    const DEFAULT_UPDATE_CK_SPAN = 86000;
+    public const DEFAULT_UPDATE_CK_SPAN = 86000;
 
     /**
      * @var string バージョン
      */
-    const VERSION = '3.0.2';
+    public const VERSION = '3.0.3';
 
     /**
      * @var string バージョンコード
      */
-    const VERSION_CODENAME = 'Anpan';
+    public const VERSION_CODENAME = 'Anpan';
 
     /**
      *
      */
-    const DEFAULT_DEPLOY_REMOTE_NAME = 'deploy';
+    public const DEFAULT_DEPLOY_REMOTE_NAME = 'deploy';
 
     /**
      * @var string デフォルトの開発ブランチ
      */
-    const DEFAULT_DEVELOP_BRANCH_NAME = 'develop';
+    public const DEFAULT_DEVELOP_BRANCH_NAME = 'develop';
 
     /**
      * @var string デフォルトのマスターブランチ
      */
-    const DEFAULT_MASTER_BRANCH_NAME = 'master';
+    public const DEFAULT_MASTER_BRANCH_NAME = 'master';
 
     /**
      * @var string デフォルトのfeatureプレフィクス
      */
-    const DEFAULT_FEATURE_PREFIX = 'feature/';
+    public const DEFAULT_FEATURE_PREFIX = 'feature/';
 
     /**
      * @var string デフォルトのreleaseプレフィクス
      */
-    const DEFAULT_RELEASE_PREFIX = 'release/';
+    public const DEFAULT_RELEASE_PREFIX = 'release/';
 
     /**
      * @var string デフォルトのhotfixプレフィクス
      */
-    const DEFAULT_HOTFIX_PREFIX = 'hotfix/';
+    public const DEFAULT_HOTFIX_PREFIX = 'hotfix/';
 
     /**
      * 更新チェックの間隔

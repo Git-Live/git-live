@@ -55,12 +55,13 @@ class ArrTest extends TestCase
         $this->assertTrue(Arr::accessible([]));
         $this->assertTrue(Arr::accessible([1, 2]));
         $this->assertTrue(Arr::accessible(['a' => 1, 'b' => 2]));
-        $this->assertTrue(Arr::accessible(new Collection));
+        $this->assertTrue(Arr::accessible(new Collection()));
         $this->assertFalse(Arr::accessible(null));
         $this->assertFalse(Arr::accessible('abc'));
-        $this->assertFalse(Arr::accessible(new stdClass));
+        $this->assertFalse(Arr::accessible(new stdClass()));
         $this->assertFalse(Arr::accessible((object) ['a' => 1, 'b' => 2]));
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -69,6 +70,7 @@ class ArrTest extends TestCase
         $array = Arr::add(['name' => 'Desk'], 'price', 100);
         $this->assertEquals(['name' => 'Desk', 'price' => 100], $array);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -77,6 +79,7 @@ class ArrTest extends TestCase
         $data = [['foo', 'bar'], ['baz']];
         $this->assertEquals(['foo', 'bar', 'baz'], Arr::collapse($data));
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -118,15 +121,17 @@ class ArrTest extends TestCase
         // Not really a proper usage, still, test for preserving BC
         $this->assertSame([[]], Arr::crossJoin());
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
     public function testDivide()
     {
-        list($keys, $values) = Arr::divide(['name' => 'Desk']);
+        [$keys, $values] = Arr::divide(['name' => 'Desk']);
         $this->assertEquals(['name'], $keys);
         $this->assertEquals(['Desk'], $values);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -141,6 +146,7 @@ class ArrTest extends TestCase
         $array = Arr::dot(['foo' => ['bar' => []]]);
         $this->assertEquals(['foo.bar' => []], $array);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -150,6 +156,7 @@ class ArrTest extends TestCase
         $array = Arr::except($array, ['price']);
         $this->assertEquals(['name' => 'Desk'], $array);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -165,6 +172,7 @@ class ArrTest extends TestCase
         $this->assertFalse(Arr::exists(['a' => 1], 0));
         $this->assertFalse(Arr::exists(new Collection(['a' => null]), 'b'));
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -177,6 +185,7 @@ class ArrTest extends TestCase
         $this->assertEquals(200, $value);
         $this->assertEquals(100, Arr::first($array));
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -193,6 +202,7 @@ class ArrTest extends TestCase
         $this->assertEquals(200, $last);
         $this->assertEquals(300, Arr::last($array));
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -226,6 +236,7 @@ class ArrTest extends TestCase
         $array = [['#foo', new Collection(['#bar', ['#zap']])], ['#baz']];
         $this->assertEquals(['#foo', '#bar', '#zap', '#baz'], Arr::flatten($array));
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -240,6 +251,7 @@ class ArrTest extends TestCase
         $array = [['#foo', ['#bar', ['#baz']]], '#zap'];
         $this->assertEquals(['#foo', '#bar', ['#baz'], '#zap'], Arr::flatten($array, 2));
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -297,6 +309,7 @@ class ArrTest extends TestCase
         $this->assertEmpty(Arr::get([], null));
         $this->assertEmpty(Arr::get([], null, 'default'));
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -339,6 +352,7 @@ class ArrTest extends TestCase
         $this->assertFalse(Arr::has([], [null]));
         $this->assertFalse(Arr::has(null, [null]));
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -350,6 +364,7 @@ class ArrTest extends TestCase
         $this->assertFalse(Arr::isAssoc([0 => 'a', 1 => 'b']));
         $this->assertFalse(Arr::isAssoc(['a', 'b']));
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -359,6 +374,7 @@ class ArrTest extends TestCase
         $array = Arr::only($array, ['name', 'price']);
         $this->assertEquals(['name' => 'Desk', 'price' => 100], $array);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -371,6 +387,7 @@ class ArrTest extends TestCase
         $array = Arr::pluck($array, 'developer.name');
         $this->assertEquals(['Taylor', 'Abigail'], $array);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -383,6 +400,7 @@ class ArrTest extends TestCase
         $array = Arr::pluck($array, ['developer', 'name']);
         $this->assertEquals(['Taylor', 'Abigail'], $array);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -403,6 +421,7 @@ class ArrTest extends TestCase
             'Abigail' => ['name' => 'Abigail', 'role' => 'developer'],
         ], $test2);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -414,6 +433,7 @@ class ArrTest extends TestCase
         $array = Arr::pluck($array, 'end', 'start');
         $this->assertEquals(['2017-07-25 00:00:00' => '2017-07-30 00:00:00'], $array);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -424,6 +444,7 @@ class ArrTest extends TestCase
         $array = Arr::prepend(['one' => 1, 'two' => 2], 0, 'zero');
         $this->assertEquals(['zero' => 0, 'one' => 1, 'two' => 2], $array);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -444,6 +465,7 @@ class ArrTest extends TestCase
         $this->assertNull($name);
         $this->assertEquals(['emails' => ['joe@example.com' => 'Joe', 'jane@localhost' => 'Jane']], $array);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -456,6 +478,7 @@ class ArrTest extends TestCase
         $this->assertSame('foo=bar', Arr::query(['foo' => 'bar', 'bar' => null]));
         $this->assertSame('foo=bar&bar=', Arr::query(['foo' => 'bar', 'bar' => '']));
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -488,6 +511,7 @@ class ArrTest extends TestCase
         $this->assertContains($random[0], ['foo', 'bar', 'baz']);
         $this->assertContains($random[1], ['foo', 'bar', 'baz']);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -500,6 +524,7 @@ class ArrTest extends TestCase
         $this->assertInternalType('array', $random);
         $this->assertCount(0, $random);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -526,6 +551,7 @@ class ArrTest extends TestCase
         }
         $this->assertSame(3, $exceptions);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -535,6 +561,7 @@ class ArrTest extends TestCase
         Arr::set($array, 'products.desk.price', 200);
         $this->assertEquals(['products' => ['desk' => ['price' => 200]]], $array);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -545,6 +572,7 @@ class ArrTest extends TestCase
             Arr::shuffle(range(0, 100, 10), 1234)
         );
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -569,6 +597,7 @@ class ArrTest extends TestCase
         $sortedWithDotNotation = array_values(Arr::sort($unsorted, 'name'));
         $this->assertEquals($expected, $sortedWithDotNotation);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -627,6 +656,7 @@ class ArrTest extends TestCase
         ];
         $this->assertEquals($expect, Arr::sortRecursive($array));
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -638,6 +668,7 @@ class ArrTest extends TestCase
         });
         $this->assertEquals([1 => 200, 3 => 400], $array);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -649,6 +680,7 @@ class ArrTest extends TestCase
         });
         $this->assertEquals(['10' => 1, 20 => 2], $array);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -690,6 +722,7 @@ class ArrTest extends TestCase
         Arr::forget($array, ['emails.joe@example.com', 'emails.jane@localhost']);
         $this->assertEquals(['emails' => ['joe@example.com' => ['name' => 'Joe']]], $array);
     }
+
     /**
      * @covers \GitLive\Support\Arr
      */
@@ -697,7 +730,7 @@ class ArrTest extends TestCase
     {
         $string = 'a';
         $array = ['a'];
-        $object = new stdClass;
+        $object = new stdClass();
         $object->value = 'a';
         $this->assertEquals(['a'], Arr::wrap($string));
         $this->assertEquals($array, Arr::wrap($array));

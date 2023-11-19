@@ -52,12 +52,12 @@ abstract class TestCase extends TestCaseBase
     /**
      * @throws \ReflectionException
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
         // ビルド済ファイルへのパス
-        $this->git_live = 'php ' . dirname(dirname(__DIR__)) . '/bin/git-live.phar';
+        $this->git_live = 'php ' . dirname(__DIR__, 2) . '/bin/git-live.phar';
 
         // gitliveの初期化と、Containerのリセット
         App::make(GitLive::class);
@@ -81,7 +81,7 @@ abstract class TestCase extends TestCaseBase
     /**
      * @return void
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
 

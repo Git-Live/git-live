@@ -89,6 +89,7 @@ class FileSystemTest extends TestCase
 
         $this->assertContains('test : message', $output);
     }
+
     /**
      * @covers \GitLive\Support\FileSystem
      * @see CommandTester
@@ -111,6 +112,7 @@ class FileSystemTest extends TestCase
 
         $this->assertContains('test : message', $display);
     }
+
     /**
      * @covers \GitLive\Support\FileSystem
      */

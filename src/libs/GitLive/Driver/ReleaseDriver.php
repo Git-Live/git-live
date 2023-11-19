@@ -41,7 +41,7 @@ use GitLive\Support\SystemCommandInterface;
  */
 class ReleaseDriver extends DeployBase
 {
-    const MODE = 'release';
+    public const MODE = 'release';
 
     /**
      * ReleaseDriver constructor.
@@ -60,7 +60,7 @@ class ReleaseDriver extends DeployBase
     /**
      * @return bool
      */
-    public function isBuildOpen():bool
+    public function isBuildOpen(): bool
     {
         return $this->isReleaseOpen();
     }
@@ -69,7 +69,7 @@ class ReleaseDriver extends DeployBase
      * @throws Exception
      * @return string
      */
-    public function getBuildRepository():string
+    public function getBuildRepository(): string
     {
         return $this->getReleaseRepository();
     }

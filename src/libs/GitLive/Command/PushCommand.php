@@ -65,7 +65,7 @@ class PushCommand extends CommandBase
         $branch = $FetchDriver->getSelfBranchRef();
         $remote = 'origin';
 
-        if (strpos($branch, 'refs/heads' . $ConfigDriver->releasePrefix()) !== false || strpos($branch, 'refs/heads' . $ConfigDriver->hotfixPrefix()) !== false) {
+        if (strpos((string)$branch, 'refs/heads' . $ConfigDriver->releasePrefix()) !== false || strpos((string)$branch, 'refs/heads' . $ConfigDriver->hotfixPrefix()) !== false) {
             $remote = 'upstream';
         }
 

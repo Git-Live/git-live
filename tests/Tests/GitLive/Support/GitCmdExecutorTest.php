@@ -47,7 +47,8 @@ use Tests\GitLive\Tester\TestCase;
 class GitCmdExecutorTest extends TestCase
 {
     protected $spy;
-    protected function setUp()
+
+    protected function setUp(): void
     {
         parent::setUp();
 

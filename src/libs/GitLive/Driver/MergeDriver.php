@@ -46,7 +46,7 @@ class MergeDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function stateDevelop():string
+    public function stateDevelop(): string
     {
         $branch = 'upstream/' . $this->Driver(ConfigDriver::class)->develop();
 
@@ -60,7 +60,7 @@ class MergeDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function state($branch):string
+    public function state($branch): string
     {
         $this->Driver(FetchDriver::class)->all();
         $this->Driver(FetchDriver::class)->upstream();
@@ -75,7 +75,7 @@ class MergeDriver extends DriverBase
      * @throws Exception
      * @return string
      */
-    public function stateMaster():string
+    public function stateMaster(): string
     {
         $branch = 'upstream/' . $this->Driver(ConfigDriver::class)->master();
 
@@ -137,7 +137,7 @@ class MergeDriver extends DriverBase
         $feature_prefix = (string)$Config->featurePrefix();
 
         $feature_branch = $feature_name;
-        if ($feature_prefix !== '' && strpos($feature_name, $feature_prefix) !== 0) {
+        if ($feature_prefix !== '' && strpos((string)$feature_name, $feature_prefix) !== 0) {
             $feature_branch = $feature_prefix . $feature_name;
         }
 

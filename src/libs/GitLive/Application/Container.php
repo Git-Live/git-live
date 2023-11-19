@@ -128,7 +128,7 @@ class Container
             /**
              * @var GitBase $res
              */
-            $res = new $concrete;
+            $res = new $concrete();
         } else {
             $dependencies = $constructor->getParameters();
 
