@@ -123,10 +123,10 @@ class FeatureDriver extends DriverBase
     }
 
     /**
-     * @param string|null $branch
-     * @return null|string
-     *@throws \GitLive\Driver\Exception
+     * @param null|string $branch
+     * @throws \GitLive\Driver\Exception
      * @throws \ErrorException
+     * @return null|string
      */
     public function featureStatus(?string $branch = null): ?string
     {
@@ -204,9 +204,9 @@ class FeatureDriver extends DriverBase
      * 共用Repositoryにfeatureを送信する
      *
      * @access      public
-     * @param string|null $branch OPTIONAL:NULL
-     *@return string
-     *@throws \Exception
+     * @param null|string $branch OPTIONAL:NULL
+     * @throws \Exception
+     * @return string
      */
     public function featurePublish(?string $branch = null): string
     {
@@ -235,9 +235,9 @@ class FeatureDriver extends DriverBase
      * 自分のリモートRepositoryにfeatureを送信する
      *
      * @access      public
-     * @param string|null $branch OPTIONAL:NULL
-     *@return string
-     *@throws \Exception
+     * @param null|string $branch OPTIONAL:NULL
+     * @throws \Exception
+     * @return string
      */
     public function featurePush(?string $branch = null): string
     {
@@ -263,7 +263,7 @@ class FeatureDriver extends DriverBase
      *
      * @access      public
      * @param string $branch
-     *@throws \Exception
+     * @throws \Exception
      * @return string
      */
     public function featureTrack(string $branch): string
@@ -300,9 +300,9 @@ class FeatureDriver extends DriverBase
      * 共用Repositoryからpullする
      *
      * @access      public
-     * @param string|null $branch OPTIONAL:NULL
-     *@return string
-     *@throws \Exception
+     * @param null|string $branch OPTIONAL:NULL
+     * @throws \Exception
+     * @return string
      */
     public function featurePull(?string $branch = null): string
     {
@@ -340,9 +340,9 @@ class FeatureDriver extends DriverBase
      * featureを閉じる
      *
      * @access      public
-     * @param string|null $repository OPTIONAL:NULL
-     *@return string
-     *@throws \Exception
+     * @param null|string $repository OPTIONAL:NULL
+     * @throws \Exception
+     * @return string
      */
     public function featureClose(?string $repository = null): string
     {

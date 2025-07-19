@@ -339,7 +339,7 @@ abstract class DeployBase extends DriverBase
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
 
         if ($this->isBranchExists($repo)) {
-            $this->GitCmdExecutor->checkout($repo, []);
+            $this->GitCmdExecutor->checkout($repo);
         } else {
             $this->GitCmdExecutor->checkout('remote/' . $deploy_repository_name . '/' . $repo);
             $this->GitCmdExecutor->checkout($repo, ['-b']);

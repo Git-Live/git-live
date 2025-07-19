@@ -162,7 +162,7 @@ abstract class DriverBase extends GitBase
     }
 
     /**
-     * @param string|null $repo
+     * @param null|string $repo
      * @return bool
      */
     public function isClean(?string $repo = null): bool
@@ -177,10 +177,10 @@ abstract class DriverBase extends GitBase
     }
 
     /**
-     * @param string|null $repo
-     * @param string|null $error_msg
-     *@return bool
-     *@throws Exception
+     * @param null|string $repo
+     * @param null|string $error_msg
+     * @throws Exception
+     * @return bool
      */
     public function isCleanOrFail(?string $repo = null, ?string $error_msg = null): bool
     {

@@ -67,10 +67,10 @@ class FetchDriver extends DriverBase
      *  deploy からfetchする
      *
      * @access      public
-     * @param string|null $remote
-     * @return void
-     *@throws \GitLive\Driver\Exception
+     * @param null|string $remote
+     * @throws \GitLive\Driver\Exception
      * @throws \ErrorException
+     * @return void
      */
     public function deploy(?string $remote = null): void
     {

@@ -6,7 +6,7 @@ if [ ! -f box.phar ]; then
 fi
 
 if [ ! -f composer.phar ]; then
-    wget https://getcomposer.org/download/1.10.24/composer.phar
+    wget https://getcomposer.org/download/2.8.10/composer.phar -O composer.phar
     chmod 0777 composer.phar
 fi
 
