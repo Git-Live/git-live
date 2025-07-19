@@ -164,10 +164,10 @@ abstract class DriverBase extends GitBase
     }
 
     /**
-     * @param null|string $repo
+     * @param string|null $repo
      * @return bool
      */
-    public function isClean(string $repo = null): bool
+    public function isClean(?string $repo = null): bool
     {
         if ($repo === null) {
             $err = $this->GitCmdExecutor->status([], true);
@@ -179,12 +179,12 @@ abstract class DriverBase extends GitBase
     }
 
     /**
-     * @param null|string $repo
-     * @param null|string $error_msg
-     * @throws Exception
+     * @param string|null $repo
+     * @param string|null $error_msg
      * @return bool
+     *@throws Exception
      */
-    public function isCleanOrFail(string $repo = null, string $error_msg = null): bool
+    public function isCleanOrFail(?string $repo = null, ?string $error_msg = null): bool
     {
         if ($repo === null) {
             $err = $this->GitCmdExecutor->status([], true);
@@ -375,7 +375,7 @@ abstract class DriverBase extends GitBase
     /**
      * @param array|string $text
      * @param bool|string $using_default
-     * @return string
+     * @return string|null
      */
     protected function interactiveShell($text, $using_default = false): ?string
     {

@@ -236,8 +236,9 @@ class ConfigDriver extends DriverBase
 
     /**
      * @return void
+     * @throws \GitLive\Driver\Exception
      */
-    public function interactiveConfigurations()
+    public function interactiveConfigurations(): void
     {
         $this->interactiveConfiguration(self::MASTER_NAME_KEY);
         $this->interactiveConfiguration(self::DEVELOP_NAME_KEY);

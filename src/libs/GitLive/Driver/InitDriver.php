@@ -20,8 +20,6 @@
 
 namespace GitLive\Driver;
 
-use App;
-use GitLive\Support\InteractiveShellInterface;
 use Symfony\Component\Console\Input\InputInterface;
 
 /**
@@ -207,7 +205,7 @@ class InitDriver extends DriverBase
      * @throws \GitLive\Driver\Exception
      * @return void
      */
-    public function branchInit(bool $is_default = false, bool $is_force = false)
+    public function branchInit(bool $is_default = false, bool $is_force = false): void
     {
         $Config = $this->Driver(ConfigDriver::class);
         $Branch = $this->Driver(BranchDriver::class);
@@ -273,7 +271,7 @@ class InitDriver extends DriverBase
      * @throws \GitLive\Driver\Exception
      * @return bool
      */
-    public function isLocalInitialized()
+    public function isLocalInitialized(): bool: bool
     {
         $Branch = $this->Driver(BranchDriver::class);
 

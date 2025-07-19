@@ -30,7 +30,7 @@
     }
   ],
   "require": {
-    "php": "^7.1.8 || ^8.0",
+    "php": "^7.2.5 || ^8.0",
     "ext-mbstring": "*",
     "ext-json": "*",
     "ext-ctype": "*",
