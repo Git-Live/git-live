@@ -123,12 +123,12 @@ class FeatureDriver extends DriverBase
     }
 
     /**
-     * @param null|string $branch
-     * @throws \ErrorException
-     * @throws \GitLive\Driver\Exception
+     * @param string|null $branch
      * @return null|string
+     *@throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      */
-    public function featureStatus(string $branch = null): ?string
+    public function featureStatus(?string $branch = null): ?string
     {
         if ($branch === null) {
             $self_branch = $this->getSelfBranch();
@@ -204,11 +204,11 @@ class FeatureDriver extends DriverBase
      * 共用Repositoryにfeatureを送信する
      *
      * @access      public
-     * @param null|string $branch OPTIONAL:NULL
+     * @param string|null $branch OPTIONAL:NULL
+     *@return string
      *@throws \Exception
-     * @return string
      */
-    public function featurePublish(string $branch = null): string
+    public function featurePublish(?string $branch = null): string
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
@@ -235,11 +235,11 @@ class FeatureDriver extends DriverBase
      * 自分のリモートRepositoryにfeatureを送信する
      *
      * @access      public
-     * @param null|string $branch OPTIONAL:NULL
+     * @param string|null $branch OPTIONAL:NULL
+     *@return string
      *@throws \Exception
-     * @return string
      */
-    public function featurePush(string $branch = null): string
+    public function featurePush(?string $branch = null): string
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
@@ -300,11 +300,11 @@ class FeatureDriver extends DriverBase
      * 共用Repositoryからpullする
      *
      * @access      public
-     * @param null|string $branch OPTIONAL:NULL
+     * @param string|null $branch OPTIONAL:NULL
+     *@return string
      *@throws \Exception
-     * @return string
      */
-    public function featurePull(string $branch = null): string
+    public function featurePull(?string $branch = null): string
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
@@ -340,11 +340,11 @@ class FeatureDriver extends DriverBase
      * featureを閉じる
      *
      * @access      public
-     * @param null|string $repository OPTIONAL:NULL
+     * @param string|null $repository OPTIONAL:NULL
+     *@return string
      *@throws \Exception
-     * @return string
      */
-    public function featureClose(string $repository = null): string
+    public function featureClose(?string $repository = null): string
     {
         $Fetch = $this->Driver(FetchDriver::class);
         $Config = $this->Driver(ConfigDriver::class);
