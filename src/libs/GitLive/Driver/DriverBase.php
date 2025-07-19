@@ -165,7 +165,7 @@ abstract class DriverBase extends GitBase
      * @param null|string $repo
      * @return bool
      */
-    public function isClean(string $repo = null): bool
+    public function isClean(?string $repo = null): bool
     {
         if ($repo === null) {
             $err = $this->GitCmdExecutor->status([], true);
@@ -179,10 +179,10 @@ abstract class DriverBase extends GitBase
     /**
      * @param null|string $repo
      * @param null|string $error_msg
-     *@throws Exception
+     * @throws Exception
      * @return bool
      */
-    public function isCleanOrFail(string $repo = null, string $error_msg = null): bool
+    public function isCleanOrFail(?string $repo = null, ?string $error_msg = null): bool
     {
         if ($repo === null) {
             $err = $this->GitCmdExecutor->status([], true);

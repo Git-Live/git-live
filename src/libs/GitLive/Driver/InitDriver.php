@@ -195,7 +195,7 @@ class InitDriver extends DriverBase
     /**
      * @param array|string $text
      * @param bool $using_default
-     * @return string
+     * @return null|string
      */
     protected function interactiveShell($text, bool $using_default = false): ?string
     {

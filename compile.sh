@@ -26,7 +26,7 @@ fi
 msgfmt  -o  ./resources/lang/en_US/LC_MESSAGES/messages.mo ./resources/lang/en_US/LC_MESSAGES/messages.po
 msgfmt  -o  ./resources/lang/ja_JP/LC_MESSAGES/messages.mo ./resources/lang/ja_JP/LC_MESSAGES/messages.po
 
-$PHP_PATH composer.phar config platform.php 7.1.0
+$PHP_PATH composer.phar config platform.php 7.2.5
 
 cp composer.lock composer.lock.back || true
 mv -f vendor vendor.back || true

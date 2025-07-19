@@ -129,7 +129,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * Dynamically access collection proxies.
      *
      * @param string $key
-     *@throws \Exception
+     * @throws \Exception
      * @return \GitLive\Support\HigherOrderCollectionProxy
      */
     public function __get(string $key)
@@ -185,7 +185,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param null|callable $callback
      * @return static
      */
-    public static function times(int $number, callable $callback = null): Collection
+    public static function times(int $number, ?callable $callback = null): Collection
     {
         if ($number < 1) {
             return new static;
@@ -550,7 +550,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param  null|callable $callback
      * @return static
      */
-    public function filter(callable $callback = null): Collection
+    public function filter(?callable $callback = null): Collection
     {
         if ($callback) {
             return new static(Arr::where($this->items, $callback));
@@ -567,7 +567,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param null|callable $default
      * @return mixed|static
      */
-    public function when($value, callable $callback, callable $default = null)
+    public function when($value, callable $callback, ?callable $default = null)
     {
         if ($value) {
             return $callback($this, $value);
@@ -586,7 +586,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param null|callable $default
      * @return mixed|static
      */
-    public function whenEmpty(callable $callback, callable $default = null)
+    public function whenEmpty(callable $callback, ?callable $default = null)
     {
         return $this->when($this->isEmpty(), $callback, $default);
     }
@@ -598,7 +598,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param null|callable $default
      * @return mixed|static
      */
-    public function whenNotEmpty(callable $callback, callable $default = null)
+    public function whenNotEmpty(callable $callback, ?callable $default = null)
     {
         return $this->when($this->isNotEmpty(), $callback, $default);
     }
@@ -611,7 +611,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param null|callable $default
      * @return mixed|static
      */
-    public function unless($value, callable $callback, callable $default = null)
+    public function unless($value, callable $callback, ?callable $default = null)
     {
         return $this->when(!$value, $callback, $default);
     }
@@ -623,7 +623,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param null|callable $default
      * @return mixed|static
      */
-    public function unlessEmpty(callable $callback, callable $default = null)
+    public function unlessEmpty(callable $callback, ?callable $default = null)
     {
         return $this->whenNotEmpty($callback, $default);
     }
@@ -635,7 +635,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param null|callable $default
      * @return mixed|static
      */
-    public function unlessNotEmpty(callable $callback, callable $default = null)
+    public function unlessNotEmpty(callable $callback, ?callable $default = null)
     {
         return $this->whenEmpty($callback, $default);
     }
@@ -739,11 +739,11 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Get the first item from the collection.
      *
-     * @param  null|callable $callback
+     * @param null|callable $callback
      * @param  mixed $default
      * @return mixed
      */
-    public function first(callable $callback = null, $default = null)
+    public function first(?callable $callback = null, $default = null)
     {
         return Arr::first($this->items, $callback, $default);
     }
@@ -896,7 +896,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param null|string $glue
      * @return string
      */
-    public function implode(string $value, string $glue = null): string
+    public function implode(string $value, ?string $glue = null): string
     {
         $first = $this->first();
         if (is_array($first) || is_object($first)) {
@@ -964,11 +964,11 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Get the last item from the collection.
      *
-     * @param  null|callable $callback
+     * @param null|callable $callback
      * @param  mixed $default
      * @return mixed
      */
-    public function last(callable $callback = null, $default = null)
+    public function last(?callable $callback = null, $default = null)
     {
         return Arr::last($this->items, $callback, $default);
     }
@@ -980,7 +980,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param null|string $key
      * @return static
      */
-    public function pluck($value, string $key = null): Collection
+    public function pluck($value, ?string $key = null): Collection
     {
         return new static(Arr::pluck($this->items, $value, $key));
     }
@@ -1336,11 +1336,11 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * Get one or a specified number of items randomly from the collection.
      *
      * @param null|int $number
-     *@throws \InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @return mixed|static
      *
      */
-    public function random(int $number = null)
+    public function random(?int $number = null)
     {
         if ($number === null) {
             return Arr::random($this->items);
@@ -1429,7 +1429,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @throws \Exception
      * @return static
      */
-    public function shuffle(int $seed = null): Collection
+    public function shuffle(?int $seed = null): Collection
     {
         return new static(Arr::shuffle($this->items, $seed));
     }
@@ -1441,7 +1441,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param null|int $length
      * @return static
      */
-    public function slice(int $offset, int $length = null): Collection
+    public function slice(int $offset, ?int $length = null): Collection
     {
         return new static(array_slice($this->items, $offset, $length, true));
     }
@@ -1497,10 +1497,10 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
     /**
      * Sort through each item with a callback.
      *
-     * @param  null|callable $callback
+     * @param null|callable $callback
      * @return static
      */
-    public function sort(callable $callback = null): Collection
+    public function sort(?callable $callback = null): Collection
     {
         $items = $this->items;
         $callback
@@ -1586,7 +1586,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param  mixed $replacement
      * @return static
      */
-    public function splice(int $offset, int $length = null, $replacement = []): Collection
+    public function splice(int $offset, ?int $length = null, $replacement = []): Collection
     {
         if (func_num_args() === 1) {
             return new static(array_splice($this->items, $offset));
@@ -1711,7 +1711,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
         $arrayableItems = array_map(function ($items) {
             return $this->getArrayableItems($items);
         }, func_get_args());
-        $params = (array) array_merge([static function () {
+        $params = array_merge([static function () {
             return new static(func_get_args());
         }, $this->items], $arrayableItems);
 
