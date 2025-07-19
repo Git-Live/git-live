@@ -56,7 +56,7 @@ class Arr extends GitBase
     /**
      * Add an element to an array using "dot" notation if it doesn't exist.
      *
-     * @param array||ArrayAccess   $array
+     * @param array|\ArrayAccess $array
      * @param string $key
      * @param mixed $value
      * @return array
@@ -359,7 +359,7 @@ class Arr extends GitBase
      *
      * An array is "associative" if it doesn't have sequential numerical keys beginning with zero.
      *
-     * @param array|\ArrayAccess $array
+     * @param array $array
      * @return bool
      */
     public static function isAssoc(array $array): bool
