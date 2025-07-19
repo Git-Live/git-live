@@ -518,7 +518,7 @@ class Arr extends GitBase
      * @param array|\ArrayAccess $array
      * @param int|null $seed
      * @return array
-     *@throws \Exception
+     * @throws \Exception
      * @throws \Exception
      */
     public static function shuffle($array, ?int $seed = null): array
@@ -579,7 +579,7 @@ class Arr extends GitBase
      */
     public static function query($array): string
     {
-        return http_build_query($array, null, '&', PHP_QUERY_RFC3986);
+        return http_build_query((array)$array, '', '&', PHP_QUERY_RFC3986);
     }
 
     /**

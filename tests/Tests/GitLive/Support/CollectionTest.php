@@ -3023,23 +3023,23 @@ class CollectionTest extends TestCase
             ['name' => 'Tim', 'age' => 41],
         ]);
         [$tims, $others] = $collection->partition('name', 'Tim');
-        $this->assertEquals($tims->values()->all(), [
+        $this->assertEquals([
             ['name' => 'Tim', 'age' => 17],
             ['name' => 'Tim', 'age' => 41],
-        ]);
-        $this->assertEquals($others->values()->all(), [
+        ], $tims->values()->all());
+        $this->assertEquals([
             ['name' => 'Agatha', 'age' => 62],
             ['name' => 'Kristina', 'age' => 33],
-        ]);
+        ], $others->values()->all());
         [$adults, $minors] = $collection->partition('age', '>=', 18);
-        $this->assertEquals($adults->values()->all(), [
+        $this->assertEquals([
             ['name' => 'Agatha', 'age' => 62],
             ['name' => 'Kristina', 'age' => 33],
             ['name' => 'Tim', 'age' => 41],
-        ]);
-        $this->assertEquals($minors->values()->all(), [
+        ], $adults->values()->all());
+        $this->assertEquals([
             ['name' => 'Tim', 'age' => 17],
-        ]);
+        ], $minors->values()->all());
     }
 
     /**

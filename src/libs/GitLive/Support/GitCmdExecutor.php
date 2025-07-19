@@ -389,7 +389,7 @@ class GitCmdExecutor extends GitBase
     {
         $cmd = 'git rev-parse --show-toplevel';
 
-        return trim($this->exec($cmd, OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
+        return trim((string)$this->exec($cmd, OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
     }
 
     /**
@@ -397,7 +397,7 @@ class GitCmdExecutor extends GitBase
      */
     public function commit(string $message): void
     {
-        $message = trim($message);
+        $message = trim((string)$message);
         if ($message === '') {
             $message = date('YmdHis') . ' git live commit';
         }

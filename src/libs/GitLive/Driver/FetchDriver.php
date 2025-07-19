@@ -69,7 +69,7 @@ class FetchDriver extends DriverBase
      * @access      public
      * @param string|null $remote
      * @return void
-     *@throws \GitLive\Driver\Exception
+     * @throws \GitLive\Driver\Exception
      * @throws \ErrorException
      */
     public function deploy(?string $remote = null): void

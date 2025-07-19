@@ -1338,7 +1338,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      * @param int|null $number
      * @return mixed|static
      *
-     *@throws \InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function random(?int $number = null)
     {
@@ -1427,7 +1427,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
      *
      * @param int|null $seed
      * @return static
-     *@throws \Exception
+     * @throws \Exception
      */
     public function shuffle(?int $seed = null): Collection
     {

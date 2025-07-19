@@ -88,7 +88,7 @@ class Envelopment extends GitBase
     /**
      * @return string
      */
-    public function devNull(): string: string
+    public function devNull(): string
     {
         return $this->isWin() ? 'nul' : '/dev/null';
     }

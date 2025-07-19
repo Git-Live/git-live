@@ -72,7 +72,7 @@ class InteractiveShell extends GitBase implements InteractiveShellInterface
         while (true) {
             $this->echo($shell_message);
             $this->echo(':');
-            $res = trim(fgets(STDIN, 1000));
+            $res = trim((string)fgets(STDIN, 1000));
             if ($res === '') {
                 if ($using_default === false) {
                     continue;

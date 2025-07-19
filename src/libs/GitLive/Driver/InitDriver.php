@@ -271,7 +271,7 @@ class InitDriver extends DriverBase
      * @throws \GitLive\Driver\Exception
      * @return bool
      */
-    public function isLocalInitialized(): bool: bool
+    public function isLocalInitialized(): bool
     {
         $Branch = $this->Driver(BranchDriver::class);
 

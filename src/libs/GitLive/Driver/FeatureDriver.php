@@ -125,7 +125,7 @@ class FeatureDriver extends DriverBase
     /**
      * @param string|null $branch
      * @return null|string
-     *@throws \GitLive\Driver\Exception
+     * @throws \GitLive\Driver\Exception
      * @throws \ErrorException
      */
     public function featureStatus(?string $branch = null): ?string
@@ -206,7 +206,7 @@ class FeatureDriver extends DriverBase
      * @access      public
      * @param string|null $branch OPTIONAL:NULL
      * @return string
-     *@throws \Exception
+     * @throws \Exception
      */
     public function featurePublish(?string $branch = null): string
     {
@@ -237,7 +237,7 @@ class FeatureDriver extends DriverBase
      * @access      public
      * @param string|null $branch OPTIONAL:NULL
      * @return string
-     *@throws \Exception
+     * @throws \Exception
      */
     public function featurePush(?string $branch = null): string
     {
@@ -302,7 +302,7 @@ class FeatureDriver extends DriverBase
      * @access      public
      * @param string|null $branch OPTIONAL:NULL
      * @return string
-     *@throws \Exception
+     * @throws \Exception
      */
     public function featurePull(?string $branch = null): string
     {
@@ -342,7 +342,7 @@ class FeatureDriver extends DriverBase
      * @access      public
      * @param string|null $repository OPTIONAL:NULL
      * @return string
-     *@throws \Exception
+     * @throws \Exception
      */
     public function featureClose(?string $repository = null): string
     {

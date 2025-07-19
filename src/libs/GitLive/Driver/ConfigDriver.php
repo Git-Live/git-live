@@ -127,7 +127,7 @@ class ConfigDriver extends DriverBase
             return null;
         }
 
-        $res = trim($this->GitCmdExecutor->config(['--get', 'gitlive.' . $key]));
+        $res = trim((string)$this->GitCmdExecutor->config(['--get', 'gitlive.' . $key]));
 
         if ($res === '') {
             $res = null;
@@ -147,7 +147,7 @@ class ConfigDriver extends DriverBase
             return self::$cache[__METHOD__];
         }
 
-        if (strtolower($this->getGitLiveParameter(self::FEATURE_PREFIX_IGNORE_KEY)) === 'true') {
+        if (strtolower((string)$this->getGitLiveParameter(self::FEATURE_PREFIX_IGNORE_KEY)) === 'true') {
             return self::$cache[__METHOD__] = '';
         }
 
@@ -181,7 +181,7 @@ class ConfigDriver extends DriverBase
      */
     public function isUpstreamReadOnly(): bool
     {
-        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = strtolower($this->getGitLiveParameter(self::UPSTREAM_READ_ONLY_KEY) ?? 'false') === 'true');
+        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = strtolower((string)$this->getGitLiveParameter(self::UPSTREAM_READ_ONLY_KEY) ?? 'false') === 'true');
     }
 
     /**
@@ -191,7 +191,7 @@ class ConfigDriver extends DriverBase
      */
     public function isDeployReadOnly(): bool
     {
-        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = strtolower($this->getGitLiveParameter(self::DEPLOY_READ_ONLY_KEY) ?? 'false') === 'true');
+        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = strtolower((string)$this->getGitLiveParameter(self::DEPLOY_READ_ONLY_KEY) ?? 'false') === 'true');
     }
 
     /**
@@ -299,7 +299,7 @@ class ConfigDriver extends DriverBase
 
                 break;
             case self::MASTER_NAME_KEY:
-                $default = trim($this->GitCmdExecutor->config(['--get', 'init.defaultBranch'])) ?: GitLive::DEFAULT_MASTER_BRANCH_NAME;
+                $default = trim((string)$this->GitCmdExecutor->config(['--get', 'init.defaultBranch'])) ?: GitLive::DEFAULT_MASTER_BRANCH_NAME;
                 $message = __('Specify the branch name for main(master).') . __('default:' . $default);
 
                 break;
@@ -320,7 +320,7 @@ class ConfigDriver extends DriverBase
         $value = $this->interactiveShell($message, $default);
 
         if ($default === 'false') {
-            $value = strtolower($value);
+            $value = strtolower((string)$value);
             if ($value !== 'true') {
                 $value = $default;
             }
