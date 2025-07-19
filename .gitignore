@@ -1,4 +1,4 @@
- .php_cs.cache
+.php_cs.cache
 .code_coverage.log
 test/data/*
 !test/data/.gitkeep
@@ -7,7 +7,6 @@ composer.phar
 box.phar
 *.mo
 vendor/
-.php_cs.cache
 php-cs-fixer.phar
 covers/
 !covers/.gitkeep
