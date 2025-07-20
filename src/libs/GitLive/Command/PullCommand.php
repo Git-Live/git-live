@@ -20,13 +20,14 @@
 
 namespace GitLive\Command;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Driver\ConfigDriver;
 use GitLive\Driver\Exception;
 use GitLive\Driver\FetchDriver;
 use GitLive\Driver\ResetDriver;
 use GitLive\Support\GitCmdExecutor;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -34,14 +35,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PullCommand extends CommandBase
 {
-    protected static $signature_name = 'pull';
+    protected static $defaultName = 'pull';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -49,14 +50,13 @@ class PullCommand extends CommandBase
             ->setDescription(__('Pull from the appropriate remote repository.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addOption(
                 'force',
                 'f',
                 InputOption::VALUE_NONE
             )
-            ->addArgument('remote', InputArgument::OPTIONAL, 'Remote name[origin upstream deploy]')
-        ;
+            ->addArgument('remote', InputArgument::OPTIONAL, 'Remote name[origin upstream deploy]');
     }
 
     /**
@@ -64,10 +64,9 @@ class PullCommand extends CommandBase
      * @param OutputInterface $output
      * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
@@ -113,5 +112,7 @@ class PullCommand extends CommandBase
                     throw new Exception(__('Undefined remote option.') . ' : ' . $remote . "\n" . ' You can use origin upstream deploy');
             }
         }
+
+        return Command::SUCCESS;
     }
 }

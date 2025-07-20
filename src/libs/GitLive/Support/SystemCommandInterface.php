@@ -39,9 +39,9 @@ namespace GitLive\Support;
 interface SystemCommandInterface
 {
     /**
-     * @param string   $cmd
+     * @param string $cmd
      * @param bool|int $verbosity
-     * @param null|bool|int     $output_verbosity
+     * @param null|bool|int $output_verbosity
      * @return null|string
      */
     public function exec(string $cmd, $verbosity = 0, $output_verbosity = null): ?string;
@@ -49,7 +49,7 @@ interface SystemCommandInterface
     /**
      * @param string $cmd
      * @param bool|int $verbosity
-     * @param null|bool|int     $output_verbosity
+     * @param null|bool|int $output_verbosity
      * @return bool
      */
     public function isError(string $cmd, $verbosity = 0, $output_verbosity = null): bool;

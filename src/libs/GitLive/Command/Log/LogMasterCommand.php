@@ -20,22 +20,23 @@
 
 namespace GitLive\Command\Log;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Driver\LogDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class LogMasterCommand extends BaseLogCommand
 {
-    protected static $signature_name = 'log:master';
+    protected static $defaultName = 'log:master';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -43,7 +44,7 @@ class LogMasterCommand extends BaseLogCommand
             ->setDescription(__('Show diff upstream master branch.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
     }
 
     /**
@@ -51,10 +52,9 @@ class LogMasterCommand extends BaseLogCommand
      * @param OutputInterface $output
      * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
@@ -64,5 +64,7 @@ class LogMasterCommand extends BaseLogCommand
                 $this->getOptions($input)
             )
         );
+
+        return Command::SUCCESS;
     }
 }

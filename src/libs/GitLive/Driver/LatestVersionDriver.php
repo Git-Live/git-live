@@ -30,9 +30,9 @@ class LatestVersionDriver extends DriverBase
      *  新しいVersionが出ていないか確認する
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
      * @throws \JapaneseDate\Exceptions\Exception
+     * @throws \ErrorException
      * @return bool
      */
     public function ckNewVersion(): bool
@@ -46,9 +46,9 @@ class LatestVersionDriver extends DriverBase
      * 最終Versionを取得
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
      * @throws \JapaneseDate\Exceptions\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function getLatestVersion(): string

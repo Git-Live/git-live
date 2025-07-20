@@ -74,8 +74,8 @@ class FireDriver extends DriverBase
     }
 
     /**
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function makeFireBranchName(): string

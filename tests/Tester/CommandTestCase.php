@@ -20,8 +20,8 @@
 
 namespace Tests\GitLive\Tester;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Driver\ConfigDriver;
 use GitLive\GitLive;
 use GitLive\Mock\SystemCommand;

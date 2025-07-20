@@ -20,10 +20,11 @@
 
 namespace GitLive\Command\GitHubPullRequest;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\PullRequestDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -44,14 +45,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class PullRequestPull extends CommandBase
 {
-    protected static $signature_name = 'pr:pull';
+    protected static $defaultName = 'pr:pull';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -59,22 +60,23 @@ class PullRequestPull extends CommandBase
             ->setDescription(__('Pull pull request locally.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @throws \ErrorException
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
         App::make(PullRequestDriver::class)->prPull();
+
+        return Command::SUCCESS;
     }
 }

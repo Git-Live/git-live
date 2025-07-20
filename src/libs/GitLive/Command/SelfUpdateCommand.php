@@ -20,9 +20,10 @@
 
 namespace GitLive\Command;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Support\FileSystem;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -30,14 +31,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SelfUpdateCommand extends CommandBase
 {
-    protected static $signature_name = 'self-update';
+    protected static $defaultName = 'self-update';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -45,7 +46,7 @@ class SelfUpdateCommand extends CommandBase
             ->setDescription(__('Update git-live command.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addArgument('save_path', InputArgument::OPTIONAL, __('Save path.'))
             ->addOption(
                 'no-cache',
@@ -59,17 +60,15 @@ class SelfUpdateCommand extends CommandBase
      * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \ErrorException
-     * @return null|int
-     * @noinspection ReturnTypeCanBeDeclaredInspection
-     * @noinspection PhpMissingReturnTypeInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
         if (GIT_LIVE_VERSION === 'cli' && !$input->getArgument('save_path')) {
-            return 1;
+            return Command::FAILURE;
         }
 
         $url = 'https://raw.githubusercontent.com/Git-Live/git-live/v4.0/bin/git-live.phar';
@@ -81,6 +80,6 @@ class SelfUpdateCommand extends CommandBase
 
         $FileSystem->putContents($input->getArgument('save_path') ?: GIT_LIVE_INSTALL_PATH, $FileSystem->getContentsWithProgress($url));
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

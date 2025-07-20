@@ -45,9 +45,9 @@ class ResetDriver extends DriverBase
      * git live pull --force
      *
      * @param $remote
-     * @return string|null
      * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @return null|string
      * @see PullCommand
      */
     public function forcePull($remote): ?string
@@ -68,8 +68,8 @@ class ResetDriver extends DriverBase
      *  fetch from upstream
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function upstream(): string
@@ -86,8 +86,8 @@ class ResetDriver extends DriverBase
      *  fetch from origin
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function origin(): string
@@ -104,8 +104,8 @@ class ResetDriver extends DriverBase
      *  fetch from deploy
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function deploy(): string

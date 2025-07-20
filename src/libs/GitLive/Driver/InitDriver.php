@@ -115,8 +115,8 @@ class InitDriver extends DriverBase
      *
      * @access      public
      * @param bool $without_remote_change
-     * @throws \GitLive\Driver\Exception
      * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
     public function start(bool $without_remote_change = true): void
@@ -162,8 +162,8 @@ class InitDriver extends DriverBase
      *  諸々リセットして初期化します
      *
      * @access      public
-     * @throws \GitLive\Driver\Exception
      * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return void
      */
     public function restart(): void
@@ -201,8 +201,8 @@ class InitDriver extends DriverBase
     /**
      * @param bool $is_default
      * @param bool $is_force
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function branchInit(bool $is_default = false, bool $is_force = false): void
@@ -267,8 +267,8 @@ class InitDriver extends DriverBase
     }
 
     /**
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return bool
      */
     public function isLocalInitialized(): bool

@@ -20,10 +20,11 @@
 
 namespace GitLive\Command\Merge;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\MergeDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -44,14 +45,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class MergeMasterCommand extends CommandBase
 {
-    protected static $signature_name = 'merge:master';
+    protected static $defaultName = 'merge:master';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -59,7 +60,7 @@ class MergeMasterCommand extends CommandBase
             ->setDescription(__('Merge upstream master.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
     }
 
     /**
@@ -67,11 +68,9 @@ class MergeMasterCommand extends CommandBase
      * @param OutputInterface $output
      * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return null|int
-     * @noinspection ReturnTypeCanBeDeclaredInspection
-     * @noinspection PhpMissingReturnTypeInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
@@ -80,6 +79,6 @@ class MergeMasterCommand extends CommandBase
 
         $output->writeln($res);
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

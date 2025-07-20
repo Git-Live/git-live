@@ -20,10 +20,11 @@
 
 namespace GitLive\Command\Release;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\ReleaseDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -45,14 +46,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ReleaseDestroyCommand extends CommandBase
 {
-    protected static $signature_name = 'release:destroy';
+    protected static $defaultName = 'release:destroy';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -60,7 +61,7 @@ class ReleaseDestroyCommand extends CommandBase
             ->setDescription(__('Discard release. However, keep working in the local repository.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addOption('remove-local', 'R', InputOption::VALUE_NONE, __('Destroy with local repository.'));
     }
 
@@ -69,10 +70,9 @@ class ReleaseDestroyCommand extends CommandBase
      * @param OutputInterface $output
      * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
@@ -80,5 +80,7 @@ class ReleaseDestroyCommand extends CommandBase
         App::make(ReleaseDriver::class)->buildDestroy(
             $input->getOption('remove-local')
         );
+
+        return Command::SUCCESS;
     }
 }

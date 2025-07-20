@@ -20,10 +20,11 @@
 
 namespace GitLive\Command\Config;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\ConfigDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -46,14 +47,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class SetCommand extends CommandBase
 {
-    protected static $signature_name = 'config:set';
+    protected static $defaultName = 'config:set';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -61,7 +62,7 @@ class SetCommand extends CommandBase
             ->setDescription(__('Write the setting for gitlive in the config file.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addArgument('name', InputArgument::REQUIRED, 'Setting items.')
             ->addArgument('value', InputArgument::REQUIRED, 'Setting Values.')
             ->addOption(
@@ -94,21 +95,27 @@ class SetCommand extends CommandBase
      * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \ErrorException
-     * @return null|int|string
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
         $ConfigDriver = App::make(ConfigDriver::class);
         if ($input->getOption('global')) {
-            return $ConfigDriver->setGlobalParameter($input->getArgument('name'), $input->getArgument('value'));
+            $ConfigDriver->setGlobalParameter($input->getArgument('name'), $input->getArgument('value'));
+
+            return Command::SUCCESS;
         }
         if ($input->getOption('system')) {
-            return $ConfigDriver->setSystemParameter($input->getArgument('name'), $input->getArgument('value'));
+            $ConfigDriver->setSystemParameter($input->getArgument('name'), $input->getArgument('value'));
+
+            return Command::SUCCESS;
         }
 
-        return $ConfigDriver->setLocalParameter($input->getArgument('name'), $input->getArgument('value'));
+        $ConfigDriver->setLocalParameter($input->getArgument('name'), $input->getArgument('value'));
+
+        return Command::SUCCESS;
     }
 }
