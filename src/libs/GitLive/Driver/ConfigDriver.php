@@ -56,7 +56,7 @@ class ConfigDriver extends DriverBase
     /**
      * @var array
      */
-    protected static $cache = [];
+    protected static array $cache = [];
 
     /**
      * Clear the local cache for testing
@@ -73,6 +73,7 @@ class ConfigDriver extends DriverBase
      * @param string $key
      * @param string $value
      * @return null|string
+     * @throws \ErrorException
      */
     public function setGlobalParameter(string $key, string $value): ?string
     {
@@ -89,6 +90,7 @@ class ConfigDriver extends DriverBase
      * @param string $key
      * @param null|string $value
      * @return null|string
+     * @throws \ErrorException
      */
     public function setLocalParameter(string $key, ?string $value): ?string
     {
@@ -105,6 +107,7 @@ class ConfigDriver extends DriverBase
      * @param string $key
      * @param string $value
      * @return null|string
+     * @throws \ErrorException
      */
     public function setSystemParameter(string $key, string $value): ?string
     {
@@ -120,6 +123,7 @@ class ConfigDriver extends DriverBase
      *
      * @param string $key
      * @return null|string
+     * @throws \ErrorException
      */
     public function getGitLiveParameter(string $key): ?string
     {
@@ -127,7 +131,7 @@ class ConfigDriver extends DriverBase
             return null;
         }
 
-        $res = trim($this->GitCmdExecutor->config(['--get', 'gitlive.' . $key]));
+        $res = trim((string)$this->GitCmdExecutor->config(['--get', 'gitlive.' . $key]));
 
         if ($res === '') {
             $res = null;
@@ -140,6 +144,7 @@ class ConfigDriver extends DriverBase
      * Get feature prefix.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function featurePrefix(): ?string
     {
@@ -147,7 +152,7 @@ class ConfigDriver extends DriverBase
             return self::$cache[__METHOD__];
         }
 
-        if (strtolower($this->getGitLiveParameter(self::FEATURE_PREFIX_IGNORE_KEY)) === 'true') {
+        if (strtolower((string)$this->getGitLiveParameter(self::FEATURE_PREFIX_IGNORE_KEY)) === 'true') {
             return self::$cache[__METHOD__] = '';
         }
 
@@ -158,6 +163,7 @@ class ConfigDriver extends DriverBase
      * Get feature prefix.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function firePrefix(): ?string
     {
@@ -168,6 +174,7 @@ class ConfigDriver extends DriverBase
      * Get hotfix prefix.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function hotfixPrefix(): ?string
     {
@@ -178,6 +185,7 @@ class ConfigDriver extends DriverBase
      * upstream readonly flag
      *
      * @return bool
+     * @throws \ErrorException
      */
     public function isUpstreamReadOnly(): bool
     {
@@ -188,6 +196,7 @@ class ConfigDriver extends DriverBase
      * release readonly flag
      *
      * @return bool
+     * @throws \ErrorException
      */
     public function isDeployReadOnly(): bool
     {
@@ -198,6 +207,7 @@ class ConfigDriver extends DriverBase
      * Get release prefix.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function releasePrefix(): ?string
     {
@@ -208,6 +218,7 @@ class ConfigDriver extends DriverBase
      * Get deploy remote name.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function deployRemote(): ?string
     {
@@ -218,6 +229,7 @@ class ConfigDriver extends DriverBase
      * Get development branch name.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function develop(): ?string
     {
@@ -228,6 +240,7 @@ class ConfigDriver extends DriverBase
      * Get master branch name.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function master(): ?string
     {
@@ -236,8 +249,10 @@ class ConfigDriver extends DriverBase
 
     /**
      * @return void
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      */
-    public function interactiveConfigurations()
+    public function interactiveConfigurations(): void
     {
         $this->interactiveConfiguration(self::MASTER_NAME_KEY);
         $this->interactiveConfiguration(self::DEVELOP_NAME_KEY);
@@ -256,8 +271,9 @@ class ConfigDriver extends DriverBase
 
     /**
      * @param string $config_key
-     * @throws \GitLive\Driver\Exception
      * @return string
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      */
     public function interactiveConfiguration(string $config_key): string
     {
@@ -298,7 +314,7 @@ class ConfigDriver extends DriverBase
 
                 break;
             case self::MASTER_NAME_KEY:
-                $default = trim($this->GitCmdExecutor->config(['--get', 'init.defaultBranch'])) ?: GitLive::DEFAULT_MASTER_BRANCH_NAME;
+                $default = trim((string)$this->GitCmdExecutor->config(['--get', 'init.defaultBranch'])) ?: GitLive::DEFAULT_MASTER_BRANCH_NAME;
                 $message = __('Specify the branch name for main(master).') . __('default:' . $default);
 
                 break;
@@ -319,7 +335,7 @@ class ConfigDriver extends DriverBase
         $value = $this->interactiveShell($message, $default);
 
         if ($default === 'false') {
-            $value = strtolower($value);
+            $value = strtolower((string)$value);
             if ($value !== 'true') {
                 $value = $default;
             }

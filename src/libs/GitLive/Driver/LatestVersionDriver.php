@@ -22,6 +22,7 @@ namespace GitLive\Driver;
 
 use GitLive\GitLive;
 use JapaneseDate\DateTime;
+use JsonException;
 
 class LatestVersionDriver extends DriverBase
 {
@@ -87,7 +88,11 @@ class LatestVersionDriver extends DriverBase
             return GitLive::VERSION;
         }
 
-        $arr = json_decode($contents, true);
+        try {
+            $arr = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
+            $arr = [];
+        }
         if (strpos($arr['tag_name'], 'v') === 0) {
             $latest_version = substr($arr['tag_name'], 1);
         } else {

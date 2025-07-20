@@ -1,5 +1,5 @@
 {
-
+  "$schema": "https://github.com/box-project/box/blob/4cfda8dab61f9a13b8cde85d3f069e5d64bf7b19/res/schema.json",
   "main": "git-live.php",
   "output": "bin/git-live.phar",
   "files-bin": [
@@ -8,8 +8,9 @@
   "files": [
     "vendor/nesbot/carbon/src/Carbon/Traits/Test.php"
   ],
-  "directories-bin": ["resources"],
-
+  "directories-bin": [
+    "resources"
+  ],
   "compression": "GZ",
   "compactors": [
     "KevinGH\\Box\\Compactor\\Php",

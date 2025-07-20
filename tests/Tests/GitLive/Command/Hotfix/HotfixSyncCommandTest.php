@@ -20,7 +20,7 @@
 
 namespace Tests\GitLive\Command\Hotfix;
 
-use App;
+use GitLive\Application\Facade as App;
 use GitLive\Application\Application;
 use JapaneseDate\DateTime;
 use Tests\GitLive\Tester\CommandTestCase as TestCase;

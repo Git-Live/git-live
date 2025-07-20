@@ -63,14 +63,14 @@ class HigherOrderCollectionProxy extends GitBase
      *
      * @var \GitLive\Support\Collection
      */
-    protected $collection;
+    protected Collection $collection;
 
     /**
      * The method being proxied.
      *
      * @var string
      */
-    protected $method;
+    protected string $method;
 
     /**
      * Create a new proxy instance.

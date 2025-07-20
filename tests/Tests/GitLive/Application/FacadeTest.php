@@ -86,8 +86,8 @@ class FacadeTest extends TestCase
         $this->assertEquals(Container::getContextContainers()['$bindTest'], $BindWith);
         Container::reset();
 
-        $this->assertEquals(Container::getContextContainers(), []);
-        $this->assertEquals(Container::getContainers(), []);
+        $this->assertEquals([], Container::getContextContainers());
+        $this->assertEquals([], Container::getContainers());
     }
 
     /**

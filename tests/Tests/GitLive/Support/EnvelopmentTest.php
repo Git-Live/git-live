@@ -20,7 +20,7 @@
 
 namespace Tests\GitLive\Support;
 
-use App;
+use GitLive\Application\Facade as App;
 use GitLive\Support\Envelopment;
 use PHPUnit\Framework\TestCase;
 

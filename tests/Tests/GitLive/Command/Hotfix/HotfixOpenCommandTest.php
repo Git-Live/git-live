@@ -20,7 +20,7 @@
 
 namespace Tests\GitLive\Command\Release;
 
-use App;
+use GitLive\Application\Facade as App;
 use GitLive\Application\Application;
 use GitLive\Exception;
 use JapaneseDate\DateTime;
