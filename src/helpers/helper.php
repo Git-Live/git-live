@@ -80,7 +80,7 @@ if (!function_exists('resource')) {
 
 if (!function_exists('data_get')) {
     /**
-     * @param      array|Collection $target
+     * @param array|Collection $target
      * @param array|string $key
      * @param null $default
      * @return array|mixed

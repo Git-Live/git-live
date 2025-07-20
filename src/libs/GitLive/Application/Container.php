@@ -78,7 +78,7 @@ class Container
 
     /**
      * @param string $concrete
-     * @param mixed  $class
+     * @param mixed $class
      */
     public static function bindContext(string $concrete, $class): void
     {
@@ -87,7 +87,7 @@ class Container
 
     /**
      * @param string $interface
-     * @param mixed  $class
+     * @param mixed $class
      */
     public static function bind(string $interface, $class): void
     {
@@ -105,7 +105,7 @@ class Container
     /**
      * Instantiate a concrete instance of the given type.
      *
-     * @param  Closure|string $concrete
+     * @param Closure|string $concrete
      * @throws \ReflectionException
      * @return mixed
      */

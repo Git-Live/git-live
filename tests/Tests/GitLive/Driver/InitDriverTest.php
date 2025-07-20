@@ -20,9 +20,9 @@
 
 namespace Tests\GitLive\Driver;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
 use GitLive\Application\Facade;
+use GitLive\Application\Facade as App;
 use GitLive\Driver\Exception;
 use GitLive\Driver\InitDriver;
 use GitLive\Mock\InteractiveShell;
@@ -347,7 +347,6 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
             }
         );
 
-
         $InitDriver = Facade::make(InitDriver::class);
 
         $InitDriver->restart();
@@ -422,7 +421,6 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
                 return $shell_mock;
             }
         );
-
 
         $InitDriver = Facade::make(InitDriver::class);
 
@@ -515,7 +513,6 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
                 return $mock;
             }
         );
-
 
         $InitDriver = Facade::make(InitDriver::class);
 

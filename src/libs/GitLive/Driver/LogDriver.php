@@ -47,8 +47,8 @@ class LogDriver extends DriverBase
      *
      * @access      public
      * @param array|Collection $option
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function logDevelop($option = []): string
@@ -61,8 +61,8 @@ class LogDriver extends DriverBase
      *
      * @access      public
      * @param array|Collection $option
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function logMaster($option = []): string
@@ -73,8 +73,8 @@ class LogDriver extends DriverBase
     /**
      * @param string $from_branch
      * @param array|Collection $option
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function log(string $from_branch, $option = []): string

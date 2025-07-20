@@ -20,8 +20,8 @@
 
 namespace Tests\GitLive\Support;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\SystemCommandInterface;

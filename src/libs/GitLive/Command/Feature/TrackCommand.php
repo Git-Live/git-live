@@ -20,10 +20,11 @@
 
 namespace GitLive\Command\Feature;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\FeatureDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -45,14 +46,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class TrackCommand extends CommandBase
 {
-    protected static $signature_name = 'feature:track';
+    protected static $defaultName = 'feature:track';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -60,18 +61,17 @@ class TrackCommand extends CommandBase
             ->setDescription(sprintf(__('Start tracking feature {feature_name} that is shared on %s'), 'upstream'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addArgument('feature_name', InputArgument::REQUIRED, 'feature name');
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \Exception
-     * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
@@ -81,5 +81,7 @@ class TrackCommand extends CommandBase
         $res = $FeatureDriver->featureTrack($input->getArgument('feature_name'));
 
         $output->writeln($res);
+
+        return Command::SUCCESS;
     }
 }

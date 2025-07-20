@@ -20,10 +20,11 @@
 
 namespace GitLive\Command\Feature;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\FeatureDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -45,15 +46,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class FeatureCloseCommand extends CommandBase
 {
-    protected static $signature_name = 'feature:close';
+    protected static $defaultName = 'feature:close';
 
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -61,17 +61,17 @@ class FeatureCloseCommand extends CommandBase
             ->setDescription(__('Finish feature.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name');
     }
 
     /**
-     * @param InputInterface  $input
+     * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \Exception
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @throws \ErrorException
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
@@ -79,5 +79,7 @@ class FeatureCloseCommand extends CommandBase
         $FeatureDriver = App::make(FeatureDriver::class);
 
         $FeatureDriver->featureClose($input->getArgument('feature_name'));
+
+        return Command::SUCCESS;
     }
 }

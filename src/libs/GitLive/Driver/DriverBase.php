@@ -83,9 +83,9 @@ abstract class DriverBase extends GitBase
      * 今のブランチを取得する
      *
      * @access      public
-     * @return string
      * @throws Exception
      * *@throws \ErrorException
+     * @return string
      */
     public function getSelfBranchRef(): string
     {
@@ -118,9 +118,9 @@ abstract class DriverBase extends GitBase
      * 今のブランチを取得する
      *
      * @access      public
-     * @return string
      * @throws Exception
      * *@throws \ErrorException
+     * @return string
      */
     public function getSelfBranch(): string
     {
@@ -137,8 +137,8 @@ abstract class DriverBase extends GitBase
      *
      * @access      public
      * @param string $driver_name
-     * @throws \GitLive\Driver\Exception
      * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return \GitLive\Driver\DriverBase
      * @codeCoverageIgnore
      */
@@ -154,8 +154,8 @@ abstract class DriverBase extends GitBase
 
     /**
      * @param string $branch_name
-     * @throws \GitLive\Driver\Exception
      * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      * @return bool
      */
     public function isBranchExists(string $branch_name): bool
@@ -164,7 +164,7 @@ abstract class DriverBase extends GitBase
     }
 
     /**
-     * @param string|null $repo
+     * @param null|string $repo
      * @return bool
      */
     public function isClean(?string $repo = null): bool
@@ -179,10 +179,10 @@ abstract class DriverBase extends GitBase
     }
 
     /**
-     * @param string|null $repo
-     * @param string|null $error_msg
-     * @return bool
+     * @param null|string $repo
+     * @param null|string $error_msg
      * @throws Exception
+     * @return bool
      */
     public function isCleanOrFail(?string $repo = null, ?string $error_msg = null): bool
     {
@@ -289,8 +289,8 @@ abstract class DriverBase extends GitBase
      * gitRepository上かどうか
      *
      * @access      public
-     * @return      bool
      *  *@throws \ErrorException
+     * @return      bool
      */
     public function isGitRepository(): bool
     {
@@ -303,8 +303,8 @@ abstract class DriverBase extends GitBase
      * トップレベルディレクトリ上かどうか
      *
      * @access      public
-     * @return      bool
      *  *@throws \ErrorException
+     * @return      bool
      */
     public function isToplevelDirectory(): bool
     {
@@ -378,7 +378,7 @@ abstract class DriverBase extends GitBase
     /**
      * @param array|string $text
      * @param bool|string $using_default
-     * @return string|null
+     * @return null|string
      */
     protected function interactiveShell($text, $using_default = false): ?string
     {

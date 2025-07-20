@@ -57,8 +57,8 @@ class InteractiveShell extends GitBase implements InteractiveShellInterface
      *  対話シェル
      *
      * @access      public
-     * @param  array|string $shell_message
-     * @param  bool|string $using_default OPTIONAL:false
+     * @param array|string $shell_message
+     * @param bool|string $using_default OPTIONAL:false
      * @return string
      * @codeCoverageIgnore
      */

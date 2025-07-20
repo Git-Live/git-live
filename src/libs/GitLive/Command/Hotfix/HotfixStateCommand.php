@@ -20,10 +20,11 @@
 
 namespace GitLive\Command\Hotfix;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\HotfixDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -45,14 +46,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class HotfixStateCommand extends CommandBase
 {
-    protected static $signature_name = 'hotfix:state';
+    protected static $defaultName = 'hotfix:state';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -60,7 +61,7 @@ class HotfixStateCommand extends CommandBase
             ->setDescription(__('Check the status of hotfix.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addOption('ck-only', 'd', InputOption::VALUE_NONE, __('Check only.'))
             ->addOption('with-merge-commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
     }
@@ -69,10 +70,9 @@ class HotfixStateCommand extends CommandBase
      * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \ErrorException
-     * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
@@ -83,5 +83,7 @@ class HotfixStateCommand extends CommandBase
         );
 
         $output->writeln($res);
+
+        return Command::SUCCESS;
     }
 }

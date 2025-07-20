@@ -20,6 +20,7 @@
 
 namespace GitLive\Command;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -42,14 +43,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class LogCommand extends CommandBase
 {
-    protected static $signature_name = 'log';
+    protected static $defaultName = 'log';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -57,7 +58,7 @@ class LogCommand extends CommandBase
             ->setDescription(__('Alias to "log: *" tasks.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addArgument(
                 'task',
                 InputArgument::REQUIRED,
@@ -69,11 +70,9 @@ class LogCommand extends CommandBase
      * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \Symfony\Component\Console\Exception\ExceptionInterface
-     * @return null|int
-     * @noinspection ReturnTypeCanBeDeclaredInspection
-     * @noinspection PhpMissingReturnTypeInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         switch ($input->getArgument('task')) {
             case 'develop':
@@ -100,6 +99,6 @@ class LogCommand extends CommandBase
                 return $command->run($greetInput, $output);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

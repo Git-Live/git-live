@@ -20,8 +20,8 @@
 
 namespace Tests\GitLive\Driver;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Driver\LatestVersionDriver;
 use GitLive\Mock\SystemCommand;
 use GitLive\Support\SystemCommandInterface;
@@ -99,6 +99,6 @@ class LatestVersionDriverTest extends TestCase
             3 => 'git config --local gitlive.latestversion.val "' . $res . '"',
         ], data_get($spy, '*.0'));
 
-        $this->assertSame('3.0.', substr($res, 0, 4));
+        $this->assertSame('4.0.', substr($res, 0, 4));
     }
 }
