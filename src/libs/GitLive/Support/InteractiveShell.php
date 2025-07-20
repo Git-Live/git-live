@@ -42,7 +42,7 @@ class InteractiveShell extends GitBase implements InteractiveShellInterface
     /**
      * @var Envelopment
      */
-    protected $envelopment;
+    protected Envelopment $envelopment;
 
     /**
      * InteractiveShell constructor.

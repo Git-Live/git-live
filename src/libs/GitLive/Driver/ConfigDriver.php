@@ -56,7 +56,7 @@ class ConfigDriver extends DriverBase
     /**
      * @var array
      */
-    protected static $cache = [];
+    protected static array $cache = [];
 
     /**
      * Clear the local cache for testing
@@ -73,6 +73,7 @@ class ConfigDriver extends DriverBase
      * @param string $key
      * @param string $value
      * @return null|string
+     * @throws \ErrorException
      */
     public function setGlobalParameter(string $key, string $value): ?string
     {
@@ -89,6 +90,7 @@ class ConfigDriver extends DriverBase
      * @param string $key
      * @param null|string $value
      * @return null|string
+     * @throws \ErrorException
      */
     public function setLocalParameter(string $key, ?string $value): ?string
     {
@@ -105,6 +107,7 @@ class ConfigDriver extends DriverBase
      * @param string $key
      * @param string $value
      * @return null|string
+     * @throws \ErrorException
      */
     public function setSystemParameter(string $key, string $value): ?string
     {
@@ -120,6 +123,7 @@ class ConfigDriver extends DriverBase
      *
      * @param string $key
      * @return null|string
+     * @throws \ErrorException
      */
     public function getGitLiveParameter(string $key): ?string
     {
@@ -140,6 +144,7 @@ class ConfigDriver extends DriverBase
      * Get feature prefix.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function featurePrefix(): ?string
     {
@@ -158,6 +163,7 @@ class ConfigDriver extends DriverBase
      * Get feature prefix.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function firePrefix(): ?string
     {
@@ -168,6 +174,7 @@ class ConfigDriver extends DriverBase
      * Get hotfix prefix.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function hotfixPrefix(): ?string
     {
@@ -178,26 +185,29 @@ class ConfigDriver extends DriverBase
      * upstream readonly flag
      *
      * @return bool
+     * @throws \ErrorException
      */
     public function isUpstreamReadOnly(): bool
     {
-        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = strtolower((string)$this->getGitLiveParameter(self::UPSTREAM_READ_ONLY_KEY) ?? 'false') === 'true');
+        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = strtolower($this->getGitLiveParameter(self::UPSTREAM_READ_ONLY_KEY) ?? 'false') === 'true');
     }
 
     /**
      * release readonly flag
      *
      * @return bool
+     * @throws \ErrorException
      */
     public function isDeployReadOnly(): bool
     {
-        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = strtolower((string)$this->getGitLiveParameter(self::DEPLOY_READ_ONLY_KEY) ?? 'false') === 'true');
+        return self::$cache[__METHOD__] ?? (self::$cache[__METHOD__] = strtolower($this->getGitLiveParameter(self::DEPLOY_READ_ONLY_KEY) ?? 'false') === 'true');
     }
 
     /**
      * Get release prefix.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function releasePrefix(): ?string
     {
@@ -208,6 +218,7 @@ class ConfigDriver extends DriverBase
      * Get deploy remote name.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function deployRemote(): ?string
     {
@@ -218,6 +229,7 @@ class ConfigDriver extends DriverBase
      * Get development branch name.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function develop(): ?string
     {
@@ -228,6 +240,7 @@ class ConfigDriver extends DriverBase
      * Get master branch name.
      *
      * @return null|string
+     * @throws \ErrorException
      */
     public function master(): ?string
     {
@@ -236,6 +249,7 @@ class ConfigDriver extends DriverBase
 
     /**
      * @return void
+     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
      */
     public function interactiveConfigurations(): void
@@ -257,8 +271,9 @@ class ConfigDriver extends DriverBase
 
     /**
      * @param string $config_key
-     * @throws \GitLive\Driver\Exception
      * @return string
+     * @throws \ErrorException
+     * @throws \GitLive\Driver\Exception
      */
     public function interactiveConfiguration(string $config_key): string
     {

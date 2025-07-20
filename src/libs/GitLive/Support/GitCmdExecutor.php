@@ -40,7 +40,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class GitCmdExecutor extends GitBase
 {
-    protected $command;
+    protected SystemCommandInterface $command;
 
     /**
      * GitCmdExecutor constructor.
@@ -397,7 +397,7 @@ class GitCmdExecutor extends GitBase
      */
     public function commit(string $message): void
     {
-        $message = trim((string)$message);
+        $message = trim($message);
         if ($message === '') {
             $message = date('YmdHis') . ' git live commit';
         }

@@ -20,7 +20,7 @@
 
 namespace Tests\GitLive\Driver;
 
-use App;
+use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
 use GitLive\Application\Facade;
 use GitLive\Driver\Exception;

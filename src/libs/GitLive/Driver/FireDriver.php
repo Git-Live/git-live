@@ -63,7 +63,7 @@ class FireDriver extends DriverBase
         }
 
         if ($res === '' && function_exists('get_current_user')) {
-            $res = trim((string)get_current_user());
+            $res = trim(get_current_user());
         }
 
         if ($res === '') {

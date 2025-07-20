@@ -20,7 +20,7 @@
 
 namespace GitLive\Driver;
 
-use App;
+use GitLive\Application\Facade as App;
 use GitLive\GitBase;
 use GitLive\GitLive;
 use GitLive\Support\Collection;
@@ -56,12 +56,12 @@ abstract class DriverBase extends GitBase
     /**
      * @var \GitLive\Support\GitCmdExecutor
      */
-    protected $GitCmdExecutor;
+    protected GitCmdExecutor $GitCmdExecutor;
 
     /**
      * @var SystemCommandInterface
      */
-    protected $command;
+    protected SystemCommandInterface $command;
 
     /**
      * コンストラクタ
@@ -83,9 +83,9 @@ abstract class DriverBase extends GitBase
      * 今のブランチを取得する
      *
      * @access      public
-     * @throws Exception
-     * @throws Exception
      * @return string
+     * @throws Exception
+     * *@throws \ErrorException
      */
     public function getSelfBranchRef(): string
     {
@@ -95,7 +95,7 @@ abstract class DriverBase extends GitBase
             throw new Exception(__('Not a git repository.'));
         }
 
-        return trim((string)$self_blanch);
+        return trim($self_blanch);
     }
 
     /**
@@ -118,9 +118,9 @@ abstract class DriverBase extends GitBase
      * 今のブランチを取得する
      *
      * @access      public
-     * @throws Exception
-     * @throws Exception
      * @return string
+     * @throws Exception
+     * *@throws \ErrorException
      */
     public function getSelfBranch(): string
     {
@@ -129,7 +129,7 @@ abstract class DriverBase extends GitBase
             throw new Exception(__('Not a git repository.'));
         }
 
-        return trim((string)$self_blanch);
+        return trim($self_blanch);
     }
 
     /**
@@ -290,6 +290,7 @@ abstract class DriverBase extends GitBase
      *
      * @access      public
      * @return      bool
+     *  *@throws \ErrorException
      */
     public function isGitRepository(): bool
     {
@@ -303,6 +304,7 @@ abstract class DriverBase extends GitBase
      *
      * @access      public
      * @return      bool
+     *  *@throws \ErrorException
      */
     public function isToplevelDirectory(): bool
     {
@@ -314,6 +316,7 @@ abstract class DriverBase extends GitBase
     /**
      *
      * @param null|mixed $path
+     * @throws \ErrorException
      */
     public function clean($path = null): void
     {

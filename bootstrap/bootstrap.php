@@ -37,8 +37,6 @@ if (!defined('GIT_LIVE_VERSION')) {
 define('PROJECT_ROOT_DIR', dirname(__DIR__));
 define('RESOURCES_DIR', PROJECT_ROOT_DIR . DIRECTORY_SEPARATOR . 'resources');
 
-class_alias(\GitLive\Application\Facade::class, 'App');
-
 // get-textが有効かどうかで処理を分ける
 if (!function_exists('\textdomain')) {
     define('GIT_LIVE_IS_GET_TEXT', false);
