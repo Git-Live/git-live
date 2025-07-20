@@ -52,7 +52,7 @@ interface FileSystemInterface
 
     /**
      * @param mixed|string $url
-     * @param mixed  $content
+     * @param mixed $content
      * @return bool|int
      */
     public function putContents($url, $content);

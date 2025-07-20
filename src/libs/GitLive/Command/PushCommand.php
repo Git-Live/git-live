@@ -20,25 +20,26 @@
 
 namespace GitLive\Command;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Driver\ConfigDriver;
 use GitLive\Driver\FetchDriver;
 use GitLive\Support\GitCmdExecutor;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class PushCommand extends CommandBase
 {
-    protected static $signature_name = 'push';
+    protected static $defaultName = 'push';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -51,7 +52,7 @@ class PushCommand extends CommandBase
                 'f',
                 InputOption::VALUE_NONE
             )
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
     }
 
     /**
@@ -59,10 +60,9 @@ class PushCommand extends CommandBase
      * @param OutputInterface $output
      * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
@@ -83,5 +83,7 @@ class PushCommand extends CommandBase
         }
 
         App::make(GitCmdExecutor::class)->push($remote, $branch, $option);
+
+        return Command::SUCCESS;
     }
 }

@@ -20,8 +20,8 @@
 
 namespace Tests\GitLive\Command\Config;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Application;
+use GitLive\Application\Facade as App;
 use Tests\GitLive\Tester\CommandTestCase as TestCase;
 use Tests\GitLive\Tester\CommandTester;
 use Tests\GitLive\Tester\CommandTestTrait;

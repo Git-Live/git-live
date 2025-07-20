@@ -28,9 +28,8 @@ abstract class BaseLogCommand extends CommandBase
     /**
      * {@inheritdoc}
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this

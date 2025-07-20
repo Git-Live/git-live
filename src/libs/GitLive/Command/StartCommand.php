@@ -20,9 +20,10 @@
 
 namespace GitLive\Command;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Driver\InitDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -44,14 +45,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class StartCommand extends CommandBase
 {
-    protected static $signature_name = 'start';
+    protected static $defaultName = 'start';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -65,7 +66,7 @@ class StartCommand extends CommandBase
                 InputOption::VALUE_NONE,
                 __('with_remote_change')
             )
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()));
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
     }
 
     /**
@@ -73,10 +74,9 @@ class StartCommand extends CommandBase
      * @param OutputInterface $output
      * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
@@ -86,5 +86,7 @@ class StartCommand extends CommandBase
         if (!$input->getOption('remote')) {
             $output->writeln('<info>' . __('If you also want to update the remote repository, use the -r option.') . '</info>');
         }
+
+        return Command::SUCCESS;
     }
 }

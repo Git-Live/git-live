@@ -94,7 +94,7 @@ class CommandLineKernelService
     /**
      * @return array
      */
-    public function app():array
+    public function app(): array
     {
         $app = [
             CleanCommand::class,

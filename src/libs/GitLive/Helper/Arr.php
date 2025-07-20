@@ -56,7 +56,7 @@ class Arr extends GitBase
     /**
      * Add an element to an array using "dot" notation if it doesn't exist.
      *
-     * @param array|\ArrayAccess   $array
+     * @param array|\ArrayAccess $array
      * @param string $key
      * @param mixed $value
      * @return array
@@ -182,7 +182,7 @@ class Arr extends GitBase
      * Return the first element in an array passing a given truth test.
      *
      * @param array|\ArrayAccess $array
-     * @param callable|null $callback
+     * @param null|callable $callback
      * @param mixed $default
      * @return mixed
      */
@@ -210,7 +210,7 @@ class Arr extends GitBase
      * Return the last element in an array passing a given truth test.
      *
      * @param array|\ArrayAccess $array
-     * @param callable|null $callback
+     * @param null|callable $callback
      * @param mixed $default
      * @return mixed
      */
@@ -516,10 +516,10 @@ class Arr extends GitBase
      * Shuffle the given array and return the result.
      *
      * @param array|\ArrayAccess $array
-     * @param int|null $seed
+     * @param null|int $seed
+     * @throws \Exception
+     * @throws \Exception
      * @return array
-     * @throws \Exception
-     * @throws \Exception
      */
     public static function shuffle($array, ?int $seed = null): array
     {

@@ -20,9 +20,10 @@
 
 namespace GitLive\Command;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Driver\InitDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -44,14 +45,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class InitCommand extends CommandBase
 {
-    protected static $signature_name = 'init';
+    protected static $defaultName = 'init';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -59,7 +60,7 @@ class InitCommand extends CommandBase
             ->setDescription(__('Initialize git live flow.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addArgument('clone_repository', InputArgument::OPTIONAL, 'Only your remote repository.')
             ->addArgument('upstream_repository', InputArgument::OPTIONAL, 'Common remote repository.')
             ->addArgument('deploy_repository', InputArgument::OPTIONAL, 'Deploy remote repository.')
@@ -71,14 +72,15 @@ class InitCommand extends CommandBase
      * @param OutputInterface $output
      * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
         APP::make(InitDriver::class)->init($input);
+
+        return Command::SUCCESS;
     }
 }

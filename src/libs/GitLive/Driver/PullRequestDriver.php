@@ -43,9 +43,9 @@ class PullRequestDriver extends DriverBase
      * @access      public
      * @param string $pull_request_number
      * @param string $branch
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
      * @throws \GitLive\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function featureStart(string $pull_request_number, string $branch): void
@@ -82,9 +82,9 @@ class PullRequestDriver extends DriverBase
      * @access      public
      * @param string $pull_request_number
      * @param string $branch
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
      * @throws \GitLive\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function featureStartSoft(string $pull_request_number, string $branch): void
@@ -110,8 +110,8 @@ class PullRequestDriver extends DriverBase
      *
      * @param string $pull_request_number
      *
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      * @access      public
      */
@@ -129,8 +129,8 @@ class PullRequestDriver extends DriverBase
     /**
      *  pr pull
      *
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      * @access      public
      */
@@ -157,8 +157,8 @@ class PullRequestDriver extends DriverBase
      *
      * @access      public
      * @param string $pull_request_number
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function prMerge(string $pull_request_number): void

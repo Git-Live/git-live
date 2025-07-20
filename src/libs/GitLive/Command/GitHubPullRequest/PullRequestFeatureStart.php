@@ -20,10 +20,11 @@
 
 namespace GitLive\Command\GitHubPullRequest;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\PullRequestDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -46,14 +47,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class PullRequestFeatureStart extends CommandBase
 {
-    protected static $signature_name = 'pr:feature:start';
+    protected static $defaultName = 'pr:feature:start';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -61,7 +62,7 @@ class PullRequestFeatureStart extends CommandBase
             ->setDescription(__('Feature start and merge pull request.'))
             // the full command description shown when running the command with
             // the "--help" Merge
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addArgument('pull_request_number', InputArgument::REQUIRED, 'Pull request id')
             ->addArgument('feature_name', InputArgument::REQUIRED, 'feature_name')
             ->addOption(
@@ -75,14 +76,12 @@ class PullRequestFeatureStart extends CommandBase
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
      * @throws \GitLive\Exception
-     * @return null|int
-     * @noinspection ReturnTypeCanBeDeclaredInspection
-     * @noinspection PhpMissingReturnTypeInspection
+     * @throws \ErrorException
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
@@ -93,13 +92,13 @@ class PullRequestFeatureStart extends CommandBase
                 $input->getArgument('feature_name')
             );
 
-            return 0;
+            return Command::SUCCESS;
         }
         App::make(PullRequestDriver::class)->featureStart(
             $input->getArgument('pull_request_number'),
             $input->getArgument('feature_name')
         );
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

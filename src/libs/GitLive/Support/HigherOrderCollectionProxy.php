@@ -75,7 +75,7 @@ class HigherOrderCollectionProxy extends GitBase
     /**
      * Create a new proxy instance.
      *
-     * @param  \GitLive\Support\Collection $collection
+     * @param \GitLive\Support\Collection $collection
      * @param string $method
      * @return void
      */

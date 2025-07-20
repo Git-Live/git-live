@@ -20,9 +20,10 @@
 
 namespace GitLive\Command;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Driver\FetchDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -44,15 +45,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CleanCommand extends CommandBase
 {
-    protected static $signature_name = 'clean';
+    protected static $defaultName = 'clean';
 
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -60,8 +60,7 @@ class CleanCommand extends CommandBase
             ->setDescription(__('Will reset all additions and changes to the current branch.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
-
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addArgument('path', InputArgument::OPTIONAL, 'path');
     }
 
@@ -69,14 +68,15 @@ class CleanCommand extends CommandBase
      * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \ErrorException
-     * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
 
         App::make(FetchDriver::class)->clean($input->getArgument('path'));
+
+        return Command::SUCCESS;
     }
 }

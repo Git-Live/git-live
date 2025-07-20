@@ -20,9 +20,10 @@
 
 namespace GitLive\Command;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Driver\FireDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -44,15 +45,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class FireCommand extends CommandBase
 {
-    protected static $signature_name = 'fire';
+    protected static $defaultName = 'fire';
 
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -60,7 +60,7 @@ class FireCommand extends CommandBase
             ->setDescription(__('Add all the changed files, commit to the new branch, push to origin, and protect the changes.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addArgument(
                 'message',
                 InputArgument::OPTIONAL,
@@ -73,13 +73,14 @@ class FireCommand extends CommandBase
      * @param OutputInterface $output
      * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
         App::make(FireDriver::class)->fire($input->getArgument('message') ?? '');
+
+        return Command::SUCCESS;
     }
 }
