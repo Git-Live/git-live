@@ -5,6 +5,7 @@ test/data/*
 .idea/
 composer.phar
 box.phar
+box4.phar
 *.mo
 vendor/
 php-cs-fixer.phar
@@ -13,7 +14,7 @@ covers/
 
 !storage/unit_testing/.gitkeep
 .phpunit.result.cache
-
+composer.lock
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos
