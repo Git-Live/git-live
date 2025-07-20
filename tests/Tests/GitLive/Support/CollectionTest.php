@@ -3419,7 +3419,7 @@ class TestArrayAccessImplementation implements ArrayAccess
      * @param mixed $offset
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->arr[$offset]);
     }
@@ -3429,6 +3429,7 @@ class TestArrayAccessImplementation implements ArrayAccess
      * @param mixed $offset
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->arr[$offset];
@@ -3439,7 +3440,7 @@ class TestArrayAccessImplementation implements ArrayAccess
      * @param mixed $offset
      * @param mixed $value
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->arr[$offset] = $value;
     }
@@ -3448,7 +3449,7 @@ class TestArrayAccessImplementation implements ArrayAccess
      * @covers \GitLive\Support\Collection
      * @param mixed $offset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->arr[$offset]);
     }

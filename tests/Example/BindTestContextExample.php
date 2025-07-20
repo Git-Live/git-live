@@ -34,7 +34,7 @@ class BindTestContextExample
 
     public $is_boot = false;
 
-    public function __construct(string $text, $bindTest = 'rabbit', $closure, $nothing, $default_value = '123456789')
+    public function __construct(string $text, $bindTest = 'rabbit', $closure = '', $nothing = '', $default_value = '123456789')
     {
         $this->text = $text;
         $this->bindTest = $bindTest;
