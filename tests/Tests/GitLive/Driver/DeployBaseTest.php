@@ -20,8 +20,8 @@
 
 namespace Tests\GitLive\Driver;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Driver\Exception;
 use GitLive\Driver\HotfixDriver;
 use GitLive\Driver\ReleaseDriver;

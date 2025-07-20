@@ -30,8 +30,8 @@ interface InteractiveShellInterface
 
     /**
      * @access      public
-     * @param  array|string $shell_message
-     * @param  bool|string  $using_default OPTIONAL:false
+     * @param array|string $shell_message
+     * @param bool|string $using_default OPTIONAL:false
      * @return string
      */
     public function interactiveShell($shell_message, $using_default = false): string;

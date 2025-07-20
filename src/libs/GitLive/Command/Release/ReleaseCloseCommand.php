@@ -20,10 +20,11 @@
 
 namespace GitLive\Command\Release;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\ReleaseDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -46,14 +47,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ReleaseCloseCommand extends CommandBase
 {
-    protected static $signature_name = 'release:close';
+    protected static $defaultName = 'release:close';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -61,7 +62,7 @@ class ReleaseCloseCommand extends CommandBase
             ->setDescription(__('Finish release {name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addArgument('name', InputArgument::OPTIONAL, 'release_name')
             ->addOption('force', 'f', InputOption::VALUE_NONE, __('Do not check develop repository.'));
     }
@@ -71,10 +72,9 @@ class ReleaseCloseCommand extends CommandBase
      * @param OutputInterface $output
      * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
@@ -83,5 +83,7 @@ class ReleaseCloseCommand extends CommandBase
             $input->getOption('force'),
             $input->getArgument('name')
         );
+
+        return Command::SUCCESS;
     }
 }

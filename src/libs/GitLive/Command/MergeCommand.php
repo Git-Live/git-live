@@ -20,6 +20,7 @@
 
 namespace GitLive\Command;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -42,14 +43,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class MergeCommand extends CommandBase
 {
-    protected static $signature_name = 'merge';
+    protected static $defaultName = 'merge';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -57,7 +58,7 @@ class MergeCommand extends CommandBase
             ->setDescription(__('Alias to "merge: *" tasks.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addArgument(
                 'task',
                 InputArgument::REQUIRED,
@@ -74,11 +75,9 @@ class MergeCommand extends CommandBase
      * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \Symfony\Component\Console\Exception\ExceptionInterface
-     * @return null|int
-     * @noinspection ReturnTypeCanBeDeclaredInspection
-     * @noinspection PhpMissingReturnTypeInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         switch ($input->getArgument('task')) {
             case 'develop':
@@ -120,6 +119,6 @@ class MergeCommand extends CommandBase
                 return $command->run($greetInput, $output);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

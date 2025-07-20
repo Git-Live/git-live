@@ -20,8 +20,8 @@
 
 namespace GitLive\Command;
 
-use GitLive\Application\Facade as App;
 use Exception;
+use GitLive\Application\Facade as App;
 use GitLive\Driver\LatestVersionDriver;
 use GitLive\Support\Collection;
 use Symfony\Component\Console\Application;
@@ -49,14 +49,14 @@ abstract class CommandBase extends Command
     /**
      * @var string
      */
-    protected static $signature_name = '';
+    protected static $defaultName = '';
 
     /**
      * @return string
      */
     public static function getSignature(): string
     {
-        return static::$signature_name;
+        return static::$defaultName;
     }
 
     /**
@@ -80,18 +80,6 @@ abstract class CommandBase extends Command
             }
         } catch (Exception $exception) {
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     * @noinspection ReturnTypeCanBeDeclaredInspection
-     */
-    protected function configure()
-    {
-        parent::configure();
-        $this
-            // the name of the command (the part after "bin/console")
-            ->setName(static::$signature_name);
     }
 
     /**

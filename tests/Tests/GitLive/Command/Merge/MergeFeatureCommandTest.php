@@ -20,8 +20,8 @@
 
 namespace Tests\GitLive\Command\Merge;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Application;
+use GitLive\Application\Facade as App;
 use JapaneseDate\DateTime;
 use Tests\GitLive\Tester\CommandTestCase as TestCase;
 use Tests\GitLive\Tester\CommandTester;

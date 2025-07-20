@@ -42,8 +42,8 @@ use GitLive\Support\Collection;
 class BranchDriver extends DriverBase
 {
     /**
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return bool
      */
     public function hasMasterBranch(): bool
@@ -54,8 +54,8 @@ class BranchDriver extends DriverBase
     }
 
     /**
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return bool
      */
     public function hasDevelopBranch(): bool

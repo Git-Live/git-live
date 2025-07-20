@@ -98,8 +98,8 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param null $release_rep
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function buildOpen($release_rep = null): string
@@ -168,8 +168,8 @@ abstract class DeployBase extends DriverBase
      *  Get a current release branch
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function getReleaseRepository(): string
@@ -219,8 +219,8 @@ abstract class DeployBase extends DriverBase
      *  Get a current hot-fix branch
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function getHotfixRepository(): string
@@ -253,8 +253,8 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param string $tag_name
      * @param null $release_rep
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return      string
      */
     public function buildOpenWithReleaseTag(string $tag_name, $release_rep = null): string
@@ -298,8 +298,8 @@ abstract class DeployBase extends DriverBase
      *  Track an all build branch.
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function buildTrack(): void
@@ -330,8 +330,8 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param string $repo
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function deployTrack(string $repo): void
@@ -368,7 +368,7 @@ abstract class DeployBase extends DriverBase
      * Check the state of build.
      *
      * @access      public
-     * @param bool $ck_only           OPTIONAL:false
+     * @param bool $ck_only OPTIONAL:false
      * @param bool $with_merge_commit OPTIONAL:false
      * @return string
      */
@@ -400,8 +400,8 @@ abstract class DeployBase extends DriverBase
      *  Sync a build branch to upstream and deploy.
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function buildSync(): void
@@ -419,8 +419,8 @@ abstract class DeployBase extends DriverBase
      *  push a deploy branch to upstream.
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function buildPush(): void
@@ -439,8 +439,8 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param bool $remove_local OPTIONAL:false
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function buildDestroy(bool $remove_local = false): void
@@ -459,8 +459,8 @@ abstract class DeployBase extends DriverBase
      * @access      public
      * @param bool $force OPTIONAL:false
      * @param null $tag_name
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function buildClose(bool $force = false, $tag_name = null): void
@@ -477,8 +477,8 @@ abstract class DeployBase extends DriverBase
      *  Whether release command, hotfix command is available
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function enableRelease(): void
@@ -499,8 +499,8 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param string $repo
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     protected function deploySync(string $repo): void
@@ -532,8 +532,8 @@ abstract class DeployBase extends DriverBase
      *
      * @access      public
      * @param string $repo
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     protected function upstreamPush(string $repo): void
@@ -570,8 +570,8 @@ abstract class DeployBase extends DriverBase
      * @param string $repo
      * @param string $mode
      * @param bool $remove_local OPTIONAL:false
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     protected function deployDestroy(string $repo, string $mode, bool $remove_local = false): void
@@ -617,8 +617,8 @@ abstract class DeployBase extends DriverBase
      * @param string $mode
      * @param bool $force OPTIONAL:false
      * @param null $tag_name
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     protected function deployEnd(string $release_name, string $mode, bool $force = false, $tag_name = null): void

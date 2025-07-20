@@ -20,24 +20,25 @@
 
 namespace GitLive\Command\Release;
 
-use GitLive\Application\Facade as App;
 use GitLive\Application\Container;
+use GitLive\Application\Facade as App;
 use GitLive\Command\CommandBase;
 use GitLive\Driver\ReleaseDriver;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ReleaseStateCommand extends CommandBase
 {
-    protected static $signature_name = 'release:state';
+    protected static $defaultName = 'release:state';
+
     /**
      * {@inheritdoc}
      * @throws \ErrorException
      * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
         $this
@@ -45,7 +46,7 @@ class ReleaseStateCommand extends CommandBase
             ->setDescription(__('Check the status of release.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$signature_name, $this->getDescription()))
+            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
             ->addOption('ck-only', 'd', InputOption::VALUE_NONE, __('Check only.'))
             ->addOption('with-merge-commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
     }
@@ -54,10 +55,9 @@ class ReleaseStateCommand extends CommandBase
      * @param InputInterface $input
      * @param OutputInterface $output
      * @throws \ErrorException
-     * @return void
-     * @noinspection ReturnTypeCanBeDeclaredInspection
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         Container::bindContext('$input', $input);
         Container::bindContext('$output', $output);
@@ -68,5 +68,7 @@ class ReleaseStateCommand extends CommandBase
         );
 
         $output->writeln($res);
+
+        return Command::SUCCESS;
     }
 }

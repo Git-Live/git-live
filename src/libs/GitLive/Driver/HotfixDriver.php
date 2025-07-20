@@ -78,17 +78,17 @@ class HotfixDriver extends DeployBase
      * @throws \ErrorException
      * @return bool
      */
-    public function isBuildOpen():bool
+    public function isBuildOpen(): bool
     {
         return $this->isHotfixOpen();
     }
 
     /**
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
-    public function getBuildRepository():string
+    public function getBuildRepository(): string
     {
         return $this->getHotfixRepository();
     }

@@ -51,8 +51,8 @@ class RemoteDriver extends DriverBase
     }
 
     /**
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function interactiveRemoteAdd(): void

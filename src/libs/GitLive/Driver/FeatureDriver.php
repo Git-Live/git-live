@@ -44,8 +44,8 @@ class FeatureDriver extends DriverBase
      * featureの一覧を取得する
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function featureList(): string
@@ -61,8 +61,8 @@ class FeatureDriver extends DriverBase
      * featureの一覧を取得する
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function mergedFeatureList(): string
@@ -71,15 +71,15 @@ class FeatureDriver extends DriverBase
 
         $feature_prefix = $Config->featurePrefix();
 
-        return (string)$this->GitCmdExecutor->branch(['--list', '"' . $feature_prefix . '*"', '--merged', ], true);
+        return (string)$this->GitCmdExecutor->branch(['--list', '"' . $feature_prefix . '*"', '--merged',], true);
     }
 
     /**
      * featureの一覧を取得する
      *
      * @access      public
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return string
      */
     public function noMergedFeatureList(): string
@@ -88,7 +88,7 @@ class FeatureDriver extends DriverBase
 
         $feature_prefix = $Config->featurePrefix();
 
-        return (string)$this->GitCmdExecutor->branch(['--list', '"' . $feature_prefix . '*"', '--no-merged', ], true);
+        return (string)$this->GitCmdExecutor->branch(['--list', '"' . $feature_prefix . '*"', '--no-merged',], true);
     }
 
     /**
@@ -96,9 +96,9 @@ class FeatureDriver extends DriverBase
      *
      * @access      public
      * @param string $branch
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
      * @throws \GitLive\Exception
+     * @throws \ErrorException
      * @return void
      */
     public function featureStart(string $branch): void
@@ -123,10 +123,10 @@ class FeatureDriver extends DriverBase
     }
 
     /**
-     * @param string|null $branch
-     * @return null|string
+     * @param null|string $branch
      * @throws \GitLive\Driver\Exception
      * @throws \ErrorException
+     * @return null|string
      */
     public function featureStatus(?string $branch = null): ?string
     {
@@ -160,8 +160,8 @@ class FeatureDriver extends DriverBase
      * @access      public
      * @param string $branch
      * @param array|Collection $option
-     * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
+     * @throws \ErrorException
      * @return bool|string
      */
     public function featureChange(string $branch, $option = [])
@@ -204,9 +204,9 @@ class FeatureDriver extends DriverBase
      * 共用Repositoryにfeatureを送信する
      *
      * @access      public
-     * @param string|null $branch OPTIONAL:NULL
-     * @return string
+     * @param null|string $branch OPTIONAL:NULL
      * @throws \Exception
+     * @return string
      */
     public function featurePublish(?string $branch = null): string
     {
@@ -235,9 +235,9 @@ class FeatureDriver extends DriverBase
      * 自分のリモートRepositoryにfeatureを送信する
      *
      * @access      public
-     * @param string|null $branch OPTIONAL:NULL
-     * @return string
+     * @param null|string $branch OPTIONAL:NULL
      * @throws \Exception
+     * @return string
      */
     public function featurePush(?string $branch = null): string
     {
@@ -300,9 +300,9 @@ class FeatureDriver extends DriverBase
      * 共用Repositoryからpullする
      *
      * @access      public
-     * @param string|null $branch OPTIONAL:NULL
-     * @return string
+     * @param null|string $branch OPTIONAL:NULL
      * @throws \Exception
+     * @return string
      */
     public function featurePull(?string $branch = null): string
     {
@@ -340,9 +340,9 @@ class FeatureDriver extends DriverBase
      * featureを閉じる
      *
      * @access      public
-     * @param string|null $repository OPTIONAL:NULL
-     * @return string
+     * @param null|string $repository OPTIONAL:NULL
      * @throws \Exception
+     * @return string
      */
     public function featureClose(?string $repository = null): string
     {
@@ -359,7 +359,7 @@ class FeatureDriver extends DriverBase
             case 'refs/heads/' . $Config->master():
             case $Config->develop():
             case $Config->master():
-            return sprintf('Error:' . __('%s branch is readonly.'), $this->getSelfBranch());
+                return sprintf('Error:' . __('%s branch is readonly.'), $this->getSelfBranch());
         }
         if ($repository === null) {
             $repository = $this->getSelfBranch();
