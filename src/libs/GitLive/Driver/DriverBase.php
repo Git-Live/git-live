@@ -20,7 +20,7 @@
 
 namespace GitLive\Driver;
 
-use App;
+use GitLive\Application\Facade as App;
 use GitLive\GitBase;
 use GitLive\GitLive;
 use GitLive\Support\Collection;
@@ -56,12 +56,12 @@ abstract class DriverBase extends GitBase
     /**
      * @var \GitLive\Support\GitCmdExecutor
      */
-    protected $GitCmdExecutor;
+    protected GitCmdExecutor $GitCmdExecutor;
 
     /**
      * @var SystemCommandInterface
      */
-    protected $command;
+    protected SystemCommandInterface $command;
 
     /**
      * コンストラクタ
@@ -83,9 +83,9 @@ abstract class DriverBase extends GitBase
      * 今のブランチを取得する
      *
      * @access      public
-     * @throws Exception
-     * @throws Exception
      * @return string
+     * @throws Exception
+     * *@throws \ErrorException
      */
     public function getSelfBranchRef(): string
     {
@@ -118,9 +118,9 @@ abstract class DriverBase extends GitBase
      * 今のブランチを取得する
      *
      * @access      public
-     * @throws Exception
-     * @throws Exception
      * @return string
+     * @throws Exception
+     * *@throws \ErrorException
      */
     public function getSelfBranch(): string
     {
@@ -164,10 +164,10 @@ abstract class DriverBase extends GitBase
     }
 
     /**
-     * @param null|string $repo
+     * @param string|null $repo
      * @return bool
      */
-    public function isClean(string $repo = null): bool
+    public function isClean(?string $repo = null): bool
     {
         if ($repo === null) {
             $err = $this->GitCmdExecutor->status([], true);
@@ -175,16 +175,16 @@ abstract class DriverBase extends GitBase
             $err = $this->GitCmdExecutor->status([$repo], true);
         }
 
-        return strpos(trim($err), 'nothing to commit') !== false;
+        return strpos(trim((string)$err), 'nothing to commit') !== false;
     }
 
     /**
-     * @param null|string $repo
-     * @param null|string $error_msg
-     * @throws Exception
+     * @param string|null $repo
+     * @param string|null $error_msg
      * @return bool
+     * @throws Exception
      */
-    public function isCleanOrFail(string $repo = null, string $error_msg = null): bool
+    public function isCleanOrFail(?string $repo = null, ?string $error_msg = null): bool
     {
         if ($repo === null) {
             $err = $this->GitCmdExecutor->status([], true);
@@ -192,7 +192,7 @@ abstract class DriverBase extends GitBase
             $err = $this->GitCmdExecutor->status([$repo], true);
         }
 
-        if (strpos(trim($err), 'nothing to commit') === false) {
+        if (strpos(trim((string)$err), 'nothing to commit') === false) {
             throw new Exception(($error_msg ?? __('Please clean or commit.')) . "\n" . $err);
         }
 
@@ -265,7 +265,7 @@ abstract class DriverBase extends GitBase
     {
         // 一度diffを取る
         $cmd = 'git format-patch `git rev-parse --abbrev-ref HEAD`..' . $from . ' --stdout';
-        $ck = trim($this->exec($cmd, OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
+        $ck = trim((string)$this->exec($cmd, OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
 
         if ($ck === '') {
             return '';
@@ -274,7 +274,7 @@ abstract class DriverBase extends GitBase
         $cmd = 'git format-patch `git rev-parse --abbrev-ref HEAD`..' . $from . ' --stdout| git apply --check';
         $res = $this->exec($cmd, $verbosity, OutputInterface::VERBOSITY_DEBUG);
 
-        return trim($res);
+        return trim((string)$res);
     }
 
     /**
@@ -290,10 +290,11 @@ abstract class DriverBase extends GitBase
      *
      * @access      public
      * @return      bool
+     *  *@throws \ErrorException
      */
     public function isGitRepository(): bool
     {
-        $res = trim($this->exec('git rev-parse --git-dir 2> ' . App::make(Envelopment::class)->devNull(), OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
+        $res = trim((string)$this->exec('git rev-parse --git-dir 2> ' . App::make(Envelopment::class)->devNull(), OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
 
         return !empty($res);
     }
@@ -303,10 +304,11 @@ abstract class DriverBase extends GitBase
      *
      * @access      public
      * @return      bool
+     *  *@throws \ErrorException
      */
     public function isToplevelDirectory(): bool
     {
-        $res = trim($this->exec('git rev-parse --git-dir 2> ' . App::make(Envelopment::class)->devNull(), OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
+        $res = trim((string)$this->exec('git rev-parse --git-dir 2> ' . App::make(Envelopment::class)->devNull(), OutputInterface::VERBOSITY_DEBUG, OutputInterface::VERBOSITY_DEBUG));
 
         return $res === '.git';
     }
@@ -314,6 +316,7 @@ abstract class DriverBase extends GitBase
     /**
      *
      * @param null|mixed $path
+     * @throws \ErrorException
      */
     public function clean($path = null): void
     {
@@ -356,12 +359,12 @@ abstract class DriverBase extends GitBase
 
     public function stashPush(string $branch, $verbosity = false, $output_verbosity = null): void
     {
-        $stash = trim($this->exec('git stash list'));
+        $stash = trim((string)$this->exec('git stash list'));
         if ($stash === '') {
             return;
         }
 
-        $sha_hashes = Collection::make(explode("\n", trim($this->exec('git rev-list -g stash'))));
+        $sha_hashes = Collection::make(explode("\n", trim((string)$this->exec('git rev-list -g stash'))));
         foreach ($sha_hashes as $sha) {
             if ($sha === '') {
                 break;
@@ -375,7 +378,7 @@ abstract class DriverBase extends GitBase
     /**
      * @param array|string $text
      * @param bool|string $using_default
-     * @return string
+     * @return string|null
      */
     protected function interactiveShell($text, $using_default = false): ?string
     {

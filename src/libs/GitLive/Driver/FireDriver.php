@@ -56,10 +56,10 @@ class FireDriver extends DriverBase
     {
         $delimiters = [' ', "\t", "\r", "\n", "\f", "\v", '@', '/', '+', '~', '{', '}', '[', ']', '?', ':', '*', '\\'];
 
-        $res = trim($this->GitCmdExecutor->config(['--get', 'user.name']));
+        $res = trim((string)$this->GitCmdExecutor->config(['--get', 'user.name']));
 
         if ($res === '') {
-            $res = trim($this->GitCmdExecutor->config(['--get', 'user.email']));
+            $res = trim((string)$this->GitCmdExecutor->config(['--get', 'user.email']));
         }
 
         if ($res === '' && function_exists('get_current_user')) {
@@ -113,7 +113,7 @@ class FireDriver extends DriverBase
      */
     public function fire($message): void
     {
-        $message = trim($message);
+        $message = trim((string)$message);
         $self_branch = $this->getSelfBranch();
         if ($message === '') {
             $message = 'Git Live Fire!! Branch...' . $self_branch;

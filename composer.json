@@ -30,12 +30,12 @@
     }
   ],
   "require": {
-    "php": "^7.1.8 || ^8.0",
+    "php": "^7.4 || ^8.0",
     "ext-mbstring": "*",
     "ext-json": "*",
     "ext-ctype": "*",
     "symfony/console": "^4.4",
-    "symfony/var-dumper": "^3.4",
+    "symfony/var-dumper": "^5.4",
     "symfony/polyfill-ctype": "^1.10",
     "symfony/polyfill-mbstring": "^1.10",
     "japanese-date/japanese-date": "^5.0",

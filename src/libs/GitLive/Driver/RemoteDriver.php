@@ -45,7 +45,7 @@ class RemoteDriver extends DriverBase
      * @param string $url
      * @return void
      */
-    public function add(string $remote_name, string $url)
+    public function add(string $remote_name, string $url): void
     {
         $this->GitCmdExecutor->remote(['add', $remote_name, $url]);
     }
@@ -55,7 +55,7 @@ class RemoteDriver extends DriverBase
      * @throws \GitLive\Driver\Exception
      * @return void
      */
-    public function interactiveRemoteAdd()
+    public function interactiveRemoteAdd(): void
     {
         $Config = $this->Driver(ConfigDriver::class);
         if ($this->remoteExists('origin')) {

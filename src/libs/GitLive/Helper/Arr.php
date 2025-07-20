@@ -56,7 +56,7 @@ class Arr extends GitBase
     /**
      * Add an element to an array using "dot" notation if it doesn't exist.
      *
-     * @param array||ArrayAccess   $array
+     * @param array|\ArrayAccess   $array
      * @param string $key
      * @param mixed $value
      * @return array
@@ -182,11 +182,11 @@ class Arr extends GitBase
      * Return the first element in an array passing a given truth test.
      *
      * @param array|\ArrayAccess $array
-     * @param null|callable $callback
+     * @param callable|null $callback
      * @param mixed $default
      * @return mixed
      */
-    public static function first($array, callable $callback = null, $default = null)
+    public static function first($array, ?callable $callback = null, $default = null)
     {
         if ($callback === null) {
             if (empty($array)) {
@@ -210,11 +210,11 @@ class Arr extends GitBase
      * Return the last element in an array passing a given truth test.
      *
      * @param array|\ArrayAccess $array
-     * @param null|callable $callback
+     * @param callable|null $callback
      * @param mixed $default
      * @return mixed
      */
-    public static function last($array, callable $callback = null, $default = null)
+    public static function last($array, ?callable $callback = null, $default = null)
     {
         if ($callback === null) {
             return empty($array) ? value($default) : end($array);
@@ -359,7 +359,7 @@ class Arr extends GitBase
      *
      * An array is "associative" if it doesn't have sequential numerical keys beginning with zero.
      *
-     * @param array|\ArrayAccess $array
+     * @param array $array |\ArrayAccess $array
      * @return bool
      */
     public static function isAssoc(array $array): bool
@@ -516,12 +516,12 @@ class Arr extends GitBase
      * Shuffle the given array and return the result.
      *
      * @param array|\ArrayAccess $array
-     * @param null|int $seed
-     * @throws \Exception
-     * @throws \Exception
+     * @param int|null $seed
      * @return array
+     * @throws \Exception
+     * @throws \Exception
      */
-    public static function shuffle($array, int $seed = null): array
+    public static function shuffle($array, ?int $seed = null): array
     {
         if ($seed === null) {
             shuffle($array);
@@ -579,7 +579,7 @@ class Arr extends GitBase
      */
     public static function query($array): string
     {
-        return http_build_query($array, null, '&', PHP_QUERY_RFC3986);
+        return http_build_query((array)$array, '', '&', PHP_QUERY_RFC3986);
     }
 
     /**

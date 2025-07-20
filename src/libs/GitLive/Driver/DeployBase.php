@@ -20,7 +20,7 @@
 
 namespace GitLive\Driver;
 
-use App;
+use GitLive\Application\Facade as App;
 use GitLive\GitLive;
 use GitLive\Support\GitCmdExecutor;
 use GitLive\Support\SystemCommandInterface;
@@ -121,7 +121,7 @@ abstract class DeployBase extends DriverBase
         }
 
         $repository = $this->GitCmdExecutor->branch(['-a', '--no-color']);
-        $repository = explode("\n", trim($repository));
+        $repository = explode("\n", trim((string)$repository));
         foreach ($repository as $value) {
             if (strpos($value, 'remotes/' . $this->deploy_repository_name . '/' . $this->prefix) !== false) {
                 throw new Exception(sprintf(__('Already %s opened.'), static::MODE) . "\n" . $value);
@@ -193,7 +193,7 @@ abstract class DeployBase extends DriverBase
             throw new Exception('Release is not open.');
         }
 
-        return trim($release_branch);
+        return trim((string)$release_branch);
     }
 
     /**
@@ -244,7 +244,7 @@ abstract class DeployBase extends DriverBase
             throw new Exception('Hotfix is not open.');
         }
 
-        return trim($release_branch);
+        return trim((string)$release_branch);
     }
 
     /**
@@ -339,7 +339,7 @@ abstract class DeployBase extends DriverBase
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
 
         if ($this->isBranchExists($repo)) {
-            $this->GitCmdExecutor->checkout($repo, []);
+            $this->GitCmdExecutor->checkout($repo);
         } else {
             $this->GitCmdExecutor->checkout('remote/' . $deploy_repository_name . '/' . $repo);
             $this->GitCmdExecutor->checkout($repo, ['-b']);
@@ -485,7 +485,7 @@ abstract class DeployBase extends DriverBase
     {
         $deploy_repository_name = App::make(ConfigDriver::class)->deployRemote();
         $remote = $this->GitCmdExecutor->remote([], true);
-        $remote = explode("\n", trim($remote));
+        $remote = explode("\n", trim((string)$remote));
         $res = in_array($deploy_repository_name, $remote, true);
         if ($res === false) {
             throw new Exception(
