@@ -44,12 +44,12 @@ use ReflectionParameter;
  */
 class Container
 {
-    protected static $container = [];
-    protected static $contextContainer = [];
+    protected static array $container = [];
+    protected static array $contextContainer = [];
 
-    protected $buildStack;
+    protected array $buildStack = [];
 
-    protected $with = [];
+    protected array $with = [];
 
     /**
      * @return void

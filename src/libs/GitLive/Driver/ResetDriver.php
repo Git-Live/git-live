@@ -45,9 +45,9 @@ class ResetDriver extends DriverBase
      * git live pull --force
      *
      * @param $remote
+     * @return string|null
      * @throws \ErrorException
      * @throws \GitLive\Driver\Exception
-     * @return string
      * @see PullCommand
      */
     public function forcePull($remote): ?string

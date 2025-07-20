@@ -20,7 +20,7 @@
 
 namespace GitLive\Application;
 
-use App;
+use GitLive\Application\Facade as App;
 use GitLive\GitLive;
 use GitLive\Service\CommandLineKernelService;
 use Symfony\Component\Console\Application as ConsoleApplication;

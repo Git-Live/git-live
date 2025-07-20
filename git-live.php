@@ -29,6 +29,6 @@ if (!defined('GIT_LIVE_INSTALL_PATH')) {
 }
 
 
-$GitLive = \App::make(\GitLive\GitLive::class);
+$GitLive = \GitLive\Application\Facade::make(\GitLive\GitLive::class);
 $GitLive->execute();
 

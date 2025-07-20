@@ -20,7 +20,7 @@
 
 namespace Tests\GitLive\Tester;
 
-use App;
+use GitLive\Application\Facade as App;
 use GitLive\Driver\ConfigDriver;
 use GitLive\GitLive;
 use PHPUnit\Framework\TestCase as TestCaseBase;
