@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euf -o pipefail
-export PHP_PATH='php74'
+export PHP_PATH='php'
 
 ./download-box.sh
 
