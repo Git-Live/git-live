@@ -34,7 +34,7 @@
     "ext-mbstring": "*",
     "ext-json": "*",
     "ext-ctype": "*",
-    "symfony/console": "^5.4",
+    "symfony/console": "^4.4",
     "symfony/var-dumper": "^5.4",
     "symfony/polyfill-ctype": "^1.10",
     "symfony/polyfill-mbstring": "^1.10",
