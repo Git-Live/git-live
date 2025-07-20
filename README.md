@@ -31,7 +31,7 @@ git-live is a collection of git commands created with php.
 
 git live The commands necessary to implement the flow are gathered.
 
-In order to use git-live, PHP 7.0 or higher is necessary.
+In order to use git-live, PHP 7.4 or higher is necessary.
 
 ## Installation method
 
@@ -58,5 +58,5 @@ git live self-update
 ### Windows
 Please place the following files in the directory where the path passed.
 
- * https://raw.githubusercontent.com/Git-Live/git-live/v3.0/git-live.php
- * https://raw.githubusercontent.com/Git-Live/git-live/v3.0/bin/git-live.bat
+ * https://raw.githubusercontent.com/Git-Live/git-live/v4.0/git-live.php
+ * https://raw.githubusercontent.com/Git-Live/git-live/v4.0/bin/git-live.bat
