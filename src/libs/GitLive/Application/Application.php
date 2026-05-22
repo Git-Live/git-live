@@ -71,7 +71,7 @@ class Application extends ConsoleApplication
      * @noinspection ReturnTypeCanBeDeclaredInspection
      * @noinspection PhpMissingReturnTypeInspection
      */
-    public function getLongVersion()
+    public function getLongVersion(): string
     {
         $version = resource('aa.txt');
         $version .= parent::getLongVersion();

@@ -46,14 +46,14 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DeployBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DriverBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class DeployBaseTest extends TestCase
 {
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testBuildSync()
     {
@@ -186,10 +186,6 @@ class DeployBaseTest extends TestCase
         ], data_get($spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testIsBuildOpen()
     {
         $GitLive = App::make(GitLive::class);
@@ -309,8 +305,6 @@ class DeployBaseTest extends TestCase
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testGetHotfixRepository()
     {
@@ -476,10 +470,6 @@ class DeployBaseTest extends TestCase
         ], data_get($spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testIsHotfixOpen()
     {
         $GitLive = App::make(GitLive::class);
@@ -599,8 +589,6 @@ class DeployBaseTest extends TestCase
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testBuildTrack()
     {
@@ -722,8 +710,6 @@ class DeployBaseTest extends TestCase
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testBuildOpen()
     {
@@ -860,8 +846,6 @@ class DeployBaseTest extends TestCase
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testBuildOpenWithReleaseTag()
     {
@@ -996,10 +980,6 @@ class DeployBaseTest extends TestCase
         ], data_get($spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testBuildState()
     {
         $GitLive = App::make(GitLive::class);
@@ -1117,10 +1097,6 @@ class DeployBaseTest extends TestCase
         ], data_get($spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testBuildStateClose()
     {
         $GitLive = App::make(GitLive::class);
@@ -1239,8 +1215,6 @@ class DeployBaseTest extends TestCase
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testEnableRelease()
     {
@@ -1362,8 +1336,6 @@ class DeployBaseTest extends TestCase
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testEnableReleaseError()
     {
@@ -1486,8 +1458,6 @@ class DeployBaseTest extends TestCase
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testGetBuildRepository()
     {
@@ -1611,8 +1581,6 @@ class DeployBaseTest extends TestCase
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testGetReleaseRepository()
     {
@@ -1777,8 +1745,6 @@ class DeployBaseTest extends TestCase
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testBuildPull()
     {
@@ -1898,8 +1864,6 @@ class DeployBaseTest extends TestCase
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testBuildDestroy()
     {
@@ -2021,10 +1985,6 @@ class DeployBaseTest extends TestCase
         ], data_get($spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testIsReleaseOpen()
     {
         $GitLive = App::make(GitLive::class);
@@ -2188,8 +2148,6 @@ class DeployBaseTest extends TestCase
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testBuildPush()
     {
@@ -2313,10 +2271,6 @@ class DeployBaseTest extends TestCase
         ], data_get($spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testDeployTrack()
     {
         $this->assertFalse(false);
@@ -2324,8 +2278,6 @@ class DeployBaseTest extends TestCase
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testBuildClose()
     {

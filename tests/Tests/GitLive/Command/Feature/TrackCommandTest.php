@@ -29,8 +29,13 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Feature\TrackCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\FeatureDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class TrackCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -54,11 +59,6 @@ class TrackCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\TrackCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -86,7 +86,7 @@ class TrackCommandTest extends TestCase
         dump($output);
         // $this->assertContains('feature/suzunone_branch -> feature/suzunone_branch', $output);
         // $this->assertContains('[new branch] ', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -108,7 +108,7 @@ class TrackCommandTest extends TestCase
             12 => 'git pull upstream feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertStringContainsString('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch --no-color'));
         $this->assertCount(3, explode("\n", trim($this->execCmdToLocalRepo('git log --oneline'))));
 
         // 余計なブランチを更新していないかどうか
@@ -120,11 +120,6 @@ class TrackCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\TrackCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteSelf()
     {
@@ -152,7 +147,7 @@ class TrackCommandTest extends TestCase
         dump($output);
         // $this->assertContains('feature/suzunone_branch -> feature/suzunone_branch', $output);
         // $this->assertContains('[new branch] ', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -172,7 +167,7 @@ class TrackCommandTest extends TestCase
             10 => 'git pull upstream feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertStringContainsString('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch --no-color'));
         $this->assertCount(3, explode("\n", trim($this->execCmdToLocalRepo('git log --oneline'))));
 
         // 余計なブランチを更新していないかどうか
@@ -184,11 +179,6 @@ class TrackCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\TrackCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteHasBranch()
     {
@@ -215,7 +205,7 @@ class TrackCommandTest extends TestCase
         dump($output);
         // $this->assertContains('feature/suzunone_branch -> feature/suzunone_branch', $output);
         // $this->assertContains('[new branch] ', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -237,7 +227,7 @@ class TrackCommandTest extends TestCase
             11 => 'git pull upstream feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertStringContainsString('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch --no-color'));
         $this->assertCount(3, explode("\n", trim($this->execCmdToLocalRepo('git log --oneline'))));
 
         // 余計なブランチを更新していないかどうか
@@ -249,11 +239,6 @@ class TrackCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\TrackCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      *
      */
     public function testExecuteError()
@@ -282,7 +267,7 @@ class TrackCommandTest extends TestCase
         dump($output);
         // $this->assertContains('feature/suzunone_branch -> feature/suzunone_branch', $output);
         // $this->assertContains('[new branch] ', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -304,7 +289,7 @@ class TrackCommandTest extends TestCase
             11 => 'git pull upstream feature/suzunone_branch',
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertStringContainsString('* feature/suzunone_branch', $this->execCmdToLocalRepo('git branch --no-color'));
         $this->assertCount(3, explode("\n", trim($this->execCmdToLocalRepo('git log --oneline'))));
 
         // 余計なブランチを更新していないかどうか

@@ -46,25 +46,12 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 abstract class CommandBase extends Command
 {
-    /**
-     * @var string
-     */
-    protected static $defaultName = '';
-
-    /**
-     * @return string
-     */
     public static function getSignature(): string
     {
-        return static::$defaultName;
+        return static::getDefaultName() ?? '';
     }
 
-    /**
-     * @return \Symfony\Component\Console\Application
-     * @noinspection PhpMissingReturnTypeInspection
-     * @noinspection ReturnTypeCanBeDeclaredInspection
-     */
-    public function getApplication()
+    public function getApplication(): ?\Symfony\Component\Console\Application
     {
         return parent::getApplication() ?? new Application;
     }

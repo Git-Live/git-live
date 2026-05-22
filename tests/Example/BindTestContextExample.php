@@ -21,9 +21,9 @@
 namespace Example;
 
 /**
- * @coversNothing
  * @codeCoverageIgnore
  */
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class BindTestContextExample
 {
     public $text;

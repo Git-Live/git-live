@@ -40,16 +40,14 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-23
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Support\FileSystem::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class FileSystemTest extends TestCase
 {
     protected $http_status_test = 'https://httpbin.org/status/';
     protected $http_test = 'https://httpbin.org/get';
 
-    /**
-     * @covers \GitLive\Support\FileSystem
-     */
     public function testPutContents()
     {
         $path = PROJECT_ROOT_DIR . '/storage/unit_testing/file_put_test';
@@ -63,9 +61,6 @@ class FileSystemTest extends TestCase
         @unlink($path);
     }
 
-    /**
-     * @covers \GitLive\Support\FileSystem
-     */
     public function testGetContents()
     {
         $fs = new FileSystem();
@@ -76,9 +71,6 @@ class FileSystemTest extends TestCase
         $this->assertStringContainsString('"Host": "httpbin.org"', $res);
     }
 
-    /**
-     * @covers \GitLive\Support\FileSystem
-     */
     public function testOutput()
     {
         $fs = new FileSystem();
@@ -90,7 +82,6 @@ class FileSystemTest extends TestCase
         $this->assertStringContainsString('test : message', $output);
     }
     /**
-     * @covers \GitLive\Support\FileSystem
      * @see CommandTester
      * @see Application
      * @see App
@@ -111,9 +102,6 @@ class FileSystemTest extends TestCase
 
         $this->assertStringContainsString('test : message', $display);
     }
-    /**
-     * @covers \GitLive\Support\FileSystem
-     */
     public function testGetContentsWithProgress()
     {
         $output = new StreamOutput(fopen('php://memory', 'wb', false));
@@ -126,9 +114,6 @@ class FileSystemTest extends TestCase
         $this->assertStringContainsString('"Host": "httpbin.org"', $res);
     }
 
-    /**
-     * @covers \GitLive\Support\FileSystem
-     */
     public function testGetContentsWithProgress301()
     {
         $output = new StreamOutput(fopen('php://memory', 'wb', false));
@@ -141,9 +126,6 @@ class FileSystemTest extends TestCase
         $this->assertStringContainsString('', $res);
     }
 
-    /**
-     * @covers \GitLive\Support\FileSystem
-     */
     public function testGetContentsWithProgress404()
     {
         $output = new StreamOutput(fopen('php://memory', 'wb', false));
@@ -153,7 +135,7 @@ class FileSystemTest extends TestCase
 
         $res = $fs->getContentsWithProgress($this->http_status_test . '404');
 
-        $this->assertNotContains('"Host": "httpbin.org"', $res);
+        $this->assertStringNotContainsString('"Host": "httpbin.org"', $res);
 
         rewind($output->getStream());
         $display = stream_get_contents($output->getStream());

@@ -30,8 +30,14 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Hotfix\HotfixPullCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DeployBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\HotfixDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class HotfixPullCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -58,12 +64,6 @@ class HotfixPullCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Hotfix\HotfixPullCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\HotfixDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -90,7 +90,7 @@ class HotfixPullCommandTest extends TestCase
         //$this->assertContains('Already up to date.', $output);
         //$this->assertContains('new branch', $output);
         //$this->assertContains('hotfix/unit_test_deploy -> hotfix/unit_test_deploy', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -118,7 +118,7 @@ class HotfixPullCommandTest extends TestCase
             18 => 'git pull deploy hotfix/unit_test_deploy',
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* hotfix/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertStringContainsString('* hotfix/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 }

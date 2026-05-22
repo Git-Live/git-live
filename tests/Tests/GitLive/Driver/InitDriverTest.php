@@ -46,14 +46,14 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DriverBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\InitDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class InitDriverTest extends TestCase
 {
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\InitDriver
      */
     public function testRestartError()
     {
@@ -103,8 +103,6 @@ class InitDriverTest extends TestCase
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\InitDriver
      */
     public function testRestart()
     {
@@ -383,8 +381,6 @@ upstream	https://github.com/Git-Live/TestRepository.git (push)';
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\InitDriver
      */
     public function testRestartNot()
     {

@@ -42,14 +42,14 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DriverBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\MergeDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class MergeDriverTest extends TestCase
 {
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\MergeDriver
      */
     public function testStateDevelop()
     {
@@ -164,8 +164,6 @@ class MergeDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\MergeDriver
      */
     public function testStateMaster()
     {
@@ -293,8 +291,6 @@ class MergeDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\MergeDriver
      */
     public function testMergeDevelop()
     {
@@ -402,8 +398,6 @@ class MergeDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\MergeDriver
      */
     public function testMergeMaster()
     {

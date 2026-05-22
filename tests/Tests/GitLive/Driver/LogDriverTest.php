@@ -42,14 +42,14 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DriverBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\LogDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class LogDriverTest extends TestCase
 {
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\LogDriver
      */
     public function testLogDevelop()
     {
@@ -133,8 +133,6 @@ class LogDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\LogDriver
      */
     public function testLogMaster()
     {

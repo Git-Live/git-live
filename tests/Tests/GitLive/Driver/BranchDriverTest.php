@@ -43,14 +43,14 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DriverBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class BranchDriverTest extends TestCase
 {
     /**
      * @covers \GitLive\Driver\BranchDriver::branchList
      * @covers \GitLive\Driver\BranchDriver::makeArray
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testBranchList()
     {
@@ -114,7 +114,6 @@ class BranchDriverTest extends TestCase
 
     /**
      * @covers \GitLive\Driver\BranchDriver::branchListAll
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testBranchListAll()
     {
@@ -215,7 +214,6 @@ class BranchDriverTest extends TestCase
 
     /**
      * @covers \GitLive\Driver\BranchDriver::isBranchExistsAll
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testIsBranchExistsAll()
     {
@@ -302,7 +300,6 @@ class BranchDriverTest extends TestCase
 
     /**
      * @covers \GitLive\Driver\BranchDriver::isBranchExistsSimple
-     * @covers \GitLive\Driver\DriverBase
      */
     public function testIsBranchExistsSimple()
     {

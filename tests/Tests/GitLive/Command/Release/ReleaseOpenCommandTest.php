@@ -31,8 +31,14 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Release\ReleaseOpenCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DeployBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\ReleaseDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class ReleaseOpenCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -59,12 +65,6 @@ class ReleaseOpenCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Release\ReleaseOpenCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\ReleaseDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -88,9 +88,9 @@ class ReleaseOpenCommandTest extends TestCase
 
         dump($output);
         //$this->assertContains('Already up to date.', $output);
-        $this->assertContains('new branch', $output);
-        $this->assertContains('release/20181201223345 -> release/20181201223345', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('new branch', $output);
+        $this->assertStringContainsString('release/20181201223345 -> release/20181201223345', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -127,18 +127,12 @@ class ReleaseOpenCommandTest extends TestCase
             27 => "git push deploy release/20181201223345",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* release/20181201223345', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertStringContainsString('* release/20181201223345', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Release\ReleaseOpenCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\ReleaseDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteWithName()
     {
@@ -163,9 +157,9 @@ class ReleaseOpenCommandTest extends TestCase
 
         dump($output);
         //$this->assertContains('Already up to date.', $output);
-        $this->assertContains('new branch', $output);
-        $this->assertContains('release/ut_release -> release/ut_release', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('new branch', $output);
+        $this->assertStringContainsString('release/ut_release -> release/ut_release', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -202,18 +196,12 @@ class ReleaseOpenCommandTest extends TestCase
             27 => "git push deploy release/ut_release",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* release/ut_release', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertStringContainsString('* release/ut_release', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Release\ReleaseOpenCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\ReleaseDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      *
      */
     public function testExecuteDuplicateRelease()
@@ -242,9 +230,9 @@ class ReleaseOpenCommandTest extends TestCase
 
         dump($output);
         //$this->assertContains('Already up to date.', $output);
-        $this->assertContains('new branch', $output);
-        $this->assertContains('release/ut_release -> release/ut_release', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('new branch', $output);
+        $this->assertStringContainsString('release/ut_release -> release/ut_release', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -255,12 +243,6 @@ class ReleaseOpenCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Release\ReleaseOpenCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\ReleaseDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteDuplicateHotfix()
     {
@@ -285,9 +267,9 @@ class ReleaseOpenCommandTest extends TestCase
 
         dump($output);
         //$this->assertContains('Already up to date.', $output);
-        $this->assertContains('new branch', $output);
-        $this->assertContains('release/ut_release -> release/ut_release', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('new branch', $output);
+        $this->assertStringContainsString('release/ut_release -> release/ut_release', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
