@@ -71,7 +71,12 @@ trait CommandTestTrait
                     1 => ['pipe', 'w'],
                     2 => ['pipe', 'w'],
                 ];
-                $process = proc_open(['sh', '-c', $val[0]], $descriptorspec, $cmdPipes, $this->local_test_repository);
+                // GIT_CEILING_DIRECTORIES を設定することで、テストリポジトリの外側(プロジェクト本体の .git)に
+                // git が遡らないようにする。local_test_repository が存在しない・壊れている場合でも
+                // プロジェクトのリポジトリを誤って操作するのを防ぐ。
+                $gitCeilingDir = dirname((string)$this->local_test_repository);
+                $env = array_merge(getenv() ?: [], ['GIT_CEILING_DIRECTORIES' => $gitCeilingDir]);
+                $process = proc_open(['sh', '-c', $val[0]], $descriptorspec, $cmdPipes, $this->local_test_repository, $env);
                 $res = '';
                 if (is_resource($process)) {
                     fclose($cmdPipes[0]);
