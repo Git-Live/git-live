@@ -42,14 +42,12 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\ConfigDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DriverBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class ConfigDriverErrorTest extends TestCase
 {
-    /**
-     * @covers \GitLive\Driver\ConfigDriver
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testMaster()
     {
         $spy = [];
@@ -98,10 +96,6 @@ class ConfigDriverErrorTest extends TestCase
         $this->assertCount(2, $spy);
     }
 
-    /**
-     * @covers \GitLive\Driver\ConfigDriver
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testSetGlobalParameter()
     {
         $spy = [];
@@ -135,10 +129,6 @@ class ConfigDriverErrorTest extends TestCase
         ], data_get($spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Driver\ConfigDriver
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testDeployRemote()
     {
         $spy = [];
@@ -177,10 +167,6 @@ class ConfigDriverErrorTest extends TestCase
         $this->assertCount(1, $spy);
     }
 
-    /**
-     * @covers \GitLive\Driver\ConfigDriver
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testReleasePrefix()
     {
         $spy = [];
@@ -219,10 +205,6 @@ class ConfigDriverErrorTest extends TestCase
         $this->assertCount(1, $spy);
     }
 
-    /**
-     * @covers \GitLive\Driver\ConfigDriver
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testSetLocalParameter()
     {
         $spy = [];
@@ -256,10 +238,6 @@ class ConfigDriverErrorTest extends TestCase
         ], data_get($spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Driver\ConfigDriver
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testSetSystemParameter()
     {
         $spy = [];
@@ -293,10 +271,6 @@ class ConfigDriverErrorTest extends TestCase
         ], data_get($spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Driver\ConfigDriver
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testGetGitLiveParameter()
     {
         $spy = [];
@@ -330,10 +304,6 @@ class ConfigDriverErrorTest extends TestCase
         ], data_get($spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Driver\ConfigDriver
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testFeaturePrefix()
     {
         $spy = [];
@@ -373,10 +343,6 @@ class ConfigDriverErrorTest extends TestCase
         $this->assertCount(2, $spy);
     }
 
-    /**
-     * @covers \GitLive\Driver\ConfigDriver
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testHotfixPrefix()
     {
         $spy = [];
@@ -415,10 +381,6 @@ class ConfigDriverErrorTest extends TestCase
         $this->assertCount(1, $spy);
     }
 
-    /**
-     * @covers \GitLive\Driver\ConfigDriver
-     * @covers \GitLive\Driver\DriverBase
-     */
     public function testDevelop()
     {
         $spy = [];

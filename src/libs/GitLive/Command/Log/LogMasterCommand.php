@@ -27,10 +27,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'log:master', aliases: ['log:main'])]
 class LogMasterCommand extends BaseLogCommand
 {
-    protected static $defaultName = 'log:master';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -40,9 +39,8 @@ class LogMasterCommand extends BaseLogCommand
     {
         parent::configure();
         $this
-            ->setAliases(['log:main'])
             ->setDescription(__('Show diff upstream master branch.'))
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()));
     }
 
     /**

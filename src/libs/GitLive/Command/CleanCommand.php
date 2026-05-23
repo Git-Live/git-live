@@ -43,10 +43,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/26
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'clean')]
 class CleanCommand extends CommandBase
 {
-    protected static $defaultName = 'clean';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -56,11 +55,10 @@ class CleanCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Will reset all additions and changes to the current branch.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addArgument('path', InputArgument::OPTIONAL, 'path');
     }
 

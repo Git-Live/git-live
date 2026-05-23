@@ -29,8 +29,13 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Feature\FeaturePullCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\FeatureDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class PullCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -45,11 +50,6 @@ class PullCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeaturePullCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -74,8 +74,8 @@ class PullCommandTest extends TestCase
         //$this->assertContains('feature/suzunone_branch -> feature/suzunone_branch', $output);
 
         dump($output);
-        $this->assertContains('Already up to date.', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('Already up to date.', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -101,11 +101,6 @@ class PullCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeaturePullCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteOrigin()
     {
@@ -129,8 +124,8 @@ class PullCommandTest extends TestCase
         //$this->assertContains('feature/suzunone_branch -> feature/suzunone_branch', $output);
 
         dump($output);
-        $this->assertContains('Already up to date.', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('Already up to date.', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -155,11 +150,6 @@ class PullCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeaturePullCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteNone()
     {
@@ -185,7 +175,7 @@ class PullCommandTest extends TestCase
         dump($output);
         //$this->assertContains('feature/suzunone_branch -> feature/suzunone_branch', $output);
         //$this->assertContains('[new branch] ', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -209,11 +199,6 @@ class PullCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeaturePullCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteUpstream()
     {
@@ -237,8 +222,8 @@ class PullCommandTest extends TestCase
         //$this->assertContains('feature/suzunone_branch -> feature/suzunone_branch', $output);
 
         dump($output);
-        $this->assertContains('Already up to date.', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('Already up to date.', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));

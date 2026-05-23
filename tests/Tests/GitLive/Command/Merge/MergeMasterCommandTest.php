@@ -30,8 +30,14 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Merge\MergeMasterCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DriverBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\MergeDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class MergeMasterCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -57,12 +63,6 @@ class MergeMasterCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Merge\MergeMasterCommand
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\MergeDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -88,8 +88,8 @@ class MergeMasterCommandTest extends TestCase
         //$this->assertContains('Already up to date.', $output);
         //$this->assertContains('new branch', $output);
         //$this->assertContains('release/unit_test_deploy -> release/unit_test_deploy', $output);
-        $this->assertNotContains('fatal', $output);
-        $this->assertContains('README.md', $output);
+        $this->assertStringNotContainsString('fatal', $output);
+        $this->assertStringContainsString('README.md', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));

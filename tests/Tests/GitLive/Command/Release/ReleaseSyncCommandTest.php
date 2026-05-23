@@ -30,8 +30,14 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Release\ReleaseSyncCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DeployBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\ReleaseDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class ReleaseSyncCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -58,12 +64,6 @@ class ReleaseSyncCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Release\ReleaseSyncCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\ReleaseDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -90,7 +90,7 @@ class ReleaseSyncCommandTest extends TestCase
         //$this->assertContains('Already up to date.', $output);
         //$this->assertContains('new branch', $output);
         //$this->assertContains('release/unit_test_deploy -> release/unit_test_deploy', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -127,7 +127,7 @@ class ReleaseSyncCommandTest extends TestCase
             27 => "git push deploy release/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* release/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertStringContainsString('* release/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 }

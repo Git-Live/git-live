@@ -43,10 +43,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'hotfix:track')]
 class HotfixTrackCommand extends CommandBase
 {
-    protected static $defaultName = 'hotfix:track';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -56,11 +55,8 @@ class HotfixTrackCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
-            ->setDescription(__('Support preparation of a new production hotfix/.') . __('Allow for minor bug fixes and preparing meta-data for a hotfix'))
-            // the full command description shown when running the command with
-            // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
+            ->setDescription(__('Support preparation of a new production hotfix/.'))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()));
     }
 
     /**

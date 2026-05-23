@@ -33,10 +33,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'pull')]
 class PullCommand extends CommandBase
 {
-    protected static $defaultName = 'pull';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -46,11 +45,10 @@ class PullCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Pull from the appropriate remote repository.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addOption(
                 'force',
                 'f',

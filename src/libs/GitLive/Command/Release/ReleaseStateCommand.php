@@ -29,10 +29,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'release:state')]
 class ReleaseStateCommand extends CommandBase
 {
-    protected static $defaultName = 'release:state';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -42,11 +41,10 @@ class ReleaseStateCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Check the status of release.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addOption('ck-only', 'd', InputOption::VALUE_NONE, __('Check only.'))
             ->addOption('with-merge-commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
     }

@@ -44,10 +44,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'release:is')]
 class ReleaseIsCommand extends CommandBase
 {
-    protected static $defaultName = 'release:is';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -57,11 +56,10 @@ class ReleaseIsCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Whether the release is open, or to see what is closed.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addOption('with-merge-commit', 'r', InputOption::VALUE_NONE, __('With merge commit.'));
     }
 

@@ -30,8 +30,15 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Log\BaseLogCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Log\LogDevelopCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DriverBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\MergeDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class LogDevelopCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -56,13 +63,6 @@ class LogDevelopCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Log\BaseLogCommand
-     * @covers \GitLive\Command\Log\LogDevelopCommand
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\MergeDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -88,9 +88,9 @@ class LogDevelopCommandTest extends TestCase
         //$this->assertContains('Already up to date.', $output);
         //$this->assertContains('new branch', $output);
         //$this->assertContains('release/unit_test_deploy -> release/unit_test_deploy', $output);
-        $this->assertNotContains('fatal', $output);
-        $this->assertContains('edit readme', $output);
-        $this->assertContains('add new file', $output);
+        $this->assertStringNotContainsString('fatal', $output);
+        $this->assertStringContainsString('edit readme', $output);
+        $this->assertStringContainsString('add new file', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -110,13 +110,6 @@ class LogDevelopCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Log\BaseLogCommand
-     * @covers \GitLive\Command\Log\LogDevelopCommand
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\MergeDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteDefaultOption()
     {
@@ -144,11 +137,11 @@ class LogDevelopCommandTest extends TestCase
         //$this->assertContains('Already up to date.', $output);
         //$this->assertContains('new branch', $output);
         //$this->assertContains('release/unit_test_deploy -> release/unit_test_deploy', $output);
-        $this->assertNotContains('fatal', $output);
-        $this->assertContains('edit readme', $output);
-        $this->assertContains('add new file', $output);
-        $this->assertContains('README.md', $output);
-        $this->assertContains('new_text.md', $output);
+        $this->assertStringNotContainsString('fatal', $output);
+        $this->assertStringContainsString('edit readme', $output);
+        $this->assertStringContainsString('add new file', $output);
+        $this->assertStringContainsString('README.md', $output);
+        $this->assertStringContainsString('new_text.md', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));

@@ -44,10 +44,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/26
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'feature:start')]
 class FeatureStartCommand extends CommandBase
 {
-    protected static $defaultName = 'feature:start';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -57,11 +56,10 @@ class FeatureStartCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Start new feature {feature_name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addArgument('feature_name', InputArgument::REQUIRED, 'feature name');
     }
 

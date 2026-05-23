@@ -44,10 +44,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/26
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'feature:publish')]
 class PublishCommand extends CommandBase
 {
-    protected static $defaultName = 'feature:publish';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -57,11 +56,10 @@ class PublishCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Start sharing feature {feature_name} on upstream.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name');
     }
 

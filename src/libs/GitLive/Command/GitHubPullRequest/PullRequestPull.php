@@ -43,10 +43,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/26
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'pr:pull')]
 class PullRequestPull extends CommandBase
 {
-    protected static $defaultName = 'pr:pull';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -56,11 +55,10 @@ class PullRequestPull extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Pull pull request locally.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()));
     }
 
     /**

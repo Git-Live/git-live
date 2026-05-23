@@ -44,10 +44,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/23
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'feature:status')]
 class FeatureStatusCommand extends CommandBase
 {
-    protected static $defaultName = 'feature:status';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -57,11 +56,10 @@ class FeatureStatusCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Show the feature status.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addArgument('feature_name', InputArgument::OPTIONAL, 'feature name');
     }
 
@@ -80,7 +78,7 @@ class FeatureStatusCommand extends CommandBase
 
         $res = $FeatureDriver->featureStatus($input->getArgument('feature_name'));
 
-        $output->writeln($res);
+        $output->writeln($res ?? '');
 
         return Command::SUCCESS;
     }

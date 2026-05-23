@@ -29,10 +29,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'branch:init')]
 class InitCommand extends CommandBase
 {
-    protected static $defaultName = 'branch:init';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -42,11 +41,10 @@ class InitCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Will reset all additions and changes to the current branch.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addOption('default', 'd', InputOption::VALUE_NONE, __('Use default branch naming conventions.'))
             ->addOption('force', 'f', InputOption::VALUE_NONE, __('Force setting of gitflow branches, even if already configured.'));
     }

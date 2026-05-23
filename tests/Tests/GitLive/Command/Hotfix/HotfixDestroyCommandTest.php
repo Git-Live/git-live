@@ -30,8 +30,14 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Hotfix\HotfixDestroyCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DeployBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\HotfixDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class HotfixDestroyCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -58,12 +64,6 @@ class HotfixDestroyCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Hotfix\HotfixDestroyCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\HotfixDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -90,7 +90,7 @@ class HotfixDestroyCommandTest extends TestCase
         //$this->assertContains('Already up to date.', $output);
         //$this->assertContains('new branch', $output);
         //$this->assertContains('hotfix/unit_test_deploy -> hotfix/unit_test_deploy', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -122,19 +122,13 @@ class HotfixDestroyCommandTest extends TestCase
             22 => "git push upstream :hotfix/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertContains('* hotfix/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
-        $this->assertContains('develop', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertStringContainsString('* hotfix/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertStringContainsString('develop', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Hotfix\HotfixDestroyCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\HotfixDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteRemoveLocal()
     {
@@ -162,7 +156,7 @@ class HotfixDestroyCommandTest extends TestCase
         //$this->assertContains('Already up to date.', $output);
         //$this->assertContains('new branch', $output);
         //$this->assertContains('hotfix/unit_test_deploy -> hotfix/unit_test_deploy', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -199,8 +193,8 @@ class HotfixDestroyCommandTest extends TestCase
             27 => "git branch -d hotfix/unit_test_deploy",
         ], data_get($this->spy, '*.0'));
 
-        $this->assertNotContains('hotfix/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
-        $this->assertContains('* staging', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertStringNotContainsString('hotfix/unit_test_deploy', $this->execCmdToLocalRepo('git branch --no-color'));
+        $this->assertStringContainsString('* staging', $this->execCmdToLocalRepo('git branch --no-color'));
         // ...
     }
 }

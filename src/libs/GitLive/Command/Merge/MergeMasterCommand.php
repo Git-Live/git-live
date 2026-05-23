@@ -43,10 +43,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'merge:master', aliases: ['merge:main'])]
 class MergeMasterCommand extends CommandBase
 {
-    protected static $defaultName = 'merge:master';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -56,9 +55,8 @@ class MergeMasterCommand extends CommandBase
     {
         parent::configure();
         $this
-            ->setAliases(['merge:main'])
             ->setDescription(__('Merge upstream master.'))
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()));
     }
 
     /**

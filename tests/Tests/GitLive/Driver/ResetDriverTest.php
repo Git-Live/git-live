@@ -45,14 +45,14 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DriverBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\ResetDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class ResetDriverTest extends TestCase
 {
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\ResetDriver
      */
     public function testUpstream()
     {
@@ -119,8 +119,6 @@ nothing to commit, working tree clean';
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\ResetDriver
      */
     public function testForcePullOrigin()
     {
@@ -174,8 +172,6 @@ nothing to commit, working tree clean';
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\ResetDriver
      */
     public function testForcePullUpstream()
     {
@@ -229,8 +225,6 @@ nothing to commit, working tree clean';
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\ResetDriver
      */
     public function testForcePullDeploy()
     {
@@ -284,8 +278,6 @@ nothing to commit, working tree clean';
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\ResetDriver
      */
     public function testForcePullError()
     {
@@ -340,8 +332,6 @@ nothing to commit, working tree clean';
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\ResetDriver
      */
     public function testOrigin()
     {
@@ -408,8 +398,6 @@ nothing to commit, working tree clean';
 
     /**
      * @throws Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\ResetDriver
      */
     public function testDeploy()
     {

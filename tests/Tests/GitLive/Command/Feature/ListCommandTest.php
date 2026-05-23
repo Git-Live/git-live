@@ -29,8 +29,13 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Feature\ListCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\FeatureDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class ListCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -50,11 +55,6 @@ class ListCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\ListCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -74,9 +74,9 @@ class ListCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains(' feature/suzunone_branch1', $output);
-        $this->assertContains(' feature/suzunone_branch2', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString(' feature/suzunone_branch1', $output);
+        $this->assertStringContainsString(' feature/suzunone_branch2', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));

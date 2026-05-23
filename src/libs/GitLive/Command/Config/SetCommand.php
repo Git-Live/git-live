@@ -45,10 +45,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'config:set')]
 class SetCommand extends CommandBase
 {
-    protected static $defaultName = 'config:set';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -58,11 +57,10 @@ class SetCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Write the setting for gitlive in the config file.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addArgument('name', InputArgument::REQUIRED, 'Setting items.')
             ->addArgument('value', InputArgument::REQUIRED, 'Setting Values.')
             ->addOption(

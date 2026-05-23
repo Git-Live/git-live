@@ -44,10 +44,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'release:open')]
 class ReleaseOpenCommand extends CommandBase
 {
-    protected static $defaultName = 'release:open';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -57,13 +56,10 @@ class ReleaseOpenCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('release:open')
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Start new release named {name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addArgument('name', InputArgument::OPTIONAL, 'release_name');
     }
 

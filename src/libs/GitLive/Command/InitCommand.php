@@ -43,10 +43,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'init')]
 class InitCommand extends CommandBase
 {
-    protected static $defaultName = 'init';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -56,11 +55,10 @@ class InitCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Initialize git live flow.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addArgument('clone_repository', InputArgument::OPTIONAL, 'Only your remote repository.')
             ->addArgument('upstream_repository', InputArgument::OPTIONAL, 'Common remote repository.')
             ->addArgument('deploy_repository', InputArgument::OPTIONAL, 'Deploy remote repository.')

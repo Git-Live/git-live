@@ -59,7 +59,9 @@ trait MakeGitTestRepoTrait
             1 => ['pipe', 'w'],
             2 => ['pipe', 'w'],
         ];
-        $process = proc_open(['sh', '-c', $cmd . ' 2>&1'], $descriptorspec, $pipes, $this->local_test_repository);
+        $gitCeilingDir = dirname((string)$this->local_test_repository);
+        $env = array_merge(getenv() ?: [], ['GIT_CEILING_DIRECTORIES' => $gitCeilingDir]);
+        $process = proc_open(['sh', '-c', $cmd . ' 2>&1'], $descriptorspec, $pipes, $this->local_test_repository, $env);
         $res = '';
         if (is_resource($process)) {
             fclose($pipes[0]);
@@ -82,7 +84,12 @@ trait MakeGitTestRepoTrait
     protected function makeGitTestRepoTraitBoot()
     {
         $ds = DIRECTORY_SEPARATOR;
-        $storage = PROJECT_ROOT_DIR . $ds . 'storage' . $ds . 'unit_testing';
+        // PROJECT_ROOT_DIR は bootstrap/bootstrap.php で定義される。
+        // phpunit.xml の bootstrap="vendor/autoload.php" 経由で composer の autoload.files に
+        // 含まれるため通常は定義済みだが、IDE から単体テストを起動するなどで
+        // bootstrap が読み込まれない場合に備えて __DIR__ ベースのフォールバックを用意する。
+        $projectRoot = defined('PROJECT_ROOT_DIR') ? PROJECT_ROOT_DIR : dirname(dirname(__DIR__));
+        $storage = $projectRoot . $ds . 'storage' . $ds . 'unit_testing';
 
         // 初期化
         shell_exec("rm -rf {$storage}");

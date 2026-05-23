@@ -31,8 +31,14 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Hotfix\HotfixOpenCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DeployBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\HotfixDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class HotfixOpenCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -59,12 +65,6 @@ class HotfixOpenCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Hotfix\HotfixOpenCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\HotfixDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -88,9 +88,9 @@ class HotfixOpenCommandTest extends TestCase
 
         dump($output);
         //$this->assertContains('Already up to date.', $output);
-        $this->assertContains('new branch', $output);
-        $this->assertContains('hotfix/20181201223345 -> hotfix/20181201223345', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('new branch', $output);
+        $this->assertStringContainsString('hotfix/20181201223345 -> hotfix/20181201223345', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -132,12 +132,6 @@ class HotfixOpenCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Hotfix\HotfixOpenCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\HotfixDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteWithName()
     {
@@ -162,9 +156,9 @@ class HotfixOpenCommandTest extends TestCase
 
         dump($output);
         //$this->assertContains('Already up to date.', $output);
-        $this->assertContains('new branch', $output);
-        $this->assertContains('hotfix/ut_release -> hotfix/ut_release', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('new branch', $output);
+        $this->assertStringContainsString('hotfix/ut_release -> hotfix/ut_release', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -206,12 +200,6 @@ class HotfixOpenCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Hotfix\HotfixOpenCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\HotfixDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      *
      */
     public function testExecuteDuplicateRelease()
@@ -240,9 +228,9 @@ class HotfixOpenCommandTest extends TestCase
 
         dump($output);
         //$this->assertContains('Already up to date.', $output);
-        $this->assertContains('new branch', $output);
-        $this->assertContains('hotfix/ut_release -> hotfix/ut_release', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('new branch', $output);
+        $this->assertStringContainsString('hotfix/ut_release -> hotfix/ut_release', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -253,12 +241,6 @@ class HotfixOpenCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Hotfix\HotfixOpenCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\HotfixDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      *
      */
     public function testExecuteDuplicateHotfix()
@@ -287,9 +269,9 @@ class HotfixOpenCommandTest extends TestCase
 
         dump($output);
         //$this->assertContains('Already up to date.', $output);
-        $this->assertContains('new branch', $output);
-        $this->assertContains('hotfix/ut_release -> hotfix/ut_release', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('new branch', $output);
+        $this->assertStringContainsString('hotfix/ut_release -> hotfix/ut_release', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
