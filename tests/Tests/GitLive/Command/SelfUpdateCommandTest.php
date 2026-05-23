@@ -29,8 +29,9 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\SelfUpdateCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class SelfUpdateCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -54,7 +55,6 @@ class SelfUpdateCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Command\SelfUpdateCommand
      */
     public function testExecute()
     {
@@ -75,6 +75,6 @@ class SelfUpdateCommandTest extends TestCase
         dump($output);
 
         $this->assertIsReadable(PROJECT_ROOT_DIR . '/storage/unit_testing/self_update');
-        $this->assertContains('Connected...', $output);
+        $this->assertStringContainsString('Connected...', $output);
     }
 }

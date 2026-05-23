@@ -42,15 +42,13 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DeployBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DriverBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\ReleaseDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class ReleaseDriverTest extends TestCase
 {
-    /**
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\ReleaseDriver
-     */
     public function testIsBuildOpen()
     {
         $spy = [];
@@ -216,9 +214,6 @@ class ReleaseDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\ReleaseDriver
      */
     public function testGetBuildRepository()
     {

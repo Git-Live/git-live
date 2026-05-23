@@ -43,20 +43,18 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\LatestVersionDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class LatestVersionDriverTest extends TestCase
 {
-    /**
-     * @covers \GitLive\Driver\LatestVersionDriver
-     */
     public function testCkNewVersion()
     {
+        $this->expectNotToPerformAssertions();
     }
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\LatestVersionDriver
      */
     public function testGetLatestVersion()
     {

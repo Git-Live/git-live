@@ -43,10 +43,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'merge:state:master', aliases: ['merge:state:main'])]
 class StateMasterCommand extends CommandBase
 {
-    protected static $defaultName = 'merge:state:master';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -56,9 +55,8 @@ class StateMasterCommand extends CommandBase
     {
         parent::configure();
         $this
-            ->setAliases(['merge:state:main'])
             ->setDescription(__('Prior confirmation of merge master.'))
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()));
     }
 
     /**

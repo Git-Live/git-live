@@ -44,10 +44,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/23
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'feature:list')]
 class ListCommand extends CommandBase
 {
-    protected static $defaultName = 'feature:list';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -57,7 +56,6 @@ class ListCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Lists existing features.'))
             // the full command description shown when running the command with
             // the "--help" option
@@ -74,7 +72,7 @@ class ListCommand extends CommandBase
                 InputOption::VALUE_NONE,
                 'Not merged features only'
             )
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()));
     }
 
     /**

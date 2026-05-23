@@ -49,15 +49,13 @@ use Tests\GitLive\Tester\InvokeTrait;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Container::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class ContainerTest extends TestCase
 {
     use InvokeTrait;
 
-    /**
-     * @covers \GitLive\Application\Container
-     */
     public function testBindContext()
     {
         $BindWith = new BindTestWithExample();
@@ -87,9 +85,6 @@ class ContainerTest extends TestCase
         $this->assertEquals([], Container::getContainers());
     }
 
-    /**
-     * @covers \GitLive\Application\Container
-     */
     public function testBuildClosure()
     {
         $obj = new BindTestExample();
@@ -114,9 +109,6 @@ class ContainerTest extends TestCase
         }));
     }
 
-    /**
-     * @covers \GitLive\Application\Container
-     */
     public function testSetWith()
     {
         Container::bind(BindTestInterface::class, BindTestExample::class);
@@ -130,9 +122,6 @@ class ContainerTest extends TestCase
         $this->assertInstanceOf(BindTestWithExample::class, $obj->bindTest);
     }
 
-    /**
-     * @covers \GitLive\Application\Container
-     */
     public function testBind()
     {
         Container::bind(BindTestInterface::class, BindTestExample::class);
@@ -145,9 +134,6 @@ class ContainerTest extends TestCase
         $this->assertInstanceOf(BindTestExample::class, $Container->build(BindTestInterface::class));
     }
 
-    /**
-     * @covers \GitLive\Application\Container
-     */
     public function testBindDepend()
     {
         Container::bind(BindTestInterface::class, BindTestExample::class);
@@ -158,9 +144,6 @@ class ContainerTest extends TestCase
         $this->assertInstanceOf(BindTestExample::class, $obj->bindTest);
     }
 
-    /**
-     * @covers \GitLive\Application\Container
-     */
     public function testBindWith()
     {
         Container::bind(BindTestInterface::class, BindTestExample::class);
@@ -171,7 +154,7 @@ class ContainerTest extends TestCase
         $this->assertInstanceOf(BindTestExample::class, $obj->bindTest);
     }
 
-    public function buildDataProvider()
+    public static function buildDataProvider()
     {
         return [
             GitLive::class =>  [GitLive::class],
@@ -182,10 +165,9 @@ class ContainerTest extends TestCase
     }
 
     /**
-     * @covers \GitLive\Application\Container
-     * @dataProvider buildDataProvider
      * @param mixed $class_name
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('buildDataProvider')]
     public function testBuild($class_name)
     {
         $Container = new Container();
@@ -195,9 +177,6 @@ class ContainerTest extends TestCase
         $this->assertInstanceOf($class_name, $obj);
     }
 
-    /**
-     * @covers \GitLive\Application\Container
-     */
     public function testNotInstantiableNoClass()
     {
         $this->expectException(ReflectionException::class);

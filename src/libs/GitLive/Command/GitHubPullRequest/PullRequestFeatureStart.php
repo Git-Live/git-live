@@ -45,10 +45,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/26
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'pr:feature:start')]
 class PullRequestFeatureStart extends CommandBase
 {
-    protected static $defaultName = 'pr:feature:start';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -58,11 +57,10 @@ class PullRequestFeatureStart extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Feature start and merge pull request.'))
             // the full command description shown when running the command with
             // the "--help" Merge
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addArgument('pull_request_number', InputArgument::REQUIRED, 'Pull request id')
             ->addArgument('feature_name', InputArgument::REQUIRED, 'feature_name')
             ->addOption(

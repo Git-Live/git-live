@@ -29,10 +29,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'self-update')]
 class SelfUpdateCommand extends CommandBase
 {
-    protected static $defaultName = 'self-update';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -42,11 +41,10 @@ class SelfUpdateCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Update git-live command.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addArgument('save_path', InputArgument::OPTIONAL, __('Save path.'))
             ->addOption(
                 'no-cache',

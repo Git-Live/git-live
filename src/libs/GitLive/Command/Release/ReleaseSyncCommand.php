@@ -28,10 +28,9 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'release:sync')]
 class ReleaseSyncCommand extends CommandBase
 {
-    protected static $defaultName = 'release:sync';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -41,11 +40,10 @@ class ReleaseSyncCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Run git live release pull and git live release push in succession.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()));
     }
 
     /**

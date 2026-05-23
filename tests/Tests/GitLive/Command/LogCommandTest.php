@@ -42,8 +42,12 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\LogCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class LogCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -64,10 +68,6 @@ class LogCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\LogCommand
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteDevelop()
     {
@@ -88,8 +88,8 @@ class LogCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains("A\tnew_text.md", $output);
-        $this->assertContains("M\tREADME.md", $output);
+        $this->assertStringContainsString("A\tnew_text.md", $output);
+        $this->assertStringContainsString("M\tREADME.md", $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -108,10 +108,6 @@ class LogCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\LogCommand
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteMaster()
     {
@@ -131,8 +127,8 @@ class LogCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains("A\tnew_text.md", $output);
-        $this->assertContains("M\tREADME.md", $output);
+        $this->assertStringContainsString("A\tnew_text.md", $output);
+        $this->assertStringContainsString("M\tREADME.md", $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));

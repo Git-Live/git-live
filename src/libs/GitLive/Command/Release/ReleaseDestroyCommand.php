@@ -44,10 +44,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'release:destroy')]
 class ReleaseDestroyCommand extends CommandBase
 {
-    protected static $defaultName = 'release:destroy';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -57,11 +56,10 @@ class ReleaseDestroyCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Discard release. However, keep working in the local repository.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addOption('remove-local', 'R', InputOption::VALUE_NONE, __('Destroy with local repository.'));
     }
 

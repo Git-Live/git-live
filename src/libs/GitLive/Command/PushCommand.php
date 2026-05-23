@@ -30,10 +30,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'push')]
 class PushCommand extends CommandBase
 {
-    protected static $defaultName = 'push';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -43,7 +42,6 @@ class PushCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Push from the appropriate remote repository.'))
             // the full command description shown when running the command with
             // the "--help" option
@@ -52,7 +50,7 @@ class PushCommand extends CommandBase
                 'f',
                 InputOption::VALUE_NONE
             )
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()));
     }
 
     /**

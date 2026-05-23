@@ -42,19 +42,20 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Config\SetCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\FeatureDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\ConfigDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class SetCommandTest extends TestCase
 {
     use CommandTestTrait;
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Config\SetCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -75,7 +76,7 @@ class SetCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('', $output);
+        $this->assertStringContainsString('', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -89,11 +90,6 @@ class SetCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Config\SetCommand
-     * @covers \GitLive\Driver\ConfigDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteLocal()
     {
@@ -115,7 +111,7 @@ class SetCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('', $output);
+        $this->assertStringContainsString('', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -129,11 +125,6 @@ class SetCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Config\SetCommand
-     * @covers \GitLive\Driver\ConfigDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteGlobal()
     {
@@ -155,7 +146,7 @@ class SetCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('', $output);
+        $this->assertStringContainsString('', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -169,11 +160,6 @@ class SetCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Config\SetCommand
-     * @covers \GitLive\Driver\ConfigDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteSystem()
     {
@@ -195,7 +181,7 @@ class SetCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('', $output);
+        $this->assertStringContainsString('', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));

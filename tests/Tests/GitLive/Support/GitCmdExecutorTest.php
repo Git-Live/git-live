@@ -42,8 +42,9 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Support\GitCmdExecutor::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class GitCmdExecutorTest extends TestCase
 {
     protected $spy;
@@ -78,9 +79,6 @@ class GitCmdExecutorTest extends TestCase
         );
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testDiff()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -92,9 +90,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testChdir()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -105,9 +100,6 @@ class GitCmdExecutorTest extends TestCase
         $this->assertEquals($cwd, getcwd());
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testBranch()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -119,9 +111,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testClone()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -133,9 +122,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testCheckout()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -147,9 +133,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testClean()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -161,9 +144,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testTagPush()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -175,9 +155,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testTagPull()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -189,9 +166,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testPush()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -203,9 +177,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testTopLevelDir()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -217,9 +188,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testPull()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -231,9 +199,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testTag()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -245,9 +210,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testStash()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -259,9 +221,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testRemote()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -273,9 +232,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testConfig()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -287,9 +243,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testReset()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -301,9 +254,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testLog()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -315,9 +265,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testStatus()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -329,9 +276,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testFetch()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -343,9 +287,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testMerge()
     {
         $obj = App::make(GitCmdExecutor::class);
@@ -357,9 +298,6 @@ class GitCmdExecutorTest extends TestCase
         ], data_get($this->spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Support\GitCmdExecutor
-     */
     public function testFetchPullRequest()
     {
         $obj = App::make(GitCmdExecutor::class);

@@ -43,15 +43,13 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
-class HptfixDriverTest extends TestCase
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DeployBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DriverBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\HotfixDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
+class HotfixDriverTest extends TestCase
 {
-    /**
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\HotfixDriver
-     */
     public function testIsBuildOpen()
     {
         $spy = [];
@@ -214,9 +212,6 @@ class HptfixDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\HotfixDriver
      */
     public function testGetBuildRepository()
     {

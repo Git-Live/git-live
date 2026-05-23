@@ -42,14 +42,14 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DriverBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\PullRequestDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class PullRequestDriverTest extends TestCase
 {
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\PullRequestDriver
      */
     public function testPrTrack()
     {
@@ -97,8 +97,6 @@ class PullRequestDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\PullRequestDriver
      */
     public function testPrPull()
     {
@@ -155,8 +153,6 @@ class PullRequestDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\PullRequestDriver
      */
     public function testPrPullNotPrRepo()
     {
@@ -200,8 +196,6 @@ class PullRequestDriverTest extends TestCase
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \GitLive\Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\PullRequestDriver
      */
     public function testFeatureStartSoft()
     {
@@ -272,8 +266,6 @@ class PullRequestDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\PullRequestDriver
      */
     public function testPrMerge()
     {
@@ -322,8 +314,6 @@ class PullRequestDriverTest extends TestCase
     /**
      * @throws \GitLive\Driver\Exception
      * @throws \GitLive\Exception
-     * @covers \GitLive\Driver\DriverBase
-     * @covers \GitLive\Driver\PullRequestDriver
      */
     public function testFeatureStart()
     {

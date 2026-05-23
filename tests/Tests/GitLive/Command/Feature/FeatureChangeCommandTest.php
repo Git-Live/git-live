@@ -42,8 +42,13 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Feature\ChangeCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\FeatureDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class FeatureChangeCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -63,11 +68,6 @@ class FeatureChangeCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\ChangeCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -88,8 +88,8 @@ class FeatureChangeCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains("Switched to a new branch 'feature/suzunone_branch'", $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString("Switched to a new branch 'feature/suzunone_branch'", $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -116,11 +116,6 @@ class FeatureChangeCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\ChangeCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteForce()
     {
@@ -142,8 +137,8 @@ class FeatureChangeCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains("Switched to a new branch 'feature/suzunone_branch'", $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString("Switched to a new branch 'feature/suzunone_branch'", $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump(data_get($this->spy, '*.0'));
         $this->assertEquals([
@@ -167,11 +162,6 @@ class FeatureChangeCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\ChangeCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteSimple()
     {
@@ -192,8 +182,8 @@ class FeatureChangeCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains("Switched to branch 'feature/suzunone_branch'", $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString("Switched to branch 'feature/suzunone_branch'", $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump(data_get($this->spy, '*.0'));
         $this->assertEquals([

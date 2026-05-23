@@ -26,13 +26,11 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Support\Envelopment::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class EnvelopmentTest extends TestCase
 {
-    /**
-     * @covers \GitLive\Support\Envelopment
-     */
     public function testPutEnv()
     {
         App::make(Envelopment::class)->putEnv('UNIT_TEST_PUT_KEY', 'suzunone');
@@ -44,18 +42,12 @@ class EnvelopmentTest extends TestCase
         $this->assertEquals('eleven', getenv('UNIT_TEST_PUT_KEY'));
     }
 
-    /**
-     * @covers \GitLive\Support\Envelopment
-     */
     public function testIsWin()
     {
         $this->assertEquals(DIRECTORY_SEPARATOR !== '/', App::make(Envelopment::class)->isWin());
     }
 
-    /**
-     * @covers \GitLive\Support\Envelopment
-     * @depends testPutEnv
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testPutEnv')]
     public function testGetEnv()
     {
         $this->assertEquals('eleven', App::make(Envelopment::class)->getEnv('UNIT_TEST_PUT_KEY'));
@@ -63,9 +55,6 @@ class EnvelopmentTest extends TestCase
         $this->assertEquals('suzunone.eleven', App::make(Envelopment::class)->getEnv('UNIT_TEST_PUT_KEY_2', 'suzunone.eleven'));
     }
 
-    /**
-     * @covers \GitLive\Support\Envelopment
-     */
     public function testIsDebug()
     {
         $this->assertTrue(App::make(Envelopment::class)->isDebug());

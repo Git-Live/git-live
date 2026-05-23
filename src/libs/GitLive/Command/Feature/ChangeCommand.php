@@ -30,10 +30,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'feature:change')]
 class ChangeCommand extends CommandBase
 {
-    protected static $defaultName = 'feature:change';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -43,11 +42,10 @@ class ChangeCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Cheackout other feature branch.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addArgument('feature_name', InputArgument::REQUIRED, __('feature name'))
             ->addOption(
                 'force',

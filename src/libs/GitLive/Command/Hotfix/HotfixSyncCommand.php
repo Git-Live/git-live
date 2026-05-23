@@ -43,10 +43,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'hotfix:sync')]
 class HotfixSyncCommand extends CommandBase
 {
-    protected static $defaultName = 'hotfix:sync';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -56,11 +55,10 @@ class HotfixSyncCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Run git live hotfix pull and git live hotfix push in succession.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()));
     }
 
     /**

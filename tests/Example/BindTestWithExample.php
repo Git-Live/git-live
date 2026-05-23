@@ -21,11 +21,10 @@
 namespace Example;
 
 /**
- * @coversNothing
  * @codeCoverageIgnore
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class BindTestWithExample implements BindTestInterface
 {
     public function example()

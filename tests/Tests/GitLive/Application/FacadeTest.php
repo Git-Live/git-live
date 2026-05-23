@@ -46,8 +46,9 @@ use Tests\GitLive\Tester\InvokeTrait;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Facade::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class FacadeTest extends TestCase
 {
     /**
@@ -59,9 +60,6 @@ class FacadeTest extends TestCase
         Container::reset();
     }
 
-    /**
-     * @covers \GitLive\Application\Facade
-     */
     public function testMake()
     {
         $BindWith = new BindTestWithExample();
@@ -90,9 +88,6 @@ class FacadeTest extends TestCase
         $this->assertEquals([], Container::getContainers());
     }
 
-    /**
-     * @covers \GitLive\Application\Facade
-     */
     public function testMakeWith()
     {
         Container::bind(BindTestInterface::class, BindTestExample::class);
@@ -105,9 +100,6 @@ class FacadeTest extends TestCase
         $this->assertSame($BindWith, $obj->bindTest);
     }
 
-    /**
-     * @covers \GitLive\Application\Facade
-     */
     public function testMakeError()
     {
         $this->expectException(\ErrorException::class);

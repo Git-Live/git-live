@@ -45,10 +45,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'hotfix:close')]
 class HotfixCloseCommand extends CommandBase
 {
-    protected static $defaultName = 'hotfix:close';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -58,13 +57,10 @@ class HotfixCloseCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the name of the command (the part after "bin/console")
-            ->setName('hotfix:close')
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Finish hotfix {name}.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addArgument('name', InputArgument::OPTIONAL, 'hotfix_name')
             ->addOption('force', 'f', InputOption::VALUE_NONE, __('Do not check develop repository.'));
     }

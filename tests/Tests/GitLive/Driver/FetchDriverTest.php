@@ -42,13 +42,11 @@ use Tests\GitLive\Tester\TestCase;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\FetchDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class FetchDriverTest extends TestCase
 {
-    /**
-     * @covers \GitLive\Driver\FetchDriver
-     */
     public function testAll()
     {
         $spy = [];
@@ -99,7 +97,6 @@ class FetchDriverTest extends TestCase
 
     /**
      * @throws \GitLive\Driver\Exception
-     * @covers \GitLive\Driver\FetchDriver
      */
     public function testDeploy()
     {
@@ -161,9 +158,6 @@ class FetchDriverTest extends TestCase
         ], data_get($spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Driver\FetchDriver
-     */
     public function testUpstream()
     {
         $spy = [];
@@ -212,9 +206,6 @@ class FetchDriverTest extends TestCase
         ], data_get($spy, '*.0'));
     }
 
-    /**
-     * @covers \GitLive\Driver\FetchDriver
-     */
     public function testOrigin()
     {
         $spy = [];

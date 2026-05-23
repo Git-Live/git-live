@@ -30,8 +30,14 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Hotfix\HotfixStateCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\DeployBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\HotfixDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class HotfixStateCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -58,12 +64,6 @@ class HotfixStateCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Hotfix\HotfixStateCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\HotfixDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteIsClose()
     {
@@ -87,8 +87,8 @@ class HotfixStateCommandTest extends TestCase
 
         dump($output);
         //$this->assertContains('Already up to date.', $output);
-        $this->assertContains('hotfix is close.', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('hotfix is close.', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -118,12 +118,6 @@ class HotfixStateCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Hotfix\HotfixStateCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\HotfixDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteReleaseIsOpen()
     {
@@ -148,8 +142,8 @@ class HotfixStateCommandTest extends TestCase
 
         dump($output);
         //$this->assertContains('Already up to date.', $output);
-        $this->assertContains('hotfix is close.', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('hotfix is close.', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -179,12 +173,6 @@ class HotfixStateCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Hotfix\HotfixStateCommand
-     * @covers \GitLive\Driver\DeployBase
-     * @covers \GitLive\Driver\HotfixDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteIsOpen()
     {
@@ -210,8 +198,8 @@ class HotfixStateCommandTest extends TestCase
 
         dump($output);
         //$this->assertContains('Already up to date.', $output);
-        $this->assertContains('hotfix is open.', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('hotfix is open.', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));

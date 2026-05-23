@@ -26,7 +26,7 @@ fi
 msgfmt  -o  ./resources/lang/en_US/LC_MESSAGES/messages.mo ./resources/lang/en_US/LC_MESSAGES/messages.po
 msgfmt  -o  ./resources/lang/ja_JP/LC_MESSAGES/messages.mo ./resources/lang/ja_JP/LC_MESSAGES/messages.po
 
-$PHP_PATH composer.phar config platform.php 7.4.0
+$PHP_PATH composer.phar config platform.php 8.1.0
 
 cp composer.lock composer.lock.back || true
 mv -f vendor vendor.back || true
@@ -34,7 +34,7 @@ mv -f vendor vendor.back || true
 $PHP_PATH composer.phar install --no-dev
 $PHP_PATH composer.phar dump-autoload -a
 
-$PHP_PATH box.phar compile -vvv
+$PHP_PATH box4.phar compile -vvv
 
 rm -rf vendor
 mv -f vendor.back vendor || true

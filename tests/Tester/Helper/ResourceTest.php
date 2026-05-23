@@ -26,14 +26,14 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class ResourceTest extends TestCase
 {
     /**
      * @return array
      */
-    public function getDataProvider()
+    public static function getDataProvider()
     {
         return [
             'is_file' => [
@@ -51,12 +51,12 @@ class ResourceTest extends TestCase
 
     /**
      * @covers \Gitlive\Helper\Resource::get
-     * @dataProvider getDataProvider()
      * @param mixed $file
      * @param mixed $default
      * @param mixed $expected
      * @return void
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('getDataProvider')]
     public function testGet($file, $default, $expected): void
     {
         $resource = App::make(Resource::class);
@@ -66,7 +66,7 @@ class ResourceTest extends TestCase
     /**
      * @return array
      */
-    public function helpDataProvider()
+    public static function helpDataProvider()
     {
         return [
             'is_file' => [
@@ -83,12 +83,12 @@ class ResourceTest extends TestCase
     }
     /**
      * @covers \Gitlive\Helper\Resource::Help
-     * @dataProvider HelpDataProvider
      * @param mixed $signature_name
      * @param mixed $default
      * @param mixed $expected
      * @return void
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('HelpDataProvider')]
     public function testHelp($signature_name, $default, $expected)
     {
         $resource = App::make(Resource::class);

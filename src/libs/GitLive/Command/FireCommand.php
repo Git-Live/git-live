@@ -43,10 +43,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/26
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'fire')]
 class FireCommand extends CommandBase
 {
-    protected static $defaultName = 'fire';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -56,11 +55,10 @@ class FireCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Add all the changed files, commit to the new branch, push to origin, and protect the changes.'))
             // the full command description shown when running the command with
             // the "--help" option
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addArgument(
                 'message',
                 InputArgument::OPTIONAL,

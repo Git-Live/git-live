@@ -152,7 +152,7 @@ class CommandLineKernelService
             FireCommand::class,
         ];
 
-        $commands = collect($app)
+        return collect($app)
             ->mapWithKeys(static function (string $item) {
                 /** @noinspection PhpUndefinedMethodInspection */
                 return [$item::getSignature() => static function () use ($item) {
@@ -160,11 +160,5 @@ class CommandLineKernelService
                 }];
             })
             ->toArray();
-
-        $commands['log:main'] = $commands['log:master'];
-        $commands['merge:main'] = $commands['merge:master'];
-        $commands['merge:state:main'] = $commands['merge:state:master'];
-
-        return $commands;
     }
 }

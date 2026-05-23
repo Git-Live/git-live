@@ -43,8 +43,13 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Feature\FeatureStartCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\FeatureDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class FeatureStartCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -52,11 +57,6 @@ class FeatureStartCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeatureStartCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -76,8 +76,8 @@ class FeatureStartCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -106,11 +106,6 @@ class FeatureStartCommandTest extends TestCase
      * duplicate feature test
      *
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeatureStartCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      *
      */
     public function testExecuteError()
@@ -132,8 +127,8 @@ class FeatureStartCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         $command = $application->find('feature:start');
         $commandTester = new CommandTester($command);
@@ -149,6 +144,6 @@ class FeatureStartCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('', $output);
+        $this->assertStringContainsString('', $output);
     }
 }

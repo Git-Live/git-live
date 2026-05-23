@@ -44,10 +44,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/26
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'pr:merge')]
 class PullRequestMerge extends CommandBase
 {
-    protected static $defaultName = 'pr:merge';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -57,11 +56,10 @@ class PullRequestMerge extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Merge pull request locally.'))
             // the full command description shown when running the command with
             // the "--help" Merge
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()))
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()))
             ->addArgument('Merge', InputArgument::REQUIRED, 'Pull request id');
     }
 

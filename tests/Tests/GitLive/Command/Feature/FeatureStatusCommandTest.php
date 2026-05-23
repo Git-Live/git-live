@@ -42,8 +42,13 @@ use Tests\GitLive\Tester\MakeGitTestRepoTrait;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018-12-16
  * @internal
- * @coversNothing
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Application\Application::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\CommandBase::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Command\Feature\FeatureStatusCommand::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Driver\FeatureDriver::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\GitLive\Service\CommandLineKernelService::class)]
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class FeatureStatusCommandTest extends TestCase
 {
     use CommandTestTrait;
@@ -62,11 +67,6 @@ class FeatureStatusCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeatureStatusCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecute()
     {
@@ -86,8 +86,8 @@ class FeatureStatusCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('', $output);
-        $this->assertNotContains('fatal', $output);
+        $this->assertStringContainsString('', $output);
+        $this->assertStringNotContainsString('fatal', $output);
 
         dump($this->spy);
 
@@ -108,11 +108,6 @@ class FeatureStatusCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeatureStatusCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteWithFeatureNameReal()
     {
@@ -137,7 +132,7 @@ class FeatureStatusCommandTest extends TestCase
         // the output of the command in the console
         $output = $commandTester->getDisplay();
 
-        $this->assertContains('A	test_file.md', $output);
+        $this->assertStringContainsString('A	test_file.md', $output);
 
         dump($this->spy);
 
@@ -157,11 +152,6 @@ class FeatureStatusCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeatureStatusCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteWithFeatureName()
     {
@@ -186,7 +176,7 @@ class FeatureStatusCommandTest extends TestCase
         // the output of the command in the console
         $output = $commandTester->getDisplay();
 
-        $this->assertContains('A	test_file.md', $output);
+        $this->assertStringContainsString('A	test_file.md', $output);
 
         dump($this->spy);
         dump(data_get($this->spy, '*.0'));
@@ -207,11 +197,6 @@ class FeatureStatusCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeatureStatusCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteMaster()
     {
@@ -250,11 +235,6 @@ class FeatureStatusCommandTest extends TestCase
 
     /**
      * @throws \Exception
-     * @covers \GitLive\Application\Application
-     * @covers \GitLive\Command\CommandBase
-     * @covers \GitLive\Command\Feature\FeatureStatusCommand
-     * @covers \GitLive\Driver\FeatureDriver
-     * @covers \GitLive\Service\CommandLineKernelService
      */
     public function testExecuteDevelop()
     {

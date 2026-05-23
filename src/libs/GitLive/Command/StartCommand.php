@@ -43,10 +43,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @see        https://github.com/Git-Live/git-live
  * @since      2018/11/24
  */
+#[\Symfony\Component\Console\Attribute\AsCommand(name: 'start')]
 class StartCommand extends CommandBase
 {
-    protected static $defaultName = 'start';
-
     /**
      * {@inheritdoc}
      * @throws \ErrorException
@@ -56,7 +55,6 @@ class StartCommand extends CommandBase
     {
         parent::configure();
         $this
-            // the short description shown while running "php bin/console list"
             ->setDescription(__('Refresh your branch.'))
             // the full command description shown when running the command with
             // the "--help" option
@@ -66,7 +64,7 @@ class StartCommand extends CommandBase
                 InputOption::VALUE_NONE,
                 __('with_remote_change')
             )
-            ->setHelp(resource()->help(self::$defaultName, $this->getDescription()));
+            ->setHelp(resource()->help($this->getName(), $this->getDescription()));
     }
 
     /**
